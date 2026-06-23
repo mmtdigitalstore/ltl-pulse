@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Playfair_Display } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 
+import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
@@ -41,6 +42,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <Navbar />
           <main className="flex flex-1 flex-col">{children}</main>
+          <Footer />
           <Toaster />
         </ThemeProvider>
       </body>

@@ -3,7 +3,6 @@ import { FeaturedArticles } from "@/components/home/FeaturedArticles";
 import { LatestPodcast } from "@/components/home/LatestPodcast";
 import { VlogGrid } from "@/components/home/VlogGrid";
 import { WhatsInside } from "@/components/home/WhatsInside";
-import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/layout/Hero";
 
 export default function Home() {
@@ -15,7 +14,6 @@ export default function Home() {
       <VlogGrid />
       <WhatsInside />
       <EmailCapture />
-      <Footer />
     </>
   );
 }
