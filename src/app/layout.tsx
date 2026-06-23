@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Playfair_Display } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 
 import { Navbar } from "@/components/layout/Navbar";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const inter = Inter({
@@ -33,10 +35,14 @@ export default function RootLayout({
     <html
       lang="en"
       className={`dark ${inter.variable} ${playfair.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-ltl-bg text-ltl-text-primary">
-        <Navbar />
-        <main className="flex flex-1 flex-col">{children}</main>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          <Navbar />
+          <main className="flex flex-1 flex-col">{children}</main>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );
