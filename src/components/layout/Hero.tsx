@@ -1,0 +1,102 @@
+"use client";
+
+import Link from "next/link";
+import { motion } from "framer-motion";
+
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      delay,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  }),
+};
+
+export function Hero() {
+  return (
+    <section className="relative flex min-h-[calc(100dvh-4rem)] w-full items-center justify-center overflow-hidden bg-[#111111] px-4 sm:px-6 lg:px-8">
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,180,0,0.22)_0%,rgba(255,180,0,0.06)_45%,transparent_70%)] blur-3xl sm:h-[36rem] sm:w-[36rem]"
+        animate={{
+          scale: [1, 1.08, 1],
+          opacity: [0.5, 0.75, 0.5],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-[42%] h-48 w-[32rem] max-w-[90vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[linear-gradient(90deg,transparent,rgba(255,180,0,0.12),rgba(230,162,0,0.18),rgba(255,180,0,0.12),transparent)] blur-2xl"
+        animate={{
+          opacity: [0.35, 0.65, 0.35],
+          x: ["-2%", "2%", "-2%"],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
+      <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center text-center">
+        <motion.h1
+          custom={0.1}
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          className="font-heading text-4xl font-semibold leading-tight tracking-tight text-ltl-text-primary sm:text-5xl md:text-6xl lg:text-7xl"
+        >
+          Where Leadership Meets Culture
+        </motion.h1>
+
+        <motion.p
+          custom={0.25}
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          className="mt-6 max-w-2xl font-sans text-base leading-relaxed text-ltl-text-secondary sm:text-lg md:text-xl"
+        >
+          Podcasts, magazine articles, and vlogs for ambitious leaders.
+        </motion.p>
+
+        <motion.div
+          custom={0.4}
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center"
+        >
+          <Link
+            href="/podcast"
+            className={cn(
+              buttonVariants({ size: "lg" }),
+              "h-12 min-w-[10rem] rounded-md bg-ltl-accent px-6 font-semibold text-ltl-bg hover:bg-ltl-accent-hover",
+            )}
+          >
+            Start Listening
+          </Link>
+          <Link
+            href="/magazine"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "lg" }),
+              "h-12 min-w-[10rem] rounded-md border-ltl-border bg-transparent px-6 font-semibold text-ltl-text-primary hover:border-ltl-text-secondary hover:bg-ltl-surface/50 hover:text-ltl-text-primary",
+            )}
+          >
+            Read the Latest
+          </Link>
+        </motion.div>
+      </div>
+    </section>
+  );
+}

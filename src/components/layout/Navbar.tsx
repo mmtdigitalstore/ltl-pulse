@@ -1,0 +1,170 @@
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Menu } from "lucide-react";
+
+import { Button, buttonVariants } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
+
+const navLinks = [
+  { href: "/magazine", label: "Magazine" },
+  { href: "/podcast", label: "Podcast" },
+  { href: "/vlogs", label: "Vlogs" },
+  { href: "/about", label: "About" },
+] as const;
+
+const menuContainerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.12,
+    },
+  },
+};
+
+const menuItemVariants = {
+  hidden: { opacity: 0, x: 24 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] as const },
+  },
+};
+
+function NavLink({
+  href,
+  label,
+  className,
+  onClick,
+}: {
+  href: string;
+  label: string;
+  className?: string;
+  onClick?: () => void;
+}) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      className={cn(
+        "font-sans text-sm font-medium text-ltl-text-secondary transition-colors duration-200 hover:text-ltl-text-primary",
+        className,
+      )}
+    >
+      {label}
+    </Link>
+  );
+}
+
+export function Navbar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const closeMobile = () => setMobileOpen(false);
+
+  return (
+    <header className="sticky top-0 z-50 w-full border-b border-ltl-border bg-ltl-bg">
+      <nav className="relative mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <Link
+          href="/"
+          className="font-heading text-xl font-semibold tracking-tight text-ltl-accent transition-opacity hover:opacity-90"
+        >
+          LTL Pulse
+        </Link>
+
+        <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 md:flex">
+          {navLinks.map((link) => (
+            <NavLink key={link.href} href={link.href} label={link.label} />
+          ))}
+        </div>
+
+        <div className="hidden items-center gap-6 md:flex">
+          <NavLink href="/login" label="Login" />
+          <Link
+            href="/subscribe"
+            className={cn(
+              buttonVariants({ size: "default" }),
+              "rounded-md bg-ltl-accent font-bold text-ltl-bg hover:bg-ltl-accent-hover",
+            )}
+          >
+            Subscribe
+          </Link>
+        </div>
+
+        <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+          <SheetTrigger
+            className="md:hidden"
+            render={
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-ltl-text-primary hover:bg-ltl-surface hover:text-ltl-text-primary"
+                aria-label="Open navigation menu"
+              />
+            }
+          >
+            <Menu className="size-5" />
+          </SheetTrigger>
+
+          <SheetContent
+            side="right"
+            className="w-full border-ltl-border bg-ltl-bg sm:max-w-xs"
+          >
+            <SheetTitle className="sr-only">Navigation menu</SheetTitle>
+
+            <motion.div
+              variants={menuContainerVariants}
+              initial="hidden"
+              animate="show"
+              className="flex h-full flex-col gap-8 pt-10"
+            >
+              <div className="flex flex-col gap-6">
+                {navLinks.map((link) => (
+                  <motion.div key={link.href} variants={menuItemVariants}>
+                    <NavLink
+                      href={link.href}
+                      label={link.label}
+                      onClick={closeMobile}
+                      className="text-lg"
+                    />
+                  </motion.div>
+                ))}
+              </div>
+
+              <motion.div
+                variants={menuItemVariants}
+                className="mt-auto flex flex-col gap-4 border-t border-ltl-border pt-6"
+              >
+                <NavLink
+                  href="/login"
+                  label="Login"
+                  onClick={closeMobile}
+                  className="text-base"
+                />
+                <Link
+                  href="/subscribe"
+                  onClick={closeMobile}
+                  className={cn(
+                    buttonVariants({ size: "lg" }),
+                    "h-11 w-full rounded-md bg-ltl-accent font-bold text-ltl-bg hover:bg-ltl-accent-hover",
+                  )}
+                >
+                  Subscribe
+                </Link>
+              </motion.div>
+            </motion.div>
+          </SheetContent>
+        </Sheet>
+      </nav>
+    </header>
+  );
+}

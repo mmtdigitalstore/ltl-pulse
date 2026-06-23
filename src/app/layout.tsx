@@ -1,0 +1,43 @@
+import type { Metadata } from "next";
+import { Inter, JetBrains_Mono, Playfair_Display } from "next/font/google";
+
+import { Navbar } from "@/components/layout/Navbar";
+import "./globals.css";
+
+const inter = Inter({
+  variable: "--font-sans",
+  subsets: ["latin"],
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-heading",
+  subsets: ["latin"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "LTL Pulse",
+  description: "LTL freight intelligence platform",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html
+      lang="en"
+      className={`dark ${inter.variable} ${playfair.variable} ${jetbrainsMono.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col bg-ltl-bg text-ltl-text-primary">
+        <Navbar />
+        <main className="flex flex-1 flex-col">{children}</main>
+      </body>
+    </html>
+  );
+}
