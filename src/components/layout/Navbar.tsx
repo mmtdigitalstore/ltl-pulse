@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Menu } from "lucide-react";
+import type { User } from "@supabase/supabase-js";
 
+import { logout } from "@/app/auth/actions";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Sheet,
@@ -67,10 +69,46 @@ function NavLink({
   );
 }
 
-export function Navbar() {
+export function Navbar({ user }: { user: User | null }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const closeMobile = () => setMobileOpen(false);
+
+  function AuthActions({ className }: { className?: string }) {
+    if (user) {
+      return (
+        <div className={cn("flex items-center gap-4", className)}>
+          <span className="hidden max-w-[10rem] truncate text-sm text-ltl-text-secondary sm:inline">
+            {user.email}
+          </span>
+          <form action={logout}>
+            <Button
+              type="submit"
+              variant="ghost"
+              className="text-ltl-text-secondary hover:bg-ltl-surface hover:text-ltl-text-primary"
+            >
+              Log out
+            </Button>
+          </form>
+        </div>
+      );
+    }
+
+    return (
+      <div className={cn("flex items-center gap-4", className)}>
+        <NavLink href="/login" label="Login" />
+        <Link
+          href="/signup"
+          className={cn(
+            buttonVariants({ variant: "outline", size: "default" }),
+            "rounded-md border-ltl-border text-ltl-text-primary hover:bg-ltl-surface",
+          )}
+        >
+          Sign up
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-ltl-border bg-ltl-bg">
@@ -89,7 +127,7 @@ export function Navbar() {
         </div>
 
         <div className="hidden items-center gap-6 md:flex">
-          <NavLink href="/login" label="Login" />
+          <AuthActions />
           <Link
             href="/subscribe"
             className={cn(
@@ -145,12 +183,41 @@ export function Navbar() {
                 variants={menuItemVariants}
                 className="mt-auto flex flex-col gap-4 border-t border-ltl-border pt-6"
               >
-                <NavLink
-                  href="/login"
-                  label="Login"
-                  onClick={closeMobile}
-                  className="text-base"
-                />
+                {user ? (
+                  <>
+                    <p className="truncate text-sm text-ltl-text-secondary">
+                      {user.email}
+                    </p>
+                    <form action={logout}>
+                      <Button
+                        type="submit"
+                        variant="outline"
+                        className="h-11 w-full border-ltl-border text-ltl-text-primary hover:bg-ltl-surface"
+                      >
+                        Log out
+                      </Button>
+                    </form>
+                  </>
+                ) : (
+                  <>
+                    <NavLink
+                      href="/login"
+                      label="Login"
+                      onClick={closeMobile}
+                      className="text-base"
+                    />
+                    <Link
+                      href="/signup"
+                      onClick={closeMobile}
+                      className={cn(
+                        buttonVariants({ variant: "outline", size: "lg" }),
+                        "h-11 w-full rounded-md border-ltl-border text-ltl-text-primary hover:bg-ltl-surface",
+                      )}
+                    >
+                      Sign up
+                    </Link>
+                  </>
+                )}
                 <Link
                   href="/subscribe"
                   onClick={closeMobile}

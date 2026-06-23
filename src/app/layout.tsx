@@ -5,6 +5,7 @@ import { ThemeProvider } from "next-themes";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { Toaster } from "@/components/ui/sonner";
+import { createClient } from "@/lib/supabase/server";
 import "./globals.css";
 
 const inter = Inter({
@@ -27,11 +28,16 @@ export const metadata: Metadata = {
   description: "LTL freight intelligence platform",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <html
       lang="en"
@@ -40,7 +46,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-ltl-bg text-ltl-text-primary">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <Navbar />
+          <Navbar user={user} />
           <main className="flex flex-1 flex-col">{children}</main>
           <Footer />
           <Toaster />

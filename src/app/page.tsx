@@ -4,14 +4,22 @@ import { LatestPodcast } from "@/components/home/LatestPodcast";
 import { VlogGrid } from "@/components/home/VlogGrid";
 import { WhatsInside } from "@/components/home/WhatsInside";
 import { Hero } from "@/components/layout/Hero";
+import { getIsSubscriber } from "@/lib/subscription";
+import { createClient } from "@/lib/supabase/server";
 
-export default function Home() {
+export default async function Home() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const isSubscriber = await getIsSubscriber(user?.id);
+
   return (
     <>
       <Hero />
       <FeaturedArticles />
       <LatestPodcast />
-      <VlogGrid />
+      <VlogGrid isSubscriber={isSubscriber} />
       <WhatsInside />
       <EmailCapture />
     </>
