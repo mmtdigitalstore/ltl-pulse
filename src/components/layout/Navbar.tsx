@@ -18,6 +18,7 @@ const navLinks = [
   { href: "/magazine", label: "Magazine" },
   { href: "/podcast", label: "Podcast" },
   { href: "/vlogs", label: "Vlogs" },
+  { href: "/pricing", label: "Pricing" },
   { href: "/about", label: "About" },
 ] as const;
 

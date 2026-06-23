@@ -21,7 +21,7 @@ const fadeUp = {
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-[calc(100dvh-4rem)] w-full items-center justify-center overflow-hidden bg-[#111111] px-4 sm:px-6 lg:px-8">
+    <section className="relative flex min-h-[calc(100dvh-4rem)] w-full flex-1 items-center justify-center overflow-hidden bg-ltl-bg px-4 sm:px-6 lg:px-8">
       <motion.div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,180,0,0.22)_0%,rgba(255,180,0,0.06)_45%,transparent_70%)] blur-3xl sm:h-[36rem] sm:w-[36rem]"
@@ -89,8 +89,8 @@ export function Hero() {
           <Link
             href="/magazine"
             className={cn(
-              buttonVariants({ variant: "outline", size: "lg" }),
-              "h-12 min-w-[10rem] rounded-md border-ltl-border bg-transparent px-6 font-semibold text-ltl-text-primary hover:border-ltl-text-secondary hover:bg-ltl-surface/50 hover:text-ltl-text-primary",
+              buttonVariants({ variant: "ghost", size: "lg" }),
+              "h-12 min-w-[10rem] rounded-md border border-ltl-border bg-transparent px-6 font-semibold text-ltl-text-primary hover:bg-ltl-surface/50 hover:text-ltl-text-primary",
             )}
           >
             Read the Latest
