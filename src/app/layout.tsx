@@ -23,9 +23,22 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });
 
+const siteDescription =
+  "Premium podcasts, magazine articles, and vlogs where leadership meets culture — for ambitious leaders.";
+
 export const metadata: Metadata = {
   title: "LTL Pulse",
-  description: "LTL freight intelligence platform",
+  description: siteDescription,
+  openGraph: {
+    title: "LTL Pulse",
+    description: siteDescription,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "LTL Pulse",
+    description: siteDescription,
+  },
 };
 
 export default async function RootLayout({
