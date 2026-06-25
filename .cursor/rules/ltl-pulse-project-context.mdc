@@ -1,0 +1,46 @@
+---
+description: LTL Pulse project status, infra links, and completed setup steps
+alwaysApply: true
+---
+
+# LTL Pulse — Project Context
+
+## Live URLs
+- Site: https://ltl-pulse.vercel.app
+- GitHub: https://github.com/mmtdigitalstore/ltl-pulse (public, main branch)
+- Vercel project: dkirk-1011s-projects/ltl-pulse
+- Supabase project ref: pmetxyvocalpmrzzyrsu
+
+## Stack
+- Next.js 16 App Router, Supabase Auth (publishable key `sb_publishable_...`), Stripe subscriptions
+- Env vars: see `.env.local.example` — never commit secrets
+
+## Completed setup (verified)
+1. **Deploy safeguard** — `src/lib/supabase/env.ts` strips accidental `/rest/v1` from Supabase URL
+2. **Auth** — email signup/login works on production; Supabase URL config + Vercel env vars set
+3. **Signup name field** — required on signup; stored as `profiles.full_name`; navbar shows name
+4. **Site metadata** — leadership/culture description (no freight wording)
+
+## Supabase Auth URLs (production)
+- Site URL: https://ltl-pulse.vercel.app
+- Redirect: https://ltl-pulse.vercel.app/auth/callback (+ localhost for dev)
+
+## Critical Vercel env vars
+- `NEXT_PUBLIC_SUPABASE_URL` — project root only (NO `/rest/v1` suffix)
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- `NEXT_PUBLIC_SITE_URL` — https://ltl-pulse.vercel.app
+- `SUPABASE_SERVICE_ROLE_KEY` — auto-added by Vercel/Supabase integration (leave as-is)
+- `STRIPE_SECRET_KEY`, `STRIPE_PRICE_ID`, `STRIPE_WEBHOOK_SECRET`
+
+## Stripe webhook
+- Endpoint: https://ltl-pulse.vercel.app/api/stripe/webhook
+- Events: checkout.session.completed, customer.subscription.updated, customer.subscription.deleted
+
+## In progress / next
+- **Step 3** — Stripe subscriber flow: user configuring webhook + test checkout (Part D)
+- **Step 4** — Google OAuth sign-in (not started)
+
+## Common pitfalls
+- Wrong Supabase URL (`.../rest/v1`) causes "Invalid path specified in request URL" on signup
+- Vercel env var "already exists" → edit existing row, don't add duplicate
+- Redeploy required after any Vercel env var change
