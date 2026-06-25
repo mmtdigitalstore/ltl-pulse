@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import Stripe from "stripe";
 
 import { getSiteUrl } from "@/lib/site";
 import { getStripe } from "@/lib/stripe";
@@ -70,6 +71,15 @@ export async function POST() {
     return NextResponse.json({ url: session.url });
   } catch (error) {
     console.error("Stripe checkout error:", error);
+
+    if (error instanceof Stripe.errors.StripeError) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    if (error instanceof Error && error.message.includes("Missing Supabase")) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
     return NextResponse.json(
       { error: "Checkout failed. Please try again." },
       { status: 500 },
