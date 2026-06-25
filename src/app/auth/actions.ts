@@ -37,8 +37,13 @@ export async function signup(
   _prevState: AuthState,
   formData: FormData,
 ): Promise<AuthState> {
+  const fullName = String(formData.get("full_name") ?? "").trim();
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
+
+  if (!fullName) {
+    return { error: "Name is required." };
+  }
 
   if (!email || !password) {
     return { error: "Email and password are required." };
@@ -54,6 +59,7 @@ export async function signup(
     password,
     options: {
       emailRedirectTo: `${getSiteUrl()}/auth/callback`,
+      data: { full_name: fullName },
     },
   });
 

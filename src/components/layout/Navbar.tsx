@@ -74,12 +74,17 @@ export function Navbar({ user }: { user: User | null }) {
 
   const closeMobile = () => setMobileOpen(false);
 
+  const displayName =
+    (user?.user_metadata?.full_name as string | undefined)?.trim() ||
+    user?.email ||
+    "";
+
   function AuthActions({ className }: { className?: string }) {
     if (user) {
       return (
         <div className={cn("flex items-center gap-4", className)}>
           <span className="hidden max-w-[10rem] truncate text-sm text-ltl-text-secondary sm:inline">
-            {user.email}
+            {displayName}
           </span>
           <form action={logout}>
             <Button
@@ -186,7 +191,7 @@ export function Navbar({ user }: { user: User | null }) {
                 {user ? (
                   <>
                     <p className="truncate text-sm text-ltl-text-secondary">
-                      {user.email}
+                      {displayName}
                     </p>
                     <form action={logout}>
                       <Button

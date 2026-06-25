@@ -49,6 +49,25 @@ export function AuthForm({ mode, callbackError }: AuthFormProps) {
       </CardHeader>
       <CardContent>
         <form action={formAction} className="space-y-4">
+          {mode === "signup" && (
+            <div className="space-y-2">
+              <label
+                htmlFor="full_name"
+                className="font-label text-xs uppercase tracking-wider text-ltl-text-secondary"
+              >
+                Name
+              </label>
+              <Input
+                id="full_name"
+                name="full_name"
+                type="text"
+                autoComplete="name"
+                placeholder="Your name"
+                required
+                className="h-11 border-ltl-border bg-ltl-bg text-ltl-text-primary placeholder:text-ltl-text-secondary"
+              />
+            </div>
+          )}
           <div className="space-y-2">
             <label
               htmlFor="email"
