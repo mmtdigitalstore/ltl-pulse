@@ -7,7 +7,7 @@ import { ChevronDown, ChevronUp, Send } from "lucide-react";
 import { CadenceMessageContent } from "@/components/concierge/CadenceMessageContent";
 import { ConciergeAvatar } from "@/components/concierge/ConciergeAvatar";
 import { Button } from "@/components/ui/button";
-import { CONCIERGE_TIER_CONFIG } from "@/lib/concierge/config";
+import { CADENCE_NAME, CONCIERGE_TIER_CONFIG } from "@/lib/concierge/config";
 import {
   clearCadenceChatSession,
   loadCadenceChatSession,
@@ -195,7 +195,7 @@ export function ConciergeChat({
           <div className="flex items-center gap-3">
             <ConciergeAvatar isActive={!loading} size="sm" showLabel={false} />
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-medium text-ltl-text-primary">Cadence</p>
+              <p className="text-sm font-medium text-ltl-text-primary">{CADENCE_NAME}</p>
               <p className="truncate text-xs text-ltl-text-secondary">{statusLabel}</p>
             </div>
             <Button

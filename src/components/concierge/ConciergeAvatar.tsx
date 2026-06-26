@@ -1,4 +1,5 @@
 import { CadenceIcon } from "@/components/concierge/CadenceIcon";
+import { CADENCE_NAME, CONCIERGE_FEATURE_NAME } from "@/lib/concierge/config";
 import { cn } from "@/lib/utils";
 
 interface ConciergeAvatarProps {
@@ -45,10 +46,10 @@ export function ConciergeAvatar({
       {showLabel && (
         <div className="text-left">
           <p className="font-heading text-base text-ltl-text-primary sm:text-lg">
-            Cadence
+            {CADENCE_NAME}
           </p>
           <p className="text-xs text-ltl-text-secondary sm:text-sm">
-            Your AI Concierge
+            Your {CONCIERGE_FEATURE_NAME}
           </p>
           <p
             className={cn(

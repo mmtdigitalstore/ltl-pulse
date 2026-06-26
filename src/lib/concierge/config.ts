@@ -1,5 +1,11 @@
 import type { ConciergeTier } from "@/lib/concierge/types";
 
+/** Display name for the AI assistant in chat UI and prompts. */
+export const CADENCE_NAME = "Cadence";
+
+/** Feature label used in navigation and marketing copy. */
+export const CONCIERGE_FEATURE_NAME = "AI Concierge";
+
 export const CONCIERGE_TIER_CONFIG: Record<
   ConciergeTier,
   {
