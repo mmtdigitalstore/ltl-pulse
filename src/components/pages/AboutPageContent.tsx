@@ -1,136 +1,385 @@
 "use client";
 
+import type { ReactNode } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { User } from "lucide-react";
+import { BookOpen, Mic, Sparkles, Video } from "lucide-react";
 
+import { CadenceIcon } from "@/components/concierge/CadenceIcon";
 import { PageHeader } from "@/components/layout/PageHeader";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { buttonVariants } from "@/components/ui/button";
 import {
   sectionFadeUp,
   sectionViewport,
   staggerContainer,
   staggerItem,
 } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 
-interface TeamMember {
-  id: string;
-  name: string;
-  role: string;
+const whatsInside = [
+  {
+    icon: Mic,
+    title: "Podcasts",
+    description:
+      "Candid conversations with leaders on culture, strategy, and growth.",
+  },
+  {
+    icon: BookOpen,
+    title: "Magazine",
+    description: "Deep-dive articles for operators who think long-term.",
+  },
+  {
+    icon: Video,
+    title: "Vlogs",
+    description: "Premium video for leaders who want to go deeper.",
+  },
+  {
+    cadence: true,
+    title: "AI Concierge",
+    description:
+      "Practical, in-the-moment leadership guidance, on demand.",
+  },
+] as const;
+
+const experienceTracks = [
+  {
+    title: "Leadership Core",
+    description:
+      "Leading people and institutions: retreats for growing businesses, leadership days for school and college leaders, and executive off-sites.",
+  },
+  {
+    title: "Systems & Execution",
+    description:
+      "Turning leadership into execution and operational excellence, especially in technical and regulated environments.",
+  },
+  {
+    title: "Future Talent & Digital",
+    description:
+      "Preparing the next generation and today's workforce for the future of work, from school leaders to early-career hires.",
+  },
+] as const;
+
+function Section({
+  title,
+  children,
+  className,
+  accentTitle = false,
+}: {
+  title: string;
+  children: ReactNode;
+  className?: string;
+  accentTitle?: boolean;
+}) {
+  return (
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={sectionViewport}
+      variants={sectionFadeUp}
+      className={cn("mt-16 md:mt-20", className)}
+    >
+      <h2
+        className={cn(
+          "font-heading text-2xl font-semibold md:text-3xl",
+          accentTitle ? "text-ltl-accent" : "text-ltl-text-primary",
+        )}
+      >
+        {title}
+      </h2>
+      <div className="mt-5 space-y-4 text-base leading-relaxed text-ltl-text-secondary md:text-lg">
+        {children}
+      </div>
+    </motion.section>
+  );
 }
 
-const teamMembers: TeamMember[] = [
-  {
-    id: "1",
-    name: "Alex Rivera",
-    role: "Founder & Editor-in-Chief",
-  },
-  {
-    id: "2",
-    name: "Jordan Lee",
-    role: "Head of Podcast",
-  },
-  {
-    id: "3",
-    name: "Sam Okonkwo",
-    role: "Creative Director",
-  },
-];
+function FrameworkLine({
+  acronym,
+  children,
+}: {
+  acronym: string;
+  children: ReactNode;
+}) {
+  return (
+    <p>
+      <span className="font-heading font-semibold tracking-wide text-ltl-accent">
+        {acronym}
+      </span>
+      {" — "}
+      {children}
+    </p>
+  );
+}
 
 export function AboutPageContent() {
   return (
     <div className="min-h-screen bg-ltl-bg px-4 py-16 sm:px-6 lg:px-8">
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={sectionViewport}
-        variants={sectionFadeUp}
-        className="mx-auto max-w-4xl"
-      >
-        <PageHeader
-          title="About LTL Pulse"
-          subtitle="Where leadership meets culture."
-        />
-
+      <div className="mx-auto max-w-4xl">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={sectionViewport}
           variants={sectionFadeUp}
-          className="mt-12 space-y-4 text-base leading-relaxed text-ltl-text-secondary md:text-lg"
         >
-          <p>
-            LTL Pulse was founded on a simple belief: the best leaders don&apos;t
-            just drive results — they shape culture. We publish the stories,
-            conversations, and visual narratives that help ambitious operators
-            think bigger, lead better, and build organizations that last.
-          </p>
-          <p>
-            From long-form magazine features to candid podcast interviews and
-            field vlogs, every piece of LTL Pulse content is designed to give
-            you perspective you can act on.
+          <PageHeader
+            title="About LTL Pulse"
+            subtitle="Where leadership meets culture."
+          />
+          <p className="mt-8 text-base leading-relaxed text-ltl-text-secondary md:text-lg">
+            LTL Pulse is the media and intelligence hub of Let&apos;s Talk Leadership
+            — premium podcasts, magazine articles, vlogs, and an AI concierge built
+            for ambitious leaders. We exist to help you grow people, strengthen your
+            organization, and navigate change with confidence.
           </p>
         </motion.div>
 
-        <section className="mt-16">
-          <h2 className="font-heading text-2xl font-semibold text-ltl-text-primary md:text-3xl">
-            Our Team
-          </h2>
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={sectionViewport}
-            className="mt-8 grid gap-6 sm:grid-cols-3"
-          >
-            {teamMembers.map((member) => (
-              <motion.div key={member.id} variants={staggerItem}>
-                <Card className="border-ltl-border bg-ltl-surface text-center ring-ltl-border/50">
-                  <CardHeader className="items-center gap-4">
-                    <div className="flex size-16 items-center justify-center rounded-full border border-ltl-border bg-ltl-bg text-ltl-accent">
-                      <User className="size-7" aria-hidden />
-                    </div>
-                    <CardTitle className="font-heading text-lg text-ltl-text-primary">
-                      {member.name}
-                    </CardTitle>
-                    <CardDescription className="font-label text-xs uppercase tracking-wider text-ltl-accent">
-                      {member.role}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-ltl-text-secondary">
-                      Building media for leaders who care about culture as much
-                      as outcomes.
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-        </section>
+        <Section title="Our mission">
+          <p>
+            We create conversations, content, and experiences that help leaders grow
+            people, strengthen institutions, and navigate change with confidence.
+          </p>
+        </Section>
+
+        <Section title="Our vision" accentTitle>
+          <p>Future-ready leadership, everywhere Let&apos;s Talk Leadership goes.</p>
+        </Section>
+
+        <Section title="What makes us different: future-ready leadership">
+          <p>
+            Most leadership content prepares you for yesterday. We prepare you for
+            the next decade. Every conversation, article, and tool at LTL Pulse
+            carries a future-ready lens — grounded in timeless leadership
+            principles, sharpened by the realities of AI and the changing world of
+            work. It&apos;s leadership for what&apos;s coming, not just what&apos;s
+            been.
+          </p>
+        </Section>
 
         <motion.section
           initial="hidden"
           whileInView="visible"
           viewport={sectionViewport}
           variants={sectionFadeUp}
-          className="mt-16 rounded-xl border border-ltl-border bg-ltl-surface p-8 md:p-10"
+          className="mt-16 rounded-xl border border-ltl-border bg-ltl-surface p-8 md:mt-20 md:p-10"
         >
-          <h2 className="font-heading text-2xl font-semibold text-ltl-accent md:text-3xl">
-            Our Mission
+          <h2 className="font-heading text-2xl font-semibold text-ltl-text-primary md:text-3xl">
+            What&apos;s inside
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-ltl-text-secondary md:text-lg">
-            To equip ambitious leaders with premium editorial, audio, and visual
-            content that bridges leadership and culture — helping them make
-            better decisions, build stronger teams, and leave a lasting impact.
-          </p>
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={sectionViewport}
+            className="mt-8 grid gap-8 sm:grid-cols-2"
+          >
+            {whatsInside.map((item) => {
+              const Icon = "icon" in item ? item.icon : null;
+
+              return (
+              <motion.div
+                key={item.title}
+                variants={staggerItem}
+                className="flex gap-4"
+              >
+                {"cadence" in item && item.cadence ? (
+                  <CadenceIcon className="size-10 shrink-0" />
+                ) : Icon ? (
+                  <div className="flex size-10 shrink-0 items-center justify-center rounded-full border border-ltl-border bg-ltl-bg text-ltl-accent">
+                    <Icon className="size-5" aria-hidden />
+                  </div>
+                ) : null}
+                <div>
+                  <h3 className="font-heading text-lg font-medium text-ltl-text-primary">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ltl-text-secondary md:text-base">
+                    {item.description}
+                  </p>
+                </div>
+              </motion.div>
+              );
+            })}
+          </motion.div>
         </motion.section>
-      </motion.div>
+
+        <Section title="The voices behind LTL">
+          <p>
+            A team of seasoned leaders across coaching, higher education, industry,
+            and technology — each bringing real-world depth to how we think about
+            leadership.
+          </p>
+
+          <article className="mt-10 space-y-4 border-t border-ltl-border pt-10">
+            <div>
+              <h3 className="font-heading text-xl font-semibold text-ltl-text-primary md:text-2xl">
+                Dawn Kirk
+              </h3>
+              <p className="mt-1 font-label text-xs uppercase tracking-wider text-ltl-accent">
+                Lead of the LTL Team
+              </p>
+            </div>
+            <p>
+              Founder &amp; CEO of Market My Training Solutions (MMTS) and Market My
+              Training Institute (MMTI), and a Maxwell Certified Executive Coach. A
+              global education leader, entrepreneur, digital strategist, curriculum
+              writer, mentor, and empowerment speaker, Dawn helps educators,
+              institutions, entrepreneurs, nonprofits, and school districts build
+              sustainable online education businesses. Cornell-educated with 41
+              years in education across Bermuda and the Caribbean — including work
+              with the Department of Education–Bermuda and as a contributing writer
+              for the Standards-Based Grading curriculum used in government schools.
+              She serves on the Board of Governors of QUEST, an education start-up
+              for gifted and talented students operating in Bermuda and North
+              Carolina, and on the Atlantic Union Conference Curriculum Committee,
+              overseeing curriculum across schools in seven states and Bermuda. Dawn
+              is a leading voice on practical leadership growth and developing
+              people.
+            </p>
+            <p>
+              A signature part of Dawn&apos;s approach is her transformation
+              framework, built on three pillars —{" "}
+              <span className="font-heading font-semibold text-ltl-accent">
+                L.I.T.
+              </span>
+              ,{" "}
+              <span className="font-heading font-semibold text-ltl-accent">
+                E.A.R.N.
+              </span>
+              , and{" "}
+              <span className="font-heading font-semibold text-ltl-accent">
+                G.R.I.T.
+              </span>
+            </p>
+            <div className="rounded-lg border border-ltl-border/80 bg-ltl-bg/60 p-5 md:p-6">
+              <FrameworkLine acronym="L.I.T.">
+                Lead with vision, Inspire innovation, and Transform the market.
+              </FrameworkLine>
+              <FrameworkLine acronym="E.A.R.N.">
+                Empower clients with cutting-edge strategies to drive success,
+                Amplify their brand into a strong and recognizable presence,
+                Revolutionize their leadership through transformational tools, and
+                Nurture their client base into lasting relationships.
+              </FrameworkLine>
+              <FrameworkLine acronym="G.R.I.T.">
+                Genuine integrity, Relentless innovation, Inspired empowerment, and
+                Tenacious excellence.
+              </FrameworkLine>
+            </div>
+          </article>
+
+          <article className="mt-10 space-y-4 border-t border-ltl-border pt-10">
+            <h3 className="font-heading text-xl font-semibold text-ltl-text-primary md:text-2xl">
+              Dr. Sylvan A. Lashley
+            </h3>
+            <p>
+              A senior educational executive, legal scholar, and organizational
+              leader with over 30 years guiding K–12 systems, universities, and
+              institutions through transformation. A former college and university
+              president (West Indies College, Caribbean Union College, and Atlantic
+              Union College), K–12 superintendent, and principal, he has led
+              institutions through change in enrollment, academic quality,
+              governance, accreditation, and financial sustainability. He holds a
+              Juris Doctor (J.D.), Doctor of Education (Ed.D.), Master of Education
+              Law (M.E.L.), MBA, M.A. in History, and B.Ed., and teaches Education
+              Law and Special Education Law. His leadership has produced measurable
+              impact — including 300% organizational and programmatic growth, 69%
+              growth in student achievement, and $1.75 million in grant funding
+              secured.
+            </p>
+          </article>
+
+          <article className="mt-10 space-y-4 border-t border-ltl-border pt-10">
+            <h3 className="font-heading text-xl font-semibold text-ltl-text-primary md:text-2xl">
+              Jackie John, R.Eng., MSc
+            </h3>
+            <p>
+              A Maxwell Leadership Certified DISC Coach and Consultant with a passion
+              for developing leaders who think clearly, lead boldly, and deliver
+              results that matter. With over 30 years of experience across
+              engineering, project management, and organizational leadership in
+              Trinidad and Tobago and the wider Caribbean, Jackie blends technical
+              rigor with deep human insight. Through New Version Coaching &amp;
+              Consulting (NVCC), he helps individuals, teams, and organizations
+              unlock their behavioral strengths, bridge communication gaps, and build
+              the self-awareness sustained leadership demands — guided by the Maxwell
+              DISC Method and his own framework,{" "}
+              <span className="font-heading font-semibold text-ltl-accent">
+                Think. Lead. Influence. Deliver.
+              </span>{" "}
+              A Registered Engineer (R.Eng., MSc, BSc, MAPETT) and entrepreneur, he
+              also leads Jameri Consultants Limited, BuildSafe Caribbean, and
+              Sargassum Solutions Limited.
+            </p>
+          </article>
+
+          <article className="mt-10 space-y-4 border-t border-ltl-border pt-10">
+            <h3 className="font-heading text-xl font-semibold text-ltl-text-primary md:text-2xl">
+              Joshua Ogbonnia
+            </h3>
+            <p>
+              A Nigerian serial entrepreneur and Pan-African visionary leader focused
+              on education, technology, and community development. Joshua is Founder
+              and Chief Vision Officer of E Skool Now Group, delivering
+              award-winning tech solutions, digital innovation, media, and business
+              transformation across Africa. He is Founder and President of the Global
+              Educators Tribe (GET) Organization, a global network for educators,
+              policymakers, and education changemakers; Chancellor of Tech Skool
+              Educational Institution, an institute of technology and entrepreneurship;
+              and CEO of Agric Shift, a venture in post-harvest operations and
+              agricultural education.
+            </p>
+          </article>
+        </Section>
+
+        <Section title="Experiences & programs">
+          <p>
+            Leadership isn&apos;t only something you watch or read — it&apos;s
+            something you practice. Our experience tracks bring LTL&apos;s expertise
+            into the room with you:
+          </p>
+          <ul className="mt-6 space-y-4">
+            {experienceTracks.map((track) => (
+              <li
+                key={track.title}
+                className="rounded-lg border border-ltl-border bg-ltl-surface p-5 md:p-6"
+              >
+                <h3 className="font-heading text-lg font-medium text-ltl-accent">
+                  {track.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-ltl-text-secondary md:text-base">
+                  {track.description}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </Section>
+
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={sectionViewport}
+          variants={sectionFadeUp}
+          className="mt-16 rounded-xl border border-ltl-accent/30 bg-ltl-surface p-8 text-center md:mt-20 md:p-12"
+        >
+          <Sparkles className="mx-auto size-8 text-ltl-accent" aria-hidden />
+          <h2 className="mt-4 font-heading text-2xl font-semibold text-ltl-text-primary md:text-3xl">
+            Join the Pulse
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-ltl-text-secondary md:text-lg">
+            Get leadership insights, new episodes, and exclusive content built for
+            leaders who refuse to lead like it&apos;s still yesterday.
+          </p>
+          <Link
+            href="/subscribe"
+            className={cn(
+              buttonVariants({ size: "lg" }),
+              "mt-8 inline-flex h-12 min-w-[12rem] rounded-md bg-ltl-accent font-bold text-ltl-bg hover:bg-ltl-accent-hover",
+            )}
+          >
+            Subscribe
+          </Link>
+        </motion.section>
+      </div>
     </div>
   );
 }
