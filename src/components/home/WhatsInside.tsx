@@ -1,13 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BookOpen, Bot, Sparkles } from "lucide-react";
+import { BookOpen, Sparkles } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
+import { CadenceIcon } from "@/components/concierge/CadenceIcon";
 import { sectionFadeUp, sectionViewport } from "@/lib/motion";
 
 interface Feature {
-  icon: LucideIcon;
+  icon?: LucideIcon;
+  cadenceIcon?: boolean;
   title: string;
   description: string;
 }
@@ -20,10 +22,10 @@ const features: Feature[] = [
       "Deep-dive articles on leadership, culture, and strategy — written for operators who think long-term.",
   },
   {
-    icon: Bot,
+    cadenceIcon: true,
     title: "Cadence",
     description:
-      "Meet Cadence, your AI Concierge — ask questions, surface insights, and explore our archive.",
+      "Your AI Concierge for leadership guidance — practical answers when you're navigating culture, strategy, and the decisions that define your leadership.",
   },
   {
     icon: Sparkles,
@@ -49,9 +51,13 @@ export function WhatsInside() {
         <div className="mt-12 grid gap-10 md:grid-cols-3">
           {features.map((feature) => (
             <div key={feature.title} className="flex flex-col items-center text-center">
-              <div className="flex size-12 items-center justify-center rounded-full border border-ltl-border bg-ltl-bg text-ltl-accent">
-                <feature.icon className="size-5" aria-hidden />
-              </div>
+              {feature.cadenceIcon ? (
+                <CadenceIcon className="size-12" />
+              ) : (
+                <div className="flex size-12 items-center justify-center rounded-full border border-ltl-border bg-ltl-bg text-ltl-accent">
+                  <feature.icon className="size-5" aria-hidden />
+                </div>
+              )}
               <h3 className="mt-5 font-heading text-xl font-medium text-ltl-text-primary">
                 {feature.title}
               </h3>
