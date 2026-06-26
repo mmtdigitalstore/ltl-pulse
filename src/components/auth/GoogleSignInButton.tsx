@@ -1,16 +1,28 @@
 "use client";
 
 import { createClient } from "@/lib/supabase/client";
+import { buildAuthRedirectCookie } from "@/lib/auth/redirect-cookie";
+import { getSafeRedirectPath } from "@/lib/auth/redirect";
 import { getSiteUrl } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 
-export function GoogleSignInButton() {
+interface GoogleSignInButtonProps {
+  next?: string;
+}
+
+export function GoogleSignInButton({ next = "/" }: GoogleSignInButtonProps) {
   async function handleGoogleSignIn() {
     const supabase = createClient();
+    const redirectPath = getSafeRedirectPath(next);
+
+    if (redirectPath !== "/") {
+      document.cookie = buildAuthRedirectCookie(redirectPath);
+    }
+
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${getSiteUrl()}/auth/callback`,
+        redirectTo: `${getSiteUrl()}/auth/callback?next=${encodeURIComponent(redirectPath)}`,
       },
     });
   }

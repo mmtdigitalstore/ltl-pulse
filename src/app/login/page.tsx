@@ -1,10 +1,11 @@
 import { redirect } from "next/navigation";
 
 import { AuthForm } from "@/components/auth/AuthForm";
+import { getPostAuthRedirect, getSafeRedirectPath } from "@/lib/auth/redirect";
 import { createClient } from "@/lib/supabase/server";
 
 interface LoginPageProps {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; next?: string }>;
 }
 
 export default async function LoginPage({ searchParams }: LoginPageProps) {
@@ -13,11 +14,13 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  const params = await searchParams;
+  const next = getSafeRedirectPath(params.next);
+
   if (user) {
-    redirect("/");
+    redirect(getPostAuthRedirect(next));
   }
 
-  const params = await searchParams;
   const callbackError =
     params.error === "auth_callback_failed"
       ? "Authentication failed. Please try signing in again."
@@ -25,7 +28,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
 
   return (
     <div className="flex min-h-[calc(100dvh-4rem)] items-center justify-center bg-ltl-bg px-4 py-16">
-      <AuthForm mode="login" callbackError={callbackError} />
+      <AuthForm mode="login" callbackError={callbackError} next={next} />
     </div>
   );
 }

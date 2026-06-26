@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { Bot, Send } from "lucide-react";
+import { Send } from "lucide-react";
 
+import { ConciergeAvatar } from "@/components/concierge/ConciergeAvatar";
 import { Button } from "@/components/ui/button";
 import { CONCIERGE_TIER_CONFIG } from "@/lib/concierge/config";
 import type { ConciergeMessage } from "@/lib/concierge/types";
@@ -17,9 +18,13 @@ const STARTER_PROMPTS = [
 
 interface ConciergeChatProps {
   isSubscriber: boolean;
+  autoFocusInput?: boolean;
 }
 
-export function ConciergeChat({ isSubscriber }: ConciergeChatProps) {
+export function ConciergeChat({
+  isSubscriber,
+  autoFocusInput = false,
+}: ConciergeChatProps) {
   const tier = isSubscriber ? "premium" : "free";
   const tierConfig = CONCIERGE_TIER_CONFIG[tier];
   const [messages, setMessages] = useState<ConciergeMessage[]>([]);
@@ -27,12 +32,19 @@ export function ConciergeChat({ isSubscriber }: ConciergeChatProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const userMessageCount = messages.filter((message) => message.role === "user").length;
   const atLimit = userMessageCount >= tierConfig.maxUserMessages;
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
+
+  useEffect(() => {
+    if (autoFocusInput) {
+      inputRef.current?.focus();
+    }
+  }, [autoFocusInput]);
 
   async function sendMessage(text: string) {
     const trimmed = text.trim();
@@ -91,74 +103,65 @@ export function ConciergeChat({ isSubscriber }: ConciergeChatProps) {
     setMessages([]);
     setError(null);
     setInput("");
+    inputRef.current?.focus();
   }
 
   return (
-    <div className="mt-10 flex flex-col">
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <span
-            className={cn(
-              "inline-flex items-center gap-1.5 rounded-full border px-3 py-1 font-label text-xs uppercase tracking-wider",
-              isSubscriber
-                ? "border-ltl-accent/40 bg-ltl-accent/10 text-ltl-accent"
-                : "border-ltl-border bg-ltl-surface text-ltl-text-secondary",
-            )}
-          >
-            <Bot className="size-3.5" aria-hidden />
-            {tierConfig.label}
-          </span>
-          <span className="text-sm text-ltl-text-secondary">
-            {userMessageCount}/{tierConfig.maxUserMessages} messages this chat
-          </span>
-        </div>
-
-        {messages.length > 0 && (
-          <Button
-            type="button"
-            variant="outline"
-            onClick={handleNewChat}
-            className="border-ltl-border text-ltl-text-primary hover:bg-ltl-surface"
-          >
-            New chat
-          </Button>
-        )}
-      </div>
-
+    <div className="flex flex-col">
       {!isSubscriber && (
-        <p className="mb-4 rounded-md border border-ltl-border bg-ltl-surface px-4 py-3 text-sm text-ltl-text-secondary">
-          Basic AI Concierge answers general leadership questions.{" "}
-          <Link href="/subscribe" className="font-medium text-ltl-accent hover:underline">
-            Subscribe
-          </Link>{" "}
-          for Premium AI Concierge — deeper guidance and richer LTL content connections.
+        <p className="mb-3 text-xs text-ltl-text-secondary">
+          Basic AI Concierge ·{" "}
+          <Link href="/subscribe" className="text-ltl-accent hover:underline">
+            Subscribe for Premium AI Concierge
+          </Link>
         </p>
       )}
 
-      <div className="flex min-h-[24rem] flex-col rounded-lg border border-ltl-border bg-ltl-surface">
-        <div className="flex-1 space-y-4 overflow-y-auto p-4 sm:p-6">
+      <div className="flex max-h-[min(32rem,70vh)] flex-col overflow-hidden rounded-lg border border-ltl-border bg-ltl-surface">
+        <div className="flex items-center justify-between gap-3 border-b border-ltl-border bg-ltl-bg/80 px-3 py-2.5 sm:px-4">
+          <ConciergeAvatar isActive={!loading} size="sm" />
+          <div className="flex items-center gap-2">
+            <span className="hidden text-xs text-ltl-text-secondary sm:inline">
+              {userMessageCount}/{tierConfig.maxUserMessages} messages
+            </span>
+            <span
+              className={cn(
+                "inline-flex items-center rounded-full border px-2.5 py-0.5 font-label text-[0.65rem] uppercase tracking-wider",
+                isSubscriber
+                  ? "border-ltl-accent/40 bg-ltl-accent/10 text-ltl-accent"
+                  : "border-ltl-border text-ltl-text-secondary",
+              )}
+            >
+              {tierConfig.label}
+            </span>
+            {messages.length > 0 && (
+              <Button
+                type="button"
+                variant="outline"
+                size="xs"
+                onClick={handleNewChat}
+                className="border-ltl-border text-ltl-text-primary hover:bg-ltl-bg"
+              >
+                New chat
+              </Button>
+            )}
+          </div>
+        </div>
+
+        <div className="flex-1 space-y-3 overflow-y-auto p-3 sm:p-4">
           {messages.length === 0 && (
-            <div className="flex h-full min-h-[18rem] flex-col items-center justify-center gap-6 text-center">
-              <div className="flex size-14 items-center justify-center rounded-full border border-ltl-border bg-ltl-bg text-ltl-accent">
-                <Bot className="size-7" aria-hidden />
-              </div>
-              <div className="max-w-md space-y-2">
-                <p className="font-heading text-xl text-ltl-text-primary">
-                  Ask your AI Concierge
-                </p>
-                <p className="text-sm text-ltl-text-secondary">
-                  Leadership questions, platform guidance, and perspective from
-                  AI Concierge — tuned to your membership level.
-                </p>
-              </div>
-              <div className="flex flex-wrap justify-center gap-2">
+            <div className="space-y-3 py-2">
+              <p className="text-sm font-medium text-ltl-text-primary">
+                Choose a question to get started:
+              </p>
+              <div className="flex flex-col gap-2">
                 {STARTER_PROMPTS.map((prompt) => (
                   <button
                     key={prompt}
                     type="button"
                     onClick={() => void sendMessage(prompt)}
                     disabled={loading}
-                    className="rounded-full border border-ltl-border bg-ltl-bg px-3 py-1.5 text-left text-xs text-ltl-text-secondary transition-colors hover:border-ltl-accent/40 hover:text-ltl-text-primary"
+                    className="rounded-md border border-ltl-border bg-ltl-bg px-3 py-2 text-left text-sm text-ltl-text-secondary transition-colors hover:border-ltl-accent/40 hover:text-ltl-text-primary"
                   >
                     {prompt}
                   </button>
@@ -171,19 +174,42 @@ export function ConciergeChat({ isSubscriber }: ConciergeChatProps) {
             <div
               key={`${message.role}-${index}`}
               className={cn(
-                "max-w-[90%] rounded-lg px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap",
-                message.role === "user"
-                  ? "ml-auto bg-ltl-accent text-ltl-bg"
-                  : "mr-auto border border-ltl-border bg-ltl-bg text-ltl-text-primary",
+                "flex gap-2",
+                message.role === "user" ? "justify-end" : "justify-start",
               )}
             >
-              {message.content}
+              {message.role === "assistant" && (
+                <ConciergeAvatar
+                  isActive
+                  size="sm"
+                  showLabel={false}
+                  className="shrink-0"
+                />
+              )}
+              <div
+                className={cn(
+                  "max-w-[85%] rounded-lg px-3 py-2 text-sm leading-relaxed whitespace-pre-wrap",
+                  message.role === "user"
+                    ? "bg-ltl-accent text-ltl-bg"
+                    : "border border-ltl-border bg-ltl-bg text-ltl-text-primary",
+                )}
+              >
+                {message.content}
+              </div>
             </div>
           ))}
 
           {loading && (
-            <div className="mr-auto max-w-[90%] rounded-lg border border-ltl-border bg-ltl-bg px-4 py-3 text-sm text-ltl-text-secondary">
-              Thinking…
+            <div className="flex items-start gap-2">
+              <ConciergeAvatar
+                isActive
+                size="sm"
+                showLabel={false}
+                className="shrink-0"
+              />
+              <div className="rounded-lg border border-ltl-border bg-ltl-bg px-3 py-2 text-sm text-ltl-text-secondary">
+                Thinking…
+              </div>
             </div>
           )}
 
@@ -192,19 +218,20 @@ export function ConciergeChat({ isSubscriber }: ConciergeChatProps) {
 
         <form
           onSubmit={handleSubmit}
-          className="flex gap-2 border-t border-ltl-border p-4"
+          className="flex gap-2 border-t border-ltl-border p-3"
         >
           <textarea
+            ref={inputRef}
             value={input}
             onChange={(event) => setInput(event.target.value)}
             placeholder={
               atLimit
                 ? "Message limit reached — start a new chat"
-                : "Ask about leadership, culture, or LTL Pulse with AI Concierge…"
+                : "Type your question here…"
             }
             disabled={loading || atLimit}
-            rows={2}
-            className="min-h-11 flex-1 resize-none rounded-lg border border-ltl-border bg-ltl-bg px-3 py-2 text-sm text-ltl-text-primary placeholder:text-ltl-text-secondary outline-none focus-visible:border-ltl-accent focus-visible:ring-2 focus-visible:ring-ltl-accent/30 disabled:opacity-50"
+            rows={1}
+            className="min-h-10 flex-1 resize-none rounded-lg border border-ltl-border bg-ltl-bg px-3 py-2 text-sm text-ltl-text-primary placeholder:text-ltl-text-secondary outline-none focus-visible:border-ltl-accent focus-visible:ring-2 focus-visible:ring-ltl-accent/30 disabled:opacity-50"
             onKeyDown={(event) => {
               if (event.key === "Enter" && !event.shiftKey) {
                 event.preventDefault();
@@ -215,7 +242,7 @@ export function ConciergeChat({ isSubscriber }: ConciergeChatProps) {
           <Button
             type="submit"
             disabled={loading || atLimit || !input.trim()}
-            className="h-auto shrink-0 rounded-md bg-ltl-accent px-4 text-ltl-bg hover:bg-ltl-accent-hover disabled:opacity-50"
+            className="h-10 shrink-0 rounded-md bg-ltl-accent px-3 text-ltl-bg hover:bg-ltl-accent-hover disabled:opacity-50"
             aria-label="Send message"
           >
             <Send className="size-4" />
@@ -223,16 +250,18 @@ export function ConciergeChat({ isSubscriber }: ConciergeChatProps) {
         </form>
       </div>
 
-      {error && (
-        <p className="mt-3 text-sm text-destructive">{error}</p>
-      )}
+      <p className="mt-2 text-center text-xs text-ltl-text-secondary sm:hidden">
+        {userMessageCount}/{tierConfig.maxUserMessages} messages this chat
+      </p>
+
+      {error && <p className="mt-2 text-sm text-destructive">{error}</p>}
 
       {atLimit && !isSubscriber && (
-        <p className="mt-3 text-center text-sm text-ltl-text-secondary">
-          Want longer conversations and richer answers?{" "}
+        <p className="mt-2 text-center text-xs text-ltl-text-secondary">
           <Link href="/subscribe" className="font-medium text-ltl-accent hover:underline">
             Upgrade to Premium AI Concierge
-          </Link>
+          </Link>{" "}
+          for longer conversations.
         </p>
       )}
     </div>
