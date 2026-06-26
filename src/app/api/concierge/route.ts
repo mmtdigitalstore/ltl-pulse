@@ -55,7 +55,7 @@ export async function POST(request: Request) {
 
   if (!apiKey) {
     return NextResponse.json(
-      { error: "AI Concierge is not configured yet." },
+      { error: "Cadence is not configured yet." },
       { status: 500 },
     );
   }
@@ -67,7 +67,7 @@ export async function POST(request: Request) {
 
   if (!user) {
     return NextResponse.json(
-      { error: "Sign in to use AI Concierge." },
+      { error: "Sign in to chat with Cadence." },
       { status: 401 },
     );
   }
@@ -104,7 +104,7 @@ export async function POST(request: Request) {
         error:
           tier === "premium"
             ? "Conversation limit reached. Start a new chat to continue."
-            : "Basic AI Concierge limit reached for this chat. Subscribe for Premium AI Concierge with longer conversations.",
+            : "Cadence Basic limit reached for this chat. Subscribe for Cadence Premium with longer conversations.",
         tier,
         limitReached: true,
       },
@@ -140,7 +140,7 @@ export async function POST(request: Request) {
     if (!response.ok) {
       console.error("OpenAI concierge error:", data);
       return NextResponse.json(
-        { error: data.error?.message ?? "AI Concierge is temporarily unavailable." },
+        { error: data.error?.message ?? "Cadence is temporarily unavailable." },
         { status: 500 },
       );
     }
@@ -149,7 +149,7 @@ export async function POST(request: Request) {
 
     if (!reply) {
       return NextResponse.json(
-        { error: "No response from AI Concierge." },
+        { error: "No response from Cadence." },
         { status: 500 },
       );
     }
@@ -163,7 +163,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Concierge request failed:", error);
     return NextResponse.json(
-      { error: "AI Concierge is temporarily unavailable." },
+      { error: "Cadence is temporarily unavailable." },
       { status: 500 },
     );
   }

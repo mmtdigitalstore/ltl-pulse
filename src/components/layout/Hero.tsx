@@ -67,7 +67,7 @@ export function Hero() {
           variants={fadeUp}
           className="mt-6 max-w-2xl font-sans text-base leading-relaxed text-ltl-text-secondary sm:text-lg md:text-xl"
         >
-          Podcasts, magazine articles, vlogs, and AI Concierge for ambitious leaders.
+          Podcasts, magazine articles, vlogs, and Cadence — your AI Concierge — for ambitious leaders.
         </motion.p>
 
         <motion.div

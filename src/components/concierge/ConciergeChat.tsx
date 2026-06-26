@@ -77,7 +77,7 @@ export function ConciergeChat({
       } = await response.json();
 
       if (!response.ok || !data.message) {
-        setError(data.error ?? "Unable to reach AI Concierge.");
+        setError(data.error ?? "Unable to reach Cadence.");
         setMessages(messages);
         return;
       }
@@ -87,7 +87,7 @@ export function ConciergeChat({
         { role: "assistant", content: data.message! },
       ]);
     } catch {
-      setError("Unable to reach AI Concierge. Please try again.");
+      setError("Unable to reach Cadence. Please try again.");
       setMessages(messages);
     } finally {
       setLoading(false);
@@ -110,12 +110,12 @@ export function ConciergeChat({
     <div className="flex flex-col">
       {!isSubscriber && (
         <p className="mb-3 rounded-md border border-ltl-accent/40 bg-ltl-accent/15 px-3 py-2 text-xs text-ltl-accent">
-          Basic AI Concierge ·{" "}
+          Cadence Basic ·{" "}
           <Link
             href="/subscribe?from=concierge"
             className="font-semibold underline-offset-2 hover:underline"
           >
-            Subscribe for Premium AI Concierge
+            Subscribe for Cadence Premium
           </Link>
         </p>
       )}
@@ -265,7 +265,7 @@ export function ConciergeChat({
             href="/subscribe?from=concierge"
             className="font-semibold text-ltl-accent underline-offset-2 hover:underline"
           >
-            Upgrade to Premium AI Concierge
+            Upgrade to Cadence Premium
           </Link>{" "}
           for longer conversations.
         </p>

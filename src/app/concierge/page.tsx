@@ -9,9 +9,9 @@ import { createClient } from "@/lib/supabase/server";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "AI Concierge | LTL Pulse",
+  title: "Cadence — AI Concierge | LTL Pulse",
   description:
-    "Ask leadership questions and explore LTL Pulse with your AI Concierge.",
+    "Ask leadership questions and explore LTL Pulse with Cadence, your AI Concierge.",
 };
 
 interface ConciergePageProps {
@@ -31,10 +31,10 @@ export default async function ConciergePage({ searchParams }: ConciergePageProps
       <div className="mx-auto max-w-2xl">
         <div className="text-center sm:text-left">
           <h1 className="font-heading text-3xl font-semibold text-ltl-text-primary sm:text-4xl">
-            AI Concierge
+            Cadence
           </h1>
           <p className="mt-2 text-sm text-ltl-text-secondary sm:text-base">
-            Leadership guidance powered by AI Concierge.
+            Your AI Concierge for leadership guidance.
           </p>
         </div>
 
@@ -49,7 +49,7 @@ export default async function ConciergePage({ searchParams }: ConciergePageProps
             <ConciergeAvatar isActive={false} size="md" className="justify-center sm:justify-start" />
             <p className="mt-4 text-center text-sm text-ltl-text-secondary sm:text-left">
               Sign in once — you&apos;ll come right back here to chat. No need
-              to find AI Concierge in the menu again.
+              to find Cadence in the menu again.
             </p>
             <div className="mt-5 flex flex-col gap-2">
               <Link

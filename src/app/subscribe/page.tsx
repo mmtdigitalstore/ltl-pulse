@@ -29,7 +29,7 @@ export default async function SubscribePage({ searchParams }: SubscribePageProps
         {isSubscriber ? (
           <div className="mt-8 space-y-4">
             <p className="font-sans text-lg text-ltl-text-primary">
-              You&apos;re an active subscriber. Premium AI Concierge, premium
+              You&apos;re an active subscriber. Cadence Premium, premium
               vlogs, and exclusive content are unlocked.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
@@ -40,7 +40,7 @@ export default async function SubscribePage({ searchParams }: SubscribePageProps
                   "h-11 rounded-md bg-ltl-accent px-6 font-bold text-ltl-bg hover:bg-ltl-accent-hover",
                 )}
               >
-                Open Premium AI Concierge
+                Open Cadence Premium
               </Link>
               <Link
                 href="/vlogs"
@@ -57,8 +57,8 @@ export default async function SubscribePage({ searchParams }: SubscribePageProps
           <>
             <p className="mt-6 font-sans text-lg leading-relaxed text-ltl-text-secondary">
               {fromConcierge
-                ? "Unlock Premium AI Concierge for deeper conversations, plus premium vlogs, full magazine access, and an ad-free experience."
-                : "Unlock premium vlogs, full magazine access, Premium AI Concierge, and an ad-free experience."}{" "}
+                ? "Unlock Cadence Premium for deeper conversations, plus premium vlogs, full magazine access, and an ad-free experience."
+                : "Unlock premium vlogs, full magazine access, Cadence Premium, and an ad-free experience."}{" "}
               $9/month — cancel anytime.
             </p>
 
@@ -69,7 +69,7 @@ export default async function SubscribePage({ searchParams }: SubscribePageProps
                   <>
                     {" "}
                     <Link href="/concierge?upgraded=1" className="font-medium text-ltl-accent hover:underline">
-                      Continue to Premium AI Concierge
+                      Continue to Cadence Premium
                     </Link>
                   </>
                 )}
@@ -81,7 +81,7 @@ export default async function SubscribePage({ searchParams }: SubscribePageProps
                 Checkout canceled.{" "}
                 {fromConcierge ? (
                   <Link href="/concierge" className="font-medium text-ltl-accent hover:underline">
-                    Return to AI Concierge
+                    Return to Cadence
                   </Link>
                 ) : (
                   "You can subscribe whenever you're ready."
@@ -99,7 +99,7 @@ export default async function SubscribePage({ searchParams }: SubscribePageProps
             {fromConcierge && (
               <p className="mt-6 text-sm text-ltl-text-secondary">
                 <Link href="/concierge" className="text-ltl-accent hover:underline">
-                  Back to AI Concierge
+                  Back to Cadence
                 </Link>
               </p>
             )}

@@ -10,13 +10,13 @@ export const CONCIERGE_TIER_CONFIG: Record<
   }
 > = {
   free: {
-    label: "Basic AI Concierge",
+    label: "Cadence Basic",
     maxUserMessages: 8,
     maxTokens: 400,
     contextMessages: 8,
   },
   premium: {
-    label: "Premium AI Concierge",
+    label: "Cadence Premium",
     maxUserMessages: 24,
     maxTokens: 1024,
     contextMessages: 16,

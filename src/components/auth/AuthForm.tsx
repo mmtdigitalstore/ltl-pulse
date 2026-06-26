@@ -37,10 +37,10 @@ export function AuthForm({ mode, callbackError, next = "/" }: AuthFormProps) {
   const description =
     mode === "login"
       ? redirectPath === "/concierge"
-        ? "Sign in and you'll return to AI Concierge to start chatting."
+        ? "Sign in and you'll return to Cadence, your AI Concierge, to start chatting."
         : "Sign in to access LTL Pulse content."
       : redirectPath === "/concierge"
-        ? "Create your account, then sign in to chat with AI Concierge."
+        ? "Create your account, then sign in to chat with Cadence, your AI Concierge."
         : "Join LTL Pulse for leadership insights and exclusive media.";
   const submitLabel = mode === "login" ? "Sign in" : "Create account";
   const alternateHref = mode === "login" ? `/signup${nextQuery}` : `/login${nextQuery}`;
@@ -128,7 +128,7 @@ export function AuthForm({ mode, callbackError, next = "/" }: AuthFormProps) {
             <div className="space-y-3">
               <p className="rounded-md border border-ltl-accent/30 bg-ltl-accent/10 px-3 py-2 text-sm text-ltl-text-primary">
                 {redirectPath === "/concierge"
-                  ? "Account created. Check your email to confirm, then sign in to chat with AI Concierge."
+                  ? "Account created. Check your email to confirm, then sign in to chat with Cadence."
                   : state.success}
               </p>
               {redirectPath === "/concierge" && (
