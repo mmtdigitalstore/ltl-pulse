@@ -40,6 +40,7 @@ export default async function ConciergePage({ searchParams }: ConciergePageProps
 
         {user ? (
           <ConciergeExperience
+            userId={user.id}
             isSubscriber={isSubscriber}
             showWelcome={params.welcome === "1"}
             showUpgraded={params.upgraded === "1"}

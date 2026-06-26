@@ -2,12 +2,17 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { Send } from "lucide-react";
+import { ChevronDown, ChevronUp, Send } from "lucide-react";
 
 import { CadenceMessageContent } from "@/components/concierge/CadenceMessageContent";
 import { ConciergeAvatar } from "@/components/concierge/ConciergeAvatar";
 import { Button } from "@/components/ui/button";
 import { CONCIERGE_TIER_CONFIG } from "@/lib/concierge/config";
+import {
+  clearCadenceChatSession,
+  loadCadenceChatSession,
+  saveCadenceChatSession,
+} from "@/lib/concierge/session";
 import type { ConciergeMessage } from "@/lib/concierge/types";
 import { cn } from "@/lib/utils";
 
@@ -18,12 +23,14 @@ const STARTER_PROMPTS = [
 ] as const;
 
 interface ConciergeChatProps {
+  userId: string;
   isSubscriber: boolean;
   autoFocusInput?: boolean;
   onChatStart?: () => void;
 }
 
 export function ConciergeChat({
+  userId,
   isSubscriber,
   autoFocusInput = false,
   onChatStart,
@@ -31,24 +38,71 @@ export function ConciergeChat({
   const tier = isSubscriber ? "premium" : "free";
   const tierConfig = CONCIERGE_TIER_CONFIG[tier];
   const [showStarters, setShowStarters] = useState(true);
+  const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState<ConciergeMessage[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [sessionReady, setSessionReady] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const userMessageCount = messages.filter((message) => message.role === "user").length;
   const atLimit = userMessageCount >= tierConfig.maxUserMessages;
 
   useEffect(() => {
+    const saved = loadCadenceChatSession(userId);
+
+    if (saved) {
+      setMessages(saved.messages);
+      setShowStarters(saved.showStarters);
+      setIsMinimized(saved.isMinimized);
+    }
+
+    setSessionReady(true);
+  }, [userId]);
+
+  useEffect(() => {
+    if (!sessionReady) {
+      return;
+    }
+
+    saveCadenceChatSession(userId, {
+      messages,
+      showStarters,
+      isMinimized,
+    });
+  }, [userId, messages, showStarters, isMinimized, sessionReady]);
+
+  useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
 
   useEffect(() => {
-    if (autoFocusInput) {
+    if (autoFocusInput && !isMinimized) {
       inputRef.current?.focus();
     }
-  }, [autoFocusInput]);
+  }, [autoFocusInput, isMinimized]);
+
+  useEffect(() => {
+    if (!atLimit || loading || messages.length === 0) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => setIsMinimized(true), 1500);
+    return () => window.clearTimeout(timer);
+  }, [atLimit, loading, messages.length]);
+
+  function expandChat() {
+    setIsMinimized(false);
+    window.requestAnimationFrame(() => inputRef.current?.focus());
+  }
+
+  function minimizeChat() {
+    if (loading) {
+      return;
+    }
+    setIsMinimized(true);
+  }
 
   async function sendMessage(text: string) {
     const trimmed = text.trim();
@@ -105,11 +159,73 @@ export function ConciergeChat({
   }
 
   function handleNewChat() {
+    clearCadenceChatSession(userId);
     setMessages([]);
     setShowStarters(true);
     setError(null);
     setInput("");
+    setIsMinimized(false);
     inputRef.current?.focus();
+  }
+
+  const statusLabel = loading
+    ? "Thinking…"
+    : atLimit
+      ? "Chat complete — expand to start a new conversation"
+      : messages.length > 0
+        ? "Pick up where you left off"
+        : "Ready when you are";
+
+  if (isMinimized) {
+    return (
+      <div className="flex flex-col">
+        {!isSubscriber && (
+          <p className="mb-3 rounded-md border border-ltl-accent/40 bg-ltl-accent/15 px-3 py-2 text-xs text-ltl-accent">
+            Cadence Basic ·{" "}
+            <Link
+              href="/subscribe?from=concierge"
+              className="font-semibold underline-offset-2 hover:underline"
+            >
+              Subscribe for Cadence Premium
+            </Link>
+          </p>
+        )}
+
+        <div className="rounded-lg border border-ltl-border bg-ltl-surface px-3 py-2.5">
+          <div className="flex items-center gap-3">
+            <ConciergeAvatar isActive={!loading} size="sm" showLabel={false} />
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-medium text-ltl-text-primary">Cadence</p>
+              <p className="truncate text-xs text-ltl-text-secondary">{statusLabel}</p>
+            </div>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={expandChat}
+              className="h-8 shrink-0 border-ltl-border px-2.5 text-xs text-ltl-text-primary hover:bg-ltl-bg"
+            >
+              <ChevronUp className="mr-1 size-3.5" aria-hidden />
+              Open chat
+            </Button>
+          </div>
+
+          <div className="mt-2.5 flex flex-wrap gap-x-3 gap-y-1 border-t border-ltl-border pt-2.5 text-xs">
+            <Link href="/magazine" className="text-ltl-accent hover:underline">
+              Magazine
+            </Link>
+            <Link href="/podcast" className="text-ltl-accent hover:underline">
+              Podcast
+            </Link>
+            <Link href="/vlogs" className="text-ltl-accent hover:underline">
+              Vlogs
+            </Link>
+          </div>
+        </div>
+
+        {error && <p className="mt-2 text-sm text-destructive">{error}</p>}
+      </div>
+    );
   }
 
   return (
@@ -154,6 +270,17 @@ export function ConciergeChat({
                 New chat
               </Button>
             )}
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              onClick={minimizeChat}
+              disabled={loading}
+              className="size-7 shrink-0 text-ltl-text-secondary hover:bg-ltl-bg hover:text-ltl-text-primary"
+              aria-label="Minimize chat"
+            >
+              <ChevronDown className="size-4" />
+            </Button>
           </div>
         </div>
 

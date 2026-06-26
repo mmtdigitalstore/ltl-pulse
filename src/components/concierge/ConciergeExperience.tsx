@@ -8,12 +8,14 @@ import { ConciergeChat } from "@/components/concierge/ConciergeChat";
 import { Button } from "@/components/ui/button";
 
 interface ConciergeExperienceProps {
+  userId: string;
   isSubscriber: boolean;
   showWelcome: boolean;
   showUpgraded: boolean;
 }
 
 export function ConciergeExperience({
+  userId,
   isSubscriber,
   showWelcome,
   showUpgraded,
@@ -95,6 +97,7 @@ export function ConciergeExperience({
       )}
 
       <ConciergeChat
+        userId={userId}
         isSubscriber={isSubscriber}
         autoFocusInput={showWelcome || showUpgraded}
         onChatStart={() => {

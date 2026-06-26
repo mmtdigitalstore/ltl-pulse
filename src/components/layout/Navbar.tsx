@@ -7,6 +7,7 @@ import { Menu } from "lucide-react";
 import type { User } from "@supabase/supabase-js";
 
 import { logout } from "@/app/auth/actions";
+import { clearCadenceChatSession } from "@/lib/concierge/session";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Sheet,
@@ -80,6 +81,12 @@ export function Navbar({ user }: { user: User | null }) {
     user?.email ||
     "";
 
+  function handleLogout() {
+    if (user) {
+      clearCadenceChatSession(user.id);
+    }
+  }
+
   function AuthActions({ className }: { className?: string }) {
     if (user) {
       return (
@@ -87,7 +94,7 @@ export function Navbar({ user }: { user: User | null }) {
           <span className="hidden max-w-[10rem] truncate text-sm text-ltl-text-secondary sm:inline">
             {displayName}
           </span>
-          <form action={logout}>
+          <form action={logout} onSubmit={handleLogout}>
             <Button
               type="submit"
               variant="ghost"
@@ -194,7 +201,7 @@ export function Navbar({ user }: { user: User | null }) {
                     <p className="truncate text-sm text-ltl-text-secondary">
                       {displayName}
                     </p>
-                    <form action={logout}>
+                    <form action={logout} onSubmit={handleLogout}>
                       <Button
                         type="submit"
                         variant="outline"
