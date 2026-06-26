@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Menu } from "lucide-react";
 import type { User } from "@supabase/supabase-js";
 
 import { logout } from "@/app/auth/actions";
+import { buildAuthHref } from "@/lib/auth/redirect";
 import { clearCadenceChatSession } from "@/lib/concierge/session";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
@@ -73,6 +75,9 @@ function NavLink({
 
 export function Navbar({ user }: { user: User | null }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+  const loginHref = buildAuthHref("login", pathname, "");
+  const signupHref = buildAuthHref("signup", pathname, "");
 
   const closeMobile = () => setMobileOpen(false);
 
@@ -109,9 +114,9 @@ export function Navbar({ user }: { user: User | null }) {
 
     return (
       <div className={cn("flex items-center gap-4", className)}>
-        <NavLink href="/login" label="Login" />
+        <NavLink href={loginHref} label="Login" />
         <Link
-          href="/signup"
+          href={signupHref}
           className={cn(
             buttonVariants({ variant: "outline", size: "default" }),
             "rounded-md border-ltl-border text-ltl-text-primary hover:bg-ltl-surface",
@@ -214,13 +219,13 @@ export function Navbar({ user }: { user: User | null }) {
                 ) : (
                   <>
                     <NavLink
-                      href="/login"
+                      href={loginHref}
                       label="Login"
                       onClick={closeMobile}
                       className="text-base"
                     />
                     <Link
-                      href="/signup"
+                      href={signupHref}
                       onClick={closeMobile}
                       className={cn(
                         buttonVariants({ variant: "outline", size: "lg" }),

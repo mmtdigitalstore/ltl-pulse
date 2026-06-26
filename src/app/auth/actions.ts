@@ -42,6 +42,7 @@ export async function signup(
   const fullName = String(formData.get("full_name") ?? "").trim();
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
+  const next = getSafeRedirectPath(String(formData.get("next") ?? ""));
 
   if (!fullName) {
     return { error: "Name is required." };
@@ -55,12 +56,17 @@ export async function signup(
     return { error: "Password must be at least 6 characters." };
   }
 
+  const callbackUrl =
+    next === "/"
+      ? `${getSiteUrl()}/auth/callback`
+      : `${getSiteUrl()}/auth/callback?next=${encodeURIComponent(next)}`;
+
   const supabase = await createClient();
   const { error } = await supabase.auth.signUp({
     email,
     password,
     options: {
-      emailRedirectTo: `${getSiteUrl()}/auth/callback`,
+      emailRedirectTo: callbackUrl,
       data: { full_name: fullName },
     },
   });
