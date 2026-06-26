@@ -347,7 +347,7 @@ export function AboutPageContent() {
             </motion.div>
 
             <motion.div variants={staggerItem}>
-              <TeamMemberCard name="Joshua Ogbonnia">
+              <TeamMemberCard name="Joshua Ogbonnia, CVO">
                 <p>
                   A Nigerian serial entrepreneur and Pan-African visionary leader focused
                   on education, technology, and community development. Joshua is Founder

@@ -47,7 +47,7 @@ their consulting domain, and suggest relevant LTL content or a human follow-up v
   and Tobago and the wider Caribbean. Founder of New Version Coaching & Consulting (NVCC).
   Personal leadership framework: Think. Lead. Influence. Deliver. Also leads Jameri Consultants
   Limited, BuildSafe Caribbean, and Sargassum Solutions Limited.
-- Joshua Ogbonnia — Consultant in **education technology, digital innovation, future skills,
+- Joshua Ogbonnia, CVO — Consultant in **education technology, digital innovation, future skills,
   youth and workforce development, entrepreneurship, and Pan-African community development**.
   Nigerian serial entrepreneur and visionary leader. Founder & Chief Vision Officer of E Skool
   Now Group (tech solutions, digital innovation, media, and business transformation across
