@@ -26,8 +26,8 @@ export default async function SubscribePage({ searchParams }: SubscribePageProps
         {isSubscriber ? (
           <div className="mt-8 space-y-4">
             <p className="font-sans text-lg text-ltl-text-primary">
-              You&apos;re an active subscriber. Premium vlogs and exclusive
-              content are unlocked.
+              You&apos;re an active subscriber. Premium vlogs, Premium AI
+              Concierge, and exclusive content are unlocked.
             </p>
             <Link
               href="/vlogs"
@@ -39,8 +39,8 @@ export default async function SubscribePage({ searchParams }: SubscribePageProps
         ) : (
           <>
             <p className="mt-6 font-sans text-lg leading-relaxed text-ltl-text-secondary">
-              Unlock premium vlogs, full magazine access, and an ad-free
-              experience. $9/month — cancel anytime.
+              Unlock premium vlogs, full magazine access, Premium AI Concierge,
+              and an ad-free experience. $9/month — cancel anytime.
             </p>
 
             {params.success === "true" && (

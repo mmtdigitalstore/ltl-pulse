@@ -24,7 +24,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 const siteDescription =
-  "Premium podcasts, magazine articles, and vlogs where leadership meets culture — for ambitious leaders.";
+  "Premium podcasts, magazine articles, vlogs, and AI Concierge — where leadership meets culture for ambitious leaders.";
 
 export const metadata: Metadata = {
   title: "LTL Pulse",

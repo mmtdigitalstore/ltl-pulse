@@ -21,9 +21,9 @@ const features: Feature[] = [
   },
   {
     icon: Bot,
-    title: "AI Agent",
+    title: "AI Concierge",
     description:
-      "Ask questions, surface insights, and explore our archive with an intelligent assistant built for ambitious leaders.",
+      "Ask questions, surface insights, and explore our archive with AI Concierge — built for ambitious leaders.",
   },
   {
     icon: Sparkles,
