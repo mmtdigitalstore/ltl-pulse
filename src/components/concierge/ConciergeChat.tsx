@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Send } from "lucide-react";
 
+import { CadenceMessageContent } from "@/components/concierge/CadenceMessageContent";
 import { ConciergeAvatar } from "@/components/concierge/ConciergeAvatar";
 import { Button } from "@/components/ui/button";
 import { CONCIERGE_TIER_CONFIG } from "@/lib/concierge/config";
@@ -19,14 +20,17 @@ const STARTER_PROMPTS = [
 interface ConciergeChatProps {
   isSubscriber: boolean;
   autoFocusInput?: boolean;
+  onChatStart?: () => void;
 }
 
 export function ConciergeChat({
   isSubscriber,
   autoFocusInput = false,
+  onChatStart,
 }: ConciergeChatProps) {
   const tier = isSubscriber ? "premium" : "free";
   const tierConfig = CONCIERGE_TIER_CONFIG[tier];
+  const [showStarters, setShowStarters] = useState(true);
   const [messages, setMessages] = useState<ConciergeMessage[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -53,6 +57,9 @@ export function ConciergeChat({
       return;
     }
 
+    setShowStarters(false);
+    onChatStart?.();
+
     const nextMessages: ConciergeMessage[] = [
       ...messages,
       { role: "user", content: trimmed },
@@ -78,7 +85,6 @@ export function ConciergeChat({
 
       if (!response.ok || !data.message) {
         setError(data.error ?? "Unable to reach Cadence.");
-        setMessages(messages);
         return;
       }
 
@@ -88,7 +94,6 @@ export function ConciergeChat({
       ]);
     } catch {
       setError("Unable to reach Cadence. Please try again.");
-      setMessages(messages);
     } finally {
       setLoading(false);
     }
@@ -101,6 +106,7 @@ export function ConciergeChat({
 
   function handleNewChat() {
     setMessages([]);
+    setShowStarters(true);
     setError(null);
     setInput("");
     inputRef.current?.focus();
@@ -121,15 +127,15 @@ export function ConciergeChat({
       )}
 
       <div className="flex max-h-[min(32rem,70vh)] flex-col overflow-hidden rounded-lg border border-ltl-border bg-ltl-surface">
-        <div className="flex items-center justify-between gap-3 border-b border-ltl-border bg-ltl-bg/80 px-3 py-2.5 sm:px-4">
+        <div className="flex items-center justify-between gap-2 border-b border-ltl-border px-3 py-2 sm:px-3">
           <ConciergeAvatar isActive={!loading} size="sm" />
-          <div className="flex items-center gap-2">
-            <span className="hidden text-xs text-ltl-text-secondary sm:inline">
-              {userMessageCount}/{tierConfig.maxUserMessages} messages
+          <div className="flex items-center gap-1.5">
+            <span className="hidden text-[0.7rem] text-ltl-text-secondary sm:inline">
+              {userMessageCount}/{tierConfig.maxUserMessages}
             </span>
             <span
               className={cn(
-                "inline-flex items-center rounded-full border px-2.5 py-0.5 font-label text-[0.65rem] uppercase tracking-wider",
+                "inline-flex items-center rounded-full border px-2 py-0.5 font-label text-[0.6rem] uppercase tracking-wider",
                 isSubscriber
                   ? "border-ltl-accent/50 bg-ltl-accent/20 text-ltl-accent"
                   : "border-ltl-accent/45 bg-ltl-accent/15 text-ltl-accent",
@@ -143,7 +149,7 @@ export function ConciergeChat({
                 variant="outline"
                 size="xs"
                 onClick={handleNewChat}
-                className="border-ltl-border text-ltl-text-primary hover:bg-ltl-bg"
+                className="h-7 border-ltl-border px-2 text-xs text-ltl-text-primary hover:bg-ltl-bg"
               >
                 New chat
               </Button>
@@ -151,20 +157,20 @@ export function ConciergeChat({
           </div>
         </div>
 
-        <div className="flex-1 space-y-3 overflow-y-auto p-3 sm:p-4">
-          {messages.length === 0 && (
-            <div className="space-y-3 py-2">
-              <p className="text-sm font-medium text-ltl-text-primary">
+        <div className="flex-1 space-y-2.5 overflow-y-auto px-3 py-2.5 sm:px-3">
+          {showStarters && (
+            <div className="space-y-2 py-1">
+              <p className="text-sm text-ltl-text-secondary">
                 Choose a question to get started:
               </p>
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-1.5">
                 {STARTER_PROMPTS.map((prompt) => (
                   <button
                     key={prompt}
                     type="button"
                     onClick={() => void sendMessage(prompt)}
                     disabled={loading}
-                    className="rounded-md border border-ltl-border bg-ltl-bg px-3 py-2 text-left text-sm text-ltl-text-secondary transition-colors hover:border-ltl-accent/40 hover:text-ltl-text-primary"
+                    className="rounded-md border border-ltl-border bg-ltl-bg px-2.5 py-1.5 text-left text-sm text-ltl-text-secondary transition-colors hover:border-ltl-accent/40 hover:text-ltl-text-primary"
                   >
                     {prompt}
                   </button>
@@ -191,13 +197,17 @@ export function ConciergeChat({
               )}
               <div
                 className={cn(
-                  "max-w-[85%] rounded-lg px-3 py-2 text-sm leading-relaxed whitespace-pre-wrap",
+                  "max-w-[85%] rounded-lg px-2.5 py-1.5 text-sm leading-relaxed",
                   message.role === "user"
-                    ? "bg-ltl-accent text-ltl-bg"
-                    : "border border-ltl-border bg-ltl-bg text-ltl-text-primary",
+                    ? "bg-ltl-accent text-ltl-bg whitespace-pre-wrap"
+                    : "bg-ltl-bg/60 text-ltl-text-primary",
                 )}
               >
-                {message.content}
+                {message.role === "assistant" ? (
+                  <CadenceMessageContent content={message.content} />
+                ) : (
+                  message.content
+                )}
               </div>
             </div>
           ))}
@@ -210,7 +220,7 @@ export function ConciergeChat({
                 showLabel={false}
                 className="shrink-0"
               />
-              <div className="rounded-lg border border-ltl-border bg-ltl-bg px-3 py-2 text-sm text-ltl-text-secondary">
+              <div className="rounded-lg bg-ltl-bg/60 px-2.5 py-1.5 text-sm text-ltl-text-secondary">
                 Thinking…
               </div>
             </div>
@@ -221,7 +231,7 @@ export function ConciergeChat({
 
         <form
           onSubmit={handleSubmit}
-          className="flex gap-2 border-t border-ltl-border p-3"
+          className="flex gap-1.5 border-t border-ltl-border px-3 py-2"
         >
           <textarea
             ref={inputRef}

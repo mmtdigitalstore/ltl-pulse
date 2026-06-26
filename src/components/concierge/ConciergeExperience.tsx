@@ -49,7 +49,7 @@ export function ConciergeExperience({
   return (
     <div className="mt-6">
       {upgradedVisible && (
-        <div className="mb-4 flex items-start gap-3 rounded-lg border border-ltl-accent/40 bg-ltl-accent/15 px-4 py-3">
+        <div className="mb-3 flex items-start gap-2 rounded-md border border-ltl-accent/40 bg-ltl-accent/15 px-3 py-2">
           <div className="flex-1 text-sm text-ltl-text-primary">
             <p className="font-medium text-ltl-accent">
               Cadence Premium is active.
@@ -73,7 +73,7 @@ export function ConciergeExperience({
       )}
 
       {welcomeVisible && !upgradedVisible && (
-        <div className="mb-4 flex items-start gap-3 rounded-lg border border-ltl-accent/30 bg-ltl-accent/10 px-4 py-3">
+        <div className="mb-3 flex items-start gap-2 rounded-md border border-ltl-accent/30 bg-ltl-accent/10 px-3 py-2">
           <div className="flex-1 text-sm text-ltl-text-primary">
             <p className="font-medium">You&apos;re in — Cadence is ready to chat.</p>
             <p className="mt-1 text-ltl-text-secondary">
@@ -97,6 +97,10 @@ export function ConciergeExperience({
       <ConciergeChat
         isSubscriber={isSubscriber}
         autoFocusInput={showWelcome || showUpgraded}
+        onChatStart={() => {
+          setWelcomeVisible(false);
+          setUpgradedVisible(false);
+        }}
       />
     </div>
   );

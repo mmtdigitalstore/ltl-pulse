@@ -4,6 +4,7 @@ import {
   CONCIERGE_TIER_CONFIG,
   getConciergeTier,
 } from "@/lib/concierge/config";
+import { formatCadenceReply } from "@/lib/concierge/format";
 import { getConciergeSystemPrompt } from "@/lib/concierge/prompts";
 import type { ConciergeMessage } from "@/lib/concierge/types";
 import { getIsSubscriber } from "@/lib/subscription";
@@ -155,7 +156,7 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({
-      message: reply,
+      message: formatCadenceReply(reply),
       tier,
       tierLabel: config.label,
       remainingMessages: config.maxUserMessages - userMessageCount,
