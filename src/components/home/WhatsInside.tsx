@@ -49,15 +49,18 @@ export function WhatsInside() {
           What&apos;s Inside
         </h2>
         <div className="mt-12 grid gap-10 md:grid-cols-3">
-          {features.map((feature) => (
+          {features.map((feature) => {
+            const Icon = feature.icon;
+
+            return (
             <div key={feature.title} className="flex flex-col items-center text-center">
               {feature.cadenceIcon ? (
                 <CadenceIcon className="size-12" />
-              ) : (
+              ) : Icon ? (
                 <div className="flex size-12 items-center justify-center rounded-full border border-ltl-border bg-ltl-bg text-ltl-accent">
-                  <feature.icon className="size-5" aria-hidden />
+                  <Icon className="size-5" aria-hidden />
                 </div>
-              )}
+              ) : null}
               <h3 className="mt-5 font-heading text-xl font-medium text-ltl-text-primary">
                 {feature.title}
               </h3>
@@ -65,7 +68,8 @@ export function WhatsInside() {
                 {feature.description}
               </p>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </motion.section>
