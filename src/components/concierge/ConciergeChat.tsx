@@ -12,9 +12,9 @@ import type { ConciergeMessage } from "@/lib/concierge/types";
 import { cn } from "@/lib/utils";
 
 const STARTER_PROMPTS = [
-  "How do I build trust with a new team?",
-  "What makes a strong leadership culture?",
-  "What does LTL Pulse offer subscribers?",
+  "What does LTL Pulse offer?",
+  "Where can I find content on leadership and culture?",
+  "I'd like to connect with a human expert.",
 ] as const;
 
 interface ConciergeChatProps {

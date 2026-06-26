@@ -25,7 +25,7 @@ const features: Feature[] = [
     cadenceIcon: true,
     title: "Cadence",
     description:
-      "Your AI Concierge for leadership guidance — practical answers when you're navigating culture, strategy, and the decisions that define your leadership.",
+      "Your AI Concierge — guides you through LTL Pulse, helps clarify your needs, and connects you with human experts when it matters.",
   },
   {
     icon: Sparkles,

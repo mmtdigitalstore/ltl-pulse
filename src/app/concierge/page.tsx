@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Cadence — AI Concierge | LTL Pulse",
   description:
-    "Ask leadership questions and explore LTL Pulse with Cadence, your AI Concierge.",
+    "Chat with Cadence, your AI Concierge — get oriented, find the right content, and connect with human experts when you need them.",
 };
 
 interface ConciergePageProps {
@@ -34,7 +34,7 @@ export default async function ConciergePage({ searchParams }: ConciergePageProps
             Cadence
           </h1>
           <p className="mt-2 text-sm text-ltl-text-secondary sm:text-base">
-            Your AI Concierge for leadership guidance.
+            Your AI Concierge — here to guide you and connect you with the right content and people.
           </p>
         </div>
 
