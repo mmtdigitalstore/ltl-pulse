@@ -8,9 +8,13 @@ import { cn } from "@/lib/utils";
 
 interface SubscribeCheckoutButtonProps {
   isLoggedIn: boolean;
+  fromConcierge?: boolean;
 }
 
-export function SubscribeCheckoutButton({ isLoggedIn }: SubscribeCheckoutButtonProps) {
+export function SubscribeCheckoutButton({
+  isLoggedIn,
+  fromConcierge = false,
+}: SubscribeCheckoutButtonProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -19,7 +23,13 @@ export function SubscribeCheckoutButton({ isLoggedIn }: SubscribeCheckoutButtonP
     setError(null);
 
     try {
-      const response = await fetch("/api/stripe/checkout", { method: "POST" });
+      const response = await fetch("/api/stripe/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(
+          fromConcierge ? { returnTo: "concierge" } : {},
+        ),
+      });
       const data: { url?: string; error?: string } = await response.json();
 
       if (!response.ok || !data.url) {

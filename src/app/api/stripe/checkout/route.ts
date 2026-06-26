@@ -6,8 +6,19 @@ import { getStripe } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
-export async function POST() {
+export async function POST(request: Request) {
   try {
+    let returnTo: string | undefined;
+
+    try {
+      const body = (await request.json()) as { returnTo?: string };
+      if (body.returnTo === "concierge") {
+        returnTo = "concierge";
+      }
+    } catch {
+      // No body — default subscribe return path.
+    }
+
     const supabase = await createClient();
     const {
       data: { user },
@@ -48,12 +59,22 @@ export async function POST() {
         .eq("id", user.id);
     }
 
+    const successUrl =
+      returnTo === "concierge"
+        ? `${getSiteUrl()}/concierge?upgraded=1`
+        : `${getSiteUrl()}/subscribe?success=true`;
+
+    const cancelUrl =
+      returnTo === "concierge"
+        ? `${getSiteUrl()}/subscribe?canceled=true&from=concierge`
+        : `${getSiteUrl()}/subscribe?canceled=true`;
+
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
       customer: customerId,
       line_items: [{ price: priceId, quantity: 1 }],
-      success_url: `${getSiteUrl()}/subscribe?success=true`,
-      cancel_url: `${getSiteUrl()}/subscribe?canceled=true`,
+      success_url: successUrl,
+      cancel_url: cancelUrl,
       client_reference_id: user.id,
       metadata: { supabase_user_id: user.id },
       subscription_data: {

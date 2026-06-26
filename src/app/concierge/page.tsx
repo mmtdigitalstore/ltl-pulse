@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 interface ConciergePageProps {
-  searchParams: Promise<{ welcome?: string }>;
+  searchParams: Promise<{ welcome?: string; upgraded?: string }>;
 }
 
 export default async function ConciergePage({ searchParams }: ConciergePageProps) {
@@ -42,6 +42,7 @@ export default async function ConciergePage({ searchParams }: ConciergePageProps
           <ConciergeExperience
             isSubscriber={isSubscriber}
             showWelcome={params.welcome === "1"}
+            showUpgraded={params.upgraded === "1"}
           />
         ) : (
           <div className="mt-6 rounded-lg border border-ltl-border bg-ltl-surface p-5 sm:p-6">

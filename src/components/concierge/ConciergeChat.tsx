@@ -109,9 +109,12 @@ export function ConciergeChat({
   return (
     <div className="flex flex-col">
       {!isSubscriber && (
-        <p className="mb-3 text-xs text-ltl-text-secondary">
+        <p className="mb-3 rounded-md border border-ltl-accent/40 bg-ltl-accent/15 px-3 py-2 text-xs text-ltl-accent">
           Basic AI Concierge ·{" "}
-          <Link href="/subscribe" className="text-ltl-accent hover:underline">
+          <Link
+            href="/subscribe?from=concierge"
+            className="font-semibold underline-offset-2 hover:underline"
+          >
             Subscribe for Premium AI Concierge
           </Link>
         </p>
@@ -128,8 +131,8 @@ export function ConciergeChat({
               className={cn(
                 "inline-flex items-center rounded-full border px-2.5 py-0.5 font-label text-[0.65rem] uppercase tracking-wider",
                 isSubscriber
-                  ? "border-ltl-accent/40 bg-ltl-accent/10 text-ltl-accent"
-                  : "border-ltl-border text-ltl-text-secondary",
+                  ? "border-ltl-accent/50 bg-ltl-accent/20 text-ltl-accent"
+                  : "border-ltl-accent/45 bg-ltl-accent/15 text-ltl-accent",
               )}
             >
               {tierConfig.label}
@@ -258,7 +261,10 @@ export function ConciergeChat({
 
       {atLimit && !isSubscriber && (
         <p className="mt-2 text-center text-xs text-ltl-text-secondary">
-          <Link href="/subscribe" className="font-medium text-ltl-accent hover:underline">
+          <Link
+            href="/subscribe?from=concierge"
+            className="font-semibold text-ltl-accent underline-offset-2 hover:underline"
+          >
             Upgrade to Premium AI Concierge
           </Link>{" "}
           for longer conversations.
