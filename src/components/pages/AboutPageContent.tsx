@@ -255,20 +255,15 @@ export function AboutPageContent() {
               <TeamMemberCard name="Dawn Kirk, M.Ed., EMBA" role="Lead of the LTL Team">
                 <p>
                   Founder &amp; CEO of Market My Training Solutions (MMTS) and Market My
-                  Training Institute (MMTI), and a Maxwell Certified Executive Coach. A
-                  global education leader, entrepreneur, digital strategist, curriculum
-                  writer, mentor, and empowerment speaker, Dawn helps educators,
-                  institutions, entrepreneurs, nonprofits, and school districts build
-                  sustainable online education businesses. Cornell-educated with 41
-                  years in education across Bermuda and the Caribbean — including work
-                  with the Department of Education–Bermuda and as a contributing writer
-                  for the Standards-Based Grading curriculum used in government schools.
-                  She serves on the Board of Governors of QUEST, an education start-up
-                  for gifted and talented students operating in Bermuda and North
-                  Carolina, and on the Atlantic Union Conference Curriculum Committee,
-                  overseeing curriculum across schools in seven states and Bermuda. Dawn
-                  is a leading voice on practical leadership growth and developing
-                  people.
+                  Training Institute (MMTI), and a Maxwell Certified Independent Executive
+                  Director, Trainer and Coach. A global education leader, entrepreneur,
+                  digital strategist, curriculum writer, mentor, and empowerment speaker.
+                  Cornell-educated with 41 years in education across Bermuda and the
+                  Caribbean. She serves on the Board of Governors of QUEST, an education
+                  start-up for gifted and talented students operating in Bermuda, and on
+                  the Atlantic Union Conference Curriculum Committee, overseeing curriculum
+                  across schools in seven US states and Bermuda. Dawn is a leading voice on
+                  practical leadership growth and developing people.
                 </p>
                 <p>
                   A signature part of Dawn&apos;s approach is her transformation

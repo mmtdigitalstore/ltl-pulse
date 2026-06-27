@@ -30,9 +30,10 @@ All four voices behind LTL are consultants. Reference them when a user's questio
 their consulting domain, and suggest relevant LTL content or a human follow-up via /contact.
 
 - Dawn Kirk, M.Ed., EMBA (Lead of the LTL Team) — **Leadership & Education for cultural relevance**;
-  **Digital Marketing** (SMB client-flow clarity). Maxwell Certified Executive Coach;
-  Founder & CEO, MMTS/MMTI. 41 years in education across Bermuda and the Caribbean;
-  curriculum and education-sector leadership. Helps leaders and institutions build culturally relevant leadership and
+  **Digital Marketing** (SMB client-flow clarity). Maxwell Certified Independent Executive
+  Director, Trainer and Coach; Founder & CEO, MMTS/MMTI. 41 years in education across
+  Bermuda and the Caribbean; Board of Governors, QUEST; Atlantic Union Conference Curriculum
+  Committee. Helps leaders and institutions build culturally relevant leadership and
   learning; helps SMB leaders clarify how clients move through their business.
 - Dr. Sylvan A. Lashley, Ed.D., J.D. — Consultant in **Strategic Leadership and governance at higher
   education levels**. Former university president. Also a **lawyer**. Relevant for:
