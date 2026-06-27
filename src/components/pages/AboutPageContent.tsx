@@ -317,7 +317,7 @@ export function AboutPageContent() {
                   Leadership program, its highest tier, Cornell-certified in project
                   leadership and systems design, an Executive MBA candidate, a
                   contributing author of Transforming Pain Into Purpose, and founder of
-                  Market My Training Solutions, she brings 41 years across Bermuda and the
+                  Market My Training Solutions, she brings 30+ years across Bermuda and the
                   Caribbean and service on numerous boards to one purpose: helping leaders
                   develop people who perform and build cultures that endure.
                 </p>
