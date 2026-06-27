@@ -96,11 +96,13 @@ function Section({
 function TeamMemberCard({
   name,
   role,
+  credentials,
   children,
   className,
 }: {
   name: string;
   role?: string;
+  credentials?: string;
   children: ReactNode;
   className?: string;
 }) {
@@ -118,6 +120,11 @@ function TeamMemberCard({
         {role ? (
           <p className="mt-1 font-label text-xs uppercase tracking-wider text-ltl-accent">
             {role}
+          </p>
+        ) : null}
+        {credentials ? (
+          <p className="mt-3 text-xs leading-relaxed text-ltl-text-secondary md:text-sm">
+            {credentials}
           </p>
         ) : null}
       </div>
@@ -233,102 +240,257 @@ export function AboutPageContent() {
             viewport={sectionViewport}
             className="mt-8 grid gap-6 md:grid-cols-2 md:gap-8"
           >
-            <motion.div variants={staggerItem}>
-              <TeamMemberCard name="Dawn Kirk, M.Ed., EMBA" role="Lead of the LTL Team">
+            <motion.div variants={staggerItem} className="md:col-span-2">
+              <TeamMemberCard
+                name="Dawn Kirk, M.Ed."
+                role="Team Lead, LTL Pulse"
+                credentials="Certified at the Executive Director level — the highest tier of the Maxwell Leadership Certified Team · Cornell-certified in project leadership and systems design · Executive MBA candidate · Contributing author, Transforming Pain Into Purpose (Volume 1) · Founder of Market My Training Solutions"
+              >
                 <p>
-                  Founder &amp; CEO of MMTS and MMTI, and a Maxwell Certified Independent
-                  Executive Director, Trainer and Coach. A Cornell-educated education leader
-                  with 41 years across Bermuda and the Caribbean, Dawn blends
-                  entrepreneurship, digital strategy, and curriculum design to help leaders
-                  develop people who perform — and cultures that endure. She serves on the
-                  QUEST Board of Governors (Bermuda) and the Atlantic Union Conference
-                  Curriculum Committee (seven U.S. states and Bermuda).
+                  As Team Lead of LTL Pulse, Dawn Kirk believes leadership and culture
+                  are inseparable — the conviction at the heart of everything the platform
+                  publishes. Certified at the Executive Director level of the Maxwell
+                  Leadership program, its highest tier, Cornell-certified in project
+                  leadership and systems design, an Executive MBA candidate, a
+                  contributing author of Transforming Pain Into Purpose, and founder of
+                  Market My Training Solutions, she brings 41 years across Bermuda and the
+                  Caribbean and service on numerous boards to one purpose: helping leaders
+                  develop people who perform and build cultures that endure.
                 </p>
-                <div className="rounded-lg border border-ltl-border/80 bg-ltl-bg/60 p-4 md:p-5 text-sm leading-relaxed text-ltl-text-secondary md:text-base">
-                  <p>
-                    Dawn promotes a{" "}
-                    <span className="font-heading font-semibold text-ltl-accent">
-                      THRIVE
-                    </span>{" "}
-                    system of development backed by a vision that is{" "}
-                    <span className="font-heading font-semibold text-ltl-accent">
-                      L.I.T.
-                    </span>{" "}
-                    — Lead with vision, Inspire innovation, and Transform the market. Her
-                    mission is to help leaders{" "}
-                    <span className="font-heading font-semibold text-ltl-accent">
-                      E.A.R.N.
-                    </span>{" "}
-                    — Empower with strategy, Amplify their brand, Revolutionize their
-                    leadership, and Nurture lasting client relationships — through values
-                    that build{" "}
-                    <span className="font-heading font-semibold text-ltl-accent">
-                      G.R.I.T.
-                    </span>{" "}
-                    (Genuine integrity, Relentless innovation, Inspired empowerment, and
-                    Tenacious excellence). A practical system for leading change, building
-                    brand, and developing people who deliver.
+                <p>
+                  That work is now a system. Through{" "}
+                  <span className="font-heading font-semibold text-ltl-accent">
+                    THRIVE
+                  </span>
+                  , Dawn equips leaders to grow their people, strengthen their
+                  institutions, and navigate change with confidence — the future-ready
+                  lens LTL Pulse brings to every conversation. Her approach helps leaders{" "}
+                  <span className="font-heading font-semibold text-ltl-accent">
+                    E.A.R.N.
+                  </span>{" "}
+                  lasting results: empowering with strategy, amplifying their brand,
+                  revolutionizing their leadership, and nurturing client relationships —
+                  grounded in genuine integrity, relentless innovation, and tenacious
+                  excellence. Leadership for what&apos;s coming, not just what&apos;s
+                  been.
+                </p>
+                <div>
+                  <p className="font-medium text-ltl-text-primary">
+                    Dawn can help you when:
                   </p>
+                  <ul className="mt-3 list-disc space-y-2 pl-5">
+                    <li>Your best people are leaving and you&apos;re not sure why</li>
+                    <li>
+                      You&apos;re leading through change — restructure, growth, new
+                      strategy — and need the culture to hold
+                    </li>
+                    <li>
+                      Your leadership team is technically strong but isn&apos;t truly
+                      leading
+                    </li>
+                    <li>
+                      You&apos;re building a brand that should mean something to clients,
+                      not just look good
+                    </li>
+                    <li>
+                      You need to develop the next bench, not just manage the current one
+                    </li>
+                  </ul>
                 </div>
-              </TeamMemberCard>
-            </motion.div>
-
-            <motion.div variants={staggerItem}>
-              <TeamMemberCard name="Dr. Sylvan A. Lashley, Ed.D., J.D.">
-                <p>
-                  A senior educational executive, legal scholar, and organizational
-                  leader with over 30 years guiding K–12 systems, universities, and
-                  institutions through transformation. A former college and university
-                  president (West Indies College, Caribbean Union College, and Atlantic
-                  Union College), K–12 superintendent, and principal, he has led
-                  institutions through change in enrollment, academic quality,
-                  governance, accreditation, and financial sustainability. He holds a
-                  Juris Doctor (J.D.), Doctor of Education (Ed.D.), Master of Education
-                  Law (M.E.L.), MBA, M.A. in History, and B.Ed., and teaches Education
-                  Law and Special Education Law. His leadership has produced measurable
-                  impact — including 300% organizational and programmatic growth, 69%
-                  growth in student achievement, and $1.75 million in grant funding
-                  secured.
+                <p className="text-xs leading-relaxed text-ltl-text-secondary md:text-sm">
+                  <span className="font-label uppercase tracking-wider text-ltl-accent">
+                    Specialties:
+                  </span>{" "}
+                  Leadership development · Culture &amp; change · Talent retention · Brand
+                  &amp; client strategy · People-development systems · Curriculum design
                 </p>
               </TeamMemberCard>
             </motion.div>
 
-            <motion.div variants={staggerItem}>
-              <TeamMemberCard name="Jackie John, R.Eng., MSc">
+            <motion.div variants={staggerItem} className="md:col-span-2">
+              <TeamMemberCard
+                name="Dr. Sylvan A. Lashley, Ed.D., J.D."
+                role="Strategic Leadership Expert · LTL Pulse"
+                credentials="Three-time university president (Northern Caribbean University, University of the Southern Caribbean, Atlantic Union College) · Juris Doctor (J.D.) · Doctor of Education (Ed.D.) · Master of Education Law (M.E.L.), MBA, M.A. (History), B.Ed. · Faculty in Education Law & Special Education Law"
+              >
                 <p>
-                  A Maxwell Leadership Certified DISC Coach and Consultant with a passion
-                  for developing leaders who think clearly, lead boldly, and deliver
-                  results that matter. With over 30 years of experience across
-                  engineering, project management, and organizational leadership in
-                  Trinidad and Tobago and the wider Caribbean, Jackie blends technical
-                  rigor with deep human insight. Through New Version Coaching &amp;
-                  Consulting (NVCC), he helps individuals, teams, and organizations
-                  unlock their behavioral strengths, bridge communication gaps, and build
-                  the self-awareness sustained leadership demands — guided by the Maxwell
-                  DISC Method and his own framework,{" "}
+                  Dr. Sylvan A. Lashley brings more than 30 years of guiding K–12
+                  systems, universities, and institutions through transformation — the
+                  future-ready leadership at the heart of everything LTL Pulse publishes.
+                  A three-time university president — Northern Caribbean University, the
+                  University of the Southern Caribbean, and Atlantic Union College — as well
+                  as a K–12 superintendent and principal, he has led institutions through
+                  change in enrollment, academic quality, governance, accreditation, and
+                  financial sustainability.
+                </p>
+                <p>
+                  A legal scholar as much as an executive, he holds a Juris Doctor, Doctor
+                  of Education, Master of Education Law, MBA, M.A. in History, and B.Ed.,
+                  and teaches Education Law and Special Education Law. His leadership
+                  translates into measurable impact: 300% organizational and programmatic
+                  growth, 69% growth in student achievement, and $1.75 million in grant
+                  funding secured. Leadership for what&apos;s coming, not just what&apos;s
+                  been.
+                </p>
+                <div>
+                  <p className="font-medium text-ltl-text-primary">
+                    Dr. Lashley can help you when:
+                  </p>
+                  <ul className="mt-3 list-disc space-y-2 pl-5">
+                    <li>
+                      Your institution is navigating transformation — enrollment shifts,
+                      accreditation, governance, or financial pressure
+                    </li>
+                    <li>
+                      You need to raise academic quality and student achievement, with
+                      measurable results
+                    </li>
+                    <li>
+                      You&apos;re facing education law, compliance, or special education
+                      law questions
+                    </li>
+                    <li>
+                      Your board or governance structure needs strengthening to lead well
+                    </li>
+                    <li>
+                      You&apos;re pursuing grant funding or a path to financial
+                      sustainability
+                    </li>
+                  </ul>
+                </div>
+                <p className="text-xs leading-relaxed text-ltl-text-secondary md:text-sm">
+                  <span className="font-label uppercase tracking-wider text-ltl-accent">
+                    Specialties:
+                  </span>{" "}
+                  Educational leadership · Institutional transformation · Governance
+                  &amp; accreditation · Education &amp; special education law · Academic
+                  quality &amp; student achievement · Financial sustainability &amp; grant
+                  funding
+                </p>
+              </TeamMemberCard>
+            </motion.div>
+
+            <motion.div variants={staggerItem} className="md:col-span-2">
+              <TeamMemberCard
+                name="Jackie John, R.Eng., MSc"
+                role="Leadership & DISC Coach · LTL Pulse"
+                credentials="Maxwell Leadership Certified DISC Coach & Consultant · Registered Engineer (R.Eng.), MSc, BSc, MAPETT · Founder of New Version Coaching & Consulting (NVCC) · Leads Jameri Consultants, BuildSafe Caribbean & Sargassum Solutions"
+              >
+                <p>
+                  Jackie John develops leaders who think clearly, lead boldly, and deliver
+                  results that matter — the future-ready leadership at the heart of everything
+                  LTL Pulse publishes. A Maxwell Leadership Certified DISC Coach and
+                  Consultant with more than 30 years across engineering, project management,
+                  and organizational leadership in Trinidad and Tobago and the wider Caribbean,
+                  he blends technical rigor with deep human insight.
+                </p>
+                <p>
+                  Through New Version Coaching &amp; Consulting (NVCC), Jackie helps
+                  individuals, teams, and organizations unlock their behavioral strengths,
+                  bridge communication gaps, and build the self-awareness sustained
+                  leadership demands — guided by the Maxwell DISC Method and his own
+                  framework,{" "}
                   <span className="font-heading font-semibold text-ltl-accent">
                     Think. Lead. Influence. Deliver.
                   </span>{" "}
-                  A Registered Engineer (R.Eng., MSc, BSc, MAPETT) and entrepreneur, he
-                  also leads Jameri Consultants Limited, BuildSafe Caribbean, and
-                  Sargassum Solutions Limited.
+                  A Registered Engineer and entrepreneur, he also leads Jameri Consultants
+                  Limited, BuildSafe Caribbean, and Sargassum Solutions Limited. Leadership
+                  for what&apos;s coming, not just what&apos;s been.
+                </p>
+                <div>
+                  <p className="font-medium text-ltl-text-primary">
+                    Jackie can help you when:
+                  </p>
+                  <ul className="mt-3 list-disc space-y-2 pl-5">
+                    <li>
+                      Your team talks past each other and communication is costing you
+                      results
+                    </li>
+                    <li>
+                      Your leaders are technically strong but struggle with people,
+                      influence, and self-awareness
+                    </li>
+                    <li>
+                      You want to map behavioral strengths across a team and lead each
+                      person well (DISC)
+                    </li>
+                    <li>
+                      You&apos;re a technical professional stepping into leadership and need
+                      to lead, not just manage
+                    </li>
+                    <li>
+                      You need to turn individual talent into a team that actually delivers
+                    </li>
+                  </ul>
+                </div>
+                <p className="text-xs leading-relaxed text-ltl-text-secondary md:text-sm">
+                  <span className="font-label uppercase tracking-wider text-ltl-accent">
+                    Specialties:
+                  </span>{" "}
+                  Leadership development · Maxwell DISC / behavioral coaching ·
+                  Communication &amp; team dynamics · Self-awareness &amp; influence ·
+                  Engineering &amp; project leadership · Coaching &amp; consulting
                 </p>
               </TeamMemberCard>
             </motion.div>
 
-            <motion.div variants={staggerItem}>
-              <TeamMemberCard name="Joshua Ogbonnia, CVO">
+            <motion.div variants={staggerItem} className="md:col-span-2">
+              <TeamMemberCard
+                name="Joshua Ogbonnia, CVO"
+                role="Entrepreneurship & Innovation Expert · LTL Pulse"
+                credentials="Founder & Chief Vision Officer, E Skool Now Group · Founder & President, Global Educators Tribe (GET) · Chancellor, Tech Skool Educational Institution · CEO, Agric Shift"
+              >
                 <p>
-                  A Nigerian serial entrepreneur and Pan-African visionary leader focused
-                  on education, technology, and community development. Joshua is Founder
-                  and Chief Vision Officer of E Skool Now Group, delivering
+                  Joshua Ogbonnia is a Nigerian serial entrepreneur and Pan-African visionary
+                  leader building the future of education, technology, and community
+                  development across the continent — exactly the future-ready leadership at
+                  the heart of everything LTL Pulse publishes.
+                </p>
+                <p>
+                  As Founder and Chief Vision Officer of E Skool Now Group, he delivers
                   award-winning tech solutions, digital innovation, media, and business
-                  transformation across Africa. He is Founder and President of the Global
-                  Educators Tribe (GET) Organization, a global network for educators,
+                  transformation across Africa. He is also Founder and President of the
+                  Global Educators Tribe (GET) Organization, a global network for educators,
                   policymakers, and education changemakers; Chancellor of Tech Skool
                   Educational Institution, an institute of technology and entrepreneurship;
                   and CEO of Agric Shift, a venture in post-harvest operations and
-                  agricultural education.
+                  agricultural education. Leadership for what&apos;s coming, not just
+                  what&apos;s been.
+                </p>
+                <div>
+                  <p className="font-medium text-ltl-text-primary">
+                    Joshua can help you when:
+                  </p>
+                  <ul className="mt-3 list-disc space-y-2 pl-5">
+                    <li>
+                      You&apos;re building or scaling an education or technology venture,
+                      especially across Africa
+                    </li>
+                    <li>
+                      You need digital innovation, media, or business transformation for
+                      your organization
+                    </li>
+                    <li>
+                      You&apos;re an educator, policymaker, or changemaker seeking a global
+                      network and platform
+                    </li>
+                    <li>
+                      You want to bring entrepreneurship and technology into how you teach
+                      and lead
+                    </li>
+                    <li>
+                      You&apos;re developing solutions in agriculture, post-harvest, or
+                      community development
+                    </li>
+                  </ul>
+                </div>
+                <p className="text-xs leading-relaxed text-ltl-text-secondary md:text-sm">
+                  <span className="font-label uppercase tracking-wider text-ltl-accent">
+                    Specialties:
+                  </span>{" "}
+                  Entrepreneurship &amp; venture building · EdTech &amp; digital innovation ·
+                  Education leadership &amp; networks · Business transformation · Media
+                  &amp; community development · Pan-African markets
                 </p>
               </TeamMemberCard>
             </motion.div>
