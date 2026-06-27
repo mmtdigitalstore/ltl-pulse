@@ -68,7 +68,7 @@ const teamPhotos = {
   },
   lashley: {
     src: "/team/sylvan-lashley.jpg",
-    alt: "Dr. Sylvan A. Lashley, Strategic Leadership Expert at LTL Pulse",
+    alt: "Sylvan A. Lashley, Strategic Leadership Expert at LTL Pulse",
   },
   jackie: {
     src: "/team/jackie-john.jpg",
@@ -306,7 +306,7 @@ export function AboutPageContent() {
             <motion.div variants={staggerItem} className="md:col-span-2">
               <TeamMemberCard
                 name="Dawn Kirk, M.Ed."
-                role="Team Lead, LTL Pulse"
+                role="Team Lead · LTL Pulse"
                 photo={teamPhotos.dawn}
                 credentials="Certified at the Executive Director level — the highest tier of the Maxwell Leadership Certified Team · Cornell-certified in project leadership and systems design · Executive MBA candidate · Contributing author, Transforming Pain Into Purpose (Volume 1) · Founder of Market My Training Solutions"
               >
@@ -373,13 +373,13 @@ export function AboutPageContent() {
 
             <motion.div variants={staggerItem} className="md:col-span-2">
               <TeamMemberCard
-                name="Dr. Sylvan A. Lashley, Ed.D., J.D."
+                name="Sylvan A. Lashley, Ed.D., J.D."
                 role="Strategic Leadership Expert · LTL Pulse"
                 photo={teamPhotos.lashley}
                 credentials="Three-time university president (Northern Caribbean University, University of the Southern Caribbean, Atlantic Union College) · Juris Doctor (J.D.) · Doctor of Education (Ed.D.) · Master of Education Law (M.E.L.), MBA, M.A. (History), B.Ed. · Faculty in Education Law & Special Education Law"
               >
                 <p>
-                  Dr. Sylvan A. Lashley brings more than 30 years of guiding K–12
+                  Sylvan A. Lashley brings more than 30 years of guiding K–12
                   systems, universities, and institutions through transformation — the
                   future-ready leadership at the heart of everything LTL Pulse publishes.
                   A three-time university president — Northern Caribbean University, the
@@ -399,7 +399,7 @@ export function AboutPageContent() {
                 </p>
                 <div>
                   <p className="font-medium text-ltl-text-primary">
-                    Dr. Lashley can help you when:
+                    Sylvan can help you when:
                   </p>
                   <ul className="mt-3 list-disc space-y-2 pl-5">
                     <li>
