@@ -93,24 +93,6 @@ function Section({
   );
 }
 
-function FrameworkLine({
-  acronym,
-  children,
-}: {
-  acronym: string;
-  children: ReactNode;
-}) {
-  return (
-    <p>
-      <span className="font-heading font-semibold tracking-wide text-ltl-accent">
-        {acronym}
-      </span>
-      {" — "}
-      {children}
-    </p>
-  );
-}
-
 function TeamMemberCard({
   name,
   role,
@@ -254,46 +236,39 @@ export function AboutPageContent() {
             <motion.div variants={staggerItem}>
               <TeamMemberCard name="Dawn Kirk, M.Ed., EMBA" role="Lead of the LTL Team">
                 <p>
-                  Founder &amp; CEO of Market My Training Solutions (MMTS) and Market My
-                  Training Institute (MMTI), and a Maxwell Certified Independent Executive
-                  Director, Trainer and Coach. A global education leader, entrepreneur,
-                  digital strategist, curriculum writer, mentor, and empowerment speaker.
-                  Cornell-educated with 41 years in education across Bermuda and the
-                  Caribbean. She serves on the Board of Governors of QUEST, an education
-                  start-up for gifted and talented students operating in Bermuda, and on
-                  the Atlantic Union Conference Curriculum Committee, overseeing curriculum
-                  across schools in seven US states and Bermuda. Dawn is a leading voice on
-                  practical leadership growth and developing people.
+                  Founder &amp; CEO of MMTS and MMTI, and a Maxwell Certified Independent
+                  Executive Director, Trainer and Coach. A Cornell-educated education leader
+                  with 41 years across Bermuda and the Caribbean, Dawn blends
+                  entrepreneurship, digital strategy, and curriculum design to help leaders
+                  develop people who perform — and cultures that endure. She serves on the
+                  QUEST Board of Governors (Bermuda) and the Atlantic Union Conference
+                  Curriculum Committee (seven U.S. states and Bermuda).
                 </p>
-                <p>
-                  A signature part of Dawn&apos;s approach is her transformation
-                  framework, built on three pillars —{" "}
-                  <span className="font-heading font-semibold text-ltl-accent">
-                    L.I.T.
-                  </span>
-                  ,{" "}
-                  <span className="font-heading font-semibold text-ltl-accent">
-                    E.A.R.N.
-                  </span>
-                  , and{" "}
-                  <span className="font-heading font-semibold text-ltl-accent">
-                    G.R.I.T.
-                  </span>
-                </p>
-                <div className="rounded-lg border border-ltl-border/80 bg-ltl-bg/60 p-4 md:p-5">
-                  <FrameworkLine acronym="L.I.T.">
-                    Lead with vision, Inspire innovation, and Transform the market.
-                  </FrameworkLine>
-                  <FrameworkLine acronym="E.A.R.N.">
-                    Empower clients with cutting-edge strategies to drive success,
-                    Amplify their brand into a strong and recognizable presence,
-                    Revolutionize their leadership through transformational tools, and
-                    Nurture their client base into lasting relationships.
-                  </FrameworkLine>
-                  <FrameworkLine acronym="G.R.I.T.">
-                    Genuine integrity, Relentless innovation, Inspired empowerment, and
-                    Tenacious excellence.
-                  </FrameworkLine>
+                <div className="rounded-lg border border-ltl-border/80 bg-ltl-bg/60 p-4 md:p-5 text-sm leading-relaxed text-ltl-text-secondary md:text-base">
+                  <p>
+                    Dawn promotes a{" "}
+                    <span className="font-heading font-semibold text-ltl-accent">
+                      THRIVE
+                    </span>{" "}
+                    system of development backed by a vision that is{" "}
+                    <span className="font-heading font-semibold text-ltl-accent">
+                      L.I.T.
+                    </span>{" "}
+                    — Lead with vision, Inspire innovation, and Transform the market. Her
+                    mission is to help leaders{" "}
+                    <span className="font-heading font-semibold text-ltl-accent">
+                      E.A.R.N.
+                    </span>{" "}
+                    — Empower with strategy, Amplify their brand, Revolutionize their
+                    leadership, and Nurture lasting client relationships — through values
+                    that build{" "}
+                    <span className="font-heading font-semibold text-ltl-accent">
+                      G.R.I.T.
+                    </span>{" "}
+                    (Genuine integrity, Relentless innovation, Inspired empowerment, and
+                    Tenacious excellence). A practical system for leading change, building
+                    brand, and developing people who deliver.
+                  </p>
                 </div>
               </TeamMemberCard>
             </motion.div>
