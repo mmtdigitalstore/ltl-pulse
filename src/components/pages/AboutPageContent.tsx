@@ -1,6 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { BookOpen, Mic, Sparkles, Video } from "lucide-react";
@@ -59,6 +61,62 @@ const experienceTracks = [
   },
 ] as const;
 
+const teamPhotos = {
+  dawn: {
+    src: "/team/dawn-kirk-executive.jpg",
+    alt: "Dawn Kirk, Team Lead of LTL Pulse",
+  },
+  lashley: {
+    src: "/team/sylvan-lashley.jpg",
+    alt: "Dr. Sylvan A. Lashley, Strategic Leadership Expert at LTL Pulse",
+  },
+  jackie: {
+    src: "/team/jackie-john.jpg",
+    alt: "Jackie John, Leadership and DISC Coach at LTL Pulse",
+  },
+  joshua: {
+    src: "/team/joshua-ogbonnia.jpg",
+    alt: "Joshua Ogbonnia, Entrepreneurship and Innovation Expert at LTL Pulse",
+  },
+} as const;
+
+function getInitials(name: string): string {
+  const primary = name.split(",")[0]?.trim() ?? name;
+  return primary
+    .split(/\s+/)
+    .map((part) => part[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+}
+
+function TeamMemberPhoto({ src, alt, name }: { src: string; alt: string; name: string }) {
+  const [failed, setFailed] = useState(false);
+
+  if (failed) {
+    return (
+      <div
+        className="flex size-28 shrink-0 items-center justify-center rounded-xl border border-ltl-border bg-ltl-bg font-heading text-2xl font-semibold text-ltl-accent md:size-40"
+        aria-hidden
+      >
+        {getInitials(name)}
+      </div>
+    );
+  }
+
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      width={160}
+      height={160}
+      className="size-28 shrink-0 rounded-xl border border-ltl-border object-cover object-top md:size-40"
+      onError={() => setFailed(true)}
+    />
+  );
+}
+
 function Section({
   title,
   children,
@@ -97,12 +155,14 @@ function TeamMemberCard({
   name,
   role,
   credentials,
+  photo,
   children,
   className,
 }: {
   name: string;
   role?: string;
   credentials?: string;
+  photo?: { src: string; alt: string };
   children: ReactNode;
   className?: string;
 }) {
@@ -113,20 +173,23 @@ function TeamMemberCard({
         className,
       )}
     >
-      <div>
-        <h3 className="font-heading text-xl font-semibold text-ltl-text-primary md:text-2xl">
-          {name}
-        </h3>
-        {role ? (
-          <p className="mt-1 font-label text-xs uppercase tracking-wider text-ltl-accent">
-            {role}
-          </p>
-        ) : null}
-        {credentials ? (
-          <p className="mt-3 text-xs leading-relaxed text-ltl-text-secondary md:text-sm">
-            {credentials}
-          </p>
-        ) : null}
+      <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
+        {photo ? <TeamMemberPhoto src={photo.src} alt={photo.alt} name={name} /> : null}
+        <div className="min-w-0 flex-1">
+          <h3 className="font-heading text-xl font-semibold text-ltl-text-primary md:text-2xl">
+            {name}
+          </h3>
+          {role ? (
+            <p className="mt-1 font-label text-xs uppercase tracking-wider text-ltl-accent">
+              {role}
+            </p>
+          ) : null}
+          {credentials ? (
+            <p className="mt-3 text-xs leading-relaxed text-ltl-text-secondary md:text-sm">
+              {credentials}
+            </p>
+          ) : null}
+        </div>
       </div>
       <div className="space-y-4 text-sm leading-relaxed text-ltl-text-secondary md:text-base">
         {children}
@@ -244,6 +307,7 @@ export function AboutPageContent() {
               <TeamMemberCard
                 name="Dawn Kirk, M.Ed."
                 role="Team Lead, LTL Pulse"
+                photo={teamPhotos.dawn}
                 credentials="Certified at the Executive Director level — the highest tier of the Maxwell Leadership Certified Team · Cornell-certified in project leadership and systems design · Executive MBA candidate · Contributing author, Transforming Pain Into Purpose (Volume 1) · Founder of Market My Training Solutions"
               >
                 <p>
@@ -311,6 +375,7 @@ export function AboutPageContent() {
               <TeamMemberCard
                 name="Dr. Sylvan A. Lashley, Ed.D., J.D."
                 role="Strategic Leadership Expert · LTL Pulse"
+                photo={teamPhotos.lashley}
                 credentials="Three-time university president (Northern Caribbean University, University of the Southern Caribbean, Atlantic Union College) · Juris Doctor (J.D.) · Doctor of Education (Ed.D.) · Master of Education Law (M.E.L.), MBA, M.A. (History), B.Ed. · Faculty in Education Law & Special Education Law"
               >
                 <p>
@@ -374,6 +439,7 @@ export function AboutPageContent() {
               <TeamMemberCard
                 name="Jackie John, R.Eng., MSc"
                 role="Leadership & DISC Coach · LTL Pulse"
+                photo={teamPhotos.jackie}
                 credentials="Maxwell Leadership Certified DISC Coach & Consultant · Registered Engineer (R.Eng.), MSc, BSc, MAPETT · Founder of New Version Coaching & Consulting (NVCC) · Leads Jameri Consultants, BuildSafe Caribbean & Sargassum Solutions"
               >
                 <p>
@@ -438,6 +504,7 @@ export function AboutPageContent() {
               <TeamMemberCard
                 name="Joshua Ogbonnia, CVO"
                 role="Entrepreneurship & Innovation Expert · LTL Pulse"
+                photo={teamPhotos.joshua}
                 credentials="Founder & Chief Vision Officer, E Skool Now Group · Founder & President, Global Educators Tribe (GET) · Chancellor, Tech Skool Educational Institution · CEO, Agric Shift"
               >
                 <p>
