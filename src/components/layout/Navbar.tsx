@@ -34,14 +34,21 @@ function useLocationHash() {
   const [hash, setHash] = useState("");
 
   useEffect(() => {
-    const syncHash = () => setHash(window.location.hash);
-
-    syncHash();
-    window.addEventListener("hashchange", syncHash);
-    return () => window.removeEventListener("hashchange", syncHash);
+    setHash(window.location.hash);
   }, [pathname]);
 
-  return hash;
+  useEffect(() => {
+    const syncHash = () => setHash(window.location.hash);
+
+    window.addEventListener("hashchange", syncHash);
+    window.addEventListener("popstate", syncHash);
+    return () => {
+      window.removeEventListener("hashchange", syncHash);
+      window.removeEventListener("popstate", syncHash);
+    };
+  }, []);
+
+  return { hash, setHash };
 }
 
 function isNavLinkActive(
@@ -132,12 +139,14 @@ function NavLink({
 export function Navbar({ user }: { user: User | null }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
-  const hash = useLocationHash();
+  const { hash, setHash } = useLocationHash();
   const loginHref = buildAuthHref("login", pathname, "");
   const signupHref = buildAuthHref("signup", pathname, "");
 
   const closeMobile = () => setMobileOpen(false);
   const subscribeActive = isSubscribeActive(pathname);
+  const loginActive = pathname === "/login";
+  const signupActive = pathname === "/signup";
 
   const displayName =
     (user?.user_metadata?.full_name as string | undefined)?.trim() ||
@@ -172,12 +181,15 @@ export function Navbar({ user }: { user: User | null }) {
 
     return (
       <div className={cn("flex items-center gap-4", className)}>
-        <NavLink href={loginHref} label="Login" />
+        <NavLink href={loginHref} label="Login" isActive={loginActive} />
         <Link
           href={signupHref}
+          aria-current={signupActive ? "page" : undefined}
           className={cn(
             buttonVariants({ variant: "outline", size: "default" }),
-            "rounded-md border-ltl-border text-ltl-text-primary hover:bg-ltl-surface",
+            signupActive
+              ? "rounded-md border-ltl-accent bg-ltl-accent/15 font-medium text-ltl-accent hover:bg-ltl-accent/25"
+              : "rounded-md border-ltl-border text-ltl-text-primary hover:bg-ltl-surface",
           )}
         >
           Sign up
@@ -191,6 +203,7 @@ export function Navbar({ user }: { user: User | null }) {
       <nav className="relative mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
+          onClick={() => setHash("")}
           className="font-heading text-xl font-semibold tracking-tight text-ltl-accent transition-opacity hover:opacity-90"
         >
           LTL Pulse
@@ -202,6 +215,11 @@ export function Navbar({ user }: { user: User | null }) {
               key={link.href}
               href={link.href}
               label={link.label}
+              onClick={
+                link.href === "/#community"
+                  ? () => setHash("#community")
+                  : undefined
+              }
               isActive={isNavLinkActive(pathname, link.href, hash)}
             />
           ))}
@@ -256,7 +274,12 @@ export function Navbar({ user }: { user: User | null }) {
                     <NavLink
                       href={link.href}
                       label={link.label}
-                      onClick={closeMobile}
+                      onClick={() => {
+                        if (link.href === "/#community") {
+                          setHash("#community");
+                        }
+                        closeMobile();
+                      }}
                       isActive={isNavLinkActive(pathname, link.href, hash)}
                       className="text-lg"
                     />
@@ -289,14 +312,18 @@ export function Navbar({ user }: { user: User | null }) {
                       href={loginHref}
                       label="Login"
                       onClick={closeMobile}
+                      isActive={loginActive}
                       className="text-base"
                     />
                     <Link
                       href={signupHref}
                       onClick={closeMobile}
+                      aria-current={signupActive ? "page" : undefined}
                       className={cn(
                         buttonVariants({ variant: "outline", size: "lg" }),
-                        "h-11 w-full rounded-md border-ltl-border text-ltl-text-primary hover:bg-ltl-surface",
+                        signupActive
+                          ? "h-11 w-full rounded-md border-ltl-accent bg-ltl-accent/15 font-medium text-ltl-accent hover:bg-ltl-accent/25"
+                          : "h-11 w-full rounded-md border-ltl-border text-ltl-text-primary hover:bg-ltl-surface",
                       )}
                     >
                       Sign up
