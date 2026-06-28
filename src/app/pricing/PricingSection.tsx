@@ -200,17 +200,19 @@ function TierCard({ tier, interval }: { tier: Tier; interval: BillingInterval })
     <div
       className={cn(
         "relative flex flex-col rounded-2xl border bg-ltl-surface p-6",
-        tier.highlight
+        tier.highlight && !isSoon
           ? "border-ltl-accent ring-1 ring-ltl-accent/30"
-          : "border-ltl-border",
+          : isSoon && tier.highlight
+            ? "border-ltl-accent/35"
+            : "border-ltl-border",
       )}
     >
       {badge && (
         <span
           className={cn(
-            "absolute -top-3 left-6 rounded-full px-3 py-1 font-label text-xs uppercase tracking-wider",
+            "mb-3 inline-flex w-fit rounded-full px-3 py-1 font-label text-xs uppercase tracking-wider",
             isSoon
-              ? "border border-ltl-accent/50 bg-ltl-accent/15 text-ltl-accent"
+              ? "border border-ltl-accent/60 bg-ltl-bg text-ltl-accent"
               : "bg-ltl-accent text-ltl-bg",
           )}
         >
