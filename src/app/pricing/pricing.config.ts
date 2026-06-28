@@ -231,6 +231,11 @@ export const comingSoon = {
   cta: { label: "Reserve my founding rate", href: "/waitlist" },
 };
 
+/** Shown on tiers with status "live" when no tier-specific badge is set. */
+export const liveNow = {
+  badge: "Available now",
+};
+
 export function effectiveMonthly(tier: Tier): number | null {
   if (tier.priceYearly == null) return null;
   return Math.round((tier.priceYearly / 12) * 100) / 100;

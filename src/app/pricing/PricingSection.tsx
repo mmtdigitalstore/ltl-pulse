@@ -11,6 +11,7 @@ import {
   advisoryCta,
   founding,
   comingSoon,
+  liveNow,
   isFoundingActive,
   foundingSeatsRemaining,
   foundingEndsLabel,
@@ -174,7 +175,7 @@ function TierCard({ tier, interval }: { tier: Tier; interval: BillingInterval })
   const price = showFounding ? foundingPrice : regular;
 
   const isSoon = tier.status === "soon";
-  const badge = isSoon ? comingSoon.badge : tier.badge;
+  const statusBadge = isSoon ? comingSoon.badge : (tier.badge ?? liveNow.badge);
   const cta = isSoon
     ? { label: comingSoon.cta.label, href: `${comingSoon.cta.href}?plan=${tier.id}` }
     : tier.cta;
@@ -207,18 +208,20 @@ function TierCard({ tier, interval }: { tier: Tier; interval: BillingInterval })
             : "border-ltl-border",
       )}
     >
-      {badge && (
+      <div className="mb-3 min-h-[1.75rem]">
         <span
           className={cn(
-            "mb-3 inline-flex w-fit rounded-full px-3 py-1 font-label text-xs uppercase tracking-wider",
+            "inline-flex w-fit rounded-full px-3 py-1 font-label text-xs uppercase tracking-wider",
             isSoon
               ? "border border-ltl-accent/60 bg-ltl-bg text-ltl-accent"
-              : "bg-ltl-accent text-ltl-bg",
+              : tier.badge
+                ? "bg-ltl-accent text-ltl-bg"
+                : "border border-ltl-border bg-ltl-bg text-ltl-text-secondary",
           )}
         >
-          {badge}
+          {statusBadge}
         </span>
-      )}
+      </div>
 
       <h3 className="font-heading text-xl font-semibold text-ltl-text-primary">
         {tier.name}
