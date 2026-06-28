@@ -40,6 +40,7 @@ const companyLinks = [
 const legalLinks = [
   { href: "/privacy", label: "Privacy" },
   { href: "/terms", label: "Terms" },
+  { href: "/accessibility", label: "Accessibility" },
 ] as const;
 
 const socialLinks = [
@@ -99,7 +100,7 @@ export function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={social.label}
+                  aria-label={`${social.label} (opens in new tab)`}
                   className="text-ltl-text-secondary transition-colors hover:text-ltl-accent"
                 >
                   <social.icon className="size-5" />

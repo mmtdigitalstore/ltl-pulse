@@ -74,7 +74,13 @@ export function ConciergeChat({
   }, [userId, messages, showStarters, isMinimized, sessionReady]);
 
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    scrollRef.current?.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+    });
   }, [messages, loading]);
 
   useEffect(() => {
@@ -223,7 +229,11 @@ export function ConciergeChat({
           </div>
         </div>
 
-        {error && <p className="mt-2 text-sm text-destructive">{error}</p>}
+        {error && (
+          <p className="mt-2 text-sm text-destructive" role="alert">
+            {error}
+          </p>
+        )}
       </div>
     );
   }
@@ -242,7 +252,10 @@ export function ConciergeChat({
         </p>
       )}
 
-      <div className="flex max-h-[min(32rem,70vh)] flex-col overflow-hidden rounded-lg border border-ltl-border bg-ltl-surface">
+      <div
+        className="flex max-h-[min(32rem,70vh)] flex-col overflow-hidden rounded-lg border border-ltl-border bg-ltl-surface"
+        aria-busy={loading}
+      >
         <div className="flex items-center justify-between gap-2 border-b border-ltl-border px-3 py-2 sm:px-3">
           <ConciergeAvatar isActive={!loading} size="sm" />
           <div className="flex items-center gap-1.5">
@@ -284,7 +297,13 @@ export function ConciergeChat({
           </div>
         </div>
 
-        <div className="flex-1 space-y-2.5 overflow-y-auto px-3 py-2.5 sm:px-3">
+        <div
+          role="log"
+          aria-live="polite"
+          aria-relevant="additions"
+          aria-label={`Conversation with ${CADENCE_NAME}`}
+          className="flex-1 space-y-2.5 overflow-y-auto px-3 py-2.5 sm:px-3"
+        >
           {showStarters && (
             <div className="space-y-2 py-1">
               <p className="text-sm text-ltl-text-secondary">
@@ -359,8 +378,13 @@ export function ConciergeChat({
         <form
           onSubmit={handleSubmit}
           className="flex gap-1.5 border-t border-ltl-border px-3 py-2"
+          aria-label={`Message ${CADENCE_NAME}`}
         >
+          <label htmlFor="cadence-message-input" className="sr-only">
+            Message for {CADENCE_NAME}
+          </label>
           <textarea
+            id="cadence-message-input"
             ref={inputRef}
             value={input}
             onChange={(event) => setInput(event.target.value)}
@@ -371,6 +395,7 @@ export function ConciergeChat({
             }
             disabled={loading || atLimit}
             rows={1}
+            aria-describedby={error ? "cadence-chat-error" : undefined}
             className="min-h-10 flex-1 resize-none rounded-lg border border-ltl-border bg-ltl-bg px-3 py-2 text-sm text-ltl-text-primary placeholder:text-ltl-text-secondary outline-none focus-visible:border-ltl-accent focus-visible:ring-2 focus-visible:ring-ltl-accent/30 disabled:opacity-50"
             onKeyDown={(event) => {
               if (event.key === "Enter" && !event.shiftKey) {
@@ -394,7 +419,11 @@ export function ConciergeChat({
         {userMessageCount}/{tierConfig.maxUserMessages} messages this chat
       </p>
 
-      {error && <p className="mt-2 text-sm text-destructive">{error}</p>}
+      {error && (
+        <p id="cadence-chat-error" className="mt-2 text-sm text-destructive" role="alert">
+          {error}
+        </p>
+      )}
 
       {atLimit && !isSubscriber && (
         <p className="mt-2 text-center text-xs text-ltl-text-secondary">

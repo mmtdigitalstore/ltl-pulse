@@ -62,7 +62,7 @@ export async function signup(
       : `${getSiteUrl()}/auth/callback?next=${encodeURIComponent(next)}`;
 
   const supabase = await createClient();
-  const { error } = await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -73,6 +73,11 @@ export async function signup(
 
   if (error) {
     return { error: error.message };
+  }
+
+  if (data.session) {
+    revalidatePath("/", "layout");
+    redirect(getPostAuthRedirect(next));
   }
 
   return {
