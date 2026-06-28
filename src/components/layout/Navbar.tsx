@@ -147,7 +147,7 @@ export function Navbar({ user }: { user: User | null }) {
         <div className="hidden items-center gap-6 md:flex">
           <AuthActions />
           <Link
-            href="/subscribe"
+            href="/pricing"
             className={cn(
               buttonVariants({ size: "default" }),
               "rounded-md bg-ltl-accent font-bold text-ltl-bg hover:bg-ltl-accent-hover",
@@ -237,7 +237,7 @@ export function Navbar({ user }: { user: User | null }) {
                   </>
                 )}
                 <Link
-                  href="/subscribe"
+                  href="/pricing"
                   onClick={closeMobile}
                   className={cn(
                     buttonVariants({ size: "lg" }),
