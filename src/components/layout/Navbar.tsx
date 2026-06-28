@@ -29,6 +29,36 @@ const navLinks = [
   { href: "/about", label: "About" },
 ] as const;
 
+function isNavLinkActive(pathname: string, href: string): boolean {
+  if (href === "/#community") {
+    return pathname === "/";
+  }
+
+  const path = href.split("#")[0];
+
+  if (path === "/pricing") {
+    return (
+      pathname === "/pricing" ||
+      pathname === "/subscribe" ||
+      pathname.startsWith("/waitlist")
+    );
+  }
+
+  if (!path || path === "/") {
+    return pathname === "/";
+  }
+
+  return pathname === path || pathname.startsWith(`${path}/`);
+}
+
+function isSubscribeActive(pathname: string): boolean {
+  return (
+    pathname === "/pricing" ||
+    pathname === "/subscribe" ||
+    pathname.startsWith("/waitlist")
+  );
+}
+
 const menuContainerVariants = {
   hidden: { opacity: 0 },
   show: {
@@ -54,18 +84,24 @@ function NavLink({
   label,
   className,
   onClick,
+  isActive = false,
 }: {
   href: string;
   label: string;
   className?: string;
   onClick?: () => void;
+  isActive?: boolean;
 }) {
   return (
     <Link
       href={href}
       onClick={onClick}
+      aria-current={isActive ? "page" : undefined}
       className={cn(
-        "font-sans text-sm font-medium text-ltl-text-secondary transition-colors duration-200 hover:text-ltl-text-primary",
+        "font-sans text-sm font-medium transition-colors duration-200",
+        isActive
+          ? "text-ltl-accent"
+          : "text-ltl-text-secondary hover:text-ltl-text-primary",
         className,
       )}
     >
@@ -81,6 +117,7 @@ export function Navbar({ user }: { user: User | null }) {
   const signupHref = buildAuthHref("signup", pathname, "");
 
   const closeMobile = () => setMobileOpen(false);
+  const subscribeActive = isSubscribeActive(pathname);
 
   const displayName =
     (user?.user_metadata?.full_name as string | undefined)?.trim() ||
@@ -141,7 +178,12 @@ export function Navbar({ user }: { user: User | null }) {
 
         <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 md:flex">
           {navLinks.map((link) => (
-            <NavLink key={link.href} href={link.href} label={link.label} />
+            <NavLink
+              key={link.href}
+              href={link.href}
+              label={link.label}
+              isActive={isNavLinkActive(pathname, link.href)}
+            />
           ))}
         </div>
 
@@ -149,9 +191,12 @@ export function Navbar({ user }: { user: User | null }) {
           <AuthActions />
           <Link
             href="/pricing"
+            aria-current={subscribeActive ? "page" : undefined}
             className={cn(
               buttonVariants({ size: "default" }),
-              "rounded-md bg-ltl-accent font-bold text-ltl-bg hover:bg-ltl-accent-hover",
+              subscribeActive
+                ? "rounded-md border border-ltl-accent bg-ltl-accent/15 font-bold text-ltl-accent hover:bg-ltl-accent/25"
+                : "rounded-md bg-ltl-accent font-bold text-ltl-bg hover:bg-ltl-accent-hover",
             )}
           >
             Subscribe
@@ -192,6 +237,7 @@ export function Navbar({ user }: { user: User | null }) {
                       href={link.href}
                       label={link.label}
                       onClick={closeMobile}
+                      isActive={isNavLinkActive(pathname, link.href)}
                       className="text-lg"
                     />
                   </motion.div>
@@ -240,9 +286,12 @@ export function Navbar({ user }: { user: User | null }) {
                 <Link
                   href="/pricing"
                   onClick={closeMobile}
+                  aria-current={subscribeActive ? "page" : undefined}
                   className={cn(
                     buttonVariants({ size: "lg" }),
-                    "h-11 w-full rounded-md bg-ltl-accent font-bold text-ltl-bg hover:bg-ltl-accent-hover",
+                    subscribeActive
+                      ? "h-11 w-full rounded-md border border-ltl-accent bg-ltl-accent/15 font-bold text-ltl-accent hover:bg-ltl-accent/25"
+                      : "h-11 w-full rounded-md bg-ltl-accent font-bold text-ltl-bg hover:bg-ltl-accent-hover",
                   )}
                 >
                   Subscribe
