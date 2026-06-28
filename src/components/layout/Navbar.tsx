@@ -23,6 +23,7 @@ const navLinks = [
   { href: "/magazine", label: "Magazine" },
   { href: "/podcast", label: "Podcast" },
   { href: "/vlogs", label: "Vlogs" },
+  { href: "/#community", label: "Community" },
   { href: "/concierge", label: "Cadence" },
   { href: "/pricing", label: "Pricing" },
   { href: "/about", label: "About" },

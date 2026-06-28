@@ -188,12 +188,12 @@ function TierCard({ tier, interval }: { tier: Tier; interval: BillingInterval })
       : null;
 
   const ctaClassName = cn(
-    "mt-5 inline-flex w-full items-center justify-center rounded-md px-4 py-2.5 text-sm font-semibold transition",
+    "mt-5 inline-flex w-full items-center justify-center rounded-md px-4 py-2.5 text-sm font-bold transition",
     isSoon
-      ? "border border-ltl-border bg-transparent text-ltl-text-primary hover:bg-ltl-bg"
+      ? "bg-ltl-accent text-ltl-bg shadow-[0_4px_16px_rgba(255,180,0,0.35)] hover:bg-ltl-accent-hover hover:shadow-[0_6px_22px_rgba(255,180,0,0.45)]"
       : tier.highlight
-        ? "bg-ltl-accent font-bold text-ltl-bg hover:bg-ltl-accent-hover"
-        : "bg-ltl-text-primary font-bold text-ltl-bg hover:bg-ltl-text-primary/90",
+        ? "bg-ltl-accent text-ltl-bg hover:bg-ltl-accent-hover"
+        : "bg-ltl-text-primary text-ltl-bg hover:bg-ltl-text-primary/90",
   );
 
   return (
@@ -210,7 +210,7 @@ function TierCard({ tier, interval }: { tier: Tier; interval: BillingInterval })
           className={cn(
             "absolute -top-3 left-6 rounded-full px-3 py-1 font-label text-xs uppercase tracking-wider",
             isSoon
-              ? "border border-ltl-border bg-ltl-bg text-ltl-text-secondary"
+              ? "border border-ltl-accent/50 bg-ltl-accent/15 text-ltl-accent"
               : "bg-ltl-accent text-ltl-bg",
           )}
         >

@@ -25,11 +25,12 @@ export function TestimonialsSection() {
 
   return (
     <motion.section
+      id="community"
       initial="hidden"
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeUp}
-      className="relative overflow-hidden border-b border-ltl-border bg-ltl-bg px-4 py-20 sm:px-6 lg:px-8"
+      className="relative scroll-mt-16 overflow-hidden border-b border-ltl-border bg-ltl-bg px-4 py-20 sm:px-6 lg:px-8"
     >
       <div
         aria-hidden
