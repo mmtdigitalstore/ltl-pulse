@@ -1,5 +1,10 @@
-import Link from "next/link";
+"use client";
 
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { Mic, Quote } from "lucide-react";
+
+import { buttonVariants } from "@/components/ui/button";
 import {
   testimonials,
   spotlights,
@@ -7,46 +12,142 @@ import {
   type Spotlight,
   type Testimonial,
 } from "./testimonials.config";
+import {
+  sectionFadeUp,
+  sectionViewport,
+  staggerContainer,
+  staggerItem,
+} from "@/lib/motion";
+import { cn } from "@/lib/utils";
 
 export function TestimonialsSection() {
+  const [featured, ...wallQuotes] = testimonials;
+
   return (
-    <section className="bg-white py-16 px-4 sm:px-6">
-      <div className="mx-auto max-w-6xl">
-        <div className="max-w-2xl">
-          <p className="text-sm font-semibold uppercase tracking-wide text-[#C8A951]">
-            {testimonialsCopy.kicker}
-          </p>
-          <h2 className="mt-2 text-3xl font-bold text-[#1F3A5F] sm:text-4xl">
-            {testimonialsCopy.heading}
-          </h2>
-          <p className="mt-3 text-base text-[#6B7A8D]">{testimonialsCopy.subhead}</p>
-        </div>
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={sectionViewport}
+      variants={sectionFadeUp}
+      className="relative overflow-hidden border-b border-ltl-border bg-ltl-bg px-4 py-20 sm:px-6 lg:px-8"
+    >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-0 h-64 w-[40rem] max-w-full -translate-x-1/2 bg-[radial-gradient(circle,rgba(255,180,0,0.08)_0%,transparent_70%)]"
+      />
 
-        {spotlights.length > 0 && (
-          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
-            {spotlights.map((spotlight) => (
-              <SpotlightCard key={spotlight.id} spotlight={spotlight} />
-            ))}
+      <div className="relative mx-auto max-w-7xl">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-2xl">
+            <p className="font-label text-xs uppercase tracking-widest text-ltl-accent">
+              {testimonialsCopy.kicker}
+            </p>
+            <h2 className="mt-3 font-heading text-3xl font-semibold text-ltl-text-primary md:text-4xl">
+              {testimonialsCopy.heading}
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-ltl-text-secondary md:text-lg">
+              {testimonialsCopy.subhead}
+            </p>
           </div>
-        )}
 
-        <div className="mt-8 [column-gap:1.5rem] sm:columns-2 lg:columns-3">
-          {testimonials.map((testimonial) => (
-            <QuoteCard key={testimonial.id} testimonial={testimonial} />
-          ))}
-        </div>
-
-        <div className="mt-12 rounded-2xl bg-[#F4F7FB] px-6 py-8 text-center">
-          <p className="text-lg font-semibold text-[#1F3A5F]">{testimonialsCopy.ctaNote}</p>
           <Link
             href={testimonialsCopy.cta.href}
-            className="mt-4 inline-flex items-center justify-center rounded-lg bg-[#1F3A5F] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#27496E]"
+            className={cn(
+              buttonVariants({ size: "lg" }),
+              "h-11 shrink-0 rounded-md bg-ltl-accent px-6 font-bold text-ltl-bg hover:bg-ltl-accent-hover",
+            )}
           >
             {testimonialsCopy.cta.label}
           </Link>
         </div>
+
+        {spotlights.length > 0 && (
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={sectionViewport}
+            variants={staggerContainer}
+            className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2"
+          >
+            {spotlights.map((spotlight) => (
+              <motion.div key={spotlight.id} variants={staggerItem}>
+                <SpotlightCard spotlight={spotlight} />
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+
+        {featured && (
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={sectionViewport}
+            variants={sectionFadeUp}
+            className="mt-12"
+          >
+            <p className="mb-4 font-label text-xs uppercase tracking-widest text-ltl-text-secondary">
+              Shift of the moment
+            </p>
+            <FeaturedQuoteCard testimonial={featured} />
+          </motion.div>
+        )}
+
+        {wallQuotes.length > 0 && (
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={sectionViewport}
+            variants={staggerContainer}
+            className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2"
+          >
+            {wallQuotes.map((testimonial) => (
+              <motion.div key={testimonial.id} variants={staggerItem}>
+                <QuoteCard testimonial={testimonial} />
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+
+        <div className="mt-12 rounded-xl border border-ltl-border bg-ltl-surface/80 px-6 py-5 text-center sm:px-8">
+          <p className="text-sm text-ltl-text-secondary md:text-base">
+            {testimonialsCopy.ctaNote}
+          </p>
+          <Link
+            href={testimonialsCopy.cta.href}
+            className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-ltl-accent hover:underline"
+          >
+            {testimonialsCopy.cta.label} →
+          </Link>
+        </div>
       </div>
-    </section>
+    </motion.section>
+  );
+}
+
+function FeaturedQuoteCard({ testimonial }: { testimonial: Testimonial }) {
+  const { quote, author, role, org, audioUrl } = testimonial;
+
+  return (
+    <figure className="relative overflow-hidden rounded-2xl border border-ltl-accent/30 bg-ltl-surface p-8 shadow-[0_0_40px_rgba(255,180,0,0.06)] sm:p-10">
+      <Quote
+        className="absolute right-6 top-6 size-16 text-ltl-accent/15"
+        aria-hidden
+      />
+      <blockquote className="relative max-w-3xl font-heading text-xl leading-relaxed text-ltl-text-primary sm:text-2xl">
+        {quote}
+      </blockquote>
+      {audioUrl && <AudioPlayer audioUrl={audioUrl} className="relative mt-6 max-w-md" />}
+      <figcaption className="relative mt-8 flex items-center gap-4">
+        <AuthorAvatar name={author} size="lg" />
+        <div>
+          <p className="font-semibold text-ltl-text-primary">{author}</p>
+          <p className="text-sm text-ltl-text-secondary">
+            {role}
+            {org ? ` · ${org}` : ""}
+          </p>
+        </div>
+      </figcaption>
+    </figure>
   );
 }
 
@@ -54,25 +155,23 @@ function QuoteCard({ testimonial }: { testimonial: Testimonial }) {
   const { quote, author, role, org, audioUrl } = testimonial;
 
   return (
-    <figure className="mb-6 break-inside-avoid rounded-2xl border border-[#DBE3EC] bg-white p-6 shadow-sm">
-      <span aria-hidden className="text-3xl font-bold leading-none text-[#C8A951]">
+    <figure className="flex h-full flex-col rounded-2xl border border-ltl-border bg-ltl-surface p-6 transition-colors hover:border-ltl-accent/25">
+      <span aria-hidden className="font-heading text-3xl leading-none text-ltl-accent/80">
         “
       </span>
-      <blockquote className="mt-1 text-[15px] leading-relaxed text-[#22303F]">
+      <blockquote className="mt-2 flex-1 text-[15px] leading-relaxed text-ltl-text-primary">
         {quote}
       </blockquote>
-      {audioUrl && (
-        <audio controls preload="none" className="mt-3 w-full">
-          <source src={audioUrl} />
-        </audio>
-      )}
-      <figcaption className="mt-4 text-sm">
-        <span className="font-semibold text-[#1F3A5F]">{author}</span>
-        <span className="text-[#6B7A8D]">
-          {" "}
-          — {role}
-          {org ? `, ${org}` : ""}
-        </span>
+      {audioUrl && <AudioPlayer audioUrl={audioUrl} className="mt-4" />}
+      <figcaption className="mt-5 flex items-center gap-3 border-t border-ltl-border pt-4">
+        <AuthorAvatar name={author} />
+        <div>
+          <p className="text-sm font-semibold text-ltl-text-primary">{author}</p>
+          <p className="text-xs text-ltl-text-secondary">
+            {role}
+            {org ? ` · ${org}` : ""}
+          </p>
+        </div>
       </figcaption>
     </figure>
   );
@@ -82,40 +181,66 @@ function SpotlightCard({ spotlight }: { spotlight: Spotlight }) {
   const { name, role, org, work, shift, href, avatarUrl } = spotlight;
 
   return (
-    <article className="flex flex-col rounded-2xl bg-[#1F3A5F] p-6 text-white">
-      <span className="text-xs font-semibold uppercase tracking-wide text-[#C8A951]">
+    <article className="flex h-full flex-col rounded-2xl border border-ltl-accent/35 bg-gradient-to-br from-ltl-surface to-ltl-bg p-6">
+      <span className="font-label text-xs uppercase tracking-widest text-ltl-accent">
         Member spotlight
       </span>
-      <div className="mt-3 flex items-center gap-3">
+      <div className="mt-4 flex items-center gap-3">
         {avatarUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={avatarUrl} alt={name} className="h-12 w-12 rounded-full object-cover" />
+          <img
+            src={avatarUrl}
+            alt={name}
+            className="size-12 rounded-full object-cover ring-2 ring-ltl-accent/30"
+          />
         ) : (
-          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#27496E] text-sm font-bold text-[#C8A951]">
-            {initials(name)}
-          </span>
+          <AuthorAvatar name={name} size="lg" />
         )}
         <div>
-          <p className="font-semibold">{name}</p>
-          <p className="text-sm text-[#CFDDEE]">
+          <p className="font-semibold text-ltl-text-primary">{name}</p>
+          <p className="text-sm text-ltl-text-secondary">
             {role}
-            {org ? `, ${org}` : ""}
+            {org ? ` · ${org}` : ""}
           </p>
         </div>
       </div>
-
-      <p className="mt-4 text-sm text-[#CFDDEE]">{work}</p>
-      <p className="mt-2 text-[15px] leading-relaxed text-white">{shift}</p>
-
+      <p className="mt-4 text-sm text-ltl-text-secondary">{work}</p>
+      <p className="mt-2 flex-1 text-[15px] leading-relaxed text-ltl-text-primary">
+        {shift}
+      </p>
       {href && href !== "#" && (
         <a
           href={href}
-          className="mt-4 inline-flex w-fit items-center text-sm font-semibold text-[#C8A951] hover:underline"
+          className="mt-4 inline-flex w-fit text-sm font-semibold text-ltl-accent hover:underline"
         >
           See their work →
         </a>
       )}
     </article>
+  );
+}
+
+function AudioPlayer({ audioUrl, className }: { audioUrl: string; className?: string }) {
+  return (
+    <div className={cn("flex items-center gap-2", className)}>
+      <Mic className="size-4 shrink-0 text-ltl-accent" aria-hidden />
+      <audio controls preload="none" className="h-8 w-full max-w-xs opacity-90">
+        <source src={audioUrl} />
+      </audio>
+    </div>
+  );
+}
+
+function AuthorAvatar({ name, size = "md" }: { name: string; size?: "md" | "lg" }) {
+  return (
+    <span
+      className={cn(
+        "flex shrink-0 items-center justify-center rounded-full bg-ltl-accent/15 font-label font-semibold text-ltl-accent ring-1 ring-ltl-accent/30",
+        size === "lg" ? "size-12 text-sm" : "size-9 text-xs",
+      )}
+    >
+      {initials(name)}
+    </span>
   );
 }
 

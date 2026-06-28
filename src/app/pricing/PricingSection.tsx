@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
+import { Check } from "lucide-react";
 
+import { cn } from "@/lib/utils";
 import {
   tiers,
   advisoryOffers,
@@ -47,26 +49,28 @@ export default function PricingSection() {
   const endsLabel = foundingEndsLabel();
 
   return (
-    <section className="bg-[#F4F7FB] py-16 px-4 sm:px-6">
+    <section className="min-h-[calc(100dvh-4rem)] bg-ltl-bg px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <div className="text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-[#C8A951]">
+          <p className="font-label text-xs uppercase tracking-widest text-ltl-accent">
             Membership
           </p>
-          <h1 className="mt-2 text-3xl font-bold text-[#1F3A5F] sm:text-4xl">
+          <h1 className="mt-3 font-heading text-3xl font-semibold text-ltl-text-primary sm:text-4xl md:text-5xl">
             Podcasts are free. Pay for the combinations that matter.
           </h1>
-          <p className="mt-3 text-base text-[#6B7A8D]">
+          <p className="mx-auto mt-4 max-w-2xl text-base text-ltl-text-secondary md:text-lg">
             Subscriptions bundle the paid tabs and deeper Cadence access. Services
             sit on top.
           </p>
         </div>
 
         {foundingOn && (
-          <div className="mx-auto mt-6 max-w-2xl rounded-xl border border-[#C8A951] bg-[#FBF4DF] px-5 py-4 text-center">
-            <p className="text-sm font-bold text-[#1F3A5F]">{founding.headline}</p>
-            <p className="mt-1 text-sm text-[#6B7A8D]">{founding.blurb}</p>
-            <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-[#9A802E]">
+          <div className="mx-auto mt-8 max-w-2xl rounded-xl border border-ltl-accent/35 bg-ltl-accent/10 px-5 py-4 text-center">
+            <p className="font-heading text-sm font-semibold text-ltl-text-primary">
+              {founding.headline}
+            </p>
+            <p className="mt-1 text-sm text-ltl-text-secondary">{founding.blurb}</p>
+            <p className="mt-2 font-label text-xs uppercase tracking-widest text-ltl-accent">
               {seatsLeft != null
                 ? `${seatsLeft} founding ${seatsLeft === 1 ? "seat" : "seats"} remaining`
                 : endsLabel
@@ -76,33 +80,36 @@ export default function PricingSection() {
           </div>
         )}
 
-        <div className="mt-8 flex items-center justify-center gap-3">
+        <div className="mt-10 flex items-center justify-center gap-3">
           <span
-            className={`text-sm font-medium ${
-              interval === "month" ? "text-[#1F3A5F]" : "text-[#6B7A8D]"
-            }`}
+            className={cn(
+              "text-sm font-medium",
+              interval === "month" ? "text-ltl-text-primary" : "text-ltl-text-secondary",
+            )}
           >
             Monthly
           </span>
           <button
             type="button"
             onClick={() => setInterval(interval === "month" ? "year" : "month")}
-            className="relative h-7 w-14 rounded-full bg-[#1F3A5F] transition-colors"
+            className="relative h-7 w-14 rounded-full border border-ltl-border bg-ltl-surface transition-colors"
             aria-label="Toggle billing interval"
             aria-pressed={interval === "year"}
           >
             <span
-              className={`absolute top-1 h-5 w-5 rounded-full bg-[#C8A951] transition-all ${
-                interval === "year" ? "left-8" : "left-1"
-              }`}
+              className={cn(
+                "absolute top-1 h-5 w-5 rounded-full bg-ltl-accent transition-all",
+                interval === "year" ? "left-8" : "left-1",
+              )}
             />
           </button>
           <span
-            className={`text-sm font-medium ${
-              interval === "year" ? "text-[#1F3A5F]" : "text-[#6B7A8D]"
-            }`}
+            className={cn(
+              "text-sm font-medium",
+              interval === "year" ? "text-ltl-text-primary" : "text-ltl-text-secondary",
+            )}
           >
-            Annual <span className="text-[#C8A951]">· 2 months free</span>
+            Annual <span className="text-ltl-accent">· 2 months free</span>
           </span>
         </div>
 
@@ -112,18 +119,20 @@ export default function PricingSection() {
           ))}
         </div>
 
-        <div className="mt-14 rounded-2xl bg-[#1F3A5F] p-8 sm:p-10">
-          <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mt-14 rounded-2xl border border-ltl-border bg-ltl-surface p-8 sm:p-10">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h2 className="text-2xl font-bold text-white">Advisory &amp; Enterprise</h2>
-              <p className="mt-1 max-w-xl text-sm text-[#CFDDEE]">
+              <h2 className="font-heading text-2xl font-semibold text-ltl-text-primary">
+                Advisory &amp; Enterprise
+              </h2>
+              <p className="mt-2 max-w-xl text-sm text-ltl-text-secondary">
                 Coaching, cohorts, and engagements — routed to the right expert by
                 need, guided by Cadence.
               </p>
             </div>
             <TierCta
               href={advisoryCta.href}
-              className="mt-4 inline-flex shrink-0 items-center justify-center rounded-lg bg-[#C8A951] px-5 py-2.5 text-sm font-semibold text-[#142439] transition hover:brightness-105 sm:mt-0"
+              className="inline-flex shrink-0 items-center justify-center rounded-md bg-ltl-accent px-5 py-2.5 text-sm font-bold text-ltl-bg transition hover:bg-ltl-accent-hover"
             >
               {advisoryCta.label}
             </TierCta>
@@ -131,20 +140,25 @@ export default function PricingSection() {
 
           <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {advisoryOffers.map((offer) => (
-              <div key={offer.name} className="rounded-xl bg-[#27496E] p-4">
+              <div
+                key={offer.name}
+                className="rounded-xl border border-ltl-border bg-ltl-bg p-4"
+              >
                 <div className="flex items-baseline justify-between gap-2">
-                  <p className="text-sm font-semibold text-white">{offer.name}</p>
-                  <p className="shrink-0 text-sm font-bold text-[#C8A951]">
+                  <p className="text-sm font-semibold text-ltl-text-primary">
+                    {offer.name}
+                  </p>
+                  <p className="shrink-0 text-sm font-bold text-ltl-accent">
                     {offer.priceLabel}
                   </p>
                 </div>
-                <p className="mt-1 text-xs text-[#AFC3DB]">{offer.note}</p>
+                <p className="mt-1 text-xs text-ltl-text-secondary">{offer.note}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <p className="mt-6 text-center text-xs text-[#6B7A8D]">
+        <p className="mt-6 text-center text-xs text-ltl-text-secondary">
           Prices in USD. Cancel anytime. Annual plans billed once per year.
         </p>
       </div>
@@ -173,83 +187,99 @@ function TierCard({ tier, interval }: { tier: Tier; interval: BillingInterval })
       ? Math.round((price / 12) * 100) / 100
       : null;
 
-  const ctaClassName = `mt-5 inline-flex items-center justify-center rounded-lg px-4 py-2.5 text-sm font-semibold transition ${
+  const ctaClassName = cn(
+    "mt-5 inline-flex w-full items-center justify-center rounded-md px-4 py-2.5 text-sm font-semibold transition",
     isSoon
-      ? "border border-[#1F3A5F] bg-white text-[#1F3A5F] hover:bg-[#F4F7FB]"
+      ? "border border-ltl-border bg-transparent text-ltl-text-primary hover:bg-ltl-bg"
       : tier.highlight
-        ? "bg-[#C8A951] text-[#142439] hover:brightness-105"
-        : "bg-[#1F3A5F] text-white hover:bg-[#27496E]"
-  }`;
+        ? "bg-ltl-accent font-bold text-ltl-bg hover:bg-ltl-accent-hover"
+        : "bg-ltl-text-primary font-bold text-ltl-bg hover:bg-ltl-text-primary/90",
+  );
 
   return (
     <div
-      className={`relative flex flex-col rounded-2xl border bg-white p-6 shadow-sm ${
-        tier.highlight ? "border-[#C8A951] ring-2 ring-[#C8A951]/40" : "border-[#DBE3EC]"
-      }`}
+      className={cn(
+        "relative flex flex-col rounded-2xl border bg-ltl-surface p-6",
+        tier.highlight
+          ? "border-ltl-accent ring-1 ring-ltl-accent/30"
+          : "border-ltl-border",
+      )}
     >
       {badge && (
         <span
-          className={`absolute -top-3 left-6 rounded-full px-3 py-1 text-xs font-semibold ${
-            isSoon ? "bg-[#1F3A5F] text-[#C8A951]" : "bg-[#C8A951] text-[#142439]"
-          }`}
+          className={cn(
+            "absolute -top-3 left-6 rounded-full px-3 py-1 font-label text-xs uppercase tracking-wider",
+            isSoon
+              ? "border border-ltl-border bg-ltl-bg text-ltl-text-secondary"
+              : "bg-ltl-accent text-ltl-bg",
+          )}
         >
           {badge}
         </span>
       )}
 
-      <h3 className="text-xl font-bold text-[#1F3A5F]">{tier.name}</h3>
-      <p className="mt-1 min-h-[2.5rem] text-sm text-[#6B7A8D]">{tier.tagline}</p>
+      <h3 className="font-heading text-xl font-semibold text-ltl-text-primary">
+        {tier.name}
+      </h3>
+      <p className="mt-1 min-h-[2.5rem] text-sm text-ltl-text-secondary">
+        {tier.tagline}
+      </p>
 
       <div className="mt-4">
         {isCustom ? (
-          <span className="text-3xl font-bold text-[#1F3A5F]">Custom</span>
+          <span className="font-heading text-3xl font-semibold text-ltl-text-primary">
+            Custom
+          </span>
         ) : (
           <div className="flex items-baseline gap-2">
-            <span className="text-4xl font-bold text-[#1F3A5F]">${price}</span>
-            {!isFree && <span className="text-sm text-[#6B7A8D]">/{unit}</span>}
+            <span className="font-heading text-4xl font-semibold text-ltl-text-primary">
+              ${price}
+            </span>
+            {!isFree && (
+              <span className="text-sm text-ltl-text-secondary">/{unit}</span>
+            )}
             {showFounding && regular != null && (
-              <span className="text-sm text-[#6B7A8D] line-through">${regular}</span>
+              <span className="text-sm text-ltl-text-secondary line-through">
+                ${regular}
+              </span>
             )}
           </div>
         )}
         {showFounding && !isFree && (
-          <p className="mt-1 text-xs font-semibold text-[#9A802E]">
+          <p className="mt-1 font-label text-xs uppercase tracking-wide text-ltl-accent">
             {founding.badge} · locked for life
           </p>
         )}
         {interval === "year" && !isFree && !isCustom && eff != null && (
-          <p className="mt-1 text-xs text-[#6B7A8D]">${eff}/mo billed annually</p>
+          <p className="mt-1 text-xs text-ltl-text-secondary">
+            ${eff}/mo billed annually
+          </p>
         )}
       </div>
 
       <TierCta href={cta.href} className={ctaClassName}>
         {cta.label}
       </TierCta>
-      {isSoon && <p className="mt-2 text-xs text-[#6B7A8D]">{comingSoon.note}</p>}
+      {isSoon && (
+        <p className="mt-2 text-xs text-ltl-text-secondary">{comingSoon.note}</p>
+      )}
 
       <ul className="mt-6 space-y-2.5">
         {tier.features.map((feature) => {
           const isHeader = feature.endsWith(":");
+
           return (
             <li
               key={feature}
-              className={`flex gap-2 text-sm ${
-                isHeader ? "font-semibold text-[#1F3A5F]" : "text-[#22303F]"
-              }`}
+              className={cn(
+                "flex gap-2 text-sm",
+                isHeader
+                  ? "font-semibold text-ltl-text-primary"
+                  : "text-ltl-text-secondary",
+              )}
             >
               {!isHeader && (
-                <svg
-                  className="mt-0.5 h-4 w-4 shrink-0 text-[#C8A951]"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M16.7 5.3a1 1 0 010 1.4l-7.5 7.5a1 1 0 01-1.4 0L3.3 9.7a1 1 0 011.4-1.4l3.1 3.1 6.8-6.8a1 1 0 011.4 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+                <Check className="mt-0.5 size-4 shrink-0 text-ltl-accent" aria-hidden />
               )}
               <span>{feature}</span>
             </li>
