@@ -19,45 +19,73 @@ import {
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
+const COMMUNITY_HASH = "#community";
+const COMMUNITY_HREF = `/${COMMUNITY_HASH}`;
+
 const navLinks = [
   { href: "/magazine", label: "Magazine" },
   { href: "/podcast", label: "Podcast" },
   { href: "/vlogs", label: "Vlogs" },
-  { href: "/#community", label: "Community" },
+  { href: COMMUNITY_HREF, label: "Community" },
   { href: "/concierge", label: "Cadence" },
   { href: "/pricing", label: "Pricing" },
   { href: "/about", label: "About" },
 ] as const;
 
-function useLocationHash() {
+function useCommunityNavActive() {
   const pathname = usePathname();
-  const [hash, setHash] = useState("");
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
-    setHash(window.location.hash);
+    if (pathname !== "/") {
+      setActive(false);
+      return;
+    }
+
+    const syncFromLocation = () => {
+      setActive(window.location.hash === COMMUNITY_HASH);
+    };
+
+    syncFromLocation();
+    const t1 = window.setTimeout(syncFromLocation, 0);
+    const t2 = window.setTimeout(syncFromLocation, 150);
+
+    window.addEventListener("hashchange", syncFromLocation);
+    window.addEventListener("popstate", syncFromLocation);
+    return () => {
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+      window.removeEventListener("hashchange", syncFromLocation);
+      window.removeEventListener("popstate", syncFromLocation);
+    };
   }, [pathname]);
 
-  useEffect(() => {
-    const syncHash = () => setHash(window.location.hash);
+  function activateCommunity() {
+    window.history.pushState(null, "", COMMUNITY_HREF);
+    setActive(true);
+    document.getElementById("community")?.scrollIntoView({ behavior: "smooth" });
+  }
 
-    window.addEventListener("hashchange", syncHash);
-    window.addEventListener("popstate", syncHash);
-    return () => {
-      window.removeEventListener("hashchange", syncHash);
-      window.removeEventListener("popstate", syncHash);
-    };
-  }, []);
+  function deactivateCommunity() {
+    window.history.replaceState(null, "", "/");
+    setActive(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
-  return { hash, setHash };
+  return {
+    isCommunityActive: pathname === "/" && active,
+    activateCommunity,
+    deactivateCommunity,
+  };
 }
 
 function isNavLinkActive(
   pathname: string,
   href: string,
-  hash: string,
+  isCommunityActive: boolean,
 ): boolean {
-  if (href === "/#community") {
-    return pathname === "/" && hash === "#community";
+  if (href === COMMUNITY_HREF) {
+    return isCommunityActive;
   }
 
   const path = href.split("#")[0];
@@ -115,7 +143,7 @@ function NavLink({
   href: string;
   label: string;
   className?: string;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
   isActive?: boolean;
 }) {
   return (
@@ -139,7 +167,8 @@ function NavLink({
 export function Navbar({ user }: { user: User | null }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
-  const { hash, setHash } = useLocationHash();
+  const { isCommunityActive, activateCommunity, deactivateCommunity } =
+    useCommunityNavActive();
   const loginHref = buildAuthHref("login", pathname, "");
   const signupHref = buildAuthHref("signup", pathname, "");
 
@@ -198,12 +227,33 @@ export function Navbar({ user }: { user: User | null }) {
     );
   }
 
+  function handleCommunityClick(
+    event: React.MouseEvent<HTMLAnchorElement>,
+    closeMenu = false,
+  ) {
+    if (pathname === "/") {
+      event.preventDefault();
+      activateCommunity();
+    }
+
+    if (closeMenu) {
+      closeMobile();
+    }
+  }
+
+  function handleLogoClick(event: React.MouseEvent<HTMLAnchorElement>) {
+    if (pathname === "/") {
+      event.preventDefault();
+      deactivateCommunity();
+    }
+  }
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-ltl-border bg-ltl-bg">
       <nav className="relative mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
-          onClick={() => setHash("")}
+          onClick={handleLogoClick}
           className="font-heading text-xl font-semibold tracking-tight text-ltl-accent transition-opacity hover:opacity-90"
         >
           LTL Pulse
@@ -216,11 +266,11 @@ export function Navbar({ user }: { user: User | null }) {
               href={link.href}
               label={link.label}
               onClick={
-                link.href === "/#community"
-                  ? () => setHash("#community")
+                link.href === COMMUNITY_HREF
+                  ? (event) => handleCommunityClick(event)
                   : undefined
               }
-              isActive={isNavLinkActive(pathname, link.href, hash)}
+              isActive={isNavLinkActive(pathname, link.href, isCommunityActive)}
             />
           ))}
         </div>
@@ -274,13 +324,18 @@ export function Navbar({ user }: { user: User | null }) {
                     <NavLink
                       href={link.href}
                       label={link.label}
-                      onClick={() => {
-                        if (link.href === "/#community") {
-                          setHash("#community");
+                      onClick={(event) => {
+                        if (link.href === COMMUNITY_HREF) {
+                          handleCommunityClick(event, true);
+                          return;
                         }
                         closeMobile();
                       }}
-                      isActive={isNavLinkActive(pathname, link.href, hash)}
+                      isActive={isNavLinkActive(
+                        pathname,
+                        link.href,
+                        isCommunityActive,
+                      )}
                       className="text-lg"
                     />
                   </motion.div>
