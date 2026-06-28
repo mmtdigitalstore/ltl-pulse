@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Menu } from "lucide-react";
 import type { User } from "@supabase/supabase-js";
@@ -29,9 +29,28 @@ const navLinks = [
   { href: "/about", label: "About" },
 ] as const;
 
-function isNavLinkActive(pathname: string, href: string): boolean {
+function useLocationHash() {
+  const pathname = usePathname();
+  const [hash, setHash] = useState("");
+
+  useEffect(() => {
+    const syncHash = () => setHash(window.location.hash);
+
+    syncHash();
+    window.addEventListener("hashchange", syncHash);
+    return () => window.removeEventListener("hashchange", syncHash);
+  }, [pathname]);
+
+  return hash;
+}
+
+function isNavLinkActive(
+  pathname: string,
+  href: string,
+  hash: string,
+): boolean {
   if (href === "/#community") {
-    return pathname === "/";
+    return pathname === "/" && hash === "#community";
   }
 
   const path = href.split("#")[0];
@@ -113,6 +132,7 @@ function NavLink({
 export function Navbar({ user }: { user: User | null }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const hash = useLocationHash();
   const loginHref = buildAuthHref("login", pathname, "");
   const signupHref = buildAuthHref("signup", pathname, "");
 
@@ -182,7 +202,7 @@ export function Navbar({ user }: { user: User | null }) {
               key={link.href}
               href={link.href}
               label={link.label}
-              isActive={isNavLinkActive(pathname, link.href)}
+              isActive={isNavLinkActive(pathname, link.href, hash)}
             />
           ))}
         </div>
@@ -237,7 +257,7 @@ export function Navbar({ user }: { user: User | null }) {
                       href={link.href}
                       label={link.label}
                       onClick={closeMobile}
-                      isActive={isNavLinkActive(pathname, link.href)}
+                      isActive={isNavLinkActive(pathname, link.href, hash)}
                       className="text-lg"
                     />
                   </motion.div>
