@@ -12,6 +12,9 @@ type Status = "idle" | "submitting" | "success" | "error";
 const fieldClassName =
   "mt-2 w-full rounded-lg border border-ltl-border bg-ltl-bg px-3 py-2 text-ltl-text-primary outline-none placeholder:text-ltl-text-secondary focus:border-ltl-accent focus:ring-2 focus:ring-ltl-accent/20";
 
+const fileInputClassName =
+  "mt-2 block w-full text-sm text-ltl-text-secondary file:mr-3 file:rounded-md file:border-0 file:bg-ltl-accent file:px-4 file:py-2 file:text-sm file:font-bold file:text-ltl-bg hover:file:bg-ltl-accent-hover";
+
 export default function AddYourVoiceForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [quote, setQuote] = useState("");
@@ -108,6 +111,14 @@ export default function AddYourVoiceForm() {
             <Field id="email" type="email" name="email" label={shareCopy.emailLabel} />
           </div>
 
+          <Field
+            id="companyUrl"
+            name="companyUrl"
+            type="url"
+            label={shareCopy.companyUrlLabel}
+            placeholder={shareCopy.companyUrlPlaceholder}
+          />
+
           {shareCopy.allowAudio && (
             <div>
               <label htmlFor="audio" className="block text-sm font-semibold text-ltl-text-primary">
@@ -118,8 +129,25 @@ export default function AddYourVoiceForm() {
                 name="audio"
                 type="file"
                 accept="audio/*"
-                className="mt-2 block w-full text-sm text-ltl-text-secondary file:mr-3 file:rounded-md file:border-0 file:bg-ltl-accent file:px-4 file:py-2 file:text-sm file:font-bold file:text-ltl-bg hover:file:bg-ltl-accent-hover"
+                className={fileInputClassName}
               />
+              <p className="mt-1 text-xs text-ltl-text-secondary">{shareCopy.audioHint}</p>
+            </div>
+          )}
+
+          {shareCopy.allowVideo && (
+            <div>
+              <label htmlFor="video" className="block text-sm font-semibold text-ltl-text-primary">
+                {shareCopy.videoLabel}
+              </label>
+              <input
+                id="video"
+                name="video"
+                type="file"
+                accept="video/*"
+                className={fileInputClassName}
+              />
+              <p className="mt-1 text-xs text-ltl-text-secondary">{shareCopy.videoHint}</p>
             </div>
           )}
 
@@ -160,12 +188,14 @@ function Field({
   label,
   type = "text",
   required = false,
+  placeholder,
 }: {
   id: string;
   name: string;
   label: string;
   type?: string;
   required?: boolean;
+  placeholder?: string;
 }) {
   return (
     <div>
@@ -177,6 +207,7 @@ function Field({
         name={name}
         type={type}
         required={required}
+        placeholder={placeholder}
         className={fieldClassName}
       />
     </div>

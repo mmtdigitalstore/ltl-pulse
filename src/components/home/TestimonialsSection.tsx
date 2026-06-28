@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Mic, Quote } from "lucide-react";
+import { Mic, Quote, Video } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -125,7 +125,7 @@ export function TestimonialsSection() {
 }
 
 function FeaturedQuoteCard({ testimonial }: { testimonial: Testimonial }) {
-  const { quote, author, role, org, audioUrl } = testimonial;
+  const { quote, author, role, org, companyUrl, audioUrl, videoUrl } = testimonial;
 
   return (
     <figure className="relative overflow-hidden rounded-2xl border border-ltl-accent/30 bg-ltl-surface p-8 shadow-[0_0_40px_rgba(255,180,0,0.06)] sm:p-10">
@@ -136,23 +136,25 @@ function FeaturedQuoteCard({ testimonial }: { testimonial: Testimonial }) {
       <blockquote className="relative max-w-3xl font-heading text-xl leading-relaxed text-ltl-text-primary sm:text-2xl">
         {quote}
       </blockquote>
-      {audioUrl && <AudioPlayer audioUrl={audioUrl} className="relative mt-6 max-w-md" />}
+      {videoUrl && <VideoPlayer videoUrl={videoUrl} className="relative mt-6 max-w-lg" />}
+      {audioUrl && !videoUrl && (
+        <AudioPlayer audioUrl={audioUrl} className="relative mt-6 max-w-md" />
+      )}
       <figcaption className="relative mt-8 flex items-center gap-4">
         <AuthorAvatar name={author} size="lg" />
-        <div>
-          <p className="font-semibold text-ltl-text-primary">{author}</p>
-          <p className="text-sm text-ltl-text-secondary">
-            {role}
-            {org ? ` · ${org}` : ""}
-          </p>
-        </div>
+        <AuthorAttribution
+          author={author}
+          role={role}
+          org={org}
+          companyUrl={companyUrl}
+        />
       </figcaption>
     </figure>
   );
 }
 
 function QuoteCard({ testimonial }: { testimonial: Testimonial }) {
-  const { quote, author, role, org, audioUrl } = testimonial;
+  const { quote, author, role, org, companyUrl, audioUrl, videoUrl } = testimonial;
 
   return (
     <figure className="flex h-full flex-col rounded-2xl border border-ltl-border bg-ltl-surface p-6 transition-colors hover:border-ltl-accent/25">
@@ -162,16 +164,17 @@ function QuoteCard({ testimonial }: { testimonial: Testimonial }) {
       <blockquote className="mt-2 flex-1 text-[15px] leading-relaxed text-ltl-text-primary">
         {quote}
       </blockquote>
-      {audioUrl && <AudioPlayer audioUrl={audioUrl} className="mt-4" />}
+      {videoUrl && <VideoPlayer videoUrl={videoUrl} className="mt-4" />}
+      {audioUrl && !videoUrl && <AudioPlayer audioUrl={audioUrl} className="mt-4" />}
       <figcaption className="mt-5 flex items-center gap-3 border-t border-ltl-border pt-4">
         <AuthorAvatar name={author} />
-        <div>
-          <p className="text-sm font-semibold text-ltl-text-primary">{author}</p>
-          <p className="text-xs text-ltl-text-secondary">
-            {role}
-            {org ? ` · ${org}` : ""}
-          </p>
-        </div>
+        <AuthorAttribution
+          author={author}
+          role={role}
+          org={org}
+          companyUrl={companyUrl}
+          compact
+        />
       </figcaption>
     </figure>
   );
@@ -227,6 +230,79 @@ function AudioPlayer({ audioUrl, className }: { audioUrl: string; className?: st
       <audio controls preload="none" className="h-8 w-full max-w-xs opacity-90">
         <source src={audioUrl} />
       </audio>
+    </div>
+  );
+}
+
+function VideoPlayer({ videoUrl, className }: { videoUrl: string; className?: string }) {
+  return (
+    <div className={cn("overflow-hidden rounded-lg border border-ltl-border bg-ltl-bg", className)}>
+      <div className="flex items-center gap-2 border-b border-ltl-border px-3 py-2">
+        <Video className="size-4 shrink-0 text-ltl-accent" aria-hidden />
+        <span className="font-label text-xs uppercase tracking-wider text-ltl-text-secondary">
+          Video testimonial
+        </span>
+      </div>
+      <video controls preload="metadata" playsInline className="aspect-video w-full">
+        <source src={videoUrl} />
+      </video>
+    </div>
+  );
+}
+
+function AuthorAttribution({
+  author,
+  role,
+  org,
+  companyUrl,
+  compact = false,
+}: {
+  author: string;
+  role: string;
+  org?: string;
+  companyUrl?: string;
+  compact?: boolean;
+}) {
+  const nameClass = compact
+    ? "text-sm font-semibold text-ltl-text-primary"
+    : "font-semibold text-ltl-text-primary";
+  const metaClass = compact ? "text-xs text-ltl-text-secondary" : "text-sm text-ltl-text-secondary";
+
+  return (
+    <div>
+      <p className={nameClass}>{author}</p>
+      <p className={metaClass}>
+        {role}
+        {org ? (
+          <>
+            {" · "}
+            {companyUrl ? (
+              <a
+                href={companyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-ltl-accent hover:underline"
+              >
+                {org}
+              </a>
+            ) : (
+              org
+            )}
+          </>
+        ) : companyUrl ? (
+          <>
+            {" · "}
+            <a
+              href={companyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-ltl-accent hover:underline"
+            >
+              Company site
+            </a>
+          </>
+        ) : null}
+      </p>
     </div>
   );
 }

@@ -8,7 +8,10 @@ export interface Testimonial {
   author: string;
   role: string;
   org?: string;
+  /** Optional link to the sharer's company or public profile. */
+  companyUrl?: string;
   audioUrl?: string;
+  videoUrl?: string;
 }
 
 export interface Spotlight {

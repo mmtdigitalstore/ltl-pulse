@@ -13,12 +13,19 @@ export const shareCopy = {
   roleLabel: "Role / title",
   orgLabel: "Organization (optional)",
   emailLabel: "Email (optional — only so we can thank you or verify)",
+  companyUrlLabel: "Company or profile link (optional)",
+  companyUrlPlaceholder: "https://yourcompany.com",
 
   allowAudio: true,
   audioLabel: "Prefer to say it? Add a 20–30 second voice note (optional)",
+  audioHint: "MP3, M4A, or other common audio formats · max 8 MB",
+
+  allowVideo: true,
+  videoLabel: "Or share a short video testimonial (optional)",
+  videoHint: "20–60 seconds · MP4 or WebM · max 50 MB",
 
   consentLabel:
-    "I’m happy for LTL Pulse to share this publicly with my first name, role, and organization.",
+    "I’m happy for LTL Pulse to share this publicly with my first name, role, organization, and company link (if provided).",
 
   submitLabel: "Share my voice",
   submittingLabel: "Sending…",
