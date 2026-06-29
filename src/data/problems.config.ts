@@ -12,9 +12,13 @@ export const experts: Record<
     name: string;
     /** Short line under the name on About (e.g. "Team Lead · LTL Pulse"). */
     title: string;
-    /** One-line specialty — shown on homepage, Contact, and under credentials on About. */
+    /** One-line specialty — shown on Contact and under credentials on About. */
     tagline: string;
+    /** Optional richer copy for the homepage Meet the Experts card. */
+    homepageTagline?: string;
     bestFor: string;
+    /** Optional richer best-for line for the homepage Meet the Experts card. */
+    homepageBestFor?: string;
     contactBio: string;
   }
 > = {
@@ -23,8 +27,12 @@ export const experts: Record<
     title: "Team Lead · LTL Pulse",
     tagline:
       "People, culture, leader development & client-flow systems.",
+    homepageTagline:
+      "People, culture, leader development & client-flow systems — where retention slips, revenue stays feast-or-famine, and new leaders need more than good intentions.",
     bestFor:
       "Turnover, culture, new leaders & feast-or-famine pipelines (start with WebScore)",
+    homepageBestFor:
+      "Turnover & retention, feast-or-famine revenue, doer-to-leader transitions & culture under growth pressure",
     contactBio:
       "Dawn helps when people or pipeline chaos is costing you — retention, culture, developing leaders, and client-flow systems that start with a WebScore diagnostic, then build the backend for repeat clients.",
   },

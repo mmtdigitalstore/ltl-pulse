@@ -275,7 +275,7 @@ export function AboutPageContent() {
                 role={experts.dawn.title}
                 tagline={experts.dawn.tagline}
                 photo={EXPERT_PHOTOS.dawn}
-                credentials="Maxwell Certified Independent Executive Director · WebScore Analyst · Cornell-certified in project leadership & systems design · Executive MBA candidate · Author, Transforming Pain Into Purpose · Founder, Market My Training Solutions"
+                credentials="Maxwell Certified Independent Executive Director · WebScore Analyst · Cornell-certified in project leadership & systems design · Executive MBA candidate · Co-author, Transforming Pain Into Purpose (Volume 1) · Founder, Market My Training Solutions"
               >
                 <p>
                   As Team Lead of LTL Pulse, Dawn Kirk believes leadership and culture

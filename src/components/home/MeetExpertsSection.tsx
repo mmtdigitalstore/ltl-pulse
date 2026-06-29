@@ -75,11 +75,11 @@ export function MeetExpertsSection() {
                     {expert.title}
                   </p>
                   <p className="mt-2 text-sm leading-relaxed text-ltl-text-secondary">
-                    {expert.tagline}
+                    {expert.homepageTagline ?? expert.tagline}
                   </p>
                   <p className="mt-4 text-sm leading-relaxed text-ltl-text-primary">
                     <span className="font-medium text-ltl-accent">Best for:</span>{" "}
-                    {expert.bestFor}
+                    {expert.homepageBestFor ?? expert.bestFor}
                   </p>
                   <div className="mt-6 flex flex-wrap gap-3">
                     <Link
