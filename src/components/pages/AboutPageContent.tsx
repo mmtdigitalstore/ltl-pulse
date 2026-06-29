@@ -296,9 +296,7 @@ export function AboutPageContent() {
                   <span className="font-heading font-semibold text-ltl-accent">
                     THRIVE
                   </span>{" "}
-                  framework, leaders build the pipeline backend — CRM, pipeline stages,
-                  reputation, follow-up, and AI-enabled tools — so feast-or-famine becomes
-                  repeat business. Her{" "}
+                  framework, feast-or-famine becomes repeat business. Her{" "}
                   <span className="font-heading font-semibold text-ltl-accent">
                     E.A.R.N.
                   </span>{" "}
@@ -483,11 +481,8 @@ export function AboutPageContent() {
                   — when growth has plateaued at the market level and you need
                   repositioning, a new digital offer, or an innovation strategy for what&apos;s
                   next. A serial entrepreneur, he builds and scales ventures across
-                  education, media, and AgTech. His work complements operational
-                  client-flow systems (Dawn&apos;s THRIVE and WebScore diagnose footprint
-                  and install pipeline backend for repeat business); Joshua focuses on
-                  market-level pivots, new ventures, and strategic AI adoption when the
-                  game itself has changed.
+                  education, media, and AgTech — focusing on market-level pivots, new
+                  ventures, and strategic AI adoption when the game itself has changed.
                 </p>
                 <p>
                   Through E Skool Now Group, the Global Educators Tribe, Tech Skool, and
