@@ -47,24 +47,19 @@ const whatsInside = [
 
 const experienceTracks = [
   {
-    title: "Free conversations",
+    title: "Lead & Keep Your People",
     description:
-      "LTL Conversations — problem-led podcasts mapped to what owners and coaches face most. Start here, no paywall.",
+      "Workshops and retreats for owners on leading, developing, and retaining a team that performs — so your best people stay and grow.",
   },
   {
-    title: "Magazine & vlogs",
+    title: "Systems That Scale",
     description:
-      "Deeper playbooks and tactical video when a 10-minute listen surfaces a problem worth solving properly.",
+      "Turning your business into repeatable systems — client-flow, operations, and accountability — so growth doesn't all run through you.",
   },
   {
-    title: "Cadence + expert routing",
+    title: "Future-Ready & Digital",
     description:
-      "Your AI concierge points you to the right consultant and content — then you choose how personal to go.",
-  },
-  {
-    title: "Challenges & advisory",
-    description:
-      "Structured 3, 5, and 7-day leadership challenges (coming soon) and live engagements when you're ready for hands-on work.",
+      "Modernizing with tech and AI, and preparing your team for the changing world of work.",
   },
 ] as const;
 
@@ -185,6 +180,16 @@ export function AboutPageContent() {
           </p>
         </motion.div>
 
+        <Section title="Who LTL Pulse is for">
+          <p>
+            LTL Pulse is built for growing service businesses and the coaches who
+            guide them. We help you keep your best people, win and keep loyal
+            customers, build a client-flow that&apos;s steady instead of
+            feast-or-famine, and lead a team that delivers — with practical content
+            and on-demand access to real experts.
+          </p>
+        </Section>
+
         <Section title="Our vision" accentTitle>
           <p>Future-ready leadership, everywhere Let&apos;s Talk Leadership goes.</p>
         </Section>
@@ -273,44 +278,44 @@ export function AboutPageContent() {
                 id="dawn"
                 name="Dawn Kirk, M.Ed."
                 role={experts.dawn.title}
-                tagline={experts.dawn.tagline}
                 photo={EXPERT_PHOTOS.dawn}
-                credentials="Maxwell Certified Independent Executive Director · WebScore Analyst · Cornell-certified in project leadership & systems design · Executive MBA candidate · Co-author, Transforming Pain Into Purpose (Volume 1) · Founder, Market My Training Solutions"
               >
-                <p>
-                  As Team Lead of LTL Pulse, Dawn Kirk believes leadership and culture
-                  are inseparable — the conviction behind everything the platform publishes.
-                  A Maxwell Certified Independent Executive Director, Cornell-trained in
-                  systems design,
-                  and founder of Market My Training Solutions, she brings 30+ years across
-                  Bermuda and the Caribbean to one purpose: leaders who perform and cultures
-                  that endure.
+                <p className="font-medium text-ltl-text-primary">
+                  Dawn helps owners and coaches keep their best people, build brands
+                  clients return to, and turn feast-or-famine into a steady client-flow
+                  system. Through her THRIVE system and E.A.R.N. method, she helps
+                  leaders develop people who perform and cultures that endure.
                 </p>
-                <p>
-                  Her client-flow work starts with a proprietary digital footprint
-                  diagnostic, then a structured framework that turns feast-or-famine into
-                  repeat business — the full path opens through Cadence and membership.
+                <p className="text-xs italic leading-relaxed text-ltl-text-secondary md:text-sm">
+                  Maxwell Leadership Certified at the Executive Director level ·
+                  Cornell-certified in project leadership and systems design ·
+                  Executive MBA candidate · Contributing author, Transforming Pain Into
+                  Purpose (Vol. 1) · Founder of Market My Training Solutions · 30+ years
+                  across Bermuda and the Caribbean.
                 </p>
                 <div>
                   <p className="font-medium text-ltl-text-primary">
                     Dawn can help you when:
                   </p>
                   <ul className="mt-3 list-disc space-y-2 pl-5">
-                    <li>Your best people are leaving and you&apos;re not sure why</li>
                     <li>
-                      Revenue is feast-or-famine — you need a diagnostic and system, not
-                      more hustle
+                      Your best people keep leaving — and you&apos;re not sure why
                     </li>
                     <li>
-                      You were promoted for doing the work, but nobody taught you to lead
-                      people
+                      Your revenue is feast-or-famine because winning clients lives in
+                      your head, not a system
                     </li>
                     <li>
-                      Your leadership team is technically strong but isn&apos;t truly
-                      leading
+                      You were great at the work, got promoted, and were never taught to
+                      lead people
                     </li>
                     <li>
-                      You need culture and retention to hold during restructure or growth
+                      You want a brand and client relationships that bring repeat
+                      business, not just look good
+                    </li>
+                    <li>
+                      You&apos;re growing and need to build the next layer of leaders,
+                      not do it all yourself
                     </li>
                   </ul>
                 </div>
@@ -318,9 +323,9 @@ export function AboutPageContent() {
                   <span className="font-label uppercase tracking-wider text-ltl-accent">
                     Specialties:
                   </span>{" "}
-                  Leadership development · Culture &amp; retention · Client-flow
-                  diagnostics · Pipeline &amp; retention systems · Doer-to-leader
-                  transitions
+                  People &amp; culture · Talent retention · Client-flow systems (CRM,
+                  social, reputation) · Brand &amp; client strategy · Leadership
+                  development
                 </p>
               </TeamMemberCard>
             </motion.div>
@@ -330,48 +335,42 @@ export function AboutPageContent() {
                 id="lashley"
                 name="Sylvan A. Lashley, Ed.D., J.D."
                 role={experts.lashley.title}
-                tagline={experts.lashley.tagline}
                 photo={EXPERT_PHOTOS.lashley}
-                credentials="Three-time university president (Northern Caribbean University, University of the Southern Caribbean, Atlantic Union College) · Former K–12 superintendent and principal · J.D., Ed.D., M.E.L., MBA · Faculty in Education Law & Special Education Law"
               >
-                <p>
-                  Dr. Sylvan Lashley helps owners who are growing but running on
-                  chaos — when decisions, approvals, and firefighting still bottleneck
-                  at you. A three-time university president and former K–12
-                  superintendent, he translates large-scale structure, accountability,
-                  and financial durability into growing service businesses and
-                  institutions that need to scale without the mess.
+                <p className="font-medium text-ltl-text-primary">
+                  Sylvan helps owners scale without the chaos — building the structure,
+                  accountability, and financial durability a growing business needs when
+                  everything still runs through you. He brings institutional-grade
+                  discipline to growing companies.
                 </p>
-                <p>
-                  A legal scholar as much as an executive, he has led through
-                  enrollment shifts, accreditation, governance, and financial pressure
-                  — with measurable results including 300% organizational growth, 69%
-                  gains in student achievement, and $1.75 million in grant funding
-                  secured. Structure and sustainability, without the jargon.
+                <p className="text-xs italic leading-relaxed text-ltl-text-secondary md:text-sm">
+                  A three-time president of large, complex organizations with a track
+                  record of turnaround and growth — including 300% organizational growth
+                  and $1.75M secured — plus a Juris Doctor and Doctor of Education.
                 </p>
                 <div>
                   <p className="font-medium text-ltl-text-primary">
-                    Dr. Lashley can help you when:
+                    Sylvan can help you when:
                   </p>
                   <ul className="mt-3 list-disc space-y-2 pl-5">
                     <li>
-                      You&apos;re growing but it&apos;s chaos — work still runs
+                      You&apos;re growing but it&apos;s chaos — everything still runs
                       through you
                     </li>
                     <li>
-                      You need clear roles, decision rights, and accountability as
-                      you scale
+                      You need clear roles, decision rights, and accountability as the
+                      team gets bigger
                     </li>
                     <li>
-                      Financial durability, grants, or sustainability are on the
-                      line
+                      You want growth that&apos;s financially durable, not just busy
                     </li>
                     <li>
-                      Your board or governance structure needs strengthening
+                      You&apos;re navigating a big change — expansion, restructure, a
+                      turnaround — and need it to hold
                     </li>
                     <li>
-                      You face education law, compliance, or institutional
-                      transformation questions
+                      You&apos;ve outgrown &quot;winging it&quot; and need real operating
+                      structure
                     </li>
                   </ul>
                 </div>
@@ -379,9 +378,8 @@ export function AboutPageContent() {
                   <span className="font-label uppercase tracking-wider text-ltl-accent">
                     Specialties:
                   </span>{" "}
-                  Scaling &amp; structure · Accountability systems · Financial
-                  sustainability · Governance · Institutional transformation ·
-                  Education law
+                  Scaling with structure · Roles, decision rights &amp; accountability ·
+                  Financial durability · Leading change &amp; turnarounds · Governance
                 </p>
               </TeamMemberCard>
             </motion.div>
@@ -391,30 +389,21 @@ export function AboutPageContent() {
                 id="jackie"
                 name="Jackie John, R.Eng., MSc"
                 role={experts.jackie.title}
-                tagline={experts.jackie.tagline}
                 photo={EXPERT_PHOTOS.jackie}
-                credentials="Maxwell Leadership Certified DISC Coach & Consultant · Registered Engineer (R.Eng.), MSc, BSc, MAPETT · Founder of New Version Coaching & Consulting (NVCC) · Leads Jameri Consultants, BuildSafe Caribbean & Sargassum Solutions"
               >
-                <p>
-                  Jackie John develops leaders who think clearly, lead boldly, and deliver
-                  results that matter — the future-ready leadership at the heart of everything
-                  LTL Pulse publishes. A Maxwell Leadership Certified DISC Coach and
-                  Consultant with more than 30 years across engineering, project management,
-                  and organizational leadership in Trinidad and Tobago and the wider Caribbean,
-                  he blends technical rigor with deep human insight.
-                </p>
-                <p>
-                  Through New Version Coaching &amp; Consulting (NVCC), Jackie helps
-                  individuals, teams, and organizations unlock their behavioral strengths,
-                  bridge communication gaps, and build the self-awareness sustained
-                  leadership demands — guided by the Maxwell DISC Method and his own
+                <p className="font-medium text-ltl-text-primary">
+                  Jackie helps service businesses stop losing customers to inconsistent
+                  service and turn teams that talk past each other into teams that
+                  deliver. He works through the Maxwell DISC method and his own
                   framework,{" "}
                   <span className="font-heading font-semibold text-ltl-accent">
                     Think. Lead. Influence. Deliver.
-                  </span>{" "}
-                  A Registered Engineer and entrepreneur, he also leads Jameri Consultants
-                  Limited, BuildSafe Caribbean, and Sargassum Solutions Limited. Leadership
-                  for what&apos;s coming, not just what&apos;s been.
+                  </span>
+                </p>
+                <p className="text-xs italic leading-relaxed text-ltl-text-secondary md:text-sm">
+                  Maxwell Leadership Certified DISC Coach &amp; Consultant · Registered
+                  Engineer (R.Eng.), MSc · Founder of New Version Coaching &amp;
+                  Consulting · 30+ years blending technical rigor with deep human insight.
                 </p>
                 <div>
                   <p className="font-medium text-ltl-text-primary">
@@ -422,23 +411,23 @@ export function AboutPageContent() {
                   </p>
                   <ul className="mt-3 list-disc space-y-2 pl-5">
                     <li>
-                      Your team talks past each other and communication is costing you
-                      results
+                      You&apos;re losing customers to inconsistent frontline service
                     </li>
                     <li>
-                      Your leaders are technically strong but struggle with people,
-                      influence, and self-awareness
+                      Your team talks past each other and it&apos;s costing you in errors
+                      and friction
                     </li>
                     <li>
-                      You want to map behavioral strengths across a team and lead each
-                      person well (DISC)
+                      You&apos;re a technical owner who now has to lead people, not just
+                      do the work
                     </li>
                     <li>
-                      You&apos;re a technical professional stepping into leadership and need
-                      to lead, not just manage
+                      You want to understand what makes each team member tick (DISC) and
+                      lead them well
                     </li>
                     <li>
-                      You need to turn individual talent into a team that actually delivers
+                      You need to turn a group of individuals into a team that actually
+                      delivers
                     </li>
                   </ul>
                 </div>
@@ -446,9 +435,8 @@ export function AboutPageContent() {
                   <span className="font-label uppercase tracking-wider text-ltl-accent">
                     Specialties:
                   </span>{" "}
-                  Leadership development · Maxwell DISC / behavioral coaching ·
-                  Communication &amp; team dynamics · Self-awareness &amp; influence ·
-                  Engineering &amp; project leadership · Coaching &amp; consulting
+                  Customer experience · Communication &amp; team dynamics · Maxwell
+                  DISC · Self-awareness &amp; influence · Coaching
                 </p>
               </TeamMemberCard>
             </motion.div>
@@ -458,51 +446,39 @@ export function AboutPageContent() {
                 id="joshua"
                 name="Joshua Ogbonnia, CVO"
                 role={experts.joshua.title}
-                tagline={experts.joshua.tagline}
                 photo={EXPERT_PHOTOS.joshua}
-                credentials="Founder & Chief Vision Officer, E Skool Now Group · Founder & President, Global Educators Tribe (GET) · Chancellor, Tech Skool Educational Institution · CEO, Agric Shift · Serial entrepreneur across education, media & AgTech"
               >
-                <p>
-                  Joshua Ogbonnia is LTL Pulse&apos;s voice for the{" "}
-                  <span className="font-medium text-ltl-text-primary">
-                    venture and innovation layer
-                  </span>{" "}
-                  — when growth has plateaued at the market level and you need
-                  repositioning, a new digital offer, or an innovation strategy for what&apos;s
-                  next. A serial entrepreneur, he builds and scales ventures across
-                  education, media, and AgTech — focusing on market-level pivots, new
-                  ventures, and strategic AI adoption when the game itself has changed.
+                <p className="font-medium text-ltl-text-primary">
+                  Joshua helps owners break through plateaus — modernizing with tech and
+                  AI, getting noticed by the right customers, and growing again. A serial
+                  entrepreneur, he brings a builder&apos;s playbook to businesses ready for
+                  their next stage.
                 </p>
-                <p>
-                  Through E Skool Now Group, the Global Educators Tribe, Tech Skool, and
-                  Agric Shift, he has delivered award-winning digital solutions and
-                  venture-building across Africa and beyond — for founders and operators
-                  who need a new market play, not just a better follow-up system.
+                <p className="text-xs italic leading-relaxed text-ltl-text-secondary md:text-sm">
+                  Founder &amp; Chief Vision Officer of E Skool Now Group and founder/leader
+                  of multiple ventures across technology, media, and education — an
+                  award-winning innovator and future-ready voice.
                 </p>
                 <div>
                   <p className="font-medium text-ltl-text-primary">
                     Joshua can help you when:
                   </p>
                   <ul className="mt-3 list-disc space-y-2 pl-5">
+                    <li>Your business has plateaued and you need to grow again</li>
                     <li>
-                      Your business has plateaued — you need market repositioning or a new
-                      digital offer, not just more pipeline activity
+                      You know you should be using tech and AI but don&apos;t know where to
+                      start
                     </li>
                     <li>
-                      You&apos;re launching or scaling a venture in education, media, edtech,
-                      or AgTech
+                      You&apos;re invisible online and need the right customers to notice you
                     </li>
                     <li>
-                      AI and tech shifts require an innovation strategy for your offer or
-                      venture — not a CRM cleanup
+                      You want to modernize how you operate without losing what makes you{" "}
+                      <em>you</em>
                     </li>
                     <li>
-                      You need entrepreneurial lenses for competing in a market that already
-                      moved
-                    </li>
-                    <li>
-                      You want practical innovation and AI adoption you can apply this
-                      quarter — at the venture level
+                      You&apos;re an entrepreneur who wants a peer who&apos;s actually built
+                      and scaled ventures
                     </li>
                   </ul>
                 </div>
@@ -510,8 +486,9 @@ export function AboutPageContent() {
                   <span className="font-label uppercase tracking-wider text-ltl-accent">
                     Specialties:
                   </span>{" "}
-                  Venture repositioning · Innovation strategy · EdTech &amp; product growth ·
-                  Entrepreneurship · Strategic AI adoption · Market-level transformation
+                  Growth &amp; venture building · Modernizing with tech &amp; AI · Brand
+                  visibility &amp; digital · Business transformation · Future-ready
+                  leadership
                 </p>
               </TeamMemberCard>
             </motion.div>
