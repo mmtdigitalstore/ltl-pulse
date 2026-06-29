@@ -10,6 +10,7 @@ import { ExpertPhoto } from "@/components/team/ExpertPhoto";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { buttonVariants } from "@/components/ui/button";
 import { EXPERT_PHOTOS } from "@/data/expert-photos.config";
+import { experts } from "@/data/problems.config";
 import {
   sectionFadeUp,
   sectionViewport,
@@ -46,19 +47,24 @@ const whatsInside = [
 
 const experienceTracks = [
   {
-    title: "Leadership Core",
+    title: "Free conversations",
     description:
-      "Leading people and institutions: retreats for growing businesses, leadership days for school and college leaders, and executive off-sites.",
+      "LTL Conversations — problem-led podcasts mapped to what owners and coaches face most. Start here, no paywall.",
   },
   {
-    title: "Systems & Execution",
+    title: "Magazine & vlogs",
     description:
-      "Turning leadership into execution and operational excellence, especially in technical and regulated environments.",
+      "Deeper playbooks and tactical video when a 10-minute listen surfaces a problem worth solving properly.",
   },
   {
-    title: "Future Talent & Digital",
+    title: "Cadence + expert routing",
     description:
-      "Preparing the next generation and today's workforce for the future of work, from school leaders to early-career hires.",
+      "Your AI concierge points you to the right consultant and content — then you choose how personal to go.",
+  },
+  {
+    title: "Challenges & advisory",
+    description:
+      "Structured 3, 5, and 7-day leadership challenges (coming soon) and live engagements when you're ready for hands-on work.",
   },
 ] as const;
 
@@ -328,52 +334,48 @@ export function AboutPageContent() {
               <TeamMemberCard
                 id="lashley"
                 name="Sylvan A. Lashley, Ed.D., J.D."
-                role="Strategic Leadership Expert · LTL Pulse"
+                role={experts.lashley.role}
                 photo={EXPERT_PHOTOS.lashley}
-                credentials="Three-time university president (Northern Caribbean University, University of the Southern Caribbean, Atlantic Union College) · Juris Doctor (J.D.) · Doctor of Education (Ed.D.) · Master of Education Law (M.E.L.), MBA, M.A. (History), B.Ed. · Faculty in Education Law & Special Education Law"
+                credentials="Three-time university president · J.D., Ed.D., M.E.L., MBA · Education & special education law faculty"
               >
                 <p>
-                  Sylvan A. Lashley brings more than 30 years of guiding K–12
-                  systems, universities, and institutions through transformation — the
-                  future-ready leadership at the heart of everything LTL Pulse publishes.
-                  A three-time university president — Northern Caribbean University, the
-                  University of the Southern Caribbean, and Atlantic Union College — as well
-                  as a K–12 superintendent and principal, he has led institutions through
-                  change in enrollment, academic quality, governance, accreditation, and
-                  financial sustainability.
+                  Dr. Sylvan Lashley helps owners who are growing but running on
+                  chaos — when decisions, approvals, and firefighting still bottleneck
+                  at you. A three-time university president and former K–12
+                  superintendent, he translates large-scale structure, accountability,
+                  and financial durability into growing service businesses and
+                  institutions that need to scale without the mess.
                 </p>
                 <p>
-                  A legal scholar as much as an executive, he holds a Juris Doctor, Doctor
-                  of Education, Master of Education Law, MBA, M.A. in History, and B.Ed.,
-                  and teaches Education Law and Special Education Law. His leadership
-                  translates into measurable impact: 300% organizational and programmatic
-                  growth, 69% growth in student achievement, and $1.75 million in grant
-                  funding secured. Leadership for what&apos;s coming, not just what&apos;s
-                  been.
+                  A legal scholar as much as an executive, he has led through
+                  enrollment shifts, accreditation, governance, and financial pressure
+                  — with measurable results including 300% organizational growth, 69%
+                  gains in student achievement, and $1.75 million in grant funding
+                  secured. Structure and sustainability, without the jargon.
                 </p>
                 <div>
                   <p className="font-medium text-ltl-text-primary">
-                    Sylvan can help you when:
+                    Dr. Lashley can help you when:
                   </p>
                   <ul className="mt-3 list-disc space-y-2 pl-5">
                     <li>
-                      Your institution is navigating transformation — enrollment shifts,
-                      accreditation, governance, or financial pressure
+                      You&apos;re growing but it&apos;s chaos — work still runs
+                      through you
                     </li>
                     <li>
-                      You need to raise academic quality and student achievement, with
-                      measurable results
+                      You need clear roles, decision rights, and accountability as
+                      you scale
                     </li>
                     <li>
-                      You&apos;re facing education law, compliance, or special education
-                      law questions
+                      Financial durability, grants, or sustainability are on the
+                      line
                     </li>
                     <li>
-                      Your board or governance structure needs strengthening to lead well
+                      Your board or governance structure needs strengthening
                     </li>
                     <li>
-                      You&apos;re pursuing grant funding or a path to financial
-                      sustainability
+                      You face education law, compliance, or institutional
+                      transformation questions
                     </li>
                   </ul>
                 </div>
@@ -381,10 +383,9 @@ export function AboutPageContent() {
                   <span className="font-label uppercase tracking-wider text-ltl-accent">
                     Specialties:
                   </span>{" "}
-                  Educational leadership · Institutional transformation · Governance
-                  &amp; accreditation · Education &amp; special education law · Academic
-                  quality &amp; student achievement · Financial sustainability &amp; grant
-                  funding
+                  Scaling &amp; structure · Accountability systems · Financial
+                  sustainability · Governance · Institutional transformation ·
+                  Education law
                 </p>
               </TeamMemberCard>
             </motion.div>
@@ -459,26 +460,24 @@ export function AboutPageContent() {
               <TeamMemberCard
                 id="joshua"
                 name="Joshua Ogbonnia, CVO"
-                role="Entrepreneurship & Innovation Expert · LTL Pulse"
+                role={experts.joshua.role}
                 photo={EXPERT_PHOTOS.joshua}
-                credentials="Founder & Chief Vision Officer, E Skool Now Group · Founder & President, Global Educators Tribe (GET) · Chancellor, Tech Skool Educational Institution · CEO, Agric Shift"
+                credentials="Founder & CVO, E Skool Now Group · President, Global Educators Tribe · Chancellor, Tech Skool · CEO, Agric Shift"
               >
                 <p>
-                  Joshua Ogbonnia is a Nigerian serial entrepreneur and Pan-African visionary
-                  leader building the future of education, technology, and community
-                  development across the continent — exactly the future-ready leadership at
-                  the heart of everything LTL Pulse publishes.
+                  Joshua Ogbonnia is LTL Pulse&apos;s future-ready voice for owners
+                  and coaches whose growth has stalled or who are racing to keep up
+                  with AI, tech, and shifting expectations. A serial entrepreneur, he
+                  builds and scales ventures where education, media, innovation, and
+                  business transformation meet — practical modernization, not hype.
                 </p>
                 <p>
-                  As Founder and Chief Vision Officer of E Skool Now Group, he delivers
-                  award-winning tech solutions, digital innovation, media, and business
-                  transformation across Africa. He is also Founder and President of the
-                  Global Educators Tribe (GET) Organization, a global network for educators,
-                  policymakers, and education changemakers; Chancellor of Tech Skool
-                  Educational Institution, an institute of technology and entrepreneurship;
-                  and CEO of Agric Shift, a venture in post-harvest operations and
-                  agricultural education. Leadership for what&apos;s coming, not just
-                  what&apos;s been.
+                  Through E Skool Now Group, the Global Educators Tribe, Tech Skool, and
+                  Agric Shift, he has delivered award-winning digital solutions and
+                  venture-building across Africa and beyond. He helps leaders get
+                  noticed, modernize how they reach people, and build for what&apos;s
+                  next — whether you run a service business, coach others, or launch
+                  something new.
                 </p>
                 <div>
                   <p className="font-medium text-ltl-text-primary">
@@ -486,24 +485,24 @@ export function AboutPageContent() {
                   </p>
                   <ul className="mt-3 list-disc space-y-2 pl-5">
                     <li>
-                      You&apos;re building or scaling an education or technology venture,
-                      especially across Africa
+                      Your business has plateaued — you need to modernize and actually
+                      get noticed
                     </li>
                     <li>
-                      You need digital innovation, media, or business transformation for
-                      your organization
+                      AI, tech, and new expectations are moving faster than your
+                      strategy
                     </li>
                     <li>
-                      You&apos;re an educator, policymaker, or changemaker seeking a global
-                      network and platform
+                      You&apos;re building or scaling an education, media, or innovation
+                      venture
                     </li>
                     <li>
-                      You want to bring entrepreneurship and technology into how you teach
-                      and lead
+                      You&apos;re a coach or trainer sharpening your brand and digital
+                      presence
                     </li>
                     <li>
-                      You&apos;re developing solutions in agriculture, post-harvest, or
-                      community development
+                      You want entrepreneurship and innovation lenses you can use this
+                      quarter — not someday
                     </li>
                   </ul>
                 </div>
@@ -511,9 +510,9 @@ export function AboutPageContent() {
                   <span className="font-label uppercase tracking-wider text-ltl-accent">
                     Specialties:
                   </span>{" "}
-                  Entrepreneurship &amp; venture building · EdTech &amp; digital innovation ·
-                  Education leadership &amp; networks · Business transformation · Media
-                  &amp; community development · Pan-African markets
+                  Growth &amp; modernization · EdTech &amp; digital innovation ·
+                  Entrepreneurship · Future-ready leadership · Brand &amp; visibility for
+                  founders and coaches
                 </p>
               </TeamMemberCard>
             </motion.div>
@@ -523,8 +522,10 @@ export function AboutPageContent() {
         <Section title="Experiences & programs">
           <p>
             Leadership isn&apos;t only something you watch or read — it&apos;s
-            something you practice. Our experience tracks bring LTL&apos;s expertise
-            into the room with you:
+            something you practice. The path on LTL Pulse is simple: listen free,
+            go deeper when it&apos;s useful, get routed to a human when it
+            matters, and practice in structured experiences when you&apos;re
+            ready.
           </p>
           <ul className="mt-6 grid gap-4 md:grid-cols-2 md:gap-6">
             {experienceTracks.map((track) => (

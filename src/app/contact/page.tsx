@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 
+import { ContactConsultantsSection } from "@/components/contact/ContactConsultantsSection";
 import { StaticPageContent } from "@/components/layout/StaticPageContent";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -44,25 +45,7 @@ export default function ContactPage() {
         </Link>
       </section>
 
-      <section aria-labelledby="contact-consultants-heading">
-        <h2
-          id="contact-consultants-heading"
-          className="font-heading text-xl font-semibold text-ltl-text-primary md:text-2xl"
-        >
-          Work with our consultants
-        </h2>
-        <p className="mt-3">
-          Learn about Dawn Kirk, Dr. Sylvan A. Lashley, Jackie John, and Joshua
-          Ogbonnia on our About page, then reach out through Cadence to request a
-          connection.
-        </p>
-        <Link
-          href="/about"
-          className="mt-2 inline-block font-medium text-ltl-accent underline-offset-2 hover:underline"
-        >
-          Meet the team
-        </Link>
-      </section>
+      <ContactConsultantsSection />
 
       <section aria-labelledby="contact-accessibility-heading">
         <h2

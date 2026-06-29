@@ -8,27 +8,35 @@ export type ExpertId = "dawn" | "jackie" | "lashley" | "joshua";
 
 export const experts: Record<
   ExpertId,
-  { name: string; role: string; bestFor: string }
+  { name: string; role: string; bestFor: string; contactBio: string }
 > = {
   dawn: {
     name: "Dawn Kirk",
     role: "People, culture, brand & client-flow systems",
     bestFor: "Keeping people, building culture & client-flow systems",
+    contactBio:
+      "Dawn helps owners keep their best people, build culture that lasts, and turn client flow into a system — not a scramble.",
   },
   jackie: {
     name: "Jackie John",
     role: "Customer experience, communication & team dynamics (DISC)",
     bestFor: "Customer experience, communication & team alignment",
+    contactBio:
+      "Jackie helps teams communicate clearly, protect the customer experience, and use DISC to turn friction into alignment.",
   },
   lashley: {
     name: "Dr. Sylvan Lashley",
     role: "Scaling with structure, accountability & financial durability",
     bestFor: "Scaling with structure & financial durability",
+    contactBio:
+      "Dr. Lashley helps growing businesses build structure that scales — roles, accountability, and financial durability — when growth has outrun your systems.",
   },
   joshua: {
     name: "Joshua Ogbonnia",
     role: "Entrepreneurship, growth & modernizing with tech/AI",
     bestFor: "Growth, modernizing & standing out",
+    contactBio:
+      "Joshua helps owners and coaches modernize, get noticed, and lead through tech and AI — when you've plateaued or change won't slow down.",
   },
 };
 
