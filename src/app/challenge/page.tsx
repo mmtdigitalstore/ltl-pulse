@@ -6,7 +6,7 @@ import { StaticPageContent } from "@/components/layout/StaticPageContent";
 export const metadata: Metadata = {
   title: "Challenges | LTL Pulse",
   description:
-    "Structured leadership challenges from LTL Pulse — 3, 5, and 7-day experiences coming soon.",
+    "Free, guided leadership challenges — practice daily, reflect, find your next step.",
 };
 
 export default function ChallengePage() {
@@ -16,9 +16,9 @@ export default function ChallengePage() {
       subtitle="Structured experiences that turn insight into action."
     >
       <p>
-        LTL Pulse is building automated 3, 5, and 7-day leadership challenges
-        designed to help you practice future-ready leadership, reflect on your
-        results, and decide which membership tier fits your next step.
+        LTL Pulse is building free, guided leadership challenges — pick the problem
+        you&apos;re facing, practice a few minutes a day, reflect on what changes,
+        and discover the membership tier that fits your next step.
       </p>
       <p>
         This experience is coming soon. In the meantime, explore our{" "}
