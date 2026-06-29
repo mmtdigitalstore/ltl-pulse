@@ -1,8 +1,20 @@
+"use client";
+
 import Link from "next/link";
 
+import {
+  expertFocusCardClass,
+  expertFocusWrapperClass,
+} from "@/lib/navigation/expert-focus";
+import { useHashExpertFocus } from "@/lib/navigation/use-hash-expert-focus";
+import { useHashScroll } from "@/lib/navigation/use-hash-scroll";
+import { cn } from "@/lib/utils";
 import { EXPERT_IDS, experts, getConciergeHref, getExpertHref } from "@/data/problems.config";
 
 export function ContactConsultantsSection() {
+  useHashScroll();
+  const focusedExpert = useHashExpertFocus();
+
   return (
     <section aria-labelledby="contact-consultants-heading">
       <h2
@@ -24,7 +36,13 @@ export function ContactConsultantsSection() {
           return (
             <li
               key={id}
-              className="rounded-lg border border-ltl-border bg-ltl-surface p-5"
+              id={id}
+              aria-current={focusedExpert === id ? "true" : undefined}
+              className={cn(
+                "scroll-mt-24 rounded-lg border border-ltl-border bg-ltl-surface p-5 transition-[border-color,box-shadow,opacity] duration-300",
+                expertFocusWrapperClass(id, focusedExpert),
+                expertFocusCardClass(id, focusedExpert),
+              )}
             >
               <h3 className="font-heading text-lg font-semibold text-ltl-text-primary">
                 <Link

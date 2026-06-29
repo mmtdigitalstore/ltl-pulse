@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 
 import { ConciergeChat } from "@/components/concierge/ConciergeChat";
+import { ExpertLaneBanner } from "@/components/concierge/ExpertLaneBanner";
 import { Button } from "@/components/ui/button";
 import type { ExpertId } from "@/data/problems.config";
 import { experts } from "@/data/problems.config";
@@ -102,6 +103,8 @@ export function ConciergeExperience({
           </Button>
         </div>
       )}
+
+      {expertId ? <ExpertLaneBanner expertId={expertId} /> : null}
 
       <ConciergeChat
         userId={userId}

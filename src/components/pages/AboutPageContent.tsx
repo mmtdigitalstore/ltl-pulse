@@ -17,8 +17,13 @@ import {
   staggerContainer,
   staggerItem,
 } from "@/lib/motion";
-import { cn } from "@/lib/utils";
+import {
+  expertFocusCardClass,
+  expertFocusWrapperClass,
+} from "@/lib/navigation/expert-focus";
+import { useHashExpertFocus } from "@/lib/navigation/use-hash-expert-focus";
 import { useHashScroll } from "@/lib/navigation/use-hash-scroll";
+import { cn } from "@/lib/utils";
 
 const whatsInside = [
   {
@@ -108,6 +113,7 @@ function TeamMemberCard({
   children,
   className,
   compact = false,
+  isFocused = false,
 }: {
   id?: string;
   name: string;
@@ -119,12 +125,14 @@ function TeamMemberCard({
   children: ReactNode;
   className?: string;
   compact?: boolean;
+  isFocused?: boolean;
 }) {
   return (
     <article
       id={id}
+      aria-current={isFocused ? "true" : undefined}
       className={cn(
-        "flex h-full scroll-mt-24 flex-col space-y-4 rounded-xl border border-ltl-border bg-ltl-surface p-6 md:p-7",
+        "flex h-full scroll-mt-24 flex-col space-y-4 rounded-xl border border-ltl-border bg-ltl-surface p-6 md:p-7 transition-[border-color,box-shadow,opacity] duration-300",
         className,
       )}
     >
@@ -182,6 +190,7 @@ function TeamMemberCard({
 
 export function AboutPageContent() {
   useHashScroll();
+  const focusedExpert = useHashExpertFocus();
 
   return (
     <div className="min-h-screen bg-ltl-bg px-4 py-16 sm:px-6 lg:px-8">
@@ -296,7 +305,10 @@ export function AboutPageContent() {
             viewport={sectionViewport}
             className="mt-8 grid gap-6 md:grid-cols-2 md:gap-8"
           >
-            <motion.div variants={staggerItem} className="h-full">
+            <motion.div
+              variants={staggerItem}
+              className={expertFocusWrapperClass("dawn", focusedExpert)}
+            >
               <TeamMemberCard
                 id="dawn"
                 name="Dawn Kirk, M.Ed."
@@ -304,6 +316,8 @@ export function AboutPageContent() {
                 lane={experts.dawn.homepageLane}
                 photo={EXPERT_PHOTOS.dawn}
                 compact
+                isFocused={focusedExpert === "dawn"}
+                className={expertFocusCardClass("dawn", focusedExpert)}
               >
                 <p className="font-medium text-ltl-text-primary">
                   Dawn helps owners and coaches keep their best people, get found and
@@ -356,7 +370,10 @@ export function AboutPageContent() {
               </TeamMemberCard>
             </motion.div>
 
-            <motion.div variants={staggerItem} className="h-full">
+            <motion.div
+              variants={staggerItem}
+              className={expertFocusWrapperClass("jackie", focusedExpert)}
+            >
               <TeamMemberCard
                 id="jackie"
                 name="Jackie John, R.Eng., MSc"
@@ -364,6 +381,8 @@ export function AboutPageContent() {
                 lane={experts.jackie.homepageLane}
                 photo={EXPERT_PHOTOS.jackie}
                 compact
+                isFocused={focusedExpert === "jackie"}
+                className={expertFocusCardClass("jackie", focusedExpert)}
               >
                 <p className="font-medium text-ltl-text-primary">
                   Jackie helps service businesses stop losing customers to inconsistent
@@ -415,7 +434,10 @@ export function AboutPageContent() {
               </TeamMemberCard>
             </motion.div>
 
-            <motion.div variants={staggerItem} className="h-full">
+            <motion.div
+              variants={staggerItem}
+              className={expertFocusWrapperClass("lashley", focusedExpert)}
+            >
               <TeamMemberCard
                 id="lashley"
                 name="Sylvan A. Lashley, Ed.D., J.D., MBA"
@@ -423,6 +445,8 @@ export function AboutPageContent() {
                 lane={experts.lashley.homepageLane}
                 photo={EXPERT_PHOTOS.lashley}
                 compact
+                isFocused={focusedExpert === "lashley"}
+                className={expertFocusCardClass("lashley", focusedExpert)}
               >
                 <p className="font-medium text-ltl-text-primary">
                   Sylvan helps owners scale without the chaos — building the structure,
@@ -471,7 +495,10 @@ export function AboutPageContent() {
               </TeamMemberCard>
             </motion.div>
 
-            <motion.div variants={staggerItem} className="h-full">
+            <motion.div
+              variants={staggerItem}
+              className={expertFocusWrapperClass("joshua", focusedExpert)}
+            >
               <TeamMemberCard
                 id="joshua"
                 name="Joshua Ogbonnia, CVO"
@@ -479,6 +506,8 @@ export function AboutPageContent() {
                 lane={experts.joshua.homepageLane}
                 photo={EXPERT_PHOTOS.joshua}
                 compact
+                isFocused={focusedExpert === "joshua"}
+                className={expertFocusCardClass("joshua", focusedExpert)}
               >
                 <p className="font-medium text-ltl-text-primary">
                   Joshua helps owners break through plateaus by reinventing the business
