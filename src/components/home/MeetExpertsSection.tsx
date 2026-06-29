@@ -3,8 +3,10 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-import { EXPERT_IDS, experts } from "@/data/problems.config";
+import { ExpertPhoto } from "@/components/team/ExpertPhoto";
 import { buttonVariants } from "@/components/ui/button";
+import { EXPERT_PHOTOS } from "@/data/expert-photos.config";
+import { EXPERT_IDS, experts, getExpertHref } from "@/data/problems.config";
 import {
   sectionFadeUp,
   sectionViewport,
@@ -40,30 +42,61 @@ export function MeetExpertsSection() {
         >
           {EXPERT_IDS.map((id) => {
             const expert = experts[id];
+            const photo = EXPERT_PHOTOS[id];
 
             return (
               <motion.article
                 key={id}
                 variants={staggerItem}
-                className="flex flex-col rounded-xl border border-ltl-border bg-ltl-surface p-6"
+                className="flex flex-col gap-5 rounded-xl border border-ltl-border bg-ltl-surface p-6 sm:flex-row sm:items-start"
               >
-                <h3 className="font-heading text-xl font-semibold text-ltl-text-primary">
-                  {expert.name}
-                </h3>
-                <p className="mt-2 text-sm text-ltl-text-secondary">{expert.role}</p>
-                <p className="mt-4 text-sm leading-relaxed text-ltl-text-primary">
-                  <span className="font-medium text-ltl-accent">Best for:</span>{" "}
-                  {expert.bestFor}
-                </p>
                 <Link
-                  href="/concierge"
-                  className={cn(
-                    buttonVariants({ variant: "outline", size: "default" }),
-                    "mt-6 w-fit rounded-md border-ltl-border text-ltl-text-primary hover:bg-ltl-bg",
-                  )}
+                  href={getExpertHref(id)}
+                  className="shrink-0 transition-opacity hover:opacity-90"
                 >
-                  Connect via Cadence
+                  <ExpertPhoto
+                    src={photo.src}
+                    alt={photo.alt}
+                    name={expert.name}
+                    size="sm"
+                  />
                 </Link>
+
+                <div className="flex min-w-0 flex-1 flex-col">
+                  <h3 className="font-heading text-xl font-semibold text-ltl-text-primary">
+                    <Link
+                      href={getExpertHref(id)}
+                      className="hover:text-ltl-accent hover:underline underline-offset-2"
+                    >
+                      {expert.name}
+                    </Link>
+                  </h3>
+                  <p className="mt-2 text-sm text-ltl-text-secondary">{expert.role}</p>
+                  <p className="mt-4 text-sm leading-relaxed text-ltl-text-primary">
+                    <span className="font-medium text-ltl-accent">Best for:</span>{" "}
+                    {expert.bestFor}
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    <Link
+                      href={getExpertHref(id)}
+                      className={cn(
+                        buttonVariants({ variant: "ghost", size: "default" }),
+                        "h-9 rounded-md px-3 text-sm text-ltl-text-secondary hover:bg-ltl-bg hover:text-ltl-text-primary",
+                      )}
+                    >
+                      Read bio
+                    </Link>
+                    <Link
+                      href="/concierge"
+                      className={cn(
+                        buttonVariants({ variant: "outline", size: "default" }),
+                        "h-9 rounded-md border-ltl-border text-ltl-text-primary hover:bg-ltl-bg",
+                      )}
+                    >
+                      Connect via Cadence
+                    </Link>
+                  </div>
+                </div>
               </motion.article>
             );
           })}
