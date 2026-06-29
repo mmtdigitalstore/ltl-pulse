@@ -261,9 +261,8 @@ export function AboutPageContent() {
 
         <Section title="The voices behind LTL">
           <p>
-            A team of seasoned leaders across coaching, higher education, industry,
-            and technology — each bringing real-world depth to how we think about
-            leadership.
+            Four lanes — each maps to a problem owners and coaches actually face. Start
+            with the expert whose &ldquo;can help you when&rdquo; list sounds like you.
           </p>
 
           <motion.div
@@ -339,60 +338,6 @@ export function AboutPageContent() {
 
             <motion.div variants={staggerItem} className="md:col-span-2">
               <TeamMemberCard
-                id="lashley"
-                name="Sylvan A. Lashley, Ed.D., J.D."
-                role={experts.lashley.title}
-                photo={EXPERT_PHOTOS.lashley}
-              >
-                <p className="font-medium text-ltl-text-primary">
-                  Sylvan helps owners scale without the chaos — building the structure,
-                  accountability, and financial durability a growing business needs when
-                  everything still runs through you. He brings institutional-grade
-                  discipline to growing companies.
-                </p>
-                <p className="text-xs italic leading-relaxed text-ltl-text-secondary md:text-sm">
-                  A three-time president of large, complex organizations with a track
-                  record of turnaround and growth — including 300% organizational growth
-                  and $1.75M secured — plus a Juris Doctor and Doctor of Education.
-                </p>
-                <div>
-                  <p className="font-medium text-ltl-text-primary">
-                    Sylvan can help you when:
-                  </p>
-                  <ul className="mt-3 list-disc space-y-2 pl-5">
-                    <li>
-                      You&apos;re growing but it&apos;s chaos — everything still runs
-                      through you
-                    </li>
-                    <li>
-                      You need clear roles, decision rights, and accountability as the
-                      team gets bigger
-                    </li>
-                    <li>
-                      You want growth that&apos;s financially durable, not just busy
-                    </li>
-                    <li>
-                      You&apos;re navigating a big change — expansion, restructure, a
-                      turnaround — and need it to hold
-                    </li>
-                    <li>
-                      You&apos;ve outgrown &quot;winging it&quot; and need real operating
-                      structure
-                    </li>
-                  </ul>
-                </div>
-                <p className="text-xs leading-relaxed text-ltl-text-secondary md:text-sm">
-                  <span className="font-label uppercase tracking-wider text-ltl-accent">
-                    Specialties:
-                  </span>{" "}
-                  Scaling with structure · Roles, decision rights &amp; accountability ·
-                  Financial durability · Leading change &amp; turnarounds · Governance
-                </p>
-              </TeamMemberCard>
-            </motion.div>
-
-            <motion.div variants={staggerItem} className="md:col-span-2">
-              <TeamMemberCard
                 id="jackie"
                 name="Jackie John, R.Eng., MSc"
                 role={experts.jackie.title}
@@ -444,6 +389,60 @@ export function AboutPageContent() {
                   </span>{" "}
                   Customer experience · Communication &amp; team dynamics · Maxwell
                   DISC · Self-awareness &amp; influence · Coaching
+                </p>
+              </TeamMemberCard>
+            </motion.div>
+
+            <motion.div variants={staggerItem} className="md:col-span-2">
+              <TeamMemberCard
+                id="lashley"
+                name="Sylvan A. Lashley, Ed.D., J.D."
+                role={experts.lashley.title}
+                photo={EXPERT_PHOTOS.lashley}
+              >
+                <p className="font-medium text-ltl-text-primary">
+                  Sylvan helps owners scale without the chaos — building the structure,
+                  accountability, and financial durability a growing business needs when
+                  everything still runs through you. He brings institutional-grade
+                  discipline to growing companies.
+                </p>
+                <p className="text-xs italic leading-relaxed text-ltl-text-secondary md:text-sm">
+                  A three-time president of large, complex organizations with a track
+                  record of turnaround and growth — including 300% organizational growth
+                  and $1.75M secured — plus a Juris Doctor and Doctor of Education.
+                </p>
+                <div>
+                  <p className="font-medium text-ltl-text-primary">
+                    Sylvan can help you when:
+                  </p>
+                  <ul className="mt-3 list-disc space-y-2 pl-5">
+                    <li>
+                      You&apos;re growing but it&apos;s chaos — everything still runs
+                      through you
+                    </li>
+                    <li>
+                      You need clear roles, decision rights, and accountability as the
+                      team gets bigger
+                    </li>
+                    <li>
+                      You want growth that&apos;s financially durable, not just busy
+                    </li>
+                    <li>
+                      You&apos;re navigating a big change — expansion, restructure, a
+                      turnaround — and need it to hold
+                    </li>
+                    <li>
+                      You&apos;ve outgrown &quot;winging it&quot; and need real operating
+                      structure
+                    </li>
+                  </ul>
+                </div>
+                <p className="text-xs leading-relaxed text-ltl-text-secondary md:text-sm">
+                  <span className="font-label uppercase tracking-wider text-ltl-accent">
+                    Specialties:
+                  </span>{" "}
+                  Scaling with structure · Roles, decision rights &amp; accountability ·
+                  Financial durability · Leading change &amp; turnarounds · Governance
                 </p>
               </TeamMemberCard>
             </motion.div>
