@@ -142,14 +142,14 @@ function TeamMemberCard({
               {role}
             </p>
           ) : null}
-          {tagline ? (
-            <p className="mt-2 text-sm leading-relaxed text-ltl-text-secondary">
-              {tagline}
-            </p>
-          ) : null}
           {credentials ? (
             <p className="mt-3 text-xs leading-relaxed text-ltl-text-secondary md:text-sm">
               {credentials}
+            </p>
+          ) : null}
+          {tagline ? (
+            <p className="mt-2 text-sm leading-relaxed text-ltl-text-secondary">
+              {tagline}
             </p>
           ) : null}
         </div>

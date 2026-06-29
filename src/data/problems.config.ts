@@ -22,7 +22,7 @@ export const experts: Record<
     name: "Dawn Kirk",
     title: "Team Lead · LTL Pulse",
     tagline:
-      "People, culture, leader development & client-flow systems — WebScore measures your digital footprint first, then the THRIVE framework builds the pipeline backend that stops feast-or-famine.",
+      "People, culture, leader development & client-flow systems.",
     bestFor:
       "Turnover, culture, new leaders & feast-or-famine pipelines (start with WebScore)",
     contactBio:
