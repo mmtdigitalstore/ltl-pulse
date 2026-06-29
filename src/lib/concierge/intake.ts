@@ -1,5 +1,6 @@
 import {
   experts,
+  getExpertHref,
   getPodcastHref,
   type Audience,
   type Problem,
@@ -41,7 +42,7 @@ export function buildCadenceIntakeReply(
 
   lines.push(
     "",
-    `Or connect with ${expert.name} directly — no pressure: /contact`,
+    `Meet ${expert.name} — background and how they help: ${getExpertHref(problem.owner)}`,
   );
 
   return lines.join("\n");

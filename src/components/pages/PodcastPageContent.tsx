@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Clock, Play } from "lucide-react";
 
 import { problems } from "@/data/problems.config";
 import { formatProblemTag } from "@/lib/content/catalog";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { useHashScroll } from "@/lib/navigation/use-hash-scroll";
 import {
   Card,
   CardContent,
@@ -24,16 +24,7 @@ import {
 } from "@/lib/motion";
 
 export function PodcastPageContent() {
-  useEffect(() => {
-    const { hash } = window.location;
-    if (!hash) {
-      return;
-    }
-
-    const id = hash.replace("#", "");
-    const target = document.getElementById(id);
-    target?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, []);
+  useHashScroll();
 
   return (
     <div className="min-h-screen bg-ltl-bg px-4 py-16 sm:px-6 lg:px-8">
@@ -57,8 +48,8 @@ export function PodcastPageContent() {
           className="mt-12 space-y-4"
         >
           {problems.map((problem, index) => (
-            <motion.div key={problem.id} id={problem.id} variants={staggerItem}>
-              <Card className="scroll-mt-20 border-ltl-border bg-ltl-surface ring-ltl-border/50">
+            <motion.div key={problem.id} id={problem.id} variants={staggerItem} className="scroll-mt-24">
+              <Card className="border-ltl-border bg-ltl-surface ring-ltl-border/50">
                 <CardHeader className="flex flex-row items-start justify-between gap-4">
                   <div className="space-y-2">
                     <div className="flex flex-wrap items-center gap-2">

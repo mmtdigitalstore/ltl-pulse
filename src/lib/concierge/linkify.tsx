@@ -1,25 +1,57 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
+import {
+  experts,
+  getProblemById,
+  type ExpertId,
+} from "@/data/problems.config";
+
 const INTERNAL_PATH_PATTERN =
-  /(\/(?:podcast|contact|pricing|magazine|vlogs|subscribe|concierge|coaches|challenge)(?:#[\w-]+)?(?:\?[^\s,.;)]+)?)/g;
+  /(\/(?:podcast|about|contact|pricing|magazine|vlogs|subscribe|concierge|coaches|challenge)(?:#[\w-]+)?(?:\?[^\s,.;)]+)?)/g;
+
+function expertIdFromHref(href: string): ExpertId | null {
+  const hash = href.split("#")[1];
+
+  if (hash && hash in experts) {
+    return hash as ExpertId;
+  }
+
+  return null;
+}
 
 function linkLabel(href: string): string {
-  if (href.startsWith("/podcast")) {
-    return "Listen free";
+  if (href.startsWith("/about#")) {
+    const expertId = expertIdFromHref(href);
+    return expertId ? `Meet ${experts[expertId].name}` : "Meet the team";
   }
+
+  if (href.startsWith("/podcast#")) {
+    const problemId = href.split("#")[1];
+    const problem = problemId ? getProblemById(problemId) : undefined;
+    return problem ? `Listen: ${problem.podcast}` : "Listen to this episode";
+  }
+
+  if (href.startsWith("/podcast")) {
+    return "Browse podcasts";
+  }
+
   if (href === "/contact") {
     return "Contact us";
   }
+
   if (href.startsWith("/pricing") || href.startsWith("/subscribe")) {
     return "See plans";
   }
+
   if (href.startsWith("/magazine")) {
     return "Read in the magazine";
   }
+
   if (href.startsWith("/concierge")) {
     return "Chat with Cadence";
   }
+
   return href;
 }
 

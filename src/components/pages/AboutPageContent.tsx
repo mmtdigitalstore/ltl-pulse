@@ -17,6 +17,7 @@ import {
   staggerItem,
 } from "@/lib/motion";
 import { cn } from "@/lib/utils";
+import { useHashScroll } from "@/lib/navigation/use-hash-scroll";
 
 const whatsInside = [
   {
@@ -152,6 +153,7 @@ function Section({
 }
 
 function TeamMemberCard({
+  id,
   name,
   role,
   credentials,
@@ -159,6 +161,7 @@ function TeamMemberCard({
   children,
   className,
 }: {
+  id?: string;
   name: string;
   role?: string;
   credentials?: string;
@@ -168,8 +171,9 @@ function TeamMemberCard({
 }) {
   return (
     <article
+      id={id}
       className={cn(
-        "flex h-full flex-col space-y-4 rounded-xl border border-ltl-border bg-ltl-surface p-6 md:p-7",
+        "flex h-full scroll-mt-24 flex-col space-y-4 rounded-xl border border-ltl-border bg-ltl-surface p-6 md:p-7",
         className,
       )}
     >
@@ -199,6 +203,8 @@ function TeamMemberCard({
 }
 
 export function AboutPageContent() {
+  useHashScroll();
+
   return (
     <div className="min-h-screen bg-ltl-bg px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
@@ -305,6 +311,7 @@ export function AboutPageContent() {
           >
             <motion.div variants={staggerItem} className="md:col-span-2">
               <TeamMemberCard
+                id="dawn"
                 name="Dawn Kirk, M.Ed."
                 role="Team Lead · LTL Pulse"
                 photo={teamPhotos.dawn}
@@ -373,6 +380,7 @@ export function AboutPageContent() {
 
             <motion.div variants={staggerItem} className="md:col-span-2">
               <TeamMemberCard
+                id="lashley"
                 name="Sylvan A. Lashley, Ed.D., J.D."
                 role="Strategic Leadership Expert · LTL Pulse"
                 photo={teamPhotos.lashley}
@@ -437,6 +445,7 @@ export function AboutPageContent() {
 
             <motion.div variants={staggerItem} className="md:col-span-2">
               <TeamMemberCard
+                id="jackie"
                 name="Jackie John, R.Eng., MSc"
                 role="Leadership & DISC Coach · LTL Pulse"
                 photo={teamPhotos.jackie}
@@ -502,6 +511,7 @@ export function AboutPageContent() {
 
             <motion.div variants={staggerItem} className="md:col-span-2">
               <TeamMemberCard
+                id="joshua"
                 name="Joshua Ogbonnia, CVO"
                 role="Entrepreneurship & Innovation Expert · LTL Pulse"
                 photo={teamPhotos.joshua}

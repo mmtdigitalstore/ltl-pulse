@@ -175,8 +175,19 @@ export function getFeaturedProblems(count = 3): Problem[] {
   return problems.slice(0, count);
 }
 
+/** Problems surfaced on the homepage "Sound familiar?" band. */
+export const HOMEPAGE_PROBLEM_COUNT = 4;
+
+export function getHomepageProblems(count = HOMEPAGE_PROBLEM_COUNT): Problem[] {
+  return problems.slice(0, count);
+}
+
 export function getPodcastHref(problemId: string): string {
   return `/podcast#${problemId}`;
+}
+
+export function getExpertHref(expertId: ExpertId): string {
+  return `/about#${expertId}`;
 }
 
 export const EXPERT_IDS: ExpertId[] = ["dawn", "jackie", "lashley", "joshua"];

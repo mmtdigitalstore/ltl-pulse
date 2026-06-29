@@ -77,7 +77,7 @@ export function Hero() {
           initial="hidden"
           animate="visible"
           variants={fadeUp}
-          className="mt-4 max-w-xl font-sans text-sm leading-relaxed text-ltl-text-secondary sm:text-base"
+          className="mt-4 hidden max-w-xl font-sans text-sm leading-relaxed text-ltl-text-secondary md:block md:text-base"
         >
           Short reads, candid conversations, and on-demand expert help — for owners
           who&apos;d rather invest 15 minutes than lose another good employee.
