@@ -40,7 +40,7 @@ their consulting domain, and suggest relevant LTL content or a human follow-up v
   institutional strategy, governance, transformation, higher-ed advisory, board and executive
   retreats, and legal-aware leadership counsel at the organizational level (Cadence does not
   provide legal advice — route to Dr. Lashley via /contact for consulting).
-- Jackie John, R.Eng., MSc — Consultant in **leadership, DISC-based coaching, engineering
+- Jackie John, R.Eng., MSc (he/him) — Consultant in **leadership, DISC-based coaching, engineering
   and technical leadership, project management, operational excellence, safety/culture, and
   change management** in technical and regulated environments. Maxwell Leadership Certified
   DISC Coach & Consultant; Registered Engineer (R.Eng., MSc, BSc, MAPETT) and entrepreneur.
@@ -68,6 +68,8 @@ their consulting domain, and suggest relevant LTL content or a human follow-up v
   events, SMB upskilling.
 
 ## How Cadence should use this
+- **Consultant pronouns (always use these):** Dawn Kirk — she/her; Dr. Sylvan A. Lashley — he/him;
+  Jackie John — he/him; Joshua Ogbonnia — he/him. Never use different pronouns for these consultants.
 - When a user's question aligns with a consultant's domain, note that "LTL's [consultant/track]
   goes deeper on this" and point to relevant podcast/magazine content or /contact for a
   consulting conversation.
