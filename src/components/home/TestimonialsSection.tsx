@@ -116,7 +116,7 @@ export function TestimonialsSection() {
           </motion.div>
         )}
 
-        {!hasWallContent && (
+        {!hasWallContent ? (
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -127,20 +127,29 @@ export function TestimonialsSection() {
             <p className="mx-auto max-w-xl text-base leading-relaxed text-ltl-text-secondary">
               {testimonialsCopy.emptyWall}
             </p>
+            <Link
+              href={testimonialsCopy.cta.href}
+              className={cn(
+                buttonVariants({ size: "lg" }),
+                "mt-6 inline-flex h-11 rounded-md bg-ltl-accent px-6 font-bold text-ltl-bg hover:bg-ltl-accent-hover",
+              )}
+            >
+              {testimonialsCopy.cta.label}
+            </Link>
           </motion.div>
+        ) : (
+          <div className="mt-12 rounded-xl border border-ltl-border bg-ltl-surface/80 px-6 py-5 text-center sm:px-8">
+            <p className="text-sm text-ltl-text-secondary md:text-base">
+              {testimonialsCopy.ctaNote}
+            </p>
+            <Link
+              href={testimonialsCopy.cta.href}
+              className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-ltl-accent hover:underline"
+            >
+              {testimonialsCopy.cta.label} →
+            </Link>
+          </div>
         )}
-
-        <div className="mt-12 rounded-xl border border-ltl-border bg-ltl-surface/80 px-6 py-5 text-center sm:px-8">
-          <p className="text-sm text-ltl-text-secondary md:text-base">
-            {testimonialsCopy.ctaNote}
-          </p>
-          <Link
-            href={testimonialsCopy.cta.href}
-            className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-ltl-accent hover:underline"
-          >
-            {testimonialsCopy.cta.label} →
-          </Link>
-        </div>
       </div>
     </motion.section>
   );
