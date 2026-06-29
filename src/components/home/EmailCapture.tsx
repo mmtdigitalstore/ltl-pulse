@@ -1,26 +1,56 @@
 "use client";
 
+import Link from "next/link";
 import { type FormEvent, useState } from "react";
 import { motion } from "framer-motion";
-import { toast } from "sonner";
 
+import { TURNOVER_GUIDE_LEAD_MAGNET } from "@/data/lead-magnets.config";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { sectionFadeUp, sectionViewport } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 
 export function EmailCapture() {
   const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setError(null);
 
     if (!email.trim()) {
-      toast.error("Please enter your email address.");
+      setError("Please enter your email address.");
       return;
     }
 
-    toast.success("Thanks for subscribing! We'll be in touch soon.");
-    setEmail("");
+    setSubmitting(true);
+
+    try {
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email.trim(),
+          leadMagnet: TURNOVER_GUIDE_LEAD_MAGNET.id,
+        }),
+      });
+
+      const data = (await response.json()) as { error?: string };
+
+      if (!response.ok) {
+        setError(data.error ?? "Something went wrong. Please try again.");
+        return;
+      }
+
+      setSubmitted(true);
+      setEmail("");
+    } catch {
+      setError("Unable to submit right now. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -32,34 +62,75 @@ export function EmailCapture() {
       className="border-b border-ltl-border bg-ltl-bg px-4 py-20 sm:px-6 lg:px-8"
     >
       <div className="mx-auto max-w-xl text-center">
-        <h2 className="font-heading text-3xl font-semibold text-ltl-text-primary md:text-4xl">
-          Join the Pulse
-        </h2>
-        <p className="mt-4 text-base text-ltl-text-secondary">
-          Get leadership insights, new episodes, and exclusive content delivered
-          to your inbox.
+        <p className="font-label text-xs uppercase tracking-widest text-ltl-accent">
+          Coming soon
         </p>
-        <form
-          onSubmit={handleSubmit}
-          className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
-        >
-          <Input
-            type="email"
-            name="email"
-            placeholder="you@company.com"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            className="h-11 border-ltl-border bg-ltl-surface text-ltl-text-primary placeholder:text-ltl-text-secondary"
-            aria-label="Email address"
-            required
-          />
-          <Button
-            type="submit"
-            className="h-11 shrink-0 rounded-md bg-ltl-accent px-6 font-bold text-ltl-bg hover:bg-ltl-accent-hover"
-          >
-            Subscribe
-          </Button>
-        </form>
+        <h2 className="mt-3 font-heading text-3xl font-semibold text-ltl-text-primary md:text-4xl">
+          {TURNOVER_GUIDE_LEAD_MAGNET.title}
+        </h2>
+
+        {submitted ? (
+          <div className="mt-8 rounded-xl border border-ltl-accent/30 bg-ltl-accent/10 px-6 py-8 text-left sm:text-center">
+            <p className="font-heading text-lg font-semibold text-ltl-text-primary">
+              You&apos;re on the waitlist.
+            </p>
+            <p className="mt-3 text-base leading-relaxed text-ltl-text-secondary">
+              We&apos;re finishing this playbook now. You&apos;ll be first to know
+              when it&apos;s ready — no charge, no spam.
+            </p>
+            <p className="mt-4 text-sm text-ltl-text-secondary">
+              While you wait, start with a free LTL Conversation on keeping your
+              best people.
+            </p>
+            <Link
+              href="/podcast#turnover"
+              className={cn(
+                buttonVariants({ size: "default" }),
+                "mt-6 inline-flex rounded-md bg-ltl-accent font-semibold text-ltl-bg hover:bg-ltl-accent-hover",
+              )}
+            >
+              Listen free
+            </Link>
+          </div>
+        ) : (
+          <>
+            <p className="mt-4 text-base leading-relaxed text-ltl-text-secondary">
+              This guide is in production. Join the waitlist and we&apos;ll send it
+              as soon as it&apos;s ready — plus occasional leadership insights from
+              the Pulse. Unsubscribe anytime.
+            </p>
+            <form
+              onSubmit={handleSubmit}
+              className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-center"
+            >
+              <div className="flex w-full flex-col gap-2 sm:max-w-sm">
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="you@company.com"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  className="h-11 border-ltl-border bg-ltl-surface text-ltl-text-primary placeholder:text-ltl-text-secondary"
+                  aria-label="Email address"
+                  required
+                  disabled={submitting}
+                />
+                {error ? (
+                  <p className="text-left text-sm text-destructive" role="alert">
+                    {error}
+                  </p>
+                ) : null}
+              </div>
+              <Button
+                type="submit"
+                disabled={submitting}
+                className="h-11 shrink-0 rounded-md bg-ltl-accent px-6 font-bold text-ltl-bg hover:bg-ltl-accent-hover"
+              >
+                {submitting ? "Joining…" : "Join the waitlist"}
+              </Button>
+            </form>
+          </>
+        )}
       </div>
     </motion.section>
   );

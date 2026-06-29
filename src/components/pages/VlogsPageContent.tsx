@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Clock, Lock } from "lucide-react";
 
+import { getCatalogByType, formatProblemTag } from "@/lib/content/catalog";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -19,57 +20,13 @@ import {
   staggerItem,
 } from "@/lib/motion";
 
-interface VlogItem {
-  id: string;
-  title: string;
-  duration: string;
-  isPremium: boolean;
-}
-
-const vlogs: VlogItem[] = [
-  {
-    id: "1",
-    title: "Inside the Room: Board-Level Decisions",
-    duration: "12:40",
-    isPremium: true,
-  },
-  {
-    id: "2",
-    title: "Founder Mindset Under Pressure",
-    duration: "9:15",
-    isPremium: false,
-  },
-  {
-    id: "3",
-    title: "Building Teams That Last",
-    duration: "14:02",
-    isPremium: true,
-  },
-  {
-    id: "4",
-    title: "Culture on the Ground Floor",
-    duration: "11:28",
-    isPremium: false,
-  },
-  {
-    id: "5",
-    title: "The Long Game of Leadership",
-    duration: "16:55",
-    isPremium: true,
-  },
-  {
-    id: "6",
-    title: "Storytelling for Operators",
-    duration: "8:47",
-    isPremium: false,
-  },
-];
-
 interface VlogsPageContentProps {
   isSubscriber: boolean;
 }
 
 export function VlogsPageContent({ isSubscriber }: VlogsPageContentProps) {
+  const vlogs = getCatalogByType("vlog");
+
   return (
     <div className="min-h-screen bg-ltl-bg px-4 py-16 sm:px-6 lg:px-8">
       <motion.div
@@ -81,7 +38,7 @@ export function VlogsPageContent({ isSubscriber }: VlogsPageContentProps) {
       >
         <PageHeader
           title="Vlogs"
-          subtitle="Visual stories from the field."
+          subtitle="Short tactical videos — premium by default, with a few free tasters."
         />
 
         <motion.div
@@ -92,10 +49,10 @@ export function VlogsPageContent({ isSubscriber }: VlogsPageContentProps) {
           className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {vlogs.map((vlog) => {
-            const isLocked = vlog.isPremium && !isSubscriber;
+            const isLocked = !vlog.free && !isSubscriber;
 
             return (
-              <motion.div key={vlog.id} variants={staggerItem}>
+              <motion.div key={vlog.problemId} variants={staggerItem}>
                 <Card className="overflow-hidden border-ltl-border bg-ltl-surface ring-ltl-border/50">
                   <div className="relative aspect-video">
                     <div
@@ -119,14 +76,27 @@ export function VlogsPageContent({ isSubscriber }: VlogsPageContentProps) {
                     )}
                     <Badge className="absolute bottom-3 right-3 flex items-center gap-1 font-label border-ltl-border bg-ltl-bg/90 text-ltl-text-primary">
                       <Clock className="size-3" aria-hidden />
-                      {vlog.duration}
+                      ~10 min
                     </Badge>
                   </div>
-                  <CardHeader>
+                  <CardHeader className="gap-2">
+                    <Badge
+                      variant="outline"
+                      className="w-fit font-label border-ltl-border text-ltl-text-secondary"
+                    >
+                      {formatProblemTag(vlog.problemId)}
+                    </Badge>
                     <CardTitle className="font-heading text-lg text-ltl-text-primary">
                       {vlog.title}
                     </CardTitle>
                   </CardHeader>
+                  {vlog.free && (
+                    <CardContent>
+                      <p className="font-label text-xs uppercase tracking-wider text-ltl-accent">
+                        Free taster
+                      </p>
+                    </CardContent>
+                  )}
                   {isLocked && (
                     <CardContent>
                       <p className="font-label text-xs uppercase tracking-wider text-ltl-text-secondary">

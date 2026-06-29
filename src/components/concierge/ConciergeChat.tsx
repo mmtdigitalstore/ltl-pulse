@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, ChevronUp, Send } from "lucide-react";
 
+import { CadenceIntakePanel } from "@/components/concierge/CadenceIntakePanel";
 import { CadenceMessageContent } from "@/components/concierge/CadenceMessageContent";
 import { ConciergeAvatar } from "@/components/concierge/ConciergeAvatar";
 import { Button } from "@/components/ui/button";
@@ -22,6 +23,10 @@ const STARTER_PROMPTS = [
   "I'd like to connect with a human expert.",
 ] as const;
 
+function hasCompletedIntake(messages: ConciergeMessage[]): boolean {
+  return messages.length > 0;
+}
+
 interface ConciergeChatProps {
   userId: string;
   isSubscriber: boolean;
@@ -38,6 +43,7 @@ export function ConciergeChat({
   const tier = isSubscriber ? "premium" : "free";
   const tierConfig = CONCIERGE_TIER_CONFIG[tier];
   const [showStarters, setShowStarters] = useState(true);
+  const [intakeComplete, setIntakeComplete] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState<ConciergeMessage[]>([]);
   const [input, setInput] = useState("");
@@ -56,6 +62,7 @@ export function ConciergeChat({
       setMessages(saved.messages);
       setShowStarters(saved.showStarters);
       setIsMinimized(saved.isMinimized);
+      setIntakeComplete(hasCompletedIntake(saved.messages));
     }
 
     setSessionReady(true);
@@ -168,10 +175,18 @@ export function ConciergeChat({
     clearCadenceChatSession(userId);
     setMessages([]);
     setShowStarters(true);
+    setIntakeComplete(false);
     setError(null);
     setInput("");
     setIsMinimized(false);
     inputRef.current?.focus();
+  }
+
+  function handleIntakeComplete(initialMessages: ConciergeMessage[]) {
+    setMessages(initialMessages);
+    setShowStarters(false);
+    setIntakeComplete(true);
+    onChatStart?.();
   }
 
   const statusLabel = loading
@@ -304,7 +319,14 @@ export function ConciergeChat({
           aria-label={`Conversation with ${CADENCE_NAME}`}
           className="flex-1 space-y-2.5 overflow-y-auto px-3 py-2.5 sm:px-3"
         >
-          {showStarters && (
+          {showStarters && !intakeComplete && messages.length === 0 && (
+            <CadenceIntakePanel
+              isSubscriber={isSubscriber}
+              onComplete={handleIntakeComplete}
+            />
+          )}
+
+          {showStarters && intakeComplete && messages.length === 0 && (
             <div className="space-y-2 py-1">
               <p className="text-sm text-ltl-text-secondary">
                 Choose a question to get started:

@@ -67,7 +67,20 @@ export function Hero() {
           variants={fadeUp}
           className="mt-6 max-w-2xl font-sans text-base leading-relaxed text-ltl-text-secondary sm:text-lg md:text-xl"
         >
-          Podcasts, magazine articles, vlogs, and Cadence — your AI Concierge — for ambitious leaders.
+          Practical, future-ready leadership for growing service businesses and the
+          coaches who guide them — so you keep your best people, win loyal customers,
+          and build a team that delivers.
+        </motion.p>
+
+        <motion.p
+          custom={0.32}
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          className="mt-4 max-w-xl font-sans text-sm leading-relaxed text-ltl-text-secondary sm:text-base"
+        >
+          Short reads, candid conversations, and on-demand expert help — for owners
+          who&apos;d rather invest 15 minutes than lose another good employee.
         </motion.p>
 
         <motion.div
@@ -84,16 +97,16 @@ export function Hero() {
               "h-12 min-w-[10rem] rounded-md bg-ltl-accent px-6 font-semibold text-ltl-bg hover:bg-ltl-accent-hover",
             )}
           >
-            Start Listening
+            Listen free
           </Link>
           <Link
-            href="/magazine"
+            href="/pricing"
             className={cn(
               buttonVariants({ variant: "ghost", size: "lg" }),
               "h-12 min-w-[10rem] rounded-md border border-ltl-border bg-transparent px-6 font-semibold text-ltl-text-primary hover:bg-ltl-surface/50 hover:text-ltl-text-primary",
             )}
           >
-            Read the Latest
+            See plans
           </Link>
         </motion.div>
       </div>

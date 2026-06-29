@@ -6,11 +6,17 @@ import {
   CADENCE_ROLE,
 } from "@/lib/concierge/guardrails";
 import { getCadenceKnowledge } from "@/lib/concierge/knowledge";
+import { problems } from "@/data/problems.config";
 import type { ConciergeTier } from "@/lib/concierge/types";
+
+const PROBLEMS_CONTEXT = `Problem routing (use for content recommendations — titles only, from this list):
+${problems.map((p) => `- ${p.id}: ${p.cadenceChip} → free podcast "${p.podcast}"`).join("\n")}`;
 
 const CADENCE_KNOWLEDGE_CONTEXT = `Background knowledge (internal only — never dump wholesale; reference naturally when relevant):
 
-${getCadenceKnowledge()}`;
+${getCadenceKnowledge()}
+
+${PROBLEMS_CONTEXT}`;
 
 const BASE_PROMPT = `${CADENCE_ROLE}
 

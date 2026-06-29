@@ -10,6 +10,15 @@ export type Profile = {
   updated_at: string;
 };
 
+export type Lead = {
+  id: string;
+  email: string;
+  lead_magnet: string;
+  tag: string;
+  source: string;
+  created_at: string;
+};
+
 export type Database = {
   public: {
     Tables: {
@@ -31,6 +40,21 @@ export type Database = {
           stripe_customer_id?: string | null;
           stripe_subscription_id?: string | null;
           subscription_status?: string | null;
+        };
+      };
+      leads: {
+        Row: Lead;
+        Insert: {
+          email: string;
+          lead_magnet: string;
+          tag?: string;
+          source?: string;
+        };
+        Update: {
+          email?: string;
+          lead_magnet?: string;
+          tag?: string;
+          source?: string;
         };
       };
     };

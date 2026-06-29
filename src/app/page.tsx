@@ -1,28 +1,24 @@
+import { CoachesStrip } from "@/components/home/CoachesStrip";
+import { ContentLadderSection } from "@/components/home/ContentLadderSection";
 import { EmailCapture } from "@/components/home/EmailCapture";
-import { FeaturedArticles } from "@/components/home/FeaturedArticles";
-import { LatestPodcast } from "@/components/home/LatestPodcast";
+import { FeaturedFreeEpisodes } from "@/components/home/FeaturedFreeEpisodes";
+import { FoundingMemberTeaser } from "@/components/home/FoundingMemberTeaser";
+import { MeetExpertsSection } from "@/components/home/MeetExpertsSection";
+import { SoundFamiliarSection } from "@/components/home/SoundFamiliarSection";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
-import { VlogGrid } from "@/components/home/VlogGrid";
-import { WhatsInside } from "@/components/home/WhatsInside";
 import { Hero } from "@/components/layout/Hero";
-import { getIsSubscriber } from "@/lib/subscription";
-import { createClient } from "@/lib/supabase/server";
 
-export default async function Home() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  const isSubscriber = await getIsSubscriber(user?.id);
-
+export default function Home() {
   return (
     <>
       <Hero />
-      <FeaturedArticles />
-      <LatestPodcast />
-      <VlogGrid isSubscriber={isSubscriber} />
-      <WhatsInside />
+      <SoundFamiliarSection />
+      <FeaturedFreeEpisodes />
+      <ContentLadderSection />
+      <MeetExpertsSection />
+      <CoachesStrip />
       <TestimonialsSection />
+      <FoundingMemberTeaser />
       <EmailCapture />
     </>
   );
