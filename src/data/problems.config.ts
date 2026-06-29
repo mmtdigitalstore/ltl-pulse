@@ -19,6 +19,8 @@ export const experts: Record<
     bestFor: string;
     /** Optional richer best-for line for the homepage Meet the Experts card. */
     homepageBestFor?: string;
+    /** Problem-framed lane line for the homepage Meet the Experts card. */
+    homepageLane?: string;
     contactBio: string;
   }
 > = {
@@ -33,6 +35,8 @@ export const experts: Record<
       "Turnover, culture, new leaders & feast-or-famine pipelines (start with WebScore)",
     homepageBestFor:
       "Turnover & retention, feast-or-famine revenue, doer-to-leader transitions & culture under growth pressure",
+    homepageLane:
+      "Keeping people, building culture & client-flow systems",
     contactBio:
       "Dawn helps when people or pipeline chaos is costing you — retention, culture, developing leaders, and client-flow systems that start with a WebScore diagnostic, then build the backend for repeat clients.",
   },
@@ -43,6 +47,8 @@ export const experts: Record<
       "Customer experience, team communication & DISC — fixing friction where your people and customers actually interact.",
     bestFor:
       "Team misalignment, communication breakdowns & losing customers at the front line",
+    homepageLane:
+      "Customer experience, communication & team alignment",
     contactBio:
       "Jackie helps when teams talk past each other, communication is costing you results, or one bad customer moment becomes a pattern.",
   },
@@ -53,6 +59,7 @@ export const experts: Record<
       "Organizational structure, accountability & financial durability — when growth has outrun your systems and everything bottlenecks at you.",
     bestFor:
       "Scaling chaos, unclear roles, governance & financial sustainability under growth",
+    homepageLane: "Scaling with structure & financial durability",
     contactBio:
       "Dr. Lashley helps when you're growing but running on chaos — roles, decision rights, accountability, and financial durability need to catch up with demand.",
   },
@@ -63,6 +70,7 @@ export const experts: Record<
       "Venture growth, market repositioning & innovation strategy — when you've plateaued and need a new market play or digital offer, not a client-flow operating system.",
     bestFor:
       "Plateaued ventures, market repositioning, edtech/innovation & strategic AI adoption",
+    homepageLane: "Growth, modernizing & standing out",
     contactBio:
       "Joshua helps when growth has stalled at the market level — new ventures, repositioning, edtech and innovation strategy, and practical AI for competing in a shifting market.",
   },
@@ -207,15 +215,36 @@ export function getProblemById(id: string): Problem | undefined {
   return problems.find((p) => p.id === id);
 }
 
+export const FEATURED_PODCAST_IDS = [
+  "losing-customers",
+  "feast-or-famine",
+  "turnover",
+] as const;
+
+/** Problems surfaced on the homepage "Sound familiar?" band (~5 cards). */
+export const FEATURED_PROBLEM_IDS = [
+  "losing-customers",
+  "feast-or-famine",
+  "turnover",
+  "new-to-leading",
+  "scaling-chaos",
+] as const;
+
+export function featuredProblems(): Problem[] {
+  return FEATURED_PROBLEM_IDS.map((id) => getProblemById(id)).filter(
+    (p): p is Problem => p != null,
+  );
+}
+
 export function getFeaturedProblems(count = 3): Problem[] {
   return problems.slice(0, count);
 }
 
-/** Problems surfaced on the homepage "Sound familiar?" band. */
-export const HOMEPAGE_PROBLEM_COUNT = 4;
-
-export function getHomepageProblems(count = HOMEPAGE_PROBLEM_COUNT): Problem[] {
-  return problems.slice(0, count);
+/** Top three problem-led podcasts for the homepage featured band. */
+export function getFeaturedPodcastProblems(): Problem[] {
+  return FEATURED_PODCAST_IDS.map((id) => getProblemById(id)).filter(
+    (p): p is Problem => p != null,
+  );
 }
 
 export function getPodcastHref(problemId: string): string {

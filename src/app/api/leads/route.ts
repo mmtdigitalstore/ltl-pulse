@@ -31,7 +31,7 @@ export async function POST(request: Request) {
       {
         email,
         lead_magnet: leadMagnet,
-        tag: "waitlist",
+        tag: "lead",
         source: "homepage",
       },
       { onConflict: "email,lead_magnet" },

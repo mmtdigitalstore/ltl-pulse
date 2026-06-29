@@ -12,6 +12,8 @@ export interface Testimonial {
   companyUrl?: string;
   audioUrl?: string;
   videoUrl?: string;
+  /** Only `approved` entries render on the homepage wall. */
+  status: "approved" | "pending";
 }
 
 export interface Spotlight {
@@ -23,6 +25,7 @@ export interface Spotlight {
   shift: string;
   href?: string;
   avatarUrl?: string;
+  status: "approved" | "pending";
 }
 
 export const testimonialsCopy = {
@@ -32,31 +35,23 @@ export const testimonialsCopy = {
     "Not reviews — real changes in how our community leads. Borrow whatever’s useful to you.",
   cta: { label: "Add your voice", href: "/share" },
   ctaNote: "Share one thing you lead differently now — help the next leader.",
+  emptyWall:
+    "Leaders are sharing what shifted for them. Add your voice and help the next owner or coach lead differently.",
 };
 
-// Add spotlights here when you have approved, permissioned member stories.
+/** Approved member spotlights — add rows with status: "approved" only. */
 export const spotlights: Spotlight[] = [];
 
-export const testimonials: Testimonial[] = [
-  {
-    id: "t1",
-    quote:
-      "I stopped solving my team’s problems for them. Now I ask one good question and wait — and they lead themselves.",
-    author: "Jordan",
-    role: "Director of Operations",
-  },
-  {
-    id: "t2",
-    quote:
-      "We rebuilt our meeting rhythm around values instead of status updates. Retention is the highest it has ever been.",
-    author: "Alicia",
-    role: "People & Culture Lead",
-  },
-  {
-    id: "t3",
-    quote:
-      "DISC didn’t just label my team — it changed how I hand off work. Fewer dropped balls, far less friction.",
-    author: "David",
-    role: "Engineering Manager",
-  },
-];
+/**
+ * Approved shift-quotes for the homepage wall.
+ * Do not add sample or placeholder entries. Each row needs explicit consent.
+ */
+export const testimonials: Testimonial[] = [];
+
+export function approvedSpotlights(): Spotlight[] {
+  return spotlights.filter((spotlight) => spotlight.status === "approved");
+}
+
+export function approvedTestimonials(): Testimonial[] {
+  return testimonials.filter((testimonial) => testimonial.status === "approved");
+}

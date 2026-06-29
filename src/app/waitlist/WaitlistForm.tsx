@@ -6,7 +6,7 @@ import { useState } from "react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { founding, tiers } from "../pricing/pricing.config";
-import { waitlistCopy } from "./waitlist.config";
+import { waitlistCopy, waitlistPlanIds } from "./waitlist.config";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -15,8 +15,10 @@ const fieldClassName =
 
 export default function WaitlistForm({ plan }: { plan?: string }) {
   const [status, setStatus] = useState<Status>("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const tier = tiers.find((entry) => entry.id === plan);
+  const tier = plan ? tiers.find((entry) => entry.id === plan) : undefined;
+  const isValidPlan = !plan || waitlistPlanIds.includes(plan);
   const foundingMonthly = tier?.foundingPriceMonthly;
   const foundingYearly = tier?.foundingPriceYearly;
   const showFoundingRate =
@@ -24,9 +26,10 @@ export default function WaitlistForm({ plan }: { plan?: string }) {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (status === "submitting") return;
+    if (status === "submitting" || !isValidPlan) return;
 
     setStatus("submitting");
+    setErrorMessage(null);
 
     try {
       const formData = new FormData(event.currentTarget);
@@ -42,9 +45,17 @@ export default function WaitlistForm({ plan }: { plan?: string }) {
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) throw new Error("Request failed");
+      const data = (await response.json()) as { error?: string };
+
+      if (!response.ok) {
+        setErrorMessage(data.error ?? waitlistCopy.errorBody);
+        setStatus("error");
+        return;
+      }
+
       setStatus("success");
     } catch {
+      setErrorMessage(waitlistCopy.errorBody);
       setStatus("error");
     }
   }
@@ -54,7 +65,9 @@ export default function WaitlistForm({ plan }: { plan?: string }) {
       <section className="min-h-[calc(100dvh-4rem)] bg-ltl-bg px-4 py-16 sm:px-6">
         <div className="mx-auto max-w-md rounded-2xl border border-ltl-border bg-ltl-surface p-8 text-center">
           <div className="mx-auto flex size-14 items-center justify-center rounded-full bg-ltl-accent/15 ring-1 ring-ltl-accent/30">
-            <span className="text-2xl font-bold text-ltl-accent">✓</span>
+            <span className="text-2xl font-bold text-ltl-accent" aria-hidden>
+              ✓
+            </span>
           </div>
           <h1 className="mt-4 font-heading text-2xl font-semibold text-ltl-text-primary">
             {waitlistCopy.successHeading}
@@ -89,15 +102,24 @@ export default function WaitlistForm({ plan }: { plan?: string }) {
           </p>
         </div>
 
-        {tier && (
+        {!isValidPlan && (
+          <p className="mt-6 rounded-xl border border-destructive/30 bg-destructive/10 px-5 py-4 text-center text-sm text-destructive">
+            {waitlistCopy.invalidPlanBody}
+          </p>
+        )}
+
+        {tier && isValidPlan && (
           <div className="mt-6 rounded-xl border border-ltl-accent/35 bg-ltl-accent/10 px-5 py-4 text-center">
-            <p className="text-sm text-ltl-text-secondary">You’re reserving</p>
+            <p className="text-sm text-ltl-text-secondary">You&apos;re reserving</p>
             <p className="font-heading text-lg font-semibold text-ltl-text-primary">
               Pulse {tier.name}
             </p>
+            {tier.tagline ? (
+              <p className="mt-1 text-sm text-ltl-text-secondary">{tier.tagline}</p>
+            ) : null}
             {showFoundingRate && (
-              <p className="mt-1 font-label text-xs uppercase tracking-wide text-ltl-accent">
-                Founding rate: ${foundingMonthly}/mo · ${foundingYearly}/yr — locked for life
+              <p className="mt-2 font-label text-xs uppercase tracking-wide text-ltl-accent">
+                {founding.badge}: ${foundingMonthly}/mo · ${foundingYearly}/yr — locked for life
               </p>
             )}
           </div>
@@ -118,6 +140,8 @@ export default function WaitlistForm({ plan }: { plan?: string }) {
               name="email"
               type="email"
               required
+              autoComplete="email"
+              disabled={!isValidPlan}
               placeholder={waitlistCopy.emailPlaceholder}
               className={fieldClassName}
             />
@@ -127,18 +151,25 @@ export default function WaitlistForm({ plan }: { plan?: string }) {
             <label htmlFor="name" className="block text-sm font-semibold text-ltl-text-primary">
               {waitlistCopy.nameLabel}
             </label>
-            <input id="name" name="name" type="text" className={fieldClassName} />
+            <input
+              id="name"
+              name="name"
+              type="text"
+              autoComplete="given-name"
+              disabled={!isValidPlan}
+              className={fieldClassName}
+            />
           </div>
 
-          {status === "error" && (
+          {status === "error" && errorMessage && (
             <p className="text-sm font-medium text-destructive" role="alert">
-              {waitlistCopy.errorBody}
+              {errorMessage}
             </p>
           )}
 
           <button
             type="submit"
-            disabled={status === "submitting"}
+            disabled={status === "submitting" || !isValidPlan}
             className="w-full rounded-md bg-ltl-accent px-5 py-3 text-sm font-bold text-ltl-bg transition hover:bg-ltl-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
           >
             {status === "submitting" ? waitlistCopy.submittingLabel : waitlistCopy.submitLabel}

@@ -63,7 +63,7 @@ export function EmailCapture() {
     >
       <div className="mx-auto max-w-xl text-center">
         <p className="font-label text-xs uppercase tracking-widest text-ltl-accent">
-          Coming soon
+          Free guide
         </p>
         <h2 className="mt-3 font-heading text-3xl font-semibold text-ltl-text-primary md:text-4xl">
           {TURNOVER_GUIDE_LEAD_MAGNET.title}
@@ -72,11 +72,11 @@ export function EmailCapture() {
         {submitted ? (
           <div className="mt-8 rounded-xl border border-ltl-accent/30 bg-ltl-accent/10 px-6 py-8 text-left sm:text-center">
             <p className="font-heading text-lg font-semibold text-ltl-text-primary">
-              You&apos;re on the waitlist.
+              Check your inbox soon.
             </p>
             <p className="mt-3 text-base leading-relaxed text-ltl-text-secondary">
-              We&apos;re finishing this playbook now. You&apos;ll be first to know
-              when it&apos;s ready — no charge, no spam.
+              We&apos;ll send the guide as soon as it&apos;s ready — plus occasional
+              leadership insights from the Pulse. Unsubscribe anytime.
             </p>
             <p className="mt-4 text-sm text-ltl-text-secondary">
               While you wait, start with a free LTL Conversation on keeping your
@@ -95,9 +95,8 @@ export function EmailCapture() {
         ) : (
           <>
             <p className="mt-4 text-base leading-relaxed text-ltl-text-secondary">
-              This guide is in production. Join the waitlist and we&apos;ll send it
-              as soon as it&apos;s ready — plus occasional leadership insights from
-              the Pulse. Unsubscribe anytime.
+              Five practical conversations to keep your best people — free when you
+              share your email.
             </p>
             <form
               onSubmit={handleSubmit}
@@ -126,7 +125,7 @@ export function EmailCapture() {
                 disabled={submitting}
                 className="h-11 shrink-0 rounded-md bg-ltl-accent px-6 font-bold text-ltl-bg hover:bg-ltl-accent-hover"
               >
-                {submitting ? "Joining…" : "Join the waitlist"}
+                {submitting ? "Sending…" : "Get the guide"}
               </Button>
             </form>
           </>

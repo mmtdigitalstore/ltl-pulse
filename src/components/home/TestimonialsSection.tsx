@@ -6,8 +6,8 @@ import { Mic, Quote, Video } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
 import {
-  testimonials,
-  spotlights,
+  approvedSpotlights,
+  approvedTestimonials,
   testimonialsCopy,
   type Spotlight,
   type Testimonial,
@@ -21,7 +21,10 @@ import {
 import { cn } from "@/lib/utils";
 
 export function TestimonialsSection() {
+  const spotlights = approvedSpotlights();
+  const testimonials = approvedTestimonials();
   const [featured, ...wallQuotes] = testimonials;
+  const hasWallContent = spotlights.length > 0 || testimonials.length > 0;
 
   return (
     <motion.section
@@ -99,13 +102,31 @@ export function TestimonialsSection() {
             whileInView="visible"
             viewport={sectionViewport}
             variants={staggerContainer}
-            className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2"
+            className="mt-8 columns-1 gap-6 md:columns-2 lg:columns-3"
           >
             {wallQuotes.map((testimonial) => (
-              <motion.div key={testimonial.id} variants={staggerItem}>
+              <motion.div
+                key={testimonial.id}
+                variants={staggerItem}
+                className="mb-6 break-inside-avoid"
+              >
                 <QuoteCard testimonial={testimonial} />
               </motion.div>
             ))}
+          </motion.div>
+        )}
+
+        {!hasWallContent && (
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={sectionViewport}
+            variants={sectionFadeUp}
+            className="mt-12 rounded-2xl border border-dashed border-ltl-border bg-ltl-surface/50 px-6 py-10 text-center sm:px-10"
+          >
+            <p className="mx-auto max-w-xl text-base leading-relaxed text-ltl-text-secondary">
+              {testimonialsCopy.emptyWall}
+            </p>
           </motion.div>
         )}
 

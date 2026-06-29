@@ -13,6 +13,7 @@ export const shareCopy = {
   roleLabel: "Role / title",
   orgLabel: "Organization (optional)",
   emailLabel: "Email (optional — only so we can thank you or verify)",
+  emailPrivacyNote: "Your email is never shown on the wall — we use it only to follow up with you.",
   companyUrlLabel: "Company or profile link (optional)",
   companyUrlPlaceholder: "https://yourcompany.com",
 
@@ -25,7 +26,7 @@ export const shareCopy = {
   videoHint: "20–60 seconds · MP4 or WebM · max 50 MB",
 
   consentLabel:
-    "I’m happy for LTL Pulse to share this publicly with my first name, role, organization, and company link (if provided).",
+    "I’m happy for LTL Pulse to share this publicly with my first name, role, organization, and company link (if provided). I understand submissions are reviewed before they appear on the wall.",
 
   submitLabel: "Share my voice",
   submittingLabel: "Sending…",

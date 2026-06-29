@@ -1,3 +1,9 @@
+import { tiers } from "../pricing/pricing.config";
+
+export const waitlistPlanIds = tiers
+  .filter((tier) => tier.status === "soon")
+  .map((tier) => tier.id);
+
 export const waitlistCopy = {
   kicker: "Founding access",
   heading: "Reserve your founding rate",
@@ -21,6 +27,7 @@ export const waitlistCopy = {
     "Your founding rate is held. We’ll email you the moment this tier opens — thank you for backing us early.",
 
   errorBody: "Something went wrong. Please try again in a moment.",
+  invalidPlanBody: "That plan isn’t open for founding reservations yet.",
 
   endpoint: "/api/waitlist",
 };

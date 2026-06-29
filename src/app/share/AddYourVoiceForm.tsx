@@ -18,23 +18,40 @@ const fileInputClassName =
 export default function AddYourVoiceForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [quote, setQuote] = useState("");
+  const [name, setName] = useState("");
+  const [role, setRole] = useState("");
   const [consent, setConsent] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const remaining = shareCopy.maxQuoteLength - quote.length;
-  const canSubmit = quote.trim().length > 0 && consent && status !== "submitting";
+  const canSubmit =
+    quote.trim().length > 0 &&
+    name.trim().length > 0 &&
+    role.trim().length > 0 &&
+    consent &&
+    status !== "submitting";
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!canSubmit) return;
 
     setStatus("submitting");
+    setErrorMessage(null);
 
     try {
       const data = new FormData(event.currentTarget);
       const response = await fetch(shareCopy.endpoint, { method: "POST", body: data });
-      if (!response.ok) throw new Error("Request failed");
+      const payload = (await response.json()) as { error?: string };
+
+      if (!response.ok) {
+        setErrorMessage(payload.error ?? shareCopy.errorBody);
+        setStatus("error");
+        return;
+      }
+
       setStatus("success");
     } catch {
+      setErrorMessage(shareCopy.errorBody);
       setStatus("error");
     }
   }
@@ -44,20 +61,22 @@ export default function AddYourVoiceForm() {
       <section className="min-h-[calc(100dvh-4rem)] bg-ltl-bg px-4 py-16 sm:px-6">
         <div className="mx-auto max-w-xl rounded-2xl border border-ltl-border bg-ltl-surface p-8 text-center">
           <div className="mx-auto flex size-14 items-center justify-center rounded-full bg-ltl-accent/15 ring-1 ring-ltl-accent/30">
-            <span className="text-2xl font-bold text-ltl-accent">✓</span>
+            <span className="text-2xl font-bold text-ltl-accent" aria-hidden>
+              ✓
+            </span>
           </div>
           <h1 className="mt-4 font-heading text-2xl font-semibold text-ltl-text-primary">
             {shareCopy.successHeading}
           </h1>
           <p className="mt-2 text-ltl-text-secondary">{shareCopy.successBody}</p>
           <Link
-            href="/"
+            href="/#community"
             className={cn(
               buttonVariants({ variant: "outline", size: "lg" }),
               "mt-6 h-11 rounded-md border-ltl-border text-ltl-text-primary hover:bg-ltl-bg",
             )}
           >
-            Back to homepage
+            Back to the community wall
           </Link>
         </div>
       </section>
@@ -98,17 +117,43 @@ export default function AddYourVoiceForm() {
             />
             <div className="mt-1 flex justify-between text-xs text-ltl-text-secondary">
               <span>{shareCopy.promptHint}</span>
-              <span>{remaining}</span>
+              <span aria-live="polite">{remaining}</span>
             </div>
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <Field id="name" name="name" label={shareCopy.nameLabel} required />
-            <Field id="role" name="role" label={shareCopy.roleLabel} required />
+            <Field
+              id="name"
+              name="name"
+              label={shareCopy.nameLabel}
+              required
+              value={name}
+              onChange={setName}
+            />
+            <Field
+              id="role"
+              name="role"
+              label={shareCopy.roleLabel}
+              required
+              value={role}
+              onChange={setRole}
+            />
           </div>
+
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field id="org" name="org" label={shareCopy.orgLabel} />
-            <Field id="email" type="email" name="email" label={shareCopy.emailLabel} />
+            <div>
+              <Field
+                id="email"
+                name="email"
+                type="email"
+                label={shareCopy.emailLabel}
+                autoComplete="email"
+              />
+              <p className="mt-1 text-xs text-ltl-text-secondary">
+                {shareCopy.emailPrivacyNote}
+              </p>
+            </div>
           </div>
 
           <Field
@@ -144,7 +189,7 @@ export default function AddYourVoiceForm() {
                 id="video"
                 name="video"
                 type="file"
-                accept="video/*"
+                accept="video/mp4,video/webm,video/quicktime"
                 className={fileInputClassName}
               />
               <p className="mt-1 text-xs text-ltl-text-secondary">{shareCopy.videoHint}</p>
@@ -163,9 +208,9 @@ export default function AddYourVoiceForm() {
             <span>{shareCopy.consentLabel}</span>
           </label>
 
-          {status === "error" && (
+          {status === "error" && errorMessage && (
             <p className="text-sm font-medium text-destructive" role="alert">
-              {shareCopy.errorBody}
+              {errorMessage}
             </p>
           )}
 
@@ -189,6 +234,9 @@ function Field({
   type = "text",
   required = false,
   placeholder,
+  value,
+  onChange,
+  autoComplete,
 }: {
   id: string;
   name: string;
@@ -196,6 +244,9 @@ function Field({
   type?: string;
   required?: boolean;
   placeholder?: string;
+  value?: string;
+  onChange?: (value: string) => void;
+  autoComplete?: string;
 }) {
   return (
     <div>
@@ -208,6 +259,10 @@ function Field({
         type={type}
         required={required}
         placeholder={placeholder}
+        autoComplete={autoComplete}
+        {...(onChange != null && value != null
+          ? { value, onChange: (event) => onChange(event.target.value) }
+          : {})}
         className={fieldClassName}
       />
     </div>

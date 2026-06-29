@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 import {
-  getHomepageProblems,
+  featuredProblems,
   getPodcastHref,
 } from "@/data/problems.config";
 import {
@@ -17,7 +17,7 @@ import {
 import { cn } from "@/lib/utils";
 
 export function SoundFamiliarSection() {
-  const homepageProblems = getHomepageProblems();
+  const featured = featuredProblems();
 
   return (
     <motion.section
@@ -42,9 +42,9 @@ export function SoundFamiliarSection() {
           initial="hidden"
           whileInView="visible"
           viewport={sectionViewport}
-          className="mt-8 grid gap-3 sm:grid-cols-2"
+          className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
         >
-          {homepageProblems.map((problem) => (
+          {featured.map((problem) => (
             <motion.div key={problem.id} variants={staggerItem}>
               <Link
                 href={getPodcastHref(problem.id)}

@@ -4,6 +4,26 @@ import { formatCadenceReply } from "@/lib/concierge/format";
 import { linkifyCadenceText } from "@/lib/concierge/linkify";
 import { cn } from "@/lib/utils";
 
+function renderCadenceInline(text: string) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+
+  return parts.flatMap((part, index) => {
+    const boldMatch = part.match(/^\*\*([^*]+)\*\*$/);
+
+    if (boldMatch) {
+      return [
+        <strong key={`bold-${index}`} className="font-semibold text-ltl-text-primary">
+          {boldMatch[1]}
+        </strong>,
+      ];
+    }
+
+    return linkifyCadenceText(part).map((node, nodeIndex) => (
+      <span key={`${index}-${nodeIndex}`}>{node}</span>
+    ));
+  });
+}
+
 interface CadenceMessageContentProps {
   content: string;
   className?: string;
@@ -25,7 +45,7 @@ export function CadenceMessageContent({
 
         return (
           <p key={`${index}-${paragraph.slice(0, 24)}`}>
-            {linkifyCadenceText(paragraph)}
+            {renderCadenceInline(paragraph)}
           </p>
         );
       })}

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 const MAX_AUDIO_BYTES = 8 * 1024 * 1024;
 const MAX_VIDEO_BYTES = 50 * 1024 * 1024;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function normalizeCompanyUrl(raw: string): string | undefined {
   const trimmed = raw.trim();
@@ -44,6 +45,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Quote too long." }, { status: 400 });
     }
 
+    if (email && !EMAIL_PATTERN.test(email)) {
+      return NextResponse.json({ error: "Invalid email address." }, { status: 400 });
+    }
+
     let companyUrl: string | undefined;
     if (companyUrlRaw) {
       companyUrl = normalizeCompanyUrl(companyUrlRaw);
@@ -59,9 +64,9 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: "Invalid audio file." }, { status: 400 });
       }
 
-      // TODO: upload to storage (S3, Cloudflare R2, Supabase Storage, etc.)
+      // TODO: upload audio to storage (Supabase Storage, S3, Cloudflare R2, etc.)
       // const bytes = Buffer.from(await audio.arrayBuffer());
-      // audioUrl = await uploadToStorage(bytes, audio.type, "audio");
+      // audioUrl = await uploadToStorage(bytes, audio.type, "testimonials/audio");
     }
 
     let videoUrl: string | undefined;
@@ -71,9 +76,9 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: "Invalid video file." }, { status: 400 });
       }
 
-      // TODO: upload to storage (S3, Cloudflare R2, Supabase Storage, etc.)
+      // TODO: upload video to storage (Supabase Storage, S3, Cloudflare R2, etc.)
       // const bytes = Buffer.from(await video.arrayBuffer());
-      // videoUrl = await uploadToStorage(bytes, video.type, "video");
+      // videoUrl = await uploadToStorage(bytes, video.type, "testimonials/video");
     }
 
     const submission = {
@@ -90,18 +95,20 @@ export async function POST(request: Request) {
       submittedAt: new Date().toISOString(),
     };
 
-    // TODO: save `submission` to the database (e.g. Supabase `testimonials` table).
-    // await supabase.from("testimonials").insert(submission);
+    // TODO: persist submission as status "pending" — never auto-publish.
+    // await supabase.from("testimonials").insert({
+    //   ...submission,
+    //   // email is stored for thank-you/verify only; never expose on the public wall.
+    // });
 
     // TODO: notify the team when a submission arrives for moderation.
-    // await notifyTeam(submission);
 
-    // TODO: approving a row (status = "approved") should make it eligible for
-    // TestimonialsSection — swap static config for a DB query when ready.
+    // TODO: approve flow — set status to "approved" so TestimonialsSection can render it
+    // (via DB query or by copying fields into testimonials.config.ts).
 
     void submission;
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, status: "pending" });
   } catch {
     return NextResponse.json({ error: "Server error." }, { status: 500 });
   }

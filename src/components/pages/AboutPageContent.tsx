@@ -281,17 +281,23 @@ export function AboutPageContent() {
                 photo={EXPERT_PHOTOS.dawn}
               >
                 <p className="font-medium text-ltl-text-primary">
-                  Dawn helps owners and coaches keep their best people, build brands
-                  clients return to, and turn feast-or-famine into a steady client-flow
-                  system. Through her THRIVE system and E.A.R.N. method, she helps
-                  leaders develop people who perform and cultures that endure.
+                  Dawn helps owners and coaches keep their best people, get found and
+                  chosen online, and turn feast-or-famine into a steady client-flow
+                  system. It starts with her WebScore digital audit — a diagnostic that
+                  reads a business&apos;s entire digital footprint (social, social
+                  marketing, paid ads, listings, Google Business Profile, website
+                  responsiveness, reputation, and reviews) — the digital counterpart to a
+                  DISC assessment, and the core entry point to her THRIVE system. Her
+                  ClientFlow system then organizes how the business attracts, converts,
+                  and follows up with clients — so the pipeline stays consistent instead of
+                  feast-or-famine.
                 </p>
                 <p className="text-xs italic leading-relaxed text-ltl-text-secondary md:text-sm">
                   Maxwell Leadership Certified at the Executive Director level ·
-                  Cornell-certified in project leadership and systems design ·
-                  Executive MBA candidate · Contributing author, Transforming Pain Into
-                  Purpose (Vol. 1) · Founder of Market My Training Solutions · 30+ years
-                  across Bermuda and the Caribbean.
+                  Cornell-certified in project leadership and systems design · Executive
+                  MBA candidate · WebScore digital analyst · Contributing author,
+                  Transforming Pain Into Purpose (Vol. 1) · Founder of Market My Training
+                  Solutions · 30+ years across Bermuda and the Caribbean.
                 </p>
                 <div>
                   <p className="font-medium text-ltl-text-primary">
@@ -299,11 +305,15 @@ export function AboutPageContent() {
                   </p>
                   <ul className="mt-3 list-disc space-y-2 pl-5">
                     <li>
-                      Your best people keep leaving — and you&apos;re not sure why
-                    </li>
-                    <li>
                       Your revenue is feast-or-famine because winning clients lives in
                       your head, not a system
+                    </li>
+                    <li>
+                      You&apos;re hard to find online — your listings, reviews, and social
+                      presence aren&apos;t bringing clients
+                    </li>
+                    <li>
+                      Your best people keep leaving — and you&apos;re not sure why
                     </li>
                     <li>
                       You were great at the work, got promoted, and were never taught to
@@ -313,19 +323,16 @@ export function AboutPageContent() {
                       You want a brand and client relationships that bring repeat
                       business, not just look good
                     </li>
-                    <li>
-                      You&apos;re growing and need to build the next layer of leaders,
-                      not do it all yourself
-                    </li>
                   </ul>
                 </div>
                 <p className="text-xs leading-relaxed text-ltl-text-secondary md:text-sm">
                   <span className="font-label uppercase tracking-wider text-ltl-accent">
                     Specialties:
                   </span>{" "}
-                  People &amp; culture · Talent retention · Client-flow systems (CRM,
-                  social, reputation) · Brand &amp; client strategy · Leadership
-                  development
+                  WebScore digital audit · ClientFlow systems (digital presence +
+                  pipeline organization: CRM, social, listings, reputation, reviews,
+                  follow-up) · Brand &amp; client strategy · People &amp; culture · Talent
+                  retention · Leadership development
                 </p>
               </TeamMemberCard>
             </motion.div>
@@ -449,10 +456,12 @@ export function AboutPageContent() {
                 photo={EXPERT_PHOTOS.joshua}
               >
                 <p className="font-medium text-ltl-text-primary">
-                  Joshua helps owners break through plateaus — modernizing with tech and
-                  AI, getting noticed by the right customers, and growing again. A serial
-                  entrepreneur, he brings a builder&apos;s playbook to businesses ready for
-                  their next stage.
+                  Joshua helps owners break through plateaus by reinventing the business
+                  itself — adopting the right tech and AI, launching new offerings and
+                  models, and scaling what works. A serial entrepreneur, he brings a
+                  builder&apos;s playbook to businesses ready for their next stage. (Where
+                  Dawn handles getting found and chosen, Joshua handles modernizing how
+                  the business runs and grows.)
                 </p>
                 <p className="text-xs italic leading-relaxed text-ltl-text-secondary md:text-sm">
                   Founder &amp; Chief Vision Officer of E Skool Now Group and founder/leader
@@ -464,13 +473,16 @@ export function AboutPageContent() {
                     Joshua can help you when:
                   </p>
                   <ul className="mt-3 list-disc space-y-2 pl-5">
-                    <li>Your business has plateaued and you need to grow again</li>
+                    <li>
+                      Your business has plateaued and you need fresh ideas and new ways to
+                      grow
+                    </li>
                     <li>
                       You know you should be using tech and AI but don&apos;t know where to
                       start
                     </li>
                     <li>
-                      You&apos;re invisible online and need the right customers to notice you
+                      You want to launch a new offering, model, or revenue stream
                     </li>
                     <li>
                       You want to modernize how you operate without losing what makes you{" "}
@@ -486,8 +498,8 @@ export function AboutPageContent() {
                   <span className="font-label uppercase tracking-wider text-ltl-accent">
                     Specialties:
                   </span>{" "}
-                  Growth &amp; venture building · Modernizing with tech &amp; AI · Brand
-                  visibility &amp; digital · Business transformation · Future-ready
+                  Entrepreneurship &amp; venture building · Tech &amp; AI adoption · New
+                  offerings &amp; business models · Business transformation · Future-ready
                   leadership
                 </p>
               </TeamMemberCard>
