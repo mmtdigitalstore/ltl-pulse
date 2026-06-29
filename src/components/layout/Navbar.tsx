@@ -4,13 +4,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Menu } from "lucide-react";
+import { ChevronDown, Menu } from "lucide-react";
 import type { User } from "@supabase/supabase-js";
 
 import { logout } from "@/app/auth/actions";
 import { buildAuthHref } from "@/lib/auth/redirect";
 import { clearCadenceChatSession } from "@/lib/concierge/session";
 import { Button, buttonVariants } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Sheet,
   SheetContent,
@@ -22,15 +28,29 @@ import { cn } from "@/lib/utils";
 const COMMUNITY_HASH = "#community";
 const COMMUNITY_HREF = `/${COMMUNITY_HASH}`;
 
-const navLinks = [
+const pulseLinks = [
   { href: "/magazine", label: "Magazine" },
-  { href: "/podcast", label: "Podcast" },
+  { href: "/podcast", label: "Conversations" },
   { href: "/vlogs", label: "Vlogs" },
-  { href: COMMUNITY_HREF, label: "Community" },
+] as const;
+
+const communityLinks = [
+  { href: COMMUNITY_HREF, label: "Testimonials", hashTarget: true },
+  { href: "/challenge", label: "Challenges", hashTarget: false },
+] as const;
+
+const standaloneNavLinks = [
   { href: "/concierge", label: "Cadence" },
-  { href: "/pricing", label: "Pricing" },
   { href: "/about", label: "About" },
 ] as const;
+
+type NavDropdownItem = {
+  href: string;
+  label: string;
+  hashTarget?: boolean;
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
+  isActive?: boolean;
+};
 
 function useCommunityNavActive() {
   const pathname = usePathname();
@@ -79,29 +99,30 @@ function useCommunityNavActive() {
   };
 }
 
-function isNavLinkActive(
+function isPulseActive(pathname: string): boolean {
+  return (
+    pathname === "/magazine" ||
+    pathname === "/podcast" ||
+    pathname === "/vlogs"
+  );
+}
+
+function isCommunityMenuActive(
   pathname: string,
-  href: string,
-  isCommunityActive: boolean,
+  isTestimonialsActive: boolean,
 ): boolean {
-  if (href === COMMUNITY_HREF) {
-    return isCommunityActive;
-  }
+  return (
+    isTestimonialsActive ||
+    pathname === "/challenge" ||
+    pathname.startsWith("/challenge/")
+  );
+}
 
+function isStandaloneNavActive(pathname: string, href: string): boolean {
   const path = href.split("#")[0];
-
-  if (path === "/pricing") {
-    return (
-      pathname === "/pricing" ||
-      pathname === "/subscribe" ||
-      pathname.startsWith("/waitlist")
-    );
-  }
-
   if (!path || path === "/") {
     return pathname === "/";
   }
-
   return pathname === path || pathname.startsWith(`${path}/`);
 }
 
@@ -133,6 +154,25 @@ const menuItemVariants = {
   },
 };
 
+function navTriggerClass(isActive: boolean, className?: string) {
+  return cn(
+    "inline-flex items-center gap-0.5 font-sans text-sm font-medium transition-colors duration-200 outline-none",
+    isActive
+      ? "text-ltl-accent"
+      : "text-ltl-text-secondary hover:text-ltl-text-primary",
+    className,
+  );
+}
+
+function navDropdownItemClass(isActive: boolean) {
+  return cn(
+    "w-full cursor-pointer rounded-md px-2.5 py-2 text-sm font-medium transition-colors",
+    isActive
+      ? "text-ltl-accent"
+      : "text-ltl-text-secondary hover:bg-ltl-surface hover:text-ltl-text-primary",
+  );
+}
+
 function NavLink({
   href,
   label,
@@ -151,16 +191,91 @@ function NavLink({
       href={href}
       onClick={onClick}
       aria-current={isActive ? "page" : undefined}
-      className={cn(
-        "font-sans text-sm font-medium transition-colors duration-200",
-        isActive
-          ? "text-ltl-accent"
-          : "text-ltl-text-secondary hover:text-ltl-text-primary",
-        className,
-      )}
+      className={navTriggerClass(isActive, className)}
     >
       {label}
     </Link>
+  );
+}
+
+function NavDropdown({
+  label,
+  isActive,
+  items,
+}: {
+  label: string;
+  isActive: boolean;
+  items: NavDropdownItem[];
+}) {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger className={navTriggerClass(isActive)}>
+        {label}
+        <ChevronDown className="size-3.5 opacity-70" aria-hidden="true" />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        align="center"
+        className="min-w-44 border border-ltl-border bg-ltl-bg p-1.5 text-ltl-text-primary shadow-lg ring-0"
+      >
+        {items.map((item) => (
+          <DropdownMenuItem
+            key={item.href}
+            render={
+              <Link
+                href={item.href}
+                onClick={item.onClick}
+                aria-current={item.isActive ? "page" : undefined}
+                className={navDropdownItemClass(Boolean(item.isActive))}
+              />
+            }
+          >
+            {item.label}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
+function MobileNavGroup({
+  label,
+  isActive,
+  items,
+  onItemClick,
+  className,
+}: {
+  label: string;
+  isActive: boolean;
+  items: NavDropdownItem[];
+  onItemClick?: (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    item: NavDropdownItem,
+  ) => void;
+  className?: string;
+}) {
+  return (
+    <div className={className}>
+      <p
+        className={cn(
+          "font-label text-xs font-semibold uppercase tracking-wider",
+          isActive ? "text-ltl-accent" : "text-ltl-text-secondary",
+        )}
+      >
+        {label}
+      </p>
+      <div className="mt-3 flex flex-col gap-3 border-l border-ltl-border pl-4">
+        {items.map((item) => (
+          <NavLink
+            key={item.href}
+            href={item.href}
+            label={item.label}
+            isActive={item.isActive}
+            onClick={(event) => onItemClick?.(event, item)}
+            className="text-base"
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -176,6 +291,23 @@ export function Navbar({ user }: { user: User | null }) {
   const subscribeActive = isSubscribeActive(pathname);
   const loginActive = pathname === "/login";
   const signupActive = pathname === "/signup";
+  const pulseActive = isPulseActive(pathname);
+  const communityMenuActive = isCommunityMenuActive(
+    pathname,
+    isCommunityActive,
+  );
+
+  const pulseItems: NavDropdownItem[] = pulseLinks.map((link) => ({
+      ...link,
+      isActive: pathname === link.href || pathname.startsWith(`${link.href}/`),
+  }));
+
+  const communityItems: NavDropdownItem[] = communityLinks.map((link) => ({
+    ...link,
+    isActive: link.hashTarget
+      ? isCommunityActive
+      : pathname === link.href || pathname.startsWith(`${link.href}/`),
+  }));
 
   const displayName =
     (user?.user_metadata?.full_name as string | undefined)?.trim() ||
@@ -186,6 +318,50 @@ export function Navbar({ user }: { user: User | null }) {
     if (user) {
       clearCadenceChatSession(user.id);
     }
+  }
+
+  function handleTestimonialsClick(
+    event: React.MouseEvent<HTMLAnchorElement>,
+    closeMenu = false,
+  ) {
+    if (pathname === "/") {
+      event.preventDefault();
+      activateCommunity();
+    }
+
+    if (closeMenu) {
+      closeMobile();
+    }
+  }
+
+  function handleLogoClick(event: React.MouseEvent<HTMLAnchorElement>) {
+    if (pathname === "/") {
+      event.preventDefault();
+      deactivateCommunity();
+    }
+  }
+
+  function withTestimonialsHandler(item: NavDropdownItem): NavDropdownItem {
+    if (!item.hashTarget) {
+      return item;
+    }
+
+    return {
+      ...item,
+      onClick: (event) => handleTestimonialsClick(event),
+    };
+  }
+
+  function handleMobileDropdownItem(
+    event: React.MouseEvent<HTMLAnchorElement>,
+    item: NavDropdownItem,
+  ) {
+    if (item.hashTarget) {
+      handleTestimonialsClick(event, true);
+      return;
+    }
+
+    closeMobile();
   }
 
   function AuthActions({ className }: { className?: string }) {
@@ -227,27 +403,6 @@ export function Navbar({ user }: { user: User | null }) {
     );
   }
 
-  function handleCommunityClick(
-    event: React.MouseEvent<HTMLAnchorElement>,
-    closeMenu = false,
-  ) {
-    if (pathname === "/") {
-      event.preventDefault();
-      activateCommunity();
-    }
-
-    if (closeMenu) {
-      closeMobile();
-    }
-  }
-
-  function handleLogoClick(event: React.MouseEvent<HTMLAnchorElement>) {
-    if (pathname === "/") {
-      event.preventDefault();
-      deactivateCommunity();
-    }
-  }
-
   return (
     <header className="sticky top-0 z-50 w-full border-b border-ltl-border bg-ltl-bg">
       <nav className="relative mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -260,17 +415,22 @@ export function Navbar({ user }: { user: User | null }) {
         </Link>
 
         <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 md:flex">
-          {navLinks.map((link) => (
+          <NavDropdown
+            label="Pulse"
+            isActive={pulseActive}
+            items={pulseItems}
+          />
+          <NavDropdown
+            label="Community"
+            isActive={communityMenuActive}
+            items={communityItems.map(withTestimonialsHandler)}
+          />
+          {standaloneNavLinks.map((link) => (
             <NavLink
               key={link.href}
               href={link.href}
               label={link.label}
-              onClick={
-                link.href === COMMUNITY_HREF
-                  ? (event) => handleCommunityClick(event)
-                  : undefined
-              }
-              isActive={isNavLinkActive(pathname, link.href, isCommunityActive)}
+              isActive={isStandaloneNavActive(pathname, link.href)}
             />
           ))}
         </div>
@@ -318,24 +478,32 @@ export function Navbar({ user }: { user: User | null }) {
               animate="show"
               className="flex h-full flex-col gap-8 pt-10"
             >
-              <div className="flex flex-col gap-6">
-                {navLinks.map((link) => (
+              <div className="flex flex-col gap-8">
+                <motion.div variants={menuItemVariants}>
+                  <MobileNavGroup
+                    label="Pulse"
+                    isActive={pulseActive}
+                    items={pulseItems}
+                    onItemClick={(event) => {
+                      closeMobile();
+                    }}
+                  />
+                </motion.div>
+                <motion.div variants={menuItemVariants}>
+                  <MobileNavGroup
+                    label="Community"
+                    isActive={communityMenuActive}
+                    items={communityItems.map(withTestimonialsHandler)}
+                    onItemClick={handleMobileDropdownItem}
+                  />
+                </motion.div>
+                {standaloneNavLinks.map((link) => (
                   <motion.div key={link.href} variants={menuItemVariants}>
                     <NavLink
                       href={link.href}
                       label={link.label}
-                      onClick={(event) => {
-                        if (link.href === COMMUNITY_HREF) {
-                          handleCommunityClick(event, true);
-                          return;
-                        }
-                        closeMobile();
-                      }}
-                      isActive={isNavLinkActive(
-                        pathname,
-                        link.href,
-                        isCommunityActive,
-                      )}
+                      onClick={closeMobile}
+                      isActive={isStandaloneNavActive(pathname, link.href)}
                       className="text-lg"
                     />
                   </motion.div>

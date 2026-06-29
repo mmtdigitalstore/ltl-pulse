@@ -81,8 +81,8 @@ export function PodcastPageContent() {
         className="mx-auto max-w-3xl"
       >
         <PageHeader
-          title="The Podcast"
-          subtitle="Conversations with leaders shaping culture."
+          title="LTL Conversations"
+          subtitle="The flagship podcast — leaders shaping culture, one conversation at a time."
         />
 
         <motion.div
