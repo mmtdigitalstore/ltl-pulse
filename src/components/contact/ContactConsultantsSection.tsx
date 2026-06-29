@@ -34,7 +34,12 @@ export function ContactConsultantsSection() {
                   {expert.name}
                 </Link>
               </h3>
-              <p className="mt-1 text-sm text-ltl-accent">{expert.role}</p>
+              <p className="mt-1 font-label text-[0.65rem] uppercase tracking-widest text-ltl-accent">
+                {expert.title}
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-ltl-text-secondary">
+                {expert.tagline}
+              </p>
               <p className="mt-3 text-sm leading-relaxed text-ltl-text-secondary md:text-base">
                 {expert.contactBio}
               </p>

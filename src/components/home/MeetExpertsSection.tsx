@@ -71,7 +71,12 @@ export function MeetExpertsSection() {
                       {expert.name}
                     </Link>
                   </h3>
-                  <p className="mt-2 text-sm text-ltl-text-secondary">{expert.role}</p>
+                  <p className="mt-1 font-label text-[0.65rem] uppercase tracking-widest text-ltl-accent">
+                    {expert.title}
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-ltl-text-secondary">
+                    {expert.tagline}
+                  </p>
                   <p className="mt-4 text-sm leading-relaxed text-ltl-text-primary">
                     <span className="font-medium text-ltl-accent">Best for:</span>{" "}
                     {expert.bestFor}

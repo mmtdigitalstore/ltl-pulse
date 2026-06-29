@@ -106,6 +106,7 @@ function TeamMemberCard({
   id,
   name,
   role,
+  tagline,
   credentials,
   photo,
   children,
@@ -114,6 +115,7 @@ function TeamMemberCard({
   id?: string;
   name: string;
   role?: string;
+  tagline?: string;
   credentials?: string;
   photo?: { src: string; alt: string };
   children: ReactNode;
@@ -138,6 +140,11 @@ function TeamMemberCard({
           {role ? (
             <p className="mt-1 font-label text-xs uppercase tracking-wider text-ltl-accent">
               {role}
+            </p>
+          ) : null}
+          {tagline ? (
+            <p className="mt-2 text-sm leading-relaxed text-ltl-text-secondary">
+              {tagline}
             </p>
           ) : null}
           {credentials ? (
@@ -265,37 +272,37 @@ export function AboutPageContent() {
               <TeamMemberCard
                 id="dawn"
                 name="Dawn Kirk, M.Ed."
-                role="Team Lead · LTL Pulse"
+                role={experts.dawn.title}
+                tagline={experts.dawn.tagline}
                 photo={EXPERT_PHOTOS.dawn}
-                credentials="Certified at the Executive Director level — the highest tier of the Maxwell Leadership Certified Team · Cornell-certified in project leadership and systems design · Executive MBA candidate · Contributing author, Transforming Pain Into Purpose (Volume 1) · Founder of Market My Training Solutions"
+                credentials="Maxwell Certified Independent Executive Director · WebScore Analyst · Cornell-certified in project leadership & systems design · Executive MBA candidate · Author, Transforming Pain Into Purpose · Founder, Market My Training Solutions"
               >
                 <p>
                   As Team Lead of LTL Pulse, Dawn Kirk believes leadership and culture
-                  are inseparable — the conviction at the heart of everything the platform
-                  publishes. Certified at the Executive Director level of the Maxwell
-                  Leadership program, its highest tier, Cornell-certified in project
-                  leadership and systems design, an Executive MBA candidate, a
-                  contributing author of Transforming Pain Into Purpose, and founder of
-                  Market My Training Solutions, she brings 30+ years across Bermuda and the
-                  Caribbean and service on numerous boards to one purpose: helping leaders
-                  develop people who perform and build cultures that endure.
+                  are inseparable — the conviction behind everything the platform publishes.
+                  A Maxwell Certified Independent Executive Director, Cornell-trained in
+                  systems design,
+                  and founder of Market My Training Solutions, she brings 30+ years across
+                  Bermuda and the Caribbean to one purpose: leaders who perform and cultures
+                  that endure.
                 </p>
                 <p>
-                  That work is now a system. Through{" "}
+                  Her client-flow work starts with{" "}
+                  <span className="font-heading font-semibold text-ltl-accent">
+                    WebScore
+                  </span>
+                  — a diagnostic that measures your digital footprint before prescribing
+                  fixes. Inside the{" "}
                   <span className="font-heading font-semibold text-ltl-accent">
                     THRIVE
-                  </span>
-                  , Dawn equips leaders to grow their people, strengthen their
-                  institutions, and navigate change with confidence — the future-ready
-                  lens LTL Pulse brings to every conversation. Her approach helps leaders{" "}
+                  </span>{" "}
+                  framework, leaders build the pipeline backend — CRM, pipeline stages,
+                  reputation, follow-up, and AI-enabled tools — so feast-or-famine becomes
+                  repeat business. Her{" "}
                   <span className="font-heading font-semibold text-ltl-accent">
                     E.A.R.N.
                   </span>{" "}
-                  lasting results: empowering with strategy, amplifying their brand,
-                  revolutionizing their leadership, and nurturing client relationships —
-                  grounded in genuine integrity, relentless innovation, and tenacious
-                  excellence. Leadership for what&apos;s coming, not just what&apos;s
-                  been.
+                  model ties people, culture, and client relationships into one system.
                 </p>
                 <div>
                   <p className="font-medium text-ltl-text-primary">
@@ -304,19 +311,19 @@ export function AboutPageContent() {
                   <ul className="mt-3 list-disc space-y-2 pl-5">
                     <li>Your best people are leaving and you&apos;re not sure why</li>
                     <li>
-                      You&apos;re leading through change — restructure, growth, new
-                      strategy — and need the culture to hold
+                      Revenue is feast-or-famine — start with a WebScore read, then build
+                      the client-flow system behind it
+                    </li>
+                    <li>
+                      You were promoted for doing the work, but nobody taught you to lead
+                      people
                     </li>
                     <li>
                       Your leadership team is technically strong but isn&apos;t truly
                       leading
                     </li>
                     <li>
-                      You&apos;re building a brand that should mean something to clients,
-                      not just look good
-                    </li>
-                    <li>
-                      You need to develop the next bench, not just manage the current one
+                      You need culture and retention to hold during restructure or growth
                     </li>
                   </ul>
                 </div>
@@ -324,8 +331,9 @@ export function AboutPageContent() {
                   <span className="font-label uppercase tracking-wider text-ltl-accent">
                     Specialties:
                   </span>{" "}
-                  Leadership development · Culture &amp; change · Talent retention · Brand
-                  &amp; client strategy · People-development systems · Curriculum design
+                  Leadership development · Culture &amp; retention · WebScore diagnostics ·
+                  THRIVE client-flow systems · AI-enabled pipeline ops · Doer-to-leader
+                  transitions
                 </p>
               </TeamMemberCard>
             </motion.div>
@@ -334,9 +342,10 @@ export function AboutPageContent() {
               <TeamMemberCard
                 id="lashley"
                 name="Sylvan A. Lashley, Ed.D., J.D."
-                role={experts.lashley.role}
+                role={experts.lashley.title}
+                tagline={experts.lashley.tagline}
                 photo={EXPERT_PHOTOS.lashley}
-                credentials="Three-time university president · J.D., Ed.D., M.E.L., MBA · Education & special education law faculty"
+                credentials="Three-time university president (Northern Caribbean University, University of the Southern Caribbean, Atlantic Union College) · Former K–12 superintendent and principal · J.D., Ed.D., M.E.L., MBA · Faculty in Education Law & Special Education Law"
               >
                 <p>
                   Dr. Sylvan Lashley helps owners who are growing but running on
@@ -394,7 +403,8 @@ export function AboutPageContent() {
               <TeamMemberCard
                 id="jackie"
                 name="Jackie John, R.Eng., MSc"
-                role="Leadership & DISC Coach · LTL Pulse"
+                role={experts.jackie.title}
+                tagline={experts.jackie.tagline}
                 photo={EXPERT_PHOTOS.jackie}
                 credentials="Maxwell Leadership Certified DISC Coach & Consultant · Registered Engineer (R.Eng.), MSc, BSc, MAPETT · Founder of New Version Coaching & Consulting (NVCC) · Leads Jameri Consultants, BuildSafe Caribbean & Sargassum Solutions"
               >
@@ -460,24 +470,30 @@ export function AboutPageContent() {
               <TeamMemberCard
                 id="joshua"
                 name="Joshua Ogbonnia, CVO"
-                role={experts.joshua.role}
+                role={experts.joshua.title}
+                tagline={experts.joshua.tagline}
                 photo={EXPERT_PHOTOS.joshua}
-                credentials="Founder & CVO, E Skool Now Group · President, Global Educators Tribe · Chancellor, Tech Skool · CEO, Agric Shift"
+                credentials="Founder & Chief Vision Officer, E Skool Now Group · Founder & President, Global Educators Tribe (GET) · Chancellor, Tech Skool Educational Institution · CEO, Agric Shift · Serial entrepreneur across education, media & AgTech"
               >
                 <p>
-                  Joshua Ogbonnia is LTL Pulse&apos;s future-ready voice for owners
-                  and coaches whose growth has stalled or who are racing to keep up
-                  with AI, tech, and shifting expectations. A serial entrepreneur, he
-                  builds and scales ventures where education, media, innovation, and
-                  business transformation meet — practical modernization, not hype.
+                  Joshua Ogbonnia is LTL Pulse&apos;s voice for the{" "}
+                  <span className="font-medium text-ltl-text-primary">
+                    venture and innovation layer
+                  </span>{" "}
+                  — when growth has plateaued at the market level and you need
+                  repositioning, a new digital offer, or an innovation strategy for what&apos;s
+                  next. A serial entrepreneur, he builds and scales ventures across
+                  education, media, and AgTech. His work complements operational
+                  client-flow systems (Dawn&apos;s THRIVE and WebScore diagnose footprint
+                  and install pipeline backend for repeat business); Joshua focuses on
+                  market-level pivots, new ventures, and strategic AI adoption when the
+                  game itself has changed.
                 </p>
                 <p>
                   Through E Skool Now Group, the Global Educators Tribe, Tech Skool, and
                   Agric Shift, he has delivered award-winning digital solutions and
-                  venture-building across Africa and beyond. He helps leaders get
-                  noticed, modernize how they reach people, and build for what&apos;s
-                  next — whether you run a service business, coach others, or launch
-                  something new.
+                  venture-building across Africa and beyond — for founders and operators
+                  who need a new market play, not just a better follow-up system.
                 </p>
                 <div>
                   <p className="font-medium text-ltl-text-primary">
@@ -485,24 +501,24 @@ export function AboutPageContent() {
                   </p>
                   <ul className="mt-3 list-disc space-y-2 pl-5">
                     <li>
-                      Your business has plateaued — you need to modernize and actually
-                      get noticed
+                      Your business has plateaued — you need market repositioning or a new
+                      digital offer, not just more pipeline activity
                     </li>
                     <li>
-                      AI, tech, and new expectations are moving faster than your
-                      strategy
+                      You&apos;re launching or scaling a venture in education, media, edtech,
+                      or AgTech
                     </li>
                     <li>
-                      You&apos;re building or scaling an education, media, or innovation
-                      venture
+                      AI and tech shifts require an innovation strategy for your offer or
+                      venture — not a CRM cleanup
                     </li>
                     <li>
-                      You&apos;re a coach or trainer sharpening your brand and digital
-                      presence
+                      You need entrepreneurial lenses for competing in a market that already
+                      moved
                     </li>
                     <li>
-                      You want entrepreneurship and innovation lenses you can use this
-                      quarter — not someday
+                      You want practical innovation and AI adoption you can apply this
+                      quarter — at the venture level
                     </li>
                   </ul>
                 </div>
@@ -510,9 +526,8 @@ export function AboutPageContent() {
                   <span className="font-label uppercase tracking-wider text-ltl-accent">
                     Specialties:
                   </span>{" "}
-                  Growth &amp; modernization · EdTech &amp; digital innovation ·
-                  Entrepreneurship · Future-ready leadership · Brand &amp; visibility for
-                  founders and coaches
+                  Venture repositioning · Innovation strategy · EdTech &amp; product growth ·
+                  Entrepreneurship · Strategic AI adoption · Market-level transformation
                 </p>
               </TeamMemberCard>
             </motion.div>

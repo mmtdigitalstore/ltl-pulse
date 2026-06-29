@@ -8,35 +8,55 @@ export type ExpertId = "dawn" | "jackie" | "lashley" | "joshua";
 
 export const experts: Record<
   ExpertId,
-  { name: string; role: string; bestFor: string; contactBio: string }
+  {
+    name: string;
+    /** Short line under the name on About (e.g. "Team Lead · LTL Pulse"). */
+    title: string;
+    /** One-line specialty — shown on homepage, Contact, and under credentials on About. */
+    tagline: string;
+    bestFor: string;
+    contactBio: string;
+  }
 > = {
   dawn: {
     name: "Dawn Kirk",
-    role: "People, culture, brand & client-flow systems",
-    bestFor: "Keeping people, building culture & client-flow systems",
+    title: "Team Lead · LTL Pulse",
+    tagline:
+      "People, culture, leader development & client-flow systems — WebScore measures your digital footprint first, then the THRIVE framework builds the pipeline backend that stops feast-or-famine.",
+    bestFor:
+      "Turnover, culture, new leaders & feast-or-famine pipelines (start with WebScore)",
     contactBio:
-      "Dawn helps owners keep their best people, build culture that lasts, and turn client flow into a system — not a scramble.",
+      "Dawn helps when people or pipeline chaos is costing you — retention, culture, developing leaders, and client-flow systems that start with a WebScore diagnostic, then build the backend for repeat clients.",
   },
   jackie: {
     name: "Jackie John",
-    role: "Customer experience, communication & team dynamics (DISC)",
-    bestFor: "Customer experience, communication & team alignment",
+    title: "Leadership & DISC Coach · LTL Pulse",
+    tagline:
+      "Customer experience, team communication & DISC — fixing friction where your people and customers actually interact.",
+    bestFor:
+      "Team misalignment, communication breakdowns & losing customers at the front line",
     contactBio:
-      "Jackie helps teams communicate clearly, protect the customer experience, and use DISC to turn friction into alignment.",
+      "Jackie helps when teams talk past each other, communication is costing you results, or one bad customer moment becomes a pattern.",
   },
   lashley: {
     name: "Dr. Sylvan Lashley",
-    role: "Scaling with structure, accountability & financial durability",
-    bestFor: "Scaling with structure & financial durability",
+    title: "Strategic Scaling Expert · LTL Pulse",
+    tagline:
+      "Organizational structure, accountability & financial durability — when growth has outrun your systems and everything bottlenecks at you.",
+    bestFor:
+      "Scaling chaos, unclear roles, governance & financial sustainability under growth",
     contactBio:
-      "Dr. Lashley helps growing businesses build structure that scales — roles, accountability, and financial durability — when growth has outrun your systems.",
+      "Dr. Lashley helps when you're growing but running on chaos — roles, decision rights, accountability, and financial durability need to catch up with demand.",
   },
   joshua: {
     name: "Joshua Ogbonnia",
-    role: "Entrepreneurship, growth & modernizing with tech/AI",
-    bestFor: "Growth, modernizing & standing out",
+    title: "Growth & Innovation Expert · LTL Pulse",
+    tagline:
+      "Venture growth, market repositioning & innovation strategy — when you've plateaued and need a new market play or digital offer, not a client-flow operating system.",
+    bestFor:
+      "Plateaued ventures, market repositioning, edtech/innovation & strategic AI adoption",
     contactBio:
-      "Joshua helps owners and coaches modernize, get noticed, and lead through tech and AI — when you've plateaued or change won't slow down.",
+      "Joshua helps when growth has stalled at the market level — new ventures, repositioning, edtech and innovation strategy, and practical AI for competing in a shifting market.",
   },
 };
 
@@ -73,14 +93,14 @@ export const problems: Problem[] = [
     id: "feast-or-famine",
     audience: ["smb", "coach"],
     owner: "dawn",
-    secondary: "joshua",
+    secondary: "jackie",
     hook: "Your revenue is feast-or-famine — winning clients lives in your head, not in a system.",
     podcast: "From feast-or-famine to a full pipeline: building a client-flow system",
     magazine: "Build Your Client-Flow System: CRM, social & reputation that compound",
     vlog: "The 15-minute client-flow audit",
     cadenceChip: "Inconsistent clients / income",
     cadenceReply:
-      "Feast-or-famine almost always means there's no system yet — just hustle. Dawn's client-flow approach (CRM, social, reputation) turns that into something repeatable. Here's a free conversation to start; the full framework lives in Pro.",
+      "Feast-or-famine almost always means there's no client-flow system yet — just hustle. Dawn starts with WebScore to measure your digital footprint, then builds the pipeline backend inside her THRIVE framework (CRM, reputation, follow-up, AI-enabled management). Here's a free conversation to start; the full system lives in Pro.",
     tier: "pro",
   },
   {
@@ -136,7 +156,7 @@ export const problems: Problem[] = [
     vlog: "A founder's AI starter kit",
     cadenceChip: "Stuck / need to grow",
     cadenceReply:
-      "Plateaus usually mean it's time to modernize how you reach people. Joshua builds and scales ventures and is our future-ready voice. Here's a free conversation to spark ideas; Pro goes further.",
+      "Plateaus at the market level often call for repositioning or a new digital offer — not just more activity. Joshua is our venture and innovation voice for that shift. Here's a free conversation to spark ideas; Pro goes further. (If the issue is feast-or-famine pipeline chaos, Dawn's THRIVE and WebScore lane is the better fit.)",
     tier: "pro",
   },
   {
@@ -156,14 +176,14 @@ export const problems: Problem[] = [
     id: "leading-change",
     audience: ["smb", "coach"],
     owner: "joshua",
-    secondary: "dawn",
+    secondary: "jackie",
     hook: "The world's changing fast — AI, new expectations — and you're trying to keep up.",
     podcast: "Leading through change you didn't ask for",
     magazine: "Future-Ready: leading your business through the next decade",
     vlog: "Leading when everything's shifting",
     cadenceChip: "Keeping up with change / AI",
     cadenceReply:
-      "Change is the one constant now, and leading through it is a skill you can build. This free conversation is a strong start; our team goes deeper across Pro and Executive.",
+      "When AI, tech, and market expectations shift faster than your strategy, you need a practical lens — not hype. Joshua leads this conversation on LTL Pulse. Start free here; deeper work spans Pro and Executive.",
     tier: "member",
   },
 ];
