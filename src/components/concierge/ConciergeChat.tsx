@@ -4,11 +4,19 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, ChevronUp, Send } from "lucide-react";
 
-import { CadenceIntakePanel } from "@/components/concierge/CadenceIntakePanel";
+import { CadenceIntakeChoices } from "@/components/concierge/CadenceIntakeChoices";
 import { CadenceMessageContent } from "@/components/concierge/CadenceMessageContent";
 import { ConciergeAvatar } from "@/components/concierge/ConciergeAvatar";
 import { Button } from "@/components/ui/button";
+import type { Audience, Problem } from "@/data/problems.config";
 import { CADENCE_NAME, CONCIERGE_TIER_CONFIG } from "@/lib/concierge/config";
+import {
+  AUDIENCE_LABELS,
+  buildCadenceIntakeReply,
+  CADENCE_GREETING,
+  CADENCE_PROBLEM_PROMPT,
+} from "@/lib/concierge/intake";
+import { deriveIntakeState, type IntakePhase } from "@/lib/concierge/intake-state";
 import {
   clearCadenceChatSession,
   loadCadenceChatSession,
@@ -16,16 +24,6 @@ import {
 } from "@/lib/concierge/session";
 import type { ConciergeMessage } from "@/lib/concierge/types";
 import { cn } from "@/lib/utils";
-
-const STARTER_PROMPTS = [
-  "What does LTL Pulse offer?",
-  "Where can I find content on leadership and culture?",
-  "I'd like to connect with a human expert.",
-] as const;
-
-function hasCompletedIntake(messages: ConciergeMessage[]): boolean {
-  return messages.length > 0;
-}
 
 interface ConciergeChatProps {
   userId: string;
@@ -43,6 +41,8 @@ export function ConciergeChat({
   const tier = isSubscriber ? "premium" : "free";
   const tierConfig = CONCIERGE_TIER_CONFIG[tier];
   const [showStarters, setShowStarters] = useState(true);
+  const [intakePhase, setIntakePhase] = useState<IntakePhase>("idle");
+  const [intakeAudience, setIntakeAudience] = useState<Audience | null>(null);
   const [intakeComplete, setIntakeComplete] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState<ConciergeMessage[]>([]);
@@ -62,7 +62,17 @@ export function ConciergeChat({
       setMessages(saved.messages);
       setShowStarters(saved.showStarters);
       setIsMinimized(saved.isMinimized);
-      setIntakeComplete(hasCompletedIntake(saved.messages));
+
+      if (saved.intakePhase) {
+        setIntakePhase(saved.intakePhase);
+        setIntakeAudience(saved.intakeAudience ?? null);
+        setIntakeComplete(saved.intakeComplete ?? false);
+      } else {
+        const derived = deriveIntakeState(saved.messages);
+        setIntakePhase(derived.phase);
+        setIntakeAudience(derived.audience);
+        setIntakeComplete(derived.complete);
+      }
     }
 
     setSessionReady(true);
@@ -77,8 +87,20 @@ export function ConciergeChat({
       messages,
       showStarters,
       isMinimized,
+      intakePhase,
+      intakeAudience,
+      intakeComplete,
     });
-  }, [userId, messages, showStarters, isMinimized, sessionReady]);
+  }, [
+    userId,
+    messages,
+    showStarters,
+    isMinimized,
+    intakePhase,
+    intakeAudience,
+    intakeComplete,
+    sessionReady,
+  ]);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -104,6 +126,17 @@ export function ConciergeChat({
     const timer = window.setTimeout(() => setIsMinimized(true), 1500);
     return () => window.clearTimeout(timer);
   }, [atLimit, loading, messages.length]);
+
+  useEffect(() => {
+    if (!sessionReady || !showStarters || intakeComplete || intakePhase !== "idle") {
+      return;
+    }
+
+    if (messages.length === 0) {
+      setMessages([{ role: "assistant", content: CADENCE_GREETING }]);
+      setIntakePhase("audience");
+    }
+  }, [sessionReady, showStarters, intakeComplete, intakePhase, messages.length]);
 
   function expandChat() {
     setIsMinimized(false);
@@ -175,6 +208,8 @@ export function ConciergeChat({
     clearCadenceChatSession(userId);
     setMessages([]);
     setShowStarters(true);
+    setIntakePhase("idle");
+    setIntakeAudience(null);
     setIntakeComplete(false);
     setError(null);
     setInput("");
@@ -182,12 +217,33 @@ export function ConciergeChat({
     inputRef.current?.focus();
   }
 
-  function handleIntakeComplete(initialMessages: ConciergeMessage[]) {
-    setMessages(initialMessages);
-    setShowStarters(false);
-    setIntakeComplete(true);
+  function handleChooseAudience(audience: Audience) {
     onChatStart?.();
+    setIntakeAudience(audience);
+    setIntakePhase("problem");
+    setMessages((current) => [
+      ...current,
+      { role: "user", content: AUDIENCE_LABELS[audience] },
+      { role: "assistant", content: CADENCE_PROBLEM_PROMPT },
+    ]);
   }
+
+  function handleChooseProblem(problem: Problem) {
+    setShowStarters(false);
+    setIntakePhase("complete");
+    setIntakeComplete(true);
+    setMessages((current) => [
+      ...current,
+      { role: "user", content: problem.cadenceChip },
+      {
+        role: "assistant",
+        content: buildCadenceIntakeReply(problem, { isSubscriber }),
+      },
+    ]);
+  }
+
+  const showIntakeChoices =
+    showStarters && !intakeComplete && (intakePhase === "audience" || intakePhase === "problem");
 
   const statusLabel = loading
     ? "Thinking…"
@@ -319,30 +375,16 @@ export function ConciergeChat({
           aria-label={`Conversation with ${CADENCE_NAME}`}
           className="flex-1 space-y-2.5 overflow-y-auto px-3 py-2.5 sm:px-3"
         >
-          {showStarters && !intakeComplete && messages.length === 0 && (
-            <CadenceIntakePanel
-              isSubscriber={isSubscriber}
-              onComplete={handleIntakeComplete}
-            />
-          )}
-
-          {showStarters && intakeComplete && messages.length === 0 && (
-            <div className="space-y-2 py-1">
-              <p className="text-sm text-ltl-text-secondary">
-                Choose a question to get started:
-              </p>
-              <div className="flex flex-col gap-1.5">
-                {STARTER_PROMPTS.map((prompt) => (
-                  <button
-                    key={prompt}
-                    type="button"
-                    onClick={() => void sendMessage(prompt)}
-                    disabled={loading}
-                    className="rounded-md border border-ltl-border bg-ltl-bg px-2.5 py-1.5 text-left text-sm text-ltl-text-secondary transition-colors hover:border-ltl-accent/40 hover:text-ltl-text-primary"
-                  >
-                    {prompt}
-                  </button>
-                ))}
+          {showStarters && !intakeComplete && messages.length === 0 && intakePhase === "idle" && (
+            <div className="flex items-start gap-2">
+              <ConciergeAvatar
+                isActive
+                size="sm"
+                showLabel={false}
+                className="shrink-0"
+              />
+              <div className="rounded-lg bg-ltl-bg/60 px-2.5 py-1.5 text-sm text-ltl-text-secondary">
+                Starting…
               </div>
             </div>
           )}
@@ -379,6 +421,16 @@ export function ConciergeChat({
               </div>
             </div>
           ))}
+
+          {showIntakeChoices && (
+            <CadenceIntakeChoices
+              phase={intakePhase === "problem" ? "problem" : "audience"}
+              audience={intakeAudience ?? undefined}
+              disabled={loading}
+              onChooseAudience={handleChooseAudience}
+              onChooseProblem={handleChooseProblem}
+            />
+          )}
 
           {loading && (
             <div className="flex items-start gap-2">

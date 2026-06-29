@@ -1,9 +1,14 @@
+import type { IntakePhase } from "@/lib/concierge/intake-state";
 import type { ConciergeMessage } from "@/lib/concierge/types";
+import type { Audience } from "@/data/problems.config";
 
 export interface CadenceChatSession {
   messages: ConciergeMessage[];
   showStarters: boolean;
   isMinimized: boolean;
+  intakePhase?: IntakePhase;
+  intakeAudience?: Audience | null;
+  intakeComplete?: boolean;
 }
 
 const STORAGE_PREFIX = "cadence-chat:";
@@ -43,6 +48,9 @@ export function loadCadenceChatSession(userId: string): CadenceChatSession | nul
       messages: parsed.messages,
       showStarters: parsed.showStarters ?? false,
       isMinimized: parsed.isMinimized ?? false,
+      intakePhase: parsed.intakePhase,
+      intakeAudience: parsed.intakeAudience ?? null,
+      intakeComplete: parsed.intakeComplete ?? false,
     };
   } catch {
     return null;
