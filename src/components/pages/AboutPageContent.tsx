@@ -287,20 +287,9 @@ export function AboutPageContent() {
                   that endure.
                 </p>
                 <p>
-                  Her client-flow work starts with{" "}
-                  <span className="font-heading font-semibold text-ltl-accent">
-                    WebScore
-                  </span>
-                  — a diagnostic that measures your digital footprint before prescribing
-                  fixes. Inside the{" "}
-                  <span className="font-heading font-semibold text-ltl-accent">
-                    THRIVE
-                  </span>{" "}
-                  framework, feast-or-famine becomes repeat business. Her{" "}
-                  <span className="font-heading font-semibold text-ltl-accent">
-                    E.A.R.N.
-                  </span>{" "}
-                  model ties people, culture, and client relationships into one system.
+                  Her client-flow work starts with a proprietary digital footprint
+                  diagnostic, then a structured framework that turns feast-or-famine into
+                  repeat business — the full path opens through Cadence and membership.
                 </p>
                 <div>
                   <p className="font-medium text-ltl-text-primary">
@@ -309,8 +298,8 @@ export function AboutPageContent() {
                   <ul className="mt-3 list-disc space-y-2 pl-5">
                     <li>Your best people are leaving and you&apos;re not sure why</li>
                     <li>
-                      Revenue is feast-or-famine — start with a WebScore read, then build
-                      the client-flow system behind it
+                      Revenue is feast-or-famine — you need a diagnostic and system, not
+                      more hustle
                     </li>
                     <li>
                       You were promoted for doing the work, but nobody taught you to lead
@@ -329,8 +318,8 @@ export function AboutPageContent() {
                   <span className="font-label uppercase tracking-wider text-ltl-accent">
                     Specialties:
                   </span>{" "}
-                  Leadership development · Culture &amp; retention · WebScore diagnostics ·
-                  THRIVE client-flow systems · AI-enabled pipeline ops · Doer-to-leader
+                  Leadership development · Culture &amp; retention · Client-flow
+                  diagnostics · Pipeline &amp; retention systems · Doer-to-leader
                   transitions
                 </p>
               </TeamMemberCard>
