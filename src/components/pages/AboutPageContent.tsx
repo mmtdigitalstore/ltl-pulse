@@ -101,20 +101,24 @@ function TeamMemberCard({
   id,
   name,
   role,
+  lane,
   tagline,
   credentials,
   photo,
   children,
   className,
+  compact = false,
 }: {
   id?: string;
   name: string;
   role?: string;
+  lane?: string;
   tagline?: string;
   credentials?: string;
   photo?: { src: string; alt: string };
   children: ReactNode;
   className?: string;
+  compact?: boolean;
 }) {
   return (
     <article
@@ -124,17 +128,37 @@ function TeamMemberCard({
         className,
       )}
     >
-      <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
+      <div
+        className={cn(
+          "flex gap-4",
+          compact ? "flex-col" : "flex-col sm:flex-row sm:items-start",
+        )}
+      >
         {photo ? (
-          <ExpertPhoto src={photo.src} alt={photo.alt} name={name} size="md" />
+          <ExpertPhoto
+            src={photo.src}
+            alt={photo.alt}
+            name={name}
+            size={compact ? "sm" : "md"}
+          />
         ) : null}
         <div className="min-w-0 flex-1">
-          <h3 className="font-heading text-xl font-semibold text-ltl-text-primary md:text-2xl">
+          <h3
+            className={cn(
+              "font-heading font-semibold text-ltl-text-primary",
+              compact ? "text-lg md:text-xl" : "text-xl md:text-2xl",
+            )}
+          >
             {name}
           </h3>
           {role ? (
             <p className="mt-1 font-label text-xs uppercase tracking-wider text-ltl-accent">
               {role}
+            </p>
+          ) : null}
+          {lane ? (
+            <p className="mt-2 text-sm font-medium leading-snug text-ltl-text-primary">
+              {lane}
             </p>
           ) : null}
           {credentials ? (
@@ -272,24 +296,21 @@ export function AboutPageContent() {
             viewport={sectionViewport}
             className="mt-8 grid gap-6 md:grid-cols-2 md:gap-8"
           >
-            <motion.div variants={staggerItem} className="md:col-span-2">
+            <motion.div variants={staggerItem} className="h-full">
               <TeamMemberCard
                 id="dawn"
                 name="Dawn Kirk, M.Ed."
                 role={experts.dawn.title}
+                lane={experts.dawn.homepageLane}
                 photo={EXPERT_PHOTOS.dawn}
+                compact
               >
                 <p className="font-medium text-ltl-text-primary">
                   Dawn helps owners and coaches keep their best people, get found and
                   chosen online, and turn feast-or-famine into a steady client-flow
-                  system. It starts with her WebScore digital audit — a diagnostic that
-                  reads a business&apos;s entire digital footprint (social, social
-                  marketing, paid ads, listings, Google Business Profile, website
-                  responsiveness, reputation, and reviews) — the digital counterpart to a
-                  DISC assessment, and the core entry point to her THRIVE system. Her
-                  ClientFlow system then organizes how the business attracts, converts,
-                  and follows up with clients — so the pipeline stays consistent instead of
-                  feast-or-famine.
+                  system. She starts with a digital footprint diagnostic, then builds the
+                  pipeline and people systems that make growth repeatable — not another
+                  season of hustle.
                 </p>
                 <p className="text-xs italic leading-relaxed text-ltl-text-secondary md:text-sm">
                   Maxwell Leadership Certified at the Executive Director level ·
@@ -328,20 +349,21 @@ export function AboutPageContent() {
                   <span className="font-label uppercase tracking-wider text-ltl-accent">
                     Specialties:
                   </span>{" "}
-                  WebScore digital audit · ClientFlow systems (digital presence +
-                  pipeline organization: CRM, social, listings, reputation, reviews,
-                  follow-up) · Brand &amp; client strategy · People &amp; culture · Talent
-                  retention · Leadership development
+                  WebScore digital audit · ClientFlow systems · Brand &amp; client
+                  strategy · People &amp; culture · Talent retention · Leadership
+                  development
                 </p>
               </TeamMemberCard>
             </motion.div>
 
-            <motion.div variants={staggerItem} className="md:col-span-2">
+            <motion.div variants={staggerItem} className="h-full">
               <TeamMemberCard
                 id="jackie"
                 name="Jackie John, R.Eng., MSc"
                 role={experts.jackie.title}
+                lane={experts.jackie.homepageLane}
                 photo={EXPERT_PHOTOS.jackie}
+                compact
               >
                 <p className="font-medium text-ltl-text-primary">
                   Jackie helps service businesses stop losing customers to inconsistent
@@ -393,12 +415,14 @@ export function AboutPageContent() {
               </TeamMemberCard>
             </motion.div>
 
-            <motion.div variants={staggerItem} className="md:col-span-2">
+            <motion.div variants={staggerItem} className="h-full">
               <TeamMemberCard
                 id="lashley"
                 name="Sylvan A. Lashley, Ed.D., J.D."
                 role={experts.lashley.title}
+                lane={experts.lashley.homepageLane}
                 photo={EXPERT_PHOTOS.lashley}
+                compact
               >
                 <p className="font-medium text-ltl-text-primary">
                   Sylvan helps owners scale without the chaos — building the structure,
@@ -447,20 +471,22 @@ export function AboutPageContent() {
               </TeamMemberCard>
             </motion.div>
 
-            <motion.div variants={staggerItem} className="md:col-span-2">
+            <motion.div variants={staggerItem} className="h-full">
               <TeamMemberCard
                 id="joshua"
                 name="Joshua Ogbonnia, CVO"
                 role={experts.joshua.title}
+                lane={experts.joshua.homepageLane}
                 photo={EXPERT_PHOTOS.joshua}
+                compact
               >
                 <p className="font-medium text-ltl-text-primary">
                   Joshua helps owners break through plateaus by reinventing the business
                   itself — adopting the right tech and AI, launching new offerings and
                   models, and scaling what works. A serial entrepreneur, he brings a
-                  builder&apos;s playbook to businesses ready for their next stage. (Where
-                  Dawn handles getting found and chosen, Joshua handles modernizing how
-                  the business runs and grows.)
+                  builder&apos;s playbook to businesses ready for their next stage. Dawn
+                  focuses on getting found and chosen; Joshua on modernizing how the
+                  business runs and grows.
                 </p>
                 <p className="text-xs italic leading-relaxed text-ltl-text-secondary md:text-sm">
                   Founder &amp; Chief Vision Officer of E Skool Now Group and founder/leader
