@@ -10,28 +10,38 @@ export function buildCadenceIntakeReply(
   options: { isSubscriber: boolean },
 ): string {
   const expert = experts[problem.owner];
+  const podcastHref = getPodcastHref(problem.id);
   const lines = [
     problem.cadenceReply,
     "",
-    `Free listen: ${problem.podcast}`,
-    `→ ${getPodcastHref(problem.id)}`,
+    `Free listen — ${problem.podcast}`,
+    podcastHref,
     "",
     `${expert.name} is our go-to expert for this.`,
   ];
 
   if (options.isSubscriber && problem.tier === "member") {
-    lines.push("", `Members also get the magazine deep-dive: ${problem.magazine}`);
+    lines.push(
+      "",
+      `Members also get the magazine deep-dive on this: /magazine`,
+    );
   } else if (problem.tier === "member") {
-    lines.push("", "Members get the full magazine deep-dive on this.");
+    lines.push("", "Members get the full magazine deep-dive on this — /pricing");
   } else if (problem.tier === "pro") {
-    lines.push("", "The complete framework lives in Pro — want me to show you?");
+    lines.push(
+      "",
+      "The complete framework lives in Pro — see /pricing when you're ready.",
+    );
   } else if (problem.tier === "executive") {
-    lines.push("", "Executive members get priority expert matching on topics like this.");
+    lines.push(
+      "",
+      "Executive members get priority expert matching on topics like this.",
+    );
   }
 
   lines.push(
     "",
-    `Or I can connect you with ${expert.name} directly — no pressure. Visit /contact when you're ready.`,
+    `Or connect with ${expert.name} directly — no pressure: /contact`,
   );
 
   return lines.join("\n");
