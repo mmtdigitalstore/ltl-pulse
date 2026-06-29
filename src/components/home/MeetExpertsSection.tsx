@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { ExpertPhoto } from "@/components/team/ExpertPhoto";
 import { buttonVariants } from "@/components/ui/button";
 import { EXPERT_PHOTOS } from "@/data/expert-photos.config";
-import { EXPERT_IDS, experts, getExpertHref } from "@/data/problems.config";
+import { EXPERT_IDS, experts, getConciergeHref, getExpertHref } from "@/data/problems.config";
 import {
   sectionFadeUp,
   sectionViewport,
@@ -94,7 +94,7 @@ export function MeetExpertsSection() {
                       Read bio
                     </Link>
                     <Link
-                      href="/concierge"
+                      href={getConciergeHref(id)}
                       className={cn(
                         buttonVariants({ variant: "outline", size: "default" }),
                         "h-9 rounded-md border-ltl-border text-ltl-text-primary hover:bg-ltl-bg",

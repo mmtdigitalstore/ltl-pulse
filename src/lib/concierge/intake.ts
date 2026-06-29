@@ -3,8 +3,24 @@ import {
   getExpertHref,
   getPodcastHref,
   type Audience,
+  type ExpertId,
   type Problem,
 } from "@/data/problems.config";
+
+function expertShortName(expertId: ExpertId): string {
+  return experts[expertId].name.replace(/^Dr\.\s+/i, "").split(" ")[0] ?? experts[expertId].name;
+}
+
+export function buildCadenceExpertGreeting(expertId: ExpertId): string {
+  const expert = experts[expertId];
+  const lane = expert.homepageLane ?? expert.tagline;
+
+  return `👋 You wanted to connect with **${expert.name}** — ${lane}. I'll point you to free help in ${expertShortName(expertId)}'s lane first. Which sounds more like you?`;
+}
+
+export function buildCadenceExpertProblemPrompt(expertId: ExpertId): string {
+  return `Great. What's weighing on you most in ${expertShortName(expertId)}'s lane right now?`;
+}
 
 export function buildCadenceIntakeReply(
   problem: Problem,

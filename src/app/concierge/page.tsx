@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { ConciergeAvatar } from "@/components/concierge/ConciergeAvatar";
 import { ConciergeExperience } from "@/components/concierge/ConciergeExperience";
 import { buttonVariants } from "@/components/ui/button";
+import { experts, parseExpertId } from "@/data/problems.config";
 import { getIsSubscriber } from "@/lib/subscription";
 import { createClient } from "@/lib/supabase/server";
 import { cn } from "@/lib/utils";
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 interface ConciergePageProps {
-  searchParams: Promise<{ welcome?: string; upgraded?: string }>;
+  searchParams: Promise<{ welcome?: string; upgraded?: string; expert?: string }>;
 }
 
 export default async function ConciergePage({ searchParams }: ConciergePageProps) {
@@ -25,6 +26,8 @@ export default async function ConciergePage({ searchParams }: ConciergePageProps
   } = await supabase.auth.getUser();
   const isSubscriber = await getIsSubscriber(user?.id);
   const params = await searchParams;
+  const expertId = parseExpertId(params.expert);
+  const conciergeNext = expertId ? `/concierge?expert=${expertId}` : "/concierge";
 
   return (
     <div className="min-h-[calc(100dvh-4rem)] bg-ltl-bg px-4 py-10 sm:px-6 lg:px-8">
@@ -34,7 +37,9 @@ export default async function ConciergePage({ searchParams }: ConciergePageProps
             Cadence
           </h1>
           <p className="mt-2 text-sm text-ltl-text-secondary sm:text-base">
-            Your AI Concierge — here to guide you and connect you with the right content and people.
+            {expertId
+              ? `Connecting you with ${experts[expertId].name} — your AI concierge will route you to the right free help first.`
+              : "Your AI Concierge — here to guide you and connect you with the right content and people."}
           </p>
         </div>
 
@@ -42,6 +47,7 @@ export default async function ConciergePage({ searchParams }: ConciergePageProps
           <ConciergeExperience
             userId={user.id}
             isSubscriber={isSubscriber}
+            expertId={expertId}
             showWelcome={params.welcome === "1"}
             showUpgraded={params.upgraded === "1"}
           />
@@ -49,12 +55,13 @@ export default async function ConciergePage({ searchParams }: ConciergePageProps
           <div className="mt-6 rounded-lg border border-ltl-border bg-ltl-surface p-5 sm:p-6">
             <ConciergeAvatar isActive={false} size="md" className="justify-center sm:justify-start" />
             <p className="mt-4 text-center text-sm text-ltl-text-secondary sm:text-left">
-              Sign in once — you&apos;ll come right back here to chat. No need
-              to find Cadence in the menu again.
+              {expertId
+                ? `Sign in once to connect with ${experts[expertId].name} through Cadence — you'll come right back here.`
+                : "Sign in once — you'll come right back here to chat. No need to find Cadence in the menu again."}
             </p>
             <div className="mt-5 flex flex-col gap-2">
               <Link
-                href="/login?next=/concierge"
+                href={`/login?next=${encodeURIComponent(conciergeNext)}`}
                 className={cn(
                   buttonVariants({ size: "lg" }),
                   "h-11 w-full rounded-md bg-ltl-accent font-bold text-ltl-bg hover:bg-ltl-accent-hover",
@@ -63,7 +70,7 @@ export default async function ConciergePage({ searchParams }: ConciergePageProps
                 Sign in to start chatting
               </Link>
               <Link
-                href="/signup?next=/concierge"
+                href={`/signup?next=${encodeURIComponent(conciergeNext)}`}
                 className={cn(
                   buttonVariants({ variant: "outline", size: "lg" }),
                   "h-10 w-full rounded-md border-ltl-border text-sm text-ltl-text-primary hover:bg-ltl-bg",

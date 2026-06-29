@@ -255,4 +255,19 @@ export function getExpertHref(expertId: ExpertId): string {
   return `/about#${expertId}`;
 }
 
+export function getConciergeHref(expertId?: ExpertId): string {
+  return expertId ? `/concierge?expert=${expertId}` : "/concierge";
+}
+
+export function parseExpertId(value: string | undefined | null): ExpertId | null {
+  if (value && value in experts) {
+    return value as ExpertId;
+  }
+  return null;
+}
+
+export function problemsForExpert(audience: Audience, expertId: ExpertId): Problem[] {
+  return problemsFor(audience).filter((problem) => problem.owner === expertId);
+}
+
 export const EXPERT_IDS: ExpertId[] = ["dawn", "jackie", "lashley", "joshua"];

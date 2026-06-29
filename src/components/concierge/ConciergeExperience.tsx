@@ -6,10 +6,13 @@ import { X } from "lucide-react";
 
 import { ConciergeChat } from "@/components/concierge/ConciergeChat";
 import { Button } from "@/components/ui/button";
+import type { ExpertId } from "@/data/problems.config";
+import { experts } from "@/data/problems.config";
 
 interface ConciergeExperienceProps {
   userId: string;
   isSubscriber: boolean;
+  expertId?: ExpertId | null;
   showWelcome: boolean;
   showUpgraded: boolean;
 }
@@ -17,6 +20,7 @@ interface ConciergeExperienceProps {
 export function ConciergeExperience({
   userId,
   isSubscriber,
+  expertId = null,
   showWelcome,
   showUpgraded,
 }: ConciergeExperienceProps) {
@@ -45,7 +49,9 @@ export function ConciergeExperience({
   function dismissParams() {
     setWelcomeVisible(false);
     setUpgradedVisible(false);
-    router.replace("/concierge", { scroll: false });
+    router.replace(expertId ? `/concierge?expert=${expertId}` : "/concierge", {
+      scroll: false,
+    });
   }
 
   return (
@@ -79,8 +85,9 @@ export function ConciergeExperience({
           <div className="flex-1 text-sm text-ltl-text-primary">
             <p className="font-medium">You&apos;re in — Cadence is ready to chat.</p>
             <p className="mt-1 text-ltl-text-secondary">
-              Tap a suggested question below or type in the message box to
-              start your conversation.
+              {expertId
+                ? `Cadence will route you to ${experts[expertId].name}'s lane — pick what sounds like you below.`
+                : "Tap a suggested question below or type in the message box to start your conversation."}
             </p>
           </div>
           <Button
@@ -99,6 +106,7 @@ export function ConciergeExperience({
       <ConciergeChat
         userId={userId}
         isSubscriber={isSubscriber}
+        expertId={expertId}
         autoFocusInput={showWelcome || showUpgraded}
         onChatStart={() => {
           setWelcomeVisible(false);

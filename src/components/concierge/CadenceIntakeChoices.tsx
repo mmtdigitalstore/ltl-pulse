@@ -1,6 +1,6 @@
 "use client";
 
-import { problemsFor, type Audience, type Problem } from "@/data/problems.config";
+import { problemsFor, problemsForExpert, type Audience, type ExpertId, type Problem } from "@/data/problems.config";
 import { AUDIENCE_LABELS } from "@/lib/concierge/intake";
 import { cn } from "@/lib/utils";
 
@@ -31,6 +31,7 @@ function ChoiceButton({
 interface CadenceIntakeChoicesProps {
   phase: "audience" | "problem";
   audience?: Audience;
+  expertId?: ExpertId;
   disabled?: boolean;
   onChooseAudience: (audience: Audience) => void;
   onChooseProblem: (problem: Problem) => void;
@@ -39,10 +40,18 @@ interface CadenceIntakeChoicesProps {
 export function CadenceIntakeChoices({
   phase,
   audience,
+  expertId,
   disabled = false,
   onChooseAudience,
   onChooseProblem,
 }: CadenceIntakeChoicesProps) {
+  const problemChoices =
+    audience == null
+      ? []
+      : expertId
+        ? problemsForExpert(audience, expertId)
+        : problemsFor(audience);
+
   return (
     <div className="flex gap-2">
       <div className="size-8 shrink-0" aria-hidden />
@@ -63,8 +72,7 @@ export function CadenceIntakeChoices({
             </ChoiceButton>
           </>
         ) : (
-          audience &&
-          problemsFor(audience).map((problem) => (
+          problemChoices.map((problem) => (
             <ChoiceButton
               key={problem.id}
               disabled={disabled}

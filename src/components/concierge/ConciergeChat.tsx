@@ -8,10 +8,12 @@ import { CadenceIntakeChoices } from "@/components/concierge/CadenceIntakeChoice
 import { CadenceMessageContent } from "@/components/concierge/CadenceMessageContent";
 import { ConciergeAvatar } from "@/components/concierge/ConciergeAvatar";
 import { Button } from "@/components/ui/button";
-import type { Audience, Problem } from "@/data/problems.config";
+import type { Audience, ExpertId, Problem } from "@/data/problems.config";
 import { CADENCE_NAME, CONCIERGE_TIER_CONFIG } from "@/lib/concierge/config";
 import {
   AUDIENCE_LABELS,
+  buildCadenceExpertGreeting,
+  buildCadenceExpertProblemPrompt,
   buildCadenceIntakeReply,
   CADENCE_GREETING,
   CADENCE_PROBLEM_PROMPT,
@@ -28,6 +30,7 @@ import { cn } from "@/lib/utils";
 interface ConciergeChatProps {
   userId: string;
   isSubscriber: boolean;
+  expertId?: ExpertId | null;
   autoFocusInput?: boolean;
   onChatStart?: () => void;
 }
@@ -35,6 +38,7 @@ interface ConciergeChatProps {
 export function ConciergeChat({
   userId,
   isSubscriber,
+  expertId = null,
   autoFocusInput = false,
   onChatStart,
 }: ConciergeChatProps) {
@@ -56,6 +60,13 @@ export function ConciergeChat({
   const atLimit = userMessageCount >= tierConfig.maxUserMessages;
 
   useEffect(() => {
+    if (expertId) {
+      const existing = loadCadenceChatSession(userId);
+      if (existing && !existing.intakeComplete) {
+        clearCadenceChatSession(userId);
+      }
+    }
+
     const saved = loadCadenceChatSession(userId);
 
     if (saved) {
@@ -76,7 +87,7 @@ export function ConciergeChat({
     }
 
     setSessionReady(true);
-  }, [userId]);
+  }, [userId, expertId]);
 
   useEffect(() => {
     if (!sessionReady) {
@@ -133,10 +144,17 @@ export function ConciergeChat({
     }
 
     if (messages.length === 0) {
-      setMessages([{ role: "assistant", content: CADENCE_GREETING }]);
+      setMessages([
+        {
+          role: "assistant",
+          content: expertId
+            ? buildCadenceExpertGreeting(expertId)
+            : CADENCE_GREETING,
+        },
+      ]);
       setIntakePhase("audience");
     }
-  }, [sessionReady, showStarters, intakeComplete, intakePhase, messages.length]);
+  }, [sessionReady, showStarters, intakeComplete, intakePhase, messages.length, expertId]);
 
   function expandChat() {
     setIsMinimized(false);
@@ -224,7 +242,12 @@ export function ConciergeChat({
     setMessages((current) => [
       ...current,
       { role: "user", content: AUDIENCE_LABELS[audience] },
-      { role: "assistant", content: CADENCE_PROBLEM_PROMPT },
+      {
+        role: "assistant",
+        content: expertId
+          ? buildCadenceExpertProblemPrompt(expertId)
+          : CADENCE_PROBLEM_PROMPT,
+      },
     ]);
   }
 
@@ -426,6 +449,7 @@ export function ConciergeChat({
             <CadenceIntakeChoices
               phase={intakePhase === "problem" ? "problem" : "audience"}
               audience={intakeAudience ?? undefined}
+              expertId={expertId ?? undefined}
               disabled={loading}
               onChooseAudience={handleChooseAudience}
               onChooseProblem={handleChooseProblem}

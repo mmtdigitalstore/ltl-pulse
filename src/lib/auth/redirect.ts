@@ -43,7 +43,10 @@ export function getPostAuthRedirect(path: string): string {
   const safePath = getSafeRedirectPath(path);
 
   if (safePath === "/concierge" || safePath.startsWith("/concierge?")) {
-    return "/concierge?welcome=1";
+    const query = safePath.includes("?") ? safePath.slice(safePath.indexOf("?") + 1) : "";
+    const params = new URLSearchParams(query);
+    params.set("welcome", "1");
+    return `/concierge?${params.toString()}`;
   }
 
   return safePath;

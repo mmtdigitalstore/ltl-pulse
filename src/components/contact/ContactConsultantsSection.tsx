@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { EXPERT_IDS, experts, getExpertHref } from "@/data/problems.config";
+import { EXPERT_IDS, experts, getConciergeHref, getExpertHref } from "@/data/problems.config";
 
 export function ContactConsultantsSection() {
   return (
@@ -51,7 +51,7 @@ export function ContactConsultantsSection() {
                   Read full bio
                 </Link>
                 <Link
-                  href="/concierge"
+                  href={getConciergeHref(id)}
                   className="text-sm font-medium text-ltl-text-secondary hover:text-ltl-text-primary"
                 >
                   Connect via Cadence
