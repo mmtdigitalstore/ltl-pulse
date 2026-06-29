@@ -16,8 +16,10 @@ export function expertFocusWrapperClass(
   }
 
   return cn(
-    "h-full transition-[opacity,transform] duration-300 ease-out",
-    focusedExpert === expertId ? "z-10" : "opacity-[0.42] saturate-[0.9]",
+    "h-full transition-[opacity,transform,filter] duration-300 ease-out",
+    focusedExpert === expertId
+      ? "z-10"
+      : "opacity-[0.26] saturate-[0.55] brightness-[0.88]",
   );
 }
 
@@ -30,7 +32,9 @@ export function expertFocusCardClass(
     return undefined;
   }
 
-  return focusedExpert === expertId
-    ? "border-ltl-accent/50 ring-1 ring-ltl-accent/30 shadow-[0_0_36px_rgba(255,180,0,0.09)]"
-    : undefined;
+  if (focusedExpert === expertId) {
+    return "border-ltl-accent/50 ring-1 ring-ltl-accent/30 shadow-[0_0_36px_rgba(255,180,0,0.09)]";
+  }
+
+  return "border-ltl-border/30 bg-ltl-surface/50";
 }
