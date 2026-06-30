@@ -110,7 +110,7 @@ export const problems: Problem[] = [
     audience: ["smb", "coach"],
     owner: "dawn",
     secondary: "jackie",
-    hook: "Your revenue is feast-or-famine — winning clients lives in your head, not in a system.",
+    hook: "Your revenue is feast-or-famine — how you win clients lives in your head, not in a system.",
     podcast: "From feast-or-famine to a full pipeline: building a client-flow system",
     magazine: "Build Your Client-Flow System: CRM, social & reputation that compound",
     vlog: "The 15-minute client-flow audit",

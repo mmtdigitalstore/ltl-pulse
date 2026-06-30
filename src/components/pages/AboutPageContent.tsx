@@ -339,8 +339,8 @@ export function AboutPageContent() {
                   </p>
                   <ul className="mt-3 list-disc space-y-2 pl-5">
                     <li>
-                      Your revenue is feast-or-famine because winning clients lives in
-                      your head, not a system
+                      Your revenue is feast-or-famine — how you win clients lives in your
+                      head, not in a system
                     </li>
                     <li>
                       You&apos;re hard to find online — your listings, reviews, and social
