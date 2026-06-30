@@ -32,10 +32,23 @@ export function Hero() {
       />
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[26rem] w-[26rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,180,0,0.11)_0%,rgba(255,180,0,0.03)_45%,transparent_70%)] blur-3xl sm:h-[32rem] sm:w-[32rem]"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,180,0,0.22)_0%,rgba(255,180,0,0.06)_45%,transparent_70%)] blur-3xl sm:h-[36rem] sm:w-[36rem]"
         animate={{
-          scale: [1, 1.05, 1],
-          opacity: [0.45, 0.62, 0.45],
+          scale: [1, 1.08, 1],
+          opacity: [0.5, 0.75, 0.5],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-[42%] h-48 w-[32rem] max-w-[90vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[linear-gradient(90deg,transparent,rgba(255,180,0,0.12),rgba(230,162,0,0.18),rgba(255,180,0,0.12),transparent)] blur-2xl"
+        animate={{
+          opacity: [0.35, 0.65, 0.35],
+          x: ["-2%", "2%", "-2%"],
         }}
         transition={{
           duration: 10,
@@ -45,47 +58,45 @@ export function Hero() {
       />
 
       <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center text-center">
-        <div className="ltl-hero-copy-glow relative w-full px-2 py-6 sm:px-6 sm:py-8">
-          <motion.h1
-            custom={0.1}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="font-heading text-4xl font-semibold leading-tight tracking-tight text-ltl-text-primary sm:text-5xl md:text-6xl lg:text-7xl"
-          >
-            Where Leadership Meets Culture
-          </motion.h1>
+        <motion.h1
+          custom={0.1}
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          className="font-heading text-4xl font-semibold leading-tight tracking-tight text-ltl-text-primary sm:text-5xl md:text-6xl lg:text-7xl"
+        >
+          Where Leadership Meets Culture
+        </motion.h1>
 
-          <motion.p
-            custom={0.25}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="mt-6 max-w-2xl mx-auto font-sans text-base leading-relaxed text-ltl-text-secondary sm:text-lg md:text-xl"
-          >
-            Practical, future-ready leadership for growing service businesses and the
-            coaches who guide them — so you keep your best people, win loyal customers,
-            and build a team that delivers.
-          </motion.p>
+        <motion.p
+          custom={0.25}
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          className="mt-6 max-w-2xl font-sans text-base leading-relaxed text-ltl-text-secondary sm:text-lg md:text-xl"
+        >
+          Practical, future-ready leadership for growing service businesses and the
+          coaches who guide them — so you keep your best people, win loyal customers,
+          and build a team that delivers.
+        </motion.p>
 
-          <motion.p
-            custom={0.32}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="mt-4 hidden max-w-xl mx-auto font-sans text-sm leading-relaxed text-ltl-text-secondary md:block md:text-base"
-          >
-            Short reads, candid conversations, and on-demand expert help — for owners
-            who&apos;d rather invest 15 minutes than lose another good employee.
-          </motion.p>
-        </div>
+        <motion.p
+          custom={0.32}
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          className="mt-4 hidden max-w-xl font-sans text-sm leading-relaxed text-ltl-text-secondary md:block md:text-base"
+        >
+          Short reads, candid conversations, and on-demand expert help — for owners
+          who&apos;d rather invest 15 minutes than lose another good employee.
+        </motion.p>
 
         <motion.div
           custom={0.4}
           initial="hidden"
           animate="visible"
           variants={fadeUp}
-          className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center"
+          className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center"
         >
           <Link
             href="/podcast"

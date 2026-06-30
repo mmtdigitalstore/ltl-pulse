@@ -132,7 +132,7 @@ function TeamMemberCard({
       id={id}
       aria-current={isFocused ? "true" : undefined}
       className={cn(
-        "flex h-full scroll-mt-24 flex-col space-y-4 rounded-xl border border-ltl-border bg-ltl-surface p-6 shadow-[0_0_0_rgba(0,0,0,0)] transition-[border-color,box-shadow,opacity] duration-300 hover:shadow-[0_12px_40px_rgba(11,32,114,0.12),0_0_32px_rgba(255,180,0,0.04)] md:p-7",
+        "flex h-full scroll-mt-24 flex-col space-y-4 rounded-xl border border-ltl-border bg-ltl-surface p-6 transition-[border-color,box-shadow,opacity] duration-300 hover:border-ltl-border/90 md:p-7",
         className,
       )}
     >
@@ -193,27 +193,29 @@ export function AboutPageContent() {
   const focusedExpert = useHashExpertFocus();
 
   return (
-    <div className="ltl-section-glow ltl-glow-about min-h-screen bg-ltl-bg px-4 py-16 sm:px-6 lg:px-8">
+    <div className="ltl-section-glow ltl-glow-editorial min-h-screen bg-ltl-bg px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={sectionViewport}
           variants={sectionFadeUp}
-          className="ltl-about-intro relative md:px-10 md:py-10"
+          className="relative max-w-3xl"
         >
+          <p className="font-label text-xs uppercase tracking-[0.2em] text-ltl-text-secondary">
+            About
+          </p>
           <PageHeader
-            title="About LTL Pulse"
+            title="LTL Pulse"
             subtitle="Where leadership meets culture."
-            className="ltl-page-header-about"
           />
-          <p className="relative mt-8 text-base leading-relaxed text-ltl-text-secondary md:text-lg">
+          <p className="relative mt-8 border-l border-ltl-border pl-6 text-base leading-relaxed text-ltl-text-secondary md:text-lg">
             LTL Pulse is the media and intelligence hub of{" "}
             <a
               href="https://lead.mmti.me/"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-ltl-text-primary underline decoration-ltl-brand/40 underline-offset-2 hover:decoration-ltl-accent"
+              className="font-medium text-ltl-text-primary underline decoration-ltl-brand/30 underline-offset-2 hover:text-ltl-text-primary"
             >
               Let&apos;s Talk Leadership with MMTI
             </a>{" "}
@@ -223,7 +225,7 @@ export function AboutPageContent() {
           </p>
         </motion.div>
 
-        <hr className="ltl-divider-refined mt-14 md:mt-16" aria-hidden />
+        <div className="mt-16 border-t border-ltl-border md:mt-20" aria-hidden />
 
         <Section title="Who LTL Pulse is for">
           <p>
@@ -262,7 +264,7 @@ export function AboutPageContent() {
           whileInView="visible"
           viewport={sectionViewport}
           variants={sectionFadeUp}
-          className="ltl-panel-whats-inside mt-16 rounded-xl border border-ltl-border/80 p-8 md:mt-20 md:p-10"
+          className="mt-16 rounded-xl border border-ltl-border bg-ltl-surface p-8 md:mt-20 md:p-10"
         >
           <h2 className="font-heading text-2xl font-semibold text-ltl-text-primary md:text-3xl">
             What&apos;s inside
@@ -606,7 +608,7 @@ export function AboutPageContent() {
           whileInView="visible"
           viewport={sectionViewport}
           variants={sectionFadeUp}
-          className="ltl-panel-cta-refined mt-16 rounded-xl border border-ltl-border/80 p-8 text-center md:mt-20 md:p-12"
+          className="ltl-panel-cta mt-16 rounded-xl border border-ltl-border p-8 text-center md:mt-20 md:p-12"
         >
           <Sparkles className="mx-auto size-8 text-ltl-accent" aria-hidden />
           <h2 className="mt-4 font-heading text-2xl font-semibold text-ltl-text-primary md:text-3xl">
