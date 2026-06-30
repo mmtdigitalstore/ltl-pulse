@@ -9,7 +9,7 @@ export function ExpertLaneBanner({ expertId }: { expertId: ExpertId }) {
   const photo = EXPERT_PHOTOS[expertId];
 
   return (
-    <div className="ltl-concierge-banner-glow mb-4 flex items-center gap-3 rounded-xl border border-ltl-accent/35 px-4 py-3">
+    <div className="ltl-concierge-banner-glow mb-4 flex items-center gap-3 rounded-xl border border-ltl-border/80 px-4 py-3">
       <ExpertPhoto src={photo.src} alt={photo.alt} name={expert.name} size="sm" />
       <div className="min-w-0 flex-1">
         <p className="font-label text-[0.65rem] uppercase tracking-widest text-ltl-accent">

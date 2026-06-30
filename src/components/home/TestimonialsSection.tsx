@@ -154,7 +154,7 @@ function FeaturedQuoteCard({ testimonial }: { testimonial: Testimonial }) {
   const { quote, author, role, org, companyUrl, audioUrl, videoUrl } = testimonial;
 
   return (
-    <figure className="relative overflow-hidden rounded-2xl border border-ltl-accent/30 bg-ltl-surface p-8 shadow-[0_0_40px_rgba(255,180,0,0.06)] sm:p-10">
+    <figure className="relative overflow-hidden rounded-2xl border border-ltl-border bg-ltl-surface p-8 shadow-[0_0_48px_rgba(11,32,114,0.12)] sm:p-10">
       <Quote
         className="absolute right-6 top-6 size-16 text-ltl-accent/15"
         aria-hidden
@@ -210,7 +210,7 @@ function SpotlightCard({ spotlight }: { spotlight: Spotlight }) {
   const { name, role, org, work, shift, href, avatarUrl } = spotlight;
 
   return (
-    <article className="flex h-full flex-col rounded-2xl border border-ltl-accent/35 bg-gradient-to-br from-ltl-surface to-ltl-bg p-6">
+    <article className="flex h-full flex-col rounded-2xl border border-ltl-border/80 bg-gradient-to-br from-ltl-surface via-ltl-bg to-[rgba(11,32,114,0.08)] p-6">
       <span className="font-label text-xs uppercase tracking-widest text-ltl-accent">
         Member spotlight
       </span>

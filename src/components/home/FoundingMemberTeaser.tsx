@@ -12,7 +12,7 @@ export function FoundingMemberTeaser() {
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeUp}
-      className="ltl-section-glow ltl-glow-gold-top border-b border-ltl-border bg-ltl-bg px-4 py-10 sm:px-6 lg:px-8"
+      className="ltl-section-glow ltl-glow-brand-top border-b border-ltl-border bg-ltl-bg px-4 py-10 sm:px-6 lg:px-8"
     >
       <div className="mx-auto max-w-3xl text-center">
         <p className="font-heading text-xl font-medium text-ltl-text-primary md:text-2xl">

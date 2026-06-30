@@ -24,27 +24,18 @@ export function Hero() {
     <section className="relative flex min-h-[calc(100dvh-4rem)] w-full flex-1 items-center justify-center overflow-hidden bg-ltl-bg px-4 sm:px-6 lg:px-8">
       <div
         aria-hidden
-        className="pointer-events-none absolute bottom-0 left-0 h-[22rem] w-[22rem] -translate-x-1/4 translate-y-1/4 rounded-full bg-[radial-gradient(circle,rgba(11,32,114,0.14)_0%,rgba(11,32,114,0.04)_45%,transparent_70%)] blur-3xl sm:h-[28rem] sm:w-[28rem]"
+        className="pointer-events-none absolute bottom-0 left-0 h-[28rem] w-[28rem] -translate-x-1/5 translate-y-1/5 rounded-full bg-[radial-gradient(circle,rgba(11,32,114,0.28)_0%,rgba(11,32,114,0.08)_40%,transparent_72%)] blur-3xl sm:h-[34rem] sm:w-[34rem]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-0 top-0 h-[20rem] w-[20rem] translate-x-1/6 -translate-y-1/6 rounded-full bg-[radial-gradient(circle,rgba(11,32,114,0.22)_0%,rgba(11,32,114,0.06)_45%,transparent_70%)] blur-3xl sm:h-[26rem] sm:w-[26rem]"
       />
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,180,0,0.22)_0%,rgba(255,180,0,0.06)_45%,transparent_70%)] blur-3xl sm:h-[36rem] sm:w-[36rem]"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,180,0,0.07)_0%,rgba(255,180,0,0.02)_45%,transparent_70%)] blur-3xl sm:h-[36rem] sm:w-[36rem]"
         animate={{
-          scale: [1, 1.08, 1],
-          opacity: [0.5, 0.75, 0.5],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[42%] h-48 w-[32rem] max-w-[90vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[linear-gradient(90deg,transparent,rgba(255,180,0,0.12),rgba(230,162,0,0.18),rgba(255,180,0,0.12),transparent)] blur-2xl"
-        animate={{
-          opacity: [0.35, 0.65, 0.35],
-          x: ["-2%", "2%", "-2%"],
+          scale: [1, 1.05, 1],
+          opacity: [0.35, 0.5, 0.35],
         }}
         transition={{
           duration: 10,

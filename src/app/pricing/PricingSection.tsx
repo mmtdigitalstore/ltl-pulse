@@ -121,7 +121,7 @@ export default function PricingSection() {
           ))}
         </div>
 
-        <div className="ltl-panel-advisory mt-14 rounded-2xl border border-ltl-border p-8 sm:p-10">
+        <div className="ltl-panel-advisory mt-14 rounded-2xl border border-ltl-border/80 p-8 sm:p-10">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h2 className="font-heading text-2xl font-semibold text-ltl-text-primary">

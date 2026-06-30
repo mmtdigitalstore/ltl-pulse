@@ -603,7 +603,7 @@ export function AboutPageContent() {
           whileInView="visible"
           viewport={sectionViewport}
           variants={sectionFadeUp}
-          className="ltl-panel-cta mt-16 rounded-xl border border-ltl-accent/30 p-8 text-center md:mt-20 md:p-12"
+          className="ltl-panel-cta mt-16 rounded-xl border border-ltl-border/80 p-8 text-center md:mt-20 md:p-12"
         >
           <Sparkles className="mx-auto size-8 text-ltl-accent" aria-hidden />
           <h2 className="mt-4 font-heading text-2xl font-semibold text-ltl-text-primary md:text-3xl">
