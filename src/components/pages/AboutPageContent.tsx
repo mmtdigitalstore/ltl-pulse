@@ -347,11 +347,11 @@ export function AboutPageContent() {
                       aren&apos;t filling your pipeline
                     </li>
                     <li>
-                      Your best people keep leaving — and you&apos;re not sure why
+                      Good people keep walking out — and you can&apos;t pin down why
                     </li>
                     <li>
-                      You were great at the work, got promoted, and were never taught to
-                      lead people
+                      You were promoted for doing the work — nobody taught you to lead
+                      the team
                     </li>
                     <li>
                       You want your brand and client relationships to bring repeat
