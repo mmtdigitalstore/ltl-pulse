@@ -55,6 +55,11 @@ export function ContactConsultantsSection() {
               <p className="mt-1 font-label text-[0.65rem] uppercase tracking-widest text-ltl-accent">
                 {expert.title}
               </p>
+              {expert.contactCredential ? (
+                <p className="mt-2 text-xs italic leading-relaxed text-ltl-text-secondary md:text-sm">
+                  {expert.contactCredential}
+                </p>
+              ) : null}
               <p className="mt-2 text-sm leading-relaxed text-ltl-text-secondary">
                 {expert.tagline}
               </p>
