@@ -22,7 +22,7 @@ export function MeetExpertsSection() {
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeUp}
-      className="border-b border-ltl-border bg-ltl-bg px-4 py-16 sm:px-6 lg:px-8"
+      className="ltl-section-glow ltl-glow-brand-center border-b border-ltl-border bg-ltl-bg px-4 py-16 sm:px-6 lg:px-8"
     >
       <div className="mx-auto max-w-7xl">
         <h2 className="font-heading text-3xl font-semibold text-ltl-text-primary md:text-4xl">

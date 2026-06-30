@@ -81,7 +81,7 @@ function FooterColumn({
 
 export function Footer() {
   return (
-    <footer className="border-t border-ltl-border bg-ltl-bg px-4 py-12 sm:px-6 lg:px-8">
+    <footer className="ltl-footer-glow relative border-t border-ltl-border bg-ltl-bg px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 md:grid-cols-[1.5fr_repeat(3,1fr)]">
           <div>
@@ -91,6 +91,17 @@ export function Footer() {
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-ltl-text-secondary">
               Where leadership meets culture. Premium media for ambitious
               leaders.
+            </p>
+            <p className="mt-4 max-w-xs border-l-2 border-ltl-brand/35 pl-3 text-sm leading-relaxed text-ltl-text-secondary">
+              Part of{" "}
+              <a
+                href="https://lead.mmti.me/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-ltl-text-primary underline decoration-ltl-brand/40 underline-offset-2 hover:decoration-ltl-accent"
+              >
+                Let&apos;s Talk Leadership with MMTI
+              </a>
             </p>
             <div className="mt-6 flex gap-4">
               {socialLinks.map((social) => (

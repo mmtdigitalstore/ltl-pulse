@@ -13,6 +13,7 @@ const ltlPulse = {
       DEFAULT: "#FFB400",
       hover: "#E6A200",
     },
+    brand: "#0B2072",
     text: {
       primary: "#F5F5F5",
       secondary: "#A0A0A0",

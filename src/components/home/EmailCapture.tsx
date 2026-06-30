@@ -69,7 +69,7 @@ export function EmailCapture() {
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeUp}
-      className="border-b border-ltl-border bg-ltl-bg px-4 py-20 sm:px-6 lg:px-8"
+      className="ltl-section-glow ltl-glow-dual border-b border-ltl-border bg-ltl-bg px-4 py-20 sm:px-6 lg:px-8"
     >
       <div className="mx-auto max-w-xl text-center">
         <p className="font-label text-xs uppercase tracking-widest text-ltl-accent">
@@ -80,7 +80,7 @@ export function EmailCapture() {
         </h2>
 
         {submitted ? (
-          <div className="mt-8 rounded-xl border border-ltl-accent/30 bg-ltl-accent/10 px-6 py-8 text-left sm:text-center">
+          <div className="ltl-panel-conversion mt-8 rounded-xl border border-ltl-accent/30 px-6 py-8 text-left sm:text-center">
             <p className="font-heading text-lg font-semibold text-ltl-text-primary">
               You&apos;re all set.
             </p>

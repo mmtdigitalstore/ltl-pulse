@@ -39,7 +39,7 @@ export function ContactConsultantsSection() {
               id={id}
               aria-current={focusedExpert === id ? "true" : undefined}
               className={cn(
-                "scroll-mt-24 rounded-lg border border-ltl-border bg-ltl-surface p-5 transition-[border-color,box-shadow,opacity] duration-300",
+                "scroll-mt-24 rounded-lg border border-ltl-border bg-ltl-surface p-5 transition-[border-color,box-shadow,opacity] duration-300 hover:ring-1 hover:ring-ltl-brand/20",
                 expertFocusWrapperClass(id, focusedExpert),
                 expertFocusCardClass(id, focusedExpert),
               )}

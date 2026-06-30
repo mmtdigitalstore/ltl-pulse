@@ -25,7 +25,7 @@ export function SoundFamiliarSection() {
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeUp}
-      className="border-b border-ltl-border bg-ltl-surface px-4 py-12 sm:px-6 lg:px-8"
+      className="ltl-section-glow ltl-glow-gold-top border-b border-ltl-border bg-ltl-surface px-4 py-12 sm:px-6 lg:px-8"
     >
       <div className="mx-auto max-w-7xl">
         <div className="max-w-2xl">

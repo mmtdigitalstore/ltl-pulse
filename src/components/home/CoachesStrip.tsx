@@ -14,7 +14,7 @@ export function CoachesStrip() {
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeUp}
-      className="border-b border-ltl-border bg-ltl-surface px-4 py-14 sm:px-6 lg:px-8"
+      className="ltl-section-glow ltl-glow-gold-top border-b border-ltl-border bg-ltl-surface px-4 py-14 sm:px-6 lg:px-8"
     >
       <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 md:flex-row md:items-center">
         <div className="max-w-2xl">

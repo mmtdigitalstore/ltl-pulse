@@ -5,11 +5,11 @@ interface PageHeaderProps {
 
 export function PageHeader({ title, subtitle }: PageHeaderProps) {
   return (
-    <header className="mx-auto max-w-7xl text-center md:text-left">
-      <h1 className="font-heading text-4xl font-semibold text-ltl-text-primary md:text-5xl">
+    <header className="relative mx-auto max-w-7xl text-center md:text-left ltl-page-header-glow">
+      <h1 className="relative font-heading text-4xl font-semibold text-ltl-text-primary md:text-5xl">
         {title}
       </h1>
-      <p className="mt-4 max-w-2xl text-lg text-ltl-text-secondary md:text-xl">
+      <p className="relative mt-4 max-w-2xl text-lg text-ltl-text-secondary md:text-xl">
         {subtitle}
       </p>
     </header>

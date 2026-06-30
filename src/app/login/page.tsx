@@ -27,8 +27,10 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
       : undefined;
 
   return (
-    <div className="flex min-h-[calc(100dvh-4rem)] items-center justify-center bg-ltl-bg px-4 py-16">
-      <AuthForm mode="login" callbackError={callbackError} next={next} />
+    <div className="ltl-auth-atmosphere relative flex min-h-[calc(100dvh-4rem)] items-center justify-center bg-ltl-bg px-4 py-16">
+      <div className="relative z-10">
+        <AuthForm mode="login" callbackError={callbackError} next={next} />
+      </div>
     </div>
   );
 }

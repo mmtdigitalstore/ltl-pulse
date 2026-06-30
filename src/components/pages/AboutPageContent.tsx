@@ -193,20 +193,29 @@ export function AboutPageContent() {
   const focusedExpert = useHashExpertFocus();
 
   return (
-    <div className="min-h-screen bg-ltl-bg px-4 py-16 sm:px-6 lg:px-8">
+    <div className="ltl-section-glow ltl-glow-dual min-h-screen bg-ltl-bg px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={sectionViewport}
           variants={sectionFadeUp}
+          className="relative"
         >
           <PageHeader
             title="About LTL Pulse"
             subtitle="Where leadership meets culture."
           />
-          <p className="mt-8 text-base leading-relaxed text-ltl-text-secondary md:text-lg">
-            LTL Pulse is the media and intelligence hub of Let&apos;s Talk Leadership
+          <p className="relative mt-8 text-base leading-relaxed text-ltl-text-secondary md:text-lg">
+            LTL Pulse is the media and intelligence hub of{" "}
+            <a
+              href="https://lead.mmti.me/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-ltl-text-primary underline decoration-ltl-brand/40 underline-offset-2 hover:decoration-ltl-accent"
+            >
+              Let&apos;s Talk Leadership with MMTI
+            </a>{" "}
             — premium podcasts, magazine articles, vlogs, and an AI concierge built
             for ambitious leaders. We exist to help you grow people, strengthen your
             organization, and navigate change with confidence.
@@ -594,7 +603,7 @@ export function AboutPageContent() {
           whileInView="visible"
           viewport={sectionViewport}
           variants={sectionFadeUp}
-          className="mt-16 rounded-xl border border-ltl-accent/30 bg-ltl-surface p-8 text-center md:mt-20 md:p-12"
+          className="ltl-panel-cta mt-16 rounded-xl border border-ltl-accent/30 p-8 text-center md:mt-20 md:p-12"
         >
           <Sparkles className="mx-auto size-8 text-ltl-accent" aria-hidden />
           <h2 className="mt-4 font-heading text-2xl font-semibold text-ltl-text-primary md:text-3xl">

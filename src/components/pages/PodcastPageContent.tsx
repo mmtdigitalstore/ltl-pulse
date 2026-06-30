@@ -27,7 +27,7 @@ export function PodcastPageContent() {
   useHashScroll();
 
   return (
-    <div className="min-h-screen bg-ltl-bg px-4 py-16 sm:px-6 lg:px-8">
+    <div className="ltl-section-glow ltl-glow-dual min-h-screen bg-ltl-bg px-4 py-16 sm:px-6 lg:px-8">
       <motion.div
         initial="hidden"
         whileInView="visible"

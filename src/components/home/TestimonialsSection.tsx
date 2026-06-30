@@ -33,13 +33,8 @@ export function TestimonialsSection() {
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeUp}
-      className="relative scroll-mt-16 overflow-hidden border-b border-ltl-border bg-ltl-bg px-4 py-20 sm:px-6 lg:px-8"
+      className="relative scroll-mt-16 overflow-hidden border-b border-ltl-border bg-ltl-bg px-4 py-20 sm:px-6 lg:px-8 ltl-section-glow ltl-glow-dual"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-0 h-64 w-[40rem] max-w-full -translate-x-1/2 bg-[radial-gradient(circle,rgba(255,180,0,0.08)_0%,transparent_70%)]"
-      />
-
       <div className="relative mx-auto max-w-7xl">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">

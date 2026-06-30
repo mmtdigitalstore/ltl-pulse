@@ -51,7 +51,7 @@ export default function PricingSection() {
   const endsLabel = foundingEndsLabel();
 
   return (
-    <section className="min-h-[calc(100dvh-4rem)] bg-ltl-bg px-4 py-16 sm:px-6 lg:px-8">
+    <section className="ltl-section-glow ltl-glow-dual min-h-[calc(100dvh-4rem)] bg-ltl-bg px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <div className="text-center">
           <p className="font-label text-xs uppercase tracking-widest text-ltl-accent">
@@ -121,7 +121,7 @@ export default function PricingSection() {
           ))}
         </div>
 
-        <div className="mt-14 rounded-2xl border border-ltl-border bg-ltl-surface p-8 sm:p-10">
+        <div className="ltl-panel-advisory mt-14 rounded-2xl border border-ltl-border p-8 sm:p-10">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h2 className="font-heading text-2xl font-semibold text-ltl-text-primary">
