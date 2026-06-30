@@ -1,4 +1,4 @@
-import { advisoryOffers } from "@/app/pricing/pricing.config";
+import { advisoryOffers, memberAdvisoryDiscountPolicy } from "@/app/pricing/pricing.config";
 
 export function buildAdvisoryKnowledgeSection(): string {
   const offerLines = advisoryOffers.map(
@@ -7,7 +7,7 @@ export function buildAdvisoryKnowledgeSection(): string {
 
   return `## Advisory & Enterprise (from /pricing)
 Coaching, cohorts, and engagements routed to the right LTL consultant by need.
-Members receive 10–15% off advisory sessions.
+${memberAdvisoryDiscountPolicy}
 
 ${offerLines.join("\n")}
 
@@ -32,8 +32,9 @@ export function buildCadenceAdvisoryReply(isSubscriber: boolean): string {
     ...offerLines,
     "",
     isSubscriber
-      ? "Your Member plan includes 10–15% off advisory sessions."
-      : "Members receive 10–15% off advisory sessions. See /pricing for membership.",
+      ? `Your Member plan: ${memberAdvisoryDiscountPolicy}`
+      : `Membership perk: ${memberAdvisoryDiscountPolicy}`,
+    ...(isSubscriber ? [] : ["See /pricing to subscribe."]),
     "",
     "DISC and frontline alignment often start with Jackie. People, culture, and client-flow work often fit Dawn. Scaling and governance often fit Dr. Lashley. Venture repositioning and innovation often fit Joshua.",
     "",

@@ -9,6 +9,7 @@ import {
   tiers,
   advisoryOffers,
   advisoryCta,
+  memberAdvisoryDiscountPolicy,
   founding,
   comingSoon,
   liveNow,
@@ -129,6 +130,9 @@ export default function PricingSection() {
               <p className="mt-2 max-w-xl text-sm text-ltl-text-secondary">
                 Coaching, cohorts, and engagements — routed to the right expert by
                 need, guided by Cadence.
+              </p>
+              <p className="mt-2 max-w-2xl text-xs text-ltl-text-secondary">
+                {memberAdvisoryDiscountPolicy}
               </p>
             </div>
             <TierCta

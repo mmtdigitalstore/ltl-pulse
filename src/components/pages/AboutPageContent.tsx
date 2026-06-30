@@ -459,7 +459,8 @@ export function AboutPageContent() {
                   A three-time president of large, complex organizations with a track
                   record of turnaround and growth — including 300% organizational growth
                   and $1.75M secured — plus a Juris Doctor and Doctor of Education ·
-                  Contributing author, Steps to Good Governance.
+                  Contributing author, Steps to Good Governance · 30+ years guiding
+                  K–12 systems, universities, and institutions.
                 </p>
                 <div>
                   <p className="font-medium text-ltl-text-primary">

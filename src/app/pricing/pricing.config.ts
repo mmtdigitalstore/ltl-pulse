@@ -54,6 +54,10 @@ export interface AdvisoryOffer {
   note: string;
 }
 
+/** Shown on /pricing and in Cadence advisory replies — keep in sync with tier features. */
+export const memberAdvisoryDiscountPolicy =
+  "For a limited time, members save 10–15% on single sessions, 3-session packages, monthly retainers, and DISC debriefs. Team licenses and institutional engagements are quoted at standard rates.";
+
 // ----------------------------- SUBSCRIPTION TIERS ----------------------------
 export const tiers: Tier[] = [
   {
@@ -82,6 +86,7 @@ export const tiers: Tier[] = [
       "All premium vlogs",
       "Ad-free experience",
       "Cadence Premium",
+      "10–15% off coaching sessions, packages, retainers & DISC debriefs (for a limited time)",
     ],
     cta: { label: "Subscribe", href: "/subscribe?plan=member" },
     stripePriceIdMonthly: "price_MEMBER_MONTHLY",
@@ -105,7 +110,7 @@ export const tiers: Tier[] = [
       "Members' community",
       "Monthly live session with an LTL expert",
       "Cadence Pro — personalized roadmaps",
-      "10–15% off all advisory sessions",
+      "10–15% off coaching sessions, packages, retainers & DISC debriefs",
     ],
     cta: { label: "Go Pro", href: "/subscribe?plan=pro" },
     stripePriceIdMonthly: "price_PRO_MONTHLY",
@@ -194,7 +199,7 @@ export const advisoryOffers: AdvisoryOffer[] = [
   {
     name: "Single strategy / coaching session",
     priceLabel: "$250–350",
-    note: "Members get 10–15% off",
+    note: "60–90 min with the right-fit consultant",
   },
   {
     name: "3-session coaching package",
