@@ -295,7 +295,7 @@ export function AboutPageContent() {
         <Section title="The voices behind LTL">
           <p>
             Four lanes — each maps to a problem owners and coaches actually face. Start
-            with the expert whose &ldquo;can help you when&rdquo; list sounds like you.
+            with the expert best suited to what you&apos;re facing.
           </p>
 
           <motion.div
