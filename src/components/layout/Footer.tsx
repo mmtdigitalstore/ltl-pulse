@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { SVGProps } from "react";
 
+import { HomeLink } from "@/components/layout/HomeLink";
+
 function XIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden {...props}>
@@ -83,12 +85,9 @@ export function Footer() {
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 md:grid-cols-[1.5fr_repeat(3,1fr)]">
           <div>
-            <Link
-              href="/"
-              className="font-heading text-xl font-semibold text-ltl-accent"
-            >
+            <HomeLink className="inline-block font-heading text-xl font-semibold text-ltl-accent">
               LTL Pulse
-            </Link>
+            </HomeLink>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-ltl-text-secondary">
               Where leadership meets culture. Premium media for ambitious
               leaders.
