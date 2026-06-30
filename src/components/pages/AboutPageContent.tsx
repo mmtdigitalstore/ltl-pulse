@@ -339,12 +339,12 @@ export function AboutPageContent() {
                   </p>
                   <ul className="mt-3 list-disc space-y-2 pl-5">
                     <li>
-                      Your revenue is feast-or-famine — how you win clients lives in your
-                      head, not in a system
+                      Revenue spikes and stalls — you win clients from hustle, not a
+                      system
                     </li>
                     <li>
-                      You&apos;re hard to find online — your listings, reviews, and social
-                      presence aren&apos;t bringing clients
+                      You&apos;re invisible online — listings, reviews, and social
+                      aren&apos;t filling your pipeline
                     </li>
                     <li>
                       Your best people keep leaving — and you&apos;re not sure why
