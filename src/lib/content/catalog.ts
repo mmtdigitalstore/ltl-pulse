@@ -1,4 +1,5 @@
 import {
+  FREE_MAGAZINE_PROBLEM_IDS,
   FREE_VLOG_PROBLEM_IDS,
   problems,
   type Problem,
@@ -27,7 +28,7 @@ export function getContentCatalog(): CatalogItem[] {
       problemId: problem.id,
       type: "magazine" as const,
       title: problem.magazine,
-      free: false,
+      free: FREE_MAGAZINE_PROBLEM_IDS.has(problem.id),
       problem,
     },
     {
