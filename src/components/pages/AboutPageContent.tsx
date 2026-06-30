@@ -68,6 +68,9 @@ const experienceTracks = [
   },
 ] as const;
 
+const aboutPanelClass =
+  "ltl-surface-elevated rounded-xl p-8 md:p-10";
+
 function Section({
   title,
   children,
@@ -200,7 +203,7 @@ export function AboutPageContent() {
           whileInView="visible"
           viewport={sectionViewport}
           variants={sectionFadeUp}
-          className="relative max-w-3xl"
+          className={cn("relative max-w-3xl", aboutPanelClass)}
         >
           <p className="font-label text-xs uppercase tracking-[0.2em] text-ltl-text-secondary">
             About
@@ -225,9 +228,7 @@ export function AboutPageContent() {
           </p>
         </motion.div>
 
-        <div className="mt-16 border-t border-ltl-border md:mt-20" aria-hidden />
-
-        <Section title="Who LTL Pulse is for">
+        <Section title="Who LTL Pulse is for" className={aboutPanelClass}>
           <p>
             LTL Pulse is built for growing service businesses and the coaches who
             guide them. We help you keep your best people, win and keep loyal
@@ -237,18 +238,21 @@ export function AboutPageContent() {
           </p>
         </Section>
 
-        <Section title="Our vision" accentTitle>
+        <Section title="Our vision" accentTitle className={aboutPanelClass}>
           <p>Future-ready leadership, everywhere Let&apos;s Talk Leadership goes.</p>
         </Section>
 
-        <Section title="Our mission">
+        <Section title="Our mission" className={aboutPanelClass}>
           <p>
             We create conversations, content, and experiences that help leaders grow
             people, strengthen institutions, and navigate change with confidence.
           </p>
         </Section>
 
-        <Section title="What makes us different: future-ready leadership">
+        <Section
+          title="What makes us different: future-ready leadership"
+          className={aboutPanelClass}
+        >
           <p>
             Most leadership content prepares you for yesterday. We prepare you for
             the next decade. Every conversation, article, and tool at LTL Pulse
@@ -264,7 +268,7 @@ export function AboutPageContent() {
           whileInView="visible"
           viewport={sectionViewport}
           variants={sectionFadeUp}
-          className="mt-16 rounded-xl border border-ltl-border bg-ltl-surface p-8 md:mt-20 md:p-10"
+          className={cn("mt-16 md:mt-20", aboutPanelClass)}
         >
           <h2 className="font-heading text-2xl font-semibold text-ltl-text-primary md:text-3xl">
             What&apos;s inside
