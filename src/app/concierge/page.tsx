@@ -16,7 +16,16 @@ export const metadata: Metadata = {
 };
 
 interface ConciergePageProps {
-  searchParams: Promise<{ welcome?: string; upgraded?: string; expert?: string }>;
+  searchParams: Promise<{
+    welcome?: string;
+    upgraded?: string;
+    expert?: string;
+    topic?: string;
+  }>;
+}
+
+function parseAdvisoryTopic(topic: string | undefined): boolean {
+  return topic === "advisory";
 }
 
 export default async function ConciergePage({ searchParams }: ConciergePageProps) {
@@ -27,7 +36,12 @@ export default async function ConciergePage({ searchParams }: ConciergePageProps
   const isSubscriber = await getIsSubscriber(user?.id);
   const params = await searchParams;
   const expertId = parseExpertId(params.expert);
-  const conciergeNext = expertId ? `/concierge?expert=${expertId}` : "/concierge";
+  const advisoryTopic = parseAdvisoryTopic(params.topic);
+  const conciergeNext = expertId
+    ? `/concierge?expert=${expertId}`
+    : advisoryTopic
+      ? "/concierge?topic=advisory"
+      : "/concierge";
 
   return (
     <div className="min-h-[calc(100dvh-4rem)] bg-ltl-bg px-4 py-10 sm:px-6 lg:px-8">
@@ -39,7 +53,9 @@ export default async function ConciergePage({ searchParams }: ConciergePageProps
           <p className="mt-2 text-sm text-ltl-text-secondary sm:text-base">
             {expertId
               ? `Connecting you with ${experts[expertId].name} — your AI concierge will route you to the right free help first.`
-              : "Your AI Concierge — here to guide you and connect you with the right content and people."}
+              : advisoryTopic
+                ? "Your AI Concierge — here to explain Advisory & Enterprise options and connect you with the right consultant."
+                : "Your AI Concierge — here to guide you and connect you with the right content and people."}
           </p>
         </div>
 
@@ -48,6 +64,7 @@ export default async function ConciergePage({ searchParams }: ConciergePageProps
             userId={user.id}
             isSubscriber={isSubscriber}
             expertId={expertId}
+            advisoryTopic={advisoryTopic}
             showWelcome={params.welcome === "1"}
             showUpgraded={params.upgraded === "1"}
           />
@@ -57,7 +74,9 @@ export default async function ConciergePage({ searchParams }: ConciergePageProps
             <p className="mt-4 text-center text-sm text-ltl-text-secondary sm:text-left">
               {expertId
                 ? `Sign in once to connect with ${experts[expertId].name} through Cadence — you'll come right back here.`
-                : "Sign in once — you'll come right back here to chat. No need to find Cadence in the menu again."}
+                : advisoryTopic
+                  ? "Sign in once to review Advisory & Enterprise options with Cadence — you'll come right back here."
+                  : "Sign in once — you'll come right back here to chat. No need to find Cadence in the menu again."}
             </p>
             <div className="mt-5 flex flex-col gap-2">
               <Link

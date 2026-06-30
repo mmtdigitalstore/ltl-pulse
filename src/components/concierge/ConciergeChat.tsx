@@ -18,6 +18,7 @@ import {
   CADENCE_GREETING,
   CADENCE_PROBLEM_PROMPT,
 } from "@/lib/concierge/intake";
+import { buildCadenceAdvisoryReply } from "@/lib/concierge/advisory";
 import { deriveIntakeState, type IntakePhase } from "@/lib/concierge/intake-state";
 import {
   clearCadenceChatSession,
@@ -31,6 +32,7 @@ interface ConciergeChatProps {
   userId: string;
   isSubscriber: boolean;
   expertId?: ExpertId | null;
+  advisoryTopic?: boolean;
   autoFocusInput?: boolean;
   onChatStart?: () => void;
 }
@@ -39,6 +41,7 @@ export function ConciergeChat({
   userId,
   isSubscriber,
   expertId = null,
+  advisoryTopic = false,
   autoFocusInput = false,
   onChatStart,
 }: ConciergeChatProps) {
@@ -60,7 +63,7 @@ export function ConciergeChat({
   const atLimit = userMessageCount >= tierConfig.maxUserMessages;
 
   useEffect(() => {
-    if (expertId) {
+    if (expertId || advisoryTopic) {
       const existing = loadCadenceChatSession(userId);
       if (existing && !existing.intakeComplete) {
         clearCadenceChatSession(userId);
@@ -87,7 +90,7 @@ export function ConciergeChat({
     }
 
     setSessionReady(true);
-  }, [userId, expertId]);
+  }, [userId, expertId, advisoryTopic]);
 
   useEffect(() => {
     if (!sessionReady) {
@@ -144,6 +147,19 @@ export function ConciergeChat({
     }
 
     if (messages.length === 0) {
+      if (advisoryTopic) {
+        setMessages([
+          {
+            role: "assistant",
+            content: buildCadenceAdvisoryReply(isSubscriber),
+          },
+        ]);
+        setIntakeComplete(true);
+        setIntakePhase("complete");
+        setShowStarters(false);
+        return;
+      }
+
       setMessages([
         {
           role: "assistant",
@@ -154,7 +170,16 @@ export function ConciergeChat({
       ]);
       setIntakePhase("audience");
     }
-  }, [sessionReady, showStarters, intakeComplete, intakePhase, messages.length, expertId]);
+  }, [
+    sessionReady,
+    showStarters,
+    intakeComplete,
+    intakePhase,
+    messages.length,
+    expertId,
+    advisoryTopic,
+    isSubscriber,
+  ]);
 
   function expandChat() {
     setIsMinimized(false);
@@ -224,14 +249,30 @@ export function ConciergeChat({
 
   function handleNewChat() {
     clearCadenceChatSession(userId);
+    setError(null);
+    setInput("");
+    setIsMinimized(false);
+
+    if (advisoryTopic) {
+      setMessages([
+        {
+          role: "assistant",
+          content: buildCadenceAdvisoryReply(isSubscriber),
+        },
+      ]);
+      setShowStarters(false);
+      setIntakePhase("complete");
+      setIntakeAudience(null);
+      setIntakeComplete(true);
+      inputRef.current?.focus();
+      return;
+    }
+
     setMessages([]);
     setShowStarters(true);
     setIntakePhase("idle");
     setIntakeAudience(null);
     setIntakeComplete(false);
-    setError(null);
-    setInput("");
-    setIsMinimized(false);
     inputRef.current?.focus();
   }
 

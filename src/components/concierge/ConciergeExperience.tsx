@@ -14,6 +14,7 @@ interface ConciergeExperienceProps {
   userId: string;
   isSubscriber: boolean;
   expertId?: ExpertId | null;
+  advisoryTopic?: boolean;
   showWelcome: boolean;
   showUpgraded: boolean;
 }
@@ -22,6 +23,7 @@ export function ConciergeExperience({
   userId,
   isSubscriber,
   expertId = null,
+  advisoryTopic = false,
   showWelcome,
   showUpgraded,
 }: ConciergeExperienceProps) {
@@ -50,9 +52,14 @@ export function ConciergeExperience({
   function dismissParams() {
     setWelcomeVisible(false);
     setUpgradedVisible(false);
-    router.replace(expertId ? `/concierge?expert=${expertId}` : "/concierge", {
-      scroll: false,
-    });
+    router.replace(
+      expertId
+        ? `/concierge?expert=${expertId}`
+        : advisoryTopic
+          ? "/concierge?topic=advisory"
+          : "/concierge",
+      { scroll: false },
+    );
   }
 
   return (
@@ -88,7 +95,9 @@ export function ConciergeExperience({
             <p className="mt-1 text-ltl-text-secondary">
               {expertId
                 ? `Cadence will route you to ${experts[expertId].name}'s lane — pick what sounds like you below.`
-                : "Tap a suggested question below or type in the message box to start your conversation."}
+                : advisoryTopic
+                  ? "Cadence will walk you through Advisory & Enterprise options — pricing and routing to the right consultant."
+                  : "Tap a suggested question below or type in the message box to start your conversation."}
             </p>
           </div>
           <Button
@@ -110,6 +119,7 @@ export function ConciergeExperience({
         userId={userId}
         isSubscriber={isSubscriber}
         expertId={expertId}
+        advisoryTopic={advisoryTopic}
         autoFocusInput={showWelcome || showUpgraded}
         onChatStart={() => {
           setWelcomeVisible(false);

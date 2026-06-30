@@ -223,7 +223,7 @@ export const advisoryOffers: AdvisoryOffer[] = [
   },
 ];
 
-export const advisoryCta = { label: "Talk to Cadence", href: "/concierge" };
+export const advisoryCta = { label: "Talk to Cadence", href: "/concierge?topic=advisory" };
 
 export const comingSoon = {
   badge: "Opening this season",
