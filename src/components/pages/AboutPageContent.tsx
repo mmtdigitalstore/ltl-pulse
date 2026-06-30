@@ -3,14 +3,15 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { BookOpen, Mic, Sparkles, Video } from "lucide-react";
+import { BookOpen, Mic, Video } from "lucide-react";
 
+import { AboutExpertCard } from "@/components/about/AboutExpertCard";
+import { HearFromLeadersSection } from "@/components/about/HearFromLeadersSection";
 import { CadenceIcon } from "@/components/concierge/CadenceIcon";
-import { ExpertPhoto } from "@/components/team/ExpertPhoto";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { buttonVariants } from "@/components/ui/button";
 import { EXPERT_PHOTOS } from "@/data/expert-photos.config";
-import { experts } from "@/data/problems.config";
+import { experts, type ExpertId } from "@/data/problems.config";
 import {
   sectionFadeUp,
   sectionViewport,
@@ -71,6 +72,113 @@ const experienceTracks = [
 const aboutPanelClass =
   "ltl-surface-elevated rounded-xl p-8 md:p-10";
 
+const trustBadges =
+  "Maxwell Leadership Certified team · Cornell-certified · 3 published authors · 100+ years of combined leadership experience";
+
+const aboutExpertOrder: ExpertId[] = ["dawn", "jackie", "lashley", "joshua"];
+
+const aboutExpertDetails: Record<
+  ExpertId,
+  {
+    displayName: string;
+    credentials: string;
+    canHelpWhen: string[];
+    specialties: ReactNode;
+    positioning: ReactNode;
+  }
+> = {
+  dawn: {
+    displayName: "Dawn Kirk, M.Ed.",
+    credentials:
+      "Maxwell Leadership Certified Independent Executive Director · Cornell-certified in project leadership and systems design · Executive MBA candidate · WebScore digital analyst · Contributing author, Transforming Pain Into Purpose (Vol. 1) · Founder of Market My Training Solutions · 30+ years across Bermuda and the Caribbean.",
+    canHelpWhen: [
+      "Revenue spikes and stalls — you win clients from hustle, not a system",
+      "You're invisible online — listings, reviews, and social aren't filling your pipeline",
+      "Good people keep walking out — and you can't pin down why",
+      "You were promoted for doing the work — nobody taught you to lead the team",
+      "You want your brand and client relationships to bring repeat business, not just look good",
+    ],
+    specialties:
+      "WebScore digital audit · ClientFlow systems · Brand & client strategy · People & culture · Talent retention · Leadership development",
+    positioning: (
+      <>
+        Dawn helps owners and coaches keep their best people, get found and chosen online, and
+        turn feast-or-famine into a steady client-flow system. She starts with a digital
+        footprint diagnostic, then builds the pipeline and people systems that make growth
+        repeatable — not another season of hustle.
+      </>
+    ),
+  },
+  jackie: {
+    displayName: "Jackie John, R.Eng., MSc",
+    credentials:
+      "Maxwell Leadership Certified DISC Coach & Consultant · Registered Engineer (R.Eng.), MSc · Founder of New Version Coaching & Consulting · Contributing author, Transforming Pain Into Purpose (Vol. 3) · 30+ years blending technical rigor with deep human insight.",
+    canHelpWhen: [
+      "You're losing customers to inconsistent frontline service",
+      "Your team talks past each other and it's costing you in errors and friction",
+      "You're a technical owner who now has to lead people, not just do the work",
+      "You want to understand what makes each team member tick (DISC) and lead them well",
+      "You need to turn a group of individuals into a team that actually delivers",
+    ],
+    specialties:
+      "Customer experience · Communication & team dynamics · Maxwell DISC · Self-awareness & influence · Coaching",
+    positioning: (
+      <>
+        Jackie helps service businesses stop losing customers to inconsistent service and turn
+        teams that talk past each other into teams that deliver. He works through the Maxwell
+        DISC method and his own framework,{" "}
+        <span className="font-heading font-semibold text-ltl-accent">
+          Think. Lead. Influence. Deliver.
+        </span>
+      </>
+    ),
+  },
+  lashley: {
+    displayName: "Sylvan A. Lashley, Ed.D., J.D., MBA",
+    credentials:
+      "A three-time president of large, complex organizations with a track record of turnaround and growth — including 300% organizational growth and $1.75M secured — plus a Juris Doctor and Doctor of Education · Contributing author, Steps to Good Governance · 30+ years guiding K–12 systems, universities, and institutions.",
+    canHelpWhen: [
+      "You're growing but it's chaos — everything still runs through you",
+      "You need clear roles, decision rights, and accountability as the team gets bigger",
+      "You want growth that's financially durable, not just busy",
+      "You're navigating a big change — expansion, restructure, a turnaround — and need it to hold",
+      "You've outgrown \"winging it\" and need real operating structure",
+    ],
+    specialties:
+      "Scaling with structure · Roles, decision rights & accountability · Financial durability · Leading change & turnarounds · Governance",
+    positioning: (
+      <>
+        Sylvan helps owners scale without the chaos — building the structure, accountability,
+        and financial durability a growing business needs when everything still runs through
+        you. He brings institutional-grade discipline to growing companies.
+      </>
+    ),
+  },
+  joshua: {
+    displayName: "Joshua Ogbonnia, CVO",
+    credentials:
+      "Founder & Chief Vision Officer of E Skool Now Group and founder/leader of multiple ventures across technology, media, and education — an award-winning innovator and future-ready voice.",
+    canHelpWhen: [
+      "Your business has plateaued and you need fresh ideas and new ways to grow",
+      "You know you should be using tech and AI but don't know where to start",
+      "You want to launch a new offering, model, or revenue stream",
+      "You want to modernize how you operate without losing what makes you you",
+      "You're an entrepreneur who wants a peer who's actually built and scaled ventures",
+    ],
+    specialties:
+      "Entrepreneurship & venture building · Tech & AI adoption · New offerings & business models · Business transformation · Future-ready leadership",
+    positioning: (
+      <>
+        Joshua helps owners break through plateaus by reinventing the business itself — adopting
+        the right tech and AI, launching new offerings and models, and scaling what works. A
+        serial entrepreneur, he brings a builder&apos;s playbook to businesses ready for their
+        next stage. Dawn focuses on getting found and chosen; Joshua on modernizing how the
+        business runs and grows.
+      </>
+    ),
+  },
+};
+
 function Section({
   title,
   children,
@@ -105,92 +213,6 @@ function Section({
   );
 }
 
-function TeamMemberCard({
-  id,
-  name,
-  role,
-  lane,
-  tagline,
-  credentials,
-  photo,
-  children,
-  className,
-  compact = false,
-  isFocused = false,
-}: {
-  id?: string;
-  name: string;
-  role?: string;
-  lane?: string;
-  tagline?: string;
-  credentials?: string;
-  photo?: { src: string; alt: string };
-  children: ReactNode;
-  className?: string;
-  compact?: boolean;
-  isFocused?: boolean;
-}) {
-  return (
-    <article
-      id={id}
-      aria-current={isFocused ? "true" : undefined}
-      className={cn(
-        "flex h-full scroll-mt-24 flex-col space-y-4 rounded-xl border border-ltl-border bg-ltl-surface p-6 transition-[border-color,box-shadow,opacity] duration-300 hover:border-ltl-border/90 md:p-7",
-        className,
-      )}
-    >
-      <div
-        className={cn(
-          "flex gap-4",
-          compact ? "flex-col" : "flex-col sm:flex-row sm:items-start",
-        )}
-      >
-        {photo ? (
-          <ExpertPhoto
-            src={photo.src}
-            alt={photo.alt}
-            name={name}
-            size={compact ? "sm" : "md"}
-          />
-        ) : null}
-        <div className="min-w-0 flex-1">
-          <h3
-            className={cn(
-              "font-heading font-semibold text-ltl-text-primary",
-              compact ? "text-lg md:text-xl" : "text-xl md:text-2xl",
-            )}
-          >
-            {name}
-          </h3>
-          {role ? (
-            <p className="mt-1 font-label text-xs uppercase tracking-wider text-ltl-accent">
-              {role}
-            </p>
-          ) : null}
-          {lane ? (
-            <p className="mt-2 text-sm font-medium leading-snug text-ltl-text-primary">
-              {lane}
-            </p>
-          ) : null}
-          {credentials ? (
-            <p className="mt-3 text-xs leading-relaxed text-ltl-text-secondary md:text-sm">
-              {credentials}
-            </p>
-          ) : null}
-          {tagline ? (
-            <p className="mt-2 text-sm leading-relaxed text-ltl-text-secondary">
-              {tagline}
-            </p>
-          ) : null}
-        </div>
-      </div>
-      <div className="space-y-4 text-sm leading-relaxed text-ltl-text-secondary md:text-base">
-        {children}
-      </div>
-    </article>
-  );
-}
-
 export function AboutPageContent() {
   useHashScroll();
   const focusedExpert = useHashExpertFocus();
@@ -205,7 +227,7 @@ export function AboutPageContent() {
           variants={sectionFadeUp}
           className={cn("relative max-w-3xl", aboutPanelClass)}
         >
-          <p className="font-label text-xs uppercase tracking-[0.2em] text-ltl-text-secondary">
+          <p className="font-label text-xs uppercase tracking-[0.2em] text-ltl-accent">
             About
           </p>
           <PageHeader
@@ -263,6 +285,23 @@ export function AboutPageContent() {
           </p>
         </Section>
 
+        <Section title="Our story" className={aboutPanelClass}>
+          <p>
+            LTL Pulse didn&apos;t start as a platform — it started as a conversation. During the
+            pandemic, Dawn Kirk found her way onto Clubhouse and did what good leaders do first:
+            she listened. She learned the terrain, made genuine friends, and found her voice — and
+            only then noticed what was missing: nowhere for leaders to gather. So she created it,
+            convening with Dr. Sylvan Lashley and a founding partner who has since stepped away
+            for personal reasons, and later joined by Jackie John and Joshua Ogbonnia. Together
+            they launched <em>Let&apos;s Talk Leadership</em>, a twice-weekly room where curious
+            visitors became guests, co-hosts, and friends. When the world reopened, the live rooms
+            quieted, but the mission didn&apos;t: the Let&apos;s Talk Leadership website still
+            runs today. LTL Pulse is its media and intelligence hub — those same conversations,
+            now always on: premium content, candid dialogue, and real experts, for leaders who
+            refuse to lead like it&apos;s still yesterday.
+          </p>
+        </Section>
+
         <motion.section
           initial="hidden"
           whileInView="visible"
@@ -317,270 +356,56 @@ export function AboutPageContent() {
           </p>
 
           <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={sectionViewport}
+            variants={sectionFadeUp}
+            className="mt-8 rounded-xl border border-ltl-border bg-ltl-surface/50 px-5 py-5 md:px-6 md:py-6"
+          >
+            <p className="font-label text-xs uppercase tracking-widest text-ltl-accent">
+              The credibility behind LTL Pulse
+            </p>
+            <p className="mt-3 text-sm font-medium leading-relaxed text-ltl-text-primary md:text-base">
+              {trustBadges}
+            </p>
+          </motion.div>
+
+          <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={sectionViewport}
             className="mt-8 grid gap-6 md:grid-cols-2 md:gap-8"
           >
-            <motion.div
-              variants={staggerItem}
-              className={expertFocusWrapperClass("dawn", focusedExpert)}
-            >
-              <TeamMemberCard
-                id="dawn"
-                name="Dawn Kirk, M.Ed."
-                role={experts.dawn.title}
-                lane={experts.dawn.homepageLane}
-                photo={EXPERT_PHOTOS.dawn}
-                compact
-                isFocused={focusedExpert === "dawn"}
-                className={expertFocusCardClass("dawn", focusedExpert)}
-              >
-                <p className="font-medium text-ltl-text-primary">
-                  Dawn helps owners and coaches keep their best people, get found and
-                  chosen online, and turn feast-or-famine into a steady client-flow
-                  system. She starts with a digital footprint diagnostic, then builds the
-                  pipeline and people systems that make growth repeatable — not another
-                  season of hustle.
-                </p>
-                <p className="text-xs italic leading-relaxed text-ltl-text-secondary md:text-sm">
-                  Maxwell Leadership Certified Independent Executive Director ·
-                  Cornell-certified in project leadership and systems design · Executive
-                  MBA candidate · WebScore digital analyst · Contributing author,
-                  Transforming Pain Into Purpose (Vol. 1) · Founder of Market My Training
-                  Solutions · 30+ years across Bermuda and the Caribbean.
-                </p>
-                <div>
-                  <p className="font-medium text-ltl-text-primary">
-                    Dawn can help you when:
-                  </p>
-                  <ul className="mt-3 list-disc space-y-2 pl-5">
-                    <li>
-                      Revenue spikes and stalls — you win clients from hustle, not a
-                      system
-                    </li>
-                    <li>
-                      You&apos;re invisible online — listings, reviews, and social
-                      aren&apos;t filling your pipeline
-                    </li>
-                    <li>
-                      Good people keep walking out — and you can&apos;t pin down why
-                    </li>
-                    <li>
-                      You were promoted for doing the work — nobody taught you to lead
-                      the team
-                    </li>
-                    <li>
-                      You want your brand and client relationships to bring repeat
-                      business, not just look good
-                    </li>
-                  </ul>
-                </div>
-                <p className="text-xs leading-relaxed text-ltl-text-secondary md:text-sm">
-                  <span className="font-label uppercase tracking-wider text-ltl-accent">
-                    Specialties:
-                  </span>{" "}
-                  WebScore digital audit · ClientFlow systems · Brand &amp; client
-                  strategy · People &amp; culture · Talent retention · Leadership
-                  development
-                </p>
-              </TeamMemberCard>
-            </motion.div>
+            {aboutExpertOrder.map((id) => {
+              const detail = aboutExpertDetails[id];
 
-            <motion.div
-              variants={staggerItem}
-              className={expertFocusWrapperClass("jackie", focusedExpert)}
-            >
-              <TeamMemberCard
-                id="jackie"
-                name="Jackie John, R.Eng., MSc"
-                role={experts.jackie.title}
-                lane={experts.jackie.homepageLane}
-                photo={EXPERT_PHOTOS.jackie}
-                compact
-                isFocused={focusedExpert === "jackie"}
-                className={expertFocusCardClass("jackie", focusedExpert)}
-              >
-                <p className="font-medium text-ltl-text-primary">
-                  Jackie helps service businesses stop losing customers to inconsistent
-                  service and turn teams that talk past each other into teams that
-                  deliver. He works through the Maxwell DISC method and his own
-                  framework,{" "}
-                  <span className="font-heading font-semibold text-ltl-accent">
-                    Think. Lead. Influence. Deliver.
-                  </span>
-                </p>
-                <p className="text-xs italic leading-relaxed text-ltl-text-secondary md:text-sm">
-                  Maxwell Leadership Certified DISC Coach &amp; Consultant · Registered
-                  Engineer (R.Eng.), MSc · Founder of New Version Coaching &amp;
-                  Consulting · Contributing author, Transforming Pain Into Purpose
-                  (Vol. 3) · 30+ years blending technical rigor with deep human insight.
-                </p>
-                <div>
-                  <p className="font-medium text-ltl-text-primary">
-                    Jackie can help you when:
-                  </p>
-                  <ul className="mt-3 list-disc space-y-2 pl-5">
-                    <li>
-                      You&apos;re losing customers to inconsistent frontline service
-                    </li>
-                    <li>
-                      Your team talks past each other and it&apos;s costing you in errors
-                      and friction
-                    </li>
-                    <li>
-                      You&apos;re a technical owner who now has to lead people, not just
-                      do the work
-                    </li>
-                    <li>
-                      You want to understand what makes each team member tick (DISC) and
-                      lead them well
-                    </li>
-                    <li>
-                      You need to turn a group of individuals into a team that actually
-                      delivers
-                    </li>
-                  </ul>
-                </div>
-                <p className="text-xs leading-relaxed text-ltl-text-secondary md:text-sm">
-                  <span className="font-label uppercase tracking-wider text-ltl-accent">
-                    Specialties:
-                  </span>{" "}
-                  Customer experience · Communication &amp; team dynamics · Maxwell
-                  DISC · Self-awareness &amp; influence · Coaching
-                </p>
-              </TeamMemberCard>
-            </motion.div>
-
-            <motion.div
-              variants={staggerItem}
-              className={expertFocusWrapperClass("lashley", focusedExpert)}
-            >
-              <TeamMemberCard
-                id="lashley"
-                name="Sylvan A. Lashley, Ed.D., J.D., MBA"
-                role={experts.lashley.title}
-                lane={experts.lashley.homepageLane}
-                photo={EXPERT_PHOTOS.lashley}
-                compact
-                isFocused={focusedExpert === "lashley"}
-                className={expertFocusCardClass("lashley", focusedExpert)}
-              >
-                <p className="font-medium text-ltl-text-primary">
-                  Sylvan helps owners scale without the chaos — building the structure,
-                  accountability, and financial durability a growing business needs when
-                  everything still runs through you. He brings institutional-grade
-                  discipline to growing companies.
-                </p>
-                <p className="text-xs italic leading-relaxed text-ltl-text-secondary md:text-sm">
-                  A three-time president of large, complex organizations with a track
-                  record of turnaround and growth — including 300% organizational growth
-                  and $1.75M secured — plus a Juris Doctor and Doctor of Education ·
-                  Contributing author, Steps to Good Governance · 30+ years guiding
-                  K–12 systems, universities, and institutions.
-                </p>
-                <div>
-                  <p className="font-medium text-ltl-text-primary">
-                    Sylvan can help you when:
-                  </p>
-                  <ul className="mt-3 list-disc space-y-2 pl-5">
-                    <li>
-                      You&apos;re growing but it&apos;s chaos — everything still runs
-                      through you
-                    </li>
-                    <li>
-                      You need clear roles, decision rights, and accountability as the
-                      team gets bigger
-                    </li>
-                    <li>
-                      You want growth that&apos;s financially durable, not just busy
-                    </li>
-                    <li>
-                      You&apos;re navigating a big change — expansion, restructure, a
-                      turnaround — and need it to hold
-                    </li>
-                    <li>
-                      You&apos;ve outgrown &quot;winging it&quot; and need real operating
-                      structure
-                    </li>
-                  </ul>
-                </div>
-                <p className="text-xs leading-relaxed text-ltl-text-secondary md:text-sm">
-                  <span className="font-label uppercase tracking-wider text-ltl-accent">
-                    Specialties:
-                  </span>{" "}
-                  Scaling with structure · Roles, decision rights &amp; accountability ·
-                  Financial durability · Leading change &amp; turnarounds · Governance
-                </p>
-              </TeamMemberCard>
-            </motion.div>
-
-            <motion.div
-              variants={staggerItem}
-              className={expertFocusWrapperClass("joshua", focusedExpert)}
-            >
-              <TeamMemberCard
-                id="joshua"
-                name="Joshua Ogbonnia, CVO"
-                role={experts.joshua.title}
-                lane={experts.joshua.homepageLane}
-                photo={EXPERT_PHOTOS.joshua}
-                compact
-                isFocused={focusedExpert === "joshua"}
-                className={expertFocusCardClass("joshua", focusedExpert)}
-              >
-                <p className="font-medium text-ltl-text-primary">
-                  Joshua helps owners break through plateaus by reinventing the business
-                  itself — adopting the right tech and AI, launching new offerings and
-                  models, and scaling what works. A serial entrepreneur, he brings a
-                  builder&apos;s playbook to businesses ready for their next stage. Dawn
-                  focuses on getting found and chosen; Joshua on modernizing how the
-                  business runs and grows.
-                </p>
-                <p className="text-xs italic leading-relaxed text-ltl-text-secondary md:text-sm">
-                  Founder &amp; Chief Vision Officer of E Skool Now Group and founder/leader
-                  of multiple ventures across technology, media, and education — an
-                  award-winning innovator and future-ready voice.
-                </p>
-                <div>
-                  <p className="font-medium text-ltl-text-primary">
-                    Joshua can help you when:
-                  </p>
-                  <ul className="mt-3 list-disc space-y-2 pl-5">
-                    <li>
-                      Your business has plateaued and you need fresh ideas and new ways to
-                      grow
-                    </li>
-                    <li>
-                      You know you should be using tech and AI but don&apos;t know where to
-                      start
-                    </li>
-                    <li>
-                      You want to launch a new offering, model, or revenue stream
-                    </li>
-                    <li>
-                      You want to modernize how you operate without losing what makes you{" "}
-                      <em>you</em>
-                    </li>
-                    <li>
-                      You&apos;re an entrepreneur who wants a peer who&apos;s actually built
-                      and scaled ventures
-                    </li>
-                  </ul>
-                </div>
-                <p className="text-xs leading-relaxed text-ltl-text-secondary md:text-sm">
-                  <span className="font-label uppercase tracking-wider text-ltl-accent">
-                    Specialties:
-                  </span>{" "}
-                  Entrepreneurship &amp; venture building · Tech &amp; AI adoption · New
-                  offerings &amp; business models · Business transformation · Future-ready
-                  leadership
-                </p>
-              </TeamMemberCard>
-            </motion.div>
+              return (
+                <motion.div
+                  key={id}
+                  variants={staggerItem}
+                  className={expertFocusWrapperClass(id, focusedExpert)}
+                >
+                  <AboutExpertCard
+                    id={id}
+                    displayName={detail.displayName}
+                    role={experts[id].title}
+                    lane={experts[id].homepageLane ?? experts[id].tagline}
+                    positioning={detail.positioning}
+                    credentials={detail.credentials}
+                    canHelpWhen={detail.canHelpWhen}
+                    specialties={detail.specialties}
+                    photo={EXPERT_PHOTOS[id]}
+                    isFocused={focusedExpert === id}
+                    className={expertFocusCardClass(id, focusedExpert)}
+                  />
+                </motion.div>
+              );
+            })}
           </motion.div>
         </Section>
+
+        <HearFromLeadersSection />
 
         <Section title="Experiences & programs">
           <p>
@@ -614,22 +439,22 @@ export function AboutPageContent() {
           variants={sectionFadeUp}
           className="ltl-panel-cta mt-16 rounded-xl border border-ltl-border p-8 text-center md:mt-20 md:p-12"
         >
-          <Sparkles className="mx-auto size-8 text-ltl-accent" aria-hidden />
+          <CadenceIcon className="mx-auto size-10" />
           <h2 className="mt-4 font-heading text-2xl font-semibold text-ltl-text-primary md:text-3xl">
-            Join the Pulse
+            Not sure where to start?
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-ltl-text-secondary md:text-lg">
-            Get leadership insights, new episodes, and exclusive content built for
-            leaders who refuse to lead like it&apos;s still yesterday.
+            Tell Cadence what&apos;s costing you most — she&apos;ll point you to the right
+            expert and the right next step.
           </p>
           <Link
-            href="/subscribe"
+            href="/concierge"
             className={cn(
               buttonVariants({ size: "lg" }),
               "mt-8 inline-flex h-12 min-w-[12rem] rounded-md bg-ltl-accent font-bold text-ltl-bg hover:bg-ltl-accent-hover",
             )}
           >
-            Subscribe
+            Talk to Cadence
           </Link>
         </motion.section>
       </div>

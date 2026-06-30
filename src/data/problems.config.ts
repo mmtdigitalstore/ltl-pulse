@@ -22,6 +22,8 @@ export const experts: Record<
     /** Problem-framed lane line for the homepage Meet the Experts card. */
     homepageLane?: string;
     contactBio: string;
+    /** LinkedIn or other public profile — hide social link when blank. */
+    socialUrl?: string;
   }
 > = {
   dawn: {

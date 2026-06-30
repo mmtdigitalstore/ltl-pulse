@@ -25,7 +25,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 const siteDescription =
-  "Premium podcasts, magazine articles, vlogs, and Cadence — your AI Concierge — where leadership meets culture for ambitious leaders.";
+  "Where leadership meets culture — practical, future-ready leadership for growing service businesses and the coaches who guide them. Keep your people, win loyal customers, and build a team that delivers.";
 
 export const metadata: Metadata = {
   title: "LTL Pulse",

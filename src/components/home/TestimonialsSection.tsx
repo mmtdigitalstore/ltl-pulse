@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Mic, Quote, Video } from "lucide-react";
 
+import { HearFromLeadersSection } from "@/components/about/HearFromLeadersSection";
 import { buttonVariants } from "@/components/ui/button";
 import {
   approvedSpotlights,
@@ -145,6 +146,8 @@ export function TestimonialsSection() {
             </Link>
           </div>
         )}
+
+        <HearFromLeadersSection compact />
       </div>
     </motion.section>
   );
