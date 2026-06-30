@@ -15,6 +15,9 @@ const fieldClassName =
 const fileInputClassName =
   "mt-2 block w-full text-sm text-ltl-text-secondary file:mr-3 file:rounded-md file:border-0 file:bg-ltl-accent file:px-4 file:py-2 file:text-sm file:font-bold file:text-ltl-bg hover:file:bg-ltl-accent-hover";
 
+const hubPageClass =
+  "ltl-theme-magazine ltl-hub-page ltl-hub-handoff relative min-h-[calc(100dvh-4rem)] bg-ltl-bg px-4 py-16 sm:px-6";
+
 export default function AddYourVoiceForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [quote, setQuote] = useState("");
@@ -58,8 +61,8 @@ export default function AddYourVoiceForm() {
 
   if (status === "success") {
     return (
-      <section className="min-h-[calc(100dvh-4rem)] bg-ltl-bg px-4 py-16 sm:px-6">
-        <div className="mx-auto max-w-xl rounded-2xl border border-ltl-border bg-ltl-surface p-8 text-center">
+      <section className={hubPageClass}>
+        <div className="mx-auto max-w-xl ltl-media-container rounded-2xl p-8 text-center">
           <div className="mx-auto flex size-14 items-center justify-center rounded-full bg-ltl-accent/15 ring-1 ring-ltl-accent/30">
             <span className="text-2xl font-bold text-ltl-accent" aria-hidden>
               ✓
@@ -84,7 +87,7 @@ export default function AddYourVoiceForm() {
   }
 
   return (
-    <section className="min-h-[calc(100dvh-4rem)] bg-ltl-bg px-4 py-16 sm:px-6">
+    <section className={hubPageClass}>
       <div className="mx-auto max-w-xl">
         <div className="text-center">
           <p className="font-label text-xs uppercase tracking-widest text-ltl-accent">
@@ -98,7 +101,7 @@ export default function AddYourVoiceForm() {
 
         <form
           onSubmit={handleSubmit}
-          className="mt-8 space-y-5 rounded-2xl border border-ltl-border bg-ltl-surface p-6 sm:p-8"
+          className="ltl-media-container mt-8 space-y-5 rounded-2xl p-6 sm:p-8"
         >
           <div>
             <label htmlFor="quote" className="block text-sm font-semibold text-ltl-text-primary">

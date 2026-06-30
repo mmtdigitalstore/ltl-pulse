@@ -58,7 +58,7 @@ export default async function RootLayout({
       className={`dark ${inter.variable} ${playfair.variable} ${jetbrainsMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-ltl-bg text-ltl-text-primary">
+      <body className="ltl-theme-magazine min-h-full flex flex-col bg-ltl-bg text-ltl-text-primary">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <SkipLink />
           <Navbar user={user} />

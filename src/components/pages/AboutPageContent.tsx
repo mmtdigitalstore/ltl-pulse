@@ -70,7 +70,7 @@ const experienceTracks = [
 ] as const;
 
 const aboutPanelClass =
-  "ltl-surface-elevated rounded-xl p-8 md:p-10";
+  "ltl-theme-magazine ltl-media-container rounded-xl p-8 md:p-10";
 
 const trustBadges =
   "Maxwell Leadership Certified team · Cornell-certified · 3 published authors · 100+ years of combined leadership experience";
@@ -218,7 +218,7 @@ export function AboutPageContent() {
   const focusedExpert = useHashExpertFocus();
 
   return (
-    <div className="ltl-section-glow ltl-glow-editorial min-h-screen bg-ltl-bg px-4 py-16 sm:px-6 lg:px-8">
+    <div className="ltl-theme-platform ltl-blackblue-atmosphere ltl-section-glow ltl-glow-editorial min-h-screen px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <motion.div
           initial="hidden"
@@ -360,7 +360,7 @@ export function AboutPageContent() {
             whileInView="visible"
             viewport={sectionViewport}
             variants={sectionFadeUp}
-            className="mt-8 rounded-xl border border-ltl-border bg-ltl-surface/50 px-5 py-5 md:px-6 md:py-6"
+            className="ltl-theme-magazine ltl-media-container mt-8 rounded-xl px-5 py-5 md:px-6 md:py-6"
           >
             <p className="font-label text-xs uppercase tracking-widest text-ltl-accent">
               The credibility behind LTL Pulse
@@ -405,7 +405,7 @@ export function AboutPageContent() {
           </motion.div>
         </Section>
 
-        <HearFromLeadersSection />
+        <HearFromLeadersSection onPlatform />
 
         <Section title="Experiences & programs">
           <p>
@@ -419,7 +419,7 @@ export function AboutPageContent() {
             {experienceTracks.map((track) => (
               <li
                 key={track.title}
-                className="rounded-lg border border-ltl-border bg-ltl-surface p-5 md:p-6"
+                className="ltl-theme-magazine ltl-media-container rounded-lg p-5 md:p-6"
               >
                 <h3 className="font-heading text-lg font-medium text-ltl-accent">
                   {track.title}
@@ -437,7 +437,7 @@ export function AboutPageContent() {
           whileInView="visible"
           viewport={sectionViewport}
           variants={sectionFadeUp}
-          className="ltl-panel-cta mt-16 rounded-xl border border-ltl-border p-8 text-center md:mt-20 md:p-12"
+          className="ltl-theme-magazine ltl-media-container mt-16 rounded-xl p-8 text-center md:mt-20 md:p-12"
         >
           <CadenceIcon className="mx-auto size-10" />
           <h2 className="mt-4 font-heading text-2xl font-semibold text-ltl-text-primary md:text-3xl">

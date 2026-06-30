@@ -21,7 +21,7 @@ const fadeUp = {
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-[calc(100dvh-4rem)] w-full flex-1 items-center justify-center overflow-hidden bg-ltl-bg px-4 sm:px-6 lg:px-8">
+    <section className="ltl-theme-platform ltl-blackblue-atmosphere relative flex min-h-[calc(100dvh-4rem)] w-full flex-1 items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8">
       <div
         aria-hidden
         className="pointer-events-none absolute bottom-0 left-0 h-[28rem] w-[28rem] -translate-x-1/5 translate-y-1/5 rounded-full bg-[radial-gradient(circle,rgba(11,32,114,0.28)_0%,rgba(11,32,114,0.08)_40%,transparent_72%)] blur-3xl sm:h-[34rem] sm:w-[34rem]"

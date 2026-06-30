@@ -9,16 +9,38 @@ interface YouTubeEmbedProps {
   youtubeId: string;
   title: string;
   className?: string;
+  /** compact = supporting thumbnail, not a hero block */
+  size?: "default" | "compact";
 }
 
-export function YouTubeEmbed({ youtubeId, title, className }: YouTubeEmbedProps) {
+const sizeClasses = {
+  default: {
+    frame: "aspect-video w-full max-w-full",
+    play: "size-14",
+    playIcon: "size-6",
+  },
+  compact: {
+    frame: "aspect-video w-full max-w-[220px] sm:max-w-[240px]",
+    play: "size-10",
+    playIcon: "size-4",
+  },
+} as const;
+
+export function YouTubeEmbed({
+  youtubeId,
+  title,
+  className,
+  size = "default",
+}: YouTubeEmbedProps) {
   const [playing, setPlaying] = useState(false);
+  const sizing = sizeClasses[size];
 
   if (playing) {
     return (
       <div
         className={cn(
-          "aspect-video w-full overflow-hidden rounded-lg border border-ltl-border bg-ltl-bg",
+          "overflow-hidden rounded-lg border border-ltl-border bg-ltl-bg",
+          sizing.frame,
           className,
         )}
       >
@@ -39,7 +61,8 @@ export function YouTubeEmbed({ youtubeId, title, className }: YouTubeEmbedProps)
       type="button"
       onClick={() => setPlaying(true)}
       className={cn(
-        "group relative aspect-video w-full overflow-hidden rounded-lg border border-ltl-border bg-ltl-bg text-left",
+        "group relative overflow-hidden rounded-lg border border-ltl-border bg-ltl-bg text-left",
+        sizing.frame,
         className,
       )}
       aria-label={`Play video: ${title}`}
@@ -51,8 +74,13 @@ export function YouTubeEmbed({ youtubeId, title, className }: YouTubeEmbedProps)
         className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
       />
       <span className="absolute inset-0 flex items-center justify-center bg-black/35 transition group-hover:bg-black/45">
-        <span className="flex size-14 items-center justify-center rounded-full bg-ltl-accent text-ltl-bg shadow-lg">
-          <Play className="ml-1 size-6 fill-current" aria-hidden />
+        <span
+          className={cn(
+            "flex items-center justify-center rounded-full bg-ltl-accent text-ltl-bg shadow-lg",
+            sizing.play,
+          )}
+        >
+          <Play className={cn("ml-0.5 fill-current", sizing.playIcon)} aria-hidden />
         </span>
       </span>
     </button>

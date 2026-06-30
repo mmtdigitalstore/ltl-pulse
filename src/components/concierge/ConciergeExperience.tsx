@@ -63,7 +63,7 @@ export function ConciergeExperience({
   }
 
   return (
-    <div className="mt-6">
+    <div className="ltl-theme-magazine ltl-media-container mt-6 rounded-xl p-4 sm:p-5">
       {upgradedVisible && (
         <div className="ltl-concierge-banner-glow mb-3 flex items-start gap-2 rounded-md border border-ltl-border/80 px-3 py-2">
           <div className="flex-1 text-sm text-ltl-text-primary">

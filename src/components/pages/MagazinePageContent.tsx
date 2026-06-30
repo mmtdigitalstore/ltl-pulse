@@ -29,7 +29,7 @@ export function MagazinePageContent({ isSubscriber }: MagazinePageContentProps) 
   const articles = getCatalogByType("magazine");
 
   return (
-    <div className="ltl-section-glow ltl-glow-dual min-h-screen bg-ltl-bg px-4 py-16 sm:px-6 lg:px-8">
+    <div className="ltl-theme-magazine ltl-media-page min-h-screen px-4 py-16 sm:px-6 lg:px-8">
       <motion.div
         initial="hidden"
         whileInView="visible"

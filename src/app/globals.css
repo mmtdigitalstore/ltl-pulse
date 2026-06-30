@@ -7,10 +7,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  /* LTL Pulse color tokens */
-  --color-ltl-bg: #111111;
-  --color-ltl-surface: #1a1a1a;
-  --color-ltl-border: #2a2a2a;
+  /* LTL tokens — values come from scoped theme classes on :root / wrappers */
+  --color-ltl-bg: var(--ltl-bg);
+  --color-ltl-surface: var(--ltl-surface);
+  --color-ltl-border: var(--ltl-border);
   --color-ltl-accent: #ffb400;
   --color-ltl-accent-hover: #e6a200;
   --color-ltl-brand: #0b2072;
@@ -90,52 +90,57 @@
   }
 }
 
-/* Dark mode is the LTL Pulse default */
+/* Dark mode is the LTL Pulse default — softened magazine charcoal (media hub shell) */
 :root,
 .dark {
-  --ltl-bg: #111111;
-  --ltl-surface: #1a1a1a;
-  --ltl-border: #2a2a2a;
+  --ltl-magazine-bg: #151518;
+  --ltl-magazine-surface: #1e1e24;
+  --ltl-magazine-border: #2e2e36;
+  --ltl-bg: var(--ltl-magazine-bg);
+  --ltl-bg-deep: #0f0f12;
+  --ltl-surface: var(--ltl-magazine-surface);
+  --ltl-border: var(--ltl-magazine-border);
   --ltl-accent: #ffb400;
   --ltl-accent-hover: #e6a200;
   --ltl-brand: #0b2072;
   --ltl-brand-rgb: 11, 32, 114;
+  --ltl-blackblue-rgb: 10, 8, 27;
   --ltl-accent-rgb: 255, 180, 0;
   --ltl-text-primary: #f5f5f5;
   --ltl-text-secondary: #a0a0a0;
 
-  --background: #111111;
+  --background: var(--ltl-magazine-bg);
   --foreground: #f5f5f5;
-  --card: #1a1a1a;
+  --card: var(--ltl-magazine-surface);
   --card-foreground: #f5f5f5;
-  --popover: #1a1a1a;
+  --popover: var(--ltl-magazine-surface);
   --popover-foreground: #f5f5f5;
   --primary: #ffb400;
-  --primary-foreground: #111111;
-  --secondary: #1a1a1a;
+  --primary-foreground: var(--ltl-magazine-bg);
+  --secondary: var(--ltl-magazine-surface);
   --secondary-foreground: #f5f5f5;
-  --muted: #1a1a1a;
+  --muted: var(--ltl-magazine-surface);
   --muted-foreground: #a0a0a0;
   --accent: #ffb400;
-  --accent-foreground: #111111;
+  --accent-foreground: var(--ltl-magazine-bg);
   --accent-hover: #e6a200;
   --destructive: #ef4444;
-  --border: #2a2a2a;
-  --input: #2a2a2a;
+  --border: var(--ltl-magazine-border);
+  --input: var(--ltl-magazine-border);
   --ring: #ffb400;
   --chart-1: #ffb400;
   --chart-2: #e6a200;
   --chart-3: #a0a0a0;
-  --chart-4: #2a2a2a;
-  --chart-5: #1a1a1a;
+  --chart-4: var(--ltl-magazine-border);
+  --chart-5: var(--ltl-magazine-surface);
   --radius: 0.625rem;
-  --sidebar: #1a1a1a;
+  --sidebar: var(--ltl-magazine-surface);
   --sidebar-foreground: #f5f5f5;
   --sidebar-primary: #ffb400;
-  --sidebar-primary-foreground: #111111;
-  --sidebar-accent: #2a2a2a;
+  --sidebar-primary-foreground: var(--ltl-magazine-bg);
+  --sidebar-accent: var(--ltl-magazine-border);
   --sidebar-accent-foreground: #f5f5f5;
-  --sidebar-border: #2a2a2a;
+  --sidebar-border: var(--ltl-magazine-border);
   --sidebar-ring: #ffb400;
 }
 
@@ -180,6 +185,139 @@
 }
 
 @layer components {
+  /* Magazine — softened charcoal hub (Pulse pages + default site shell) */
+  .ltl-theme-magazine {
+    --ltl-bg: var(--ltl-magazine-bg);
+    --ltl-bg-deep: #0f0f12;
+    --ltl-surface: var(--ltl-magazine-surface);
+    --ltl-border: var(--ltl-magazine-border);
+    --background: var(--ltl-magazine-bg);
+    --card: var(--ltl-magazine-surface);
+    --border: var(--ltl-magazine-border);
+    --secondary: var(--ltl-magazine-surface);
+    --muted: var(--ltl-magazine-surface);
+    --input: var(--ltl-magazine-border);
+    background-color: var(--ltl-bg);
+  }
+
+  /* Platform — black-blue tokens (About, hero, Cadence, auth, pricing) */
+  .ltl-theme-platform {
+    --ltl-bg: color-mix(in srgb, #0a081b 97%, #000000);
+    --ltl-bg-deep: color-mix(in srgb, #050510 97%, #000000);
+    --ltl-surface: #121528;
+    --ltl-border: #252847;
+    --background: color-mix(in srgb, #0a081b 97%, #000000);
+    --card: #121528;
+    --border: #252847;
+    --secondary: #121528;
+    --muted: #121528;
+    --input: #252847;
+  }
+
+  /* Platform gradient wash — pair with .ltl-theme-platform only */
+  .ltl-blackblue-atmosphere {
+    background-color: var(--ltl-bg);
+    background-image:
+      radial-gradient(
+        ellipse 100% 70% at 50% -15%,
+        rgba(var(--ltl-brand-rgb), 0.2),
+        transparent 58%
+      ),
+      radial-gradient(
+        ellipse 85% 55% at 0% 55%,
+        rgba(var(--ltl-blackblue-rgb), 0.85),
+        transparent 62%
+      ),
+      radial-gradient(
+        ellipse 75% 50% at 100% 85%,
+        rgba(var(--ltl-brand-rgb), 0.14),
+        transparent 60%
+      ),
+      linear-gradient(
+        180deg,
+        var(--ltl-bg-deep) 0%,
+        var(--ltl-bg) 38%,
+        #0f1028 72%,
+        var(--ltl-bg-deep) 100%
+      );
+  }
+
+  /* Pulse media pages — editorial flat, no funnel-style glows */
+  .ltl-media-page {
+    background-color: var(--ltl-bg);
+    background-image: none;
+  }
+
+  /*
+   * Hub content container — one reading surface sitewide (charcoal + soft edge).
+   * On platform pages, a light navy phase-in bridges the outer blue wash.
+   */
+  .ltl-media-container {
+    --ltl-bg: var(--ltl-magazine-bg);
+    --ltl-surface: var(--ltl-magazine-surface);
+    --ltl-border: var(--ltl-magazine-border);
+    --background: var(--ltl-magazine-bg);
+    --card: var(--ltl-magazine-surface);
+    --border: var(--ltl-magazine-border);
+    --secondary: var(--ltl-magazine-surface);
+    --muted: var(--ltl-magazine-surface);
+    --input: var(--ltl-magazine-border);
+    border: 1px solid color-mix(in srgb, var(--ltl-border) 88%, rgba(var(--ltl-brand-rgb), 0.14));
+    background:
+      linear-gradient(
+        165deg,
+        color-mix(in srgb, var(--ltl-surface) 90%, rgba(var(--ltl-blackblue-rgb), 0.12)) 0%,
+        var(--ltl-surface) 20%,
+        var(--ltl-surface) 100%
+      );
+    box-shadow:
+      0 24px 48px -28px rgba(0, 0, 0, 0.55),
+      0 0 0 1px rgba(var(--ltl-brand-rgb), 0.05),
+      0 10px 32px -16px rgba(var(--ltl-brand-rgb), 0.1);
+  }
+
+  /* Utility / legal / share pages — charcoal hub with a whisper of brand blue at top */
+  .ltl-hub-page {
+    position: relative;
+    background-color: var(--ltl-bg);
+  }
+
+  .ltl-hub-handoff::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 5rem;
+    pointer-events: none;
+    z-index: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(var(--ltl-brand-rgb), 0.1) 0%,
+      rgba(var(--ltl-blackblue-rgb), 0.05) 45%,
+      transparent 100%
+    );
+  }
+
+  .ltl-hub-page > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* First homepage band below hero — eases platform blue into magazine charcoal */
+  .ltl-hero-handoff::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 7rem;
+    pointer-events: none;
+    z-index: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(var(--ltl-blackblue-rgb), 0.38) 0%,
+      rgba(var(--ltl-blackblue-rgb), 0.08) 55%,
+      transparent 100%
+    );
+  }
+
   /* Atmospheric glows — navy-led, gold reserved for CTAs */
   .ltl-section-glow {
     position: relative;
@@ -293,7 +431,7 @@
 
   .ltl-surface-elevated {
     border: 1px solid color-mix(in srgb, var(--ltl-border) 88%, transparent);
-    background: color-mix(in srgb, var(--ltl-surface) 98%, #000000);
+    background: color-mix(in srgb, var(--ltl-surface) 96%, var(--ltl-bg-deep));
     box-shadow:
       inset 0 1px 0 color-mix(in srgb, #ffffff 5%, transparent),
       0 28px 56px -16px rgba(0, 0, 0, 0.5),
@@ -415,7 +553,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
   }
 
   h1,

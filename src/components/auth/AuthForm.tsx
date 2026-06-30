@@ -48,7 +48,7 @@ export function AuthForm({ mode, callbackError, next = "/" }: AuthFormProps) {
     mode === "login" ? "Create an account" : "Already have an account? Sign in";
 
   return (
-    <Card className="w-full max-w-md border-ltl-border bg-ltl-surface ring-ltl-border/50">
+    <Card className="w-full max-w-md border-transparent bg-transparent shadow-none ring-0">
       <CardHeader className="text-center">
         <CardTitle className="font-heading text-3xl text-ltl-accent">
           {title}

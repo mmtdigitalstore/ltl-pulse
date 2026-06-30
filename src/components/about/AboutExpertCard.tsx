@@ -59,7 +59,7 @@ export function AboutExpertCard({
       id={id}
       aria-current={isFocused ? "true" : undefined}
       className={cn(
-        "flex h-full scroll-mt-24 flex-col rounded-xl border border-ltl-border bg-ltl-surface p-6 transition-[border-color,box-shadow,opacity] duration-300 hover:border-ltl-border/90 md:p-7",
+        "flex h-full scroll-mt-24 flex-col rounded-xl ltl-theme-magazine ltl-media-container p-6 transition-[border-color,box-shadow,opacity] duration-300 md:p-7",
         className,
       )}
     >

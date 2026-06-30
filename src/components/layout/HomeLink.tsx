@@ -1,15 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import type { ComponentProps } from "react";
 
 type HomeLinkProps = Omit<ComponentProps<typeof Link>, "href">;
 
 /** Home logo/brand link — scrolls to top when already on the homepage. */
 export function HomeLink({ onClick, ...props }: HomeLinkProps) {
-  const pathname = usePathname();
-
   return (
     <Link
       href="/"
@@ -17,7 +14,14 @@ export function HomeLink({ onClick, ...props }: HomeLinkProps) {
       onClick={(event) => {
         onClick?.(event);
 
-        if (event.defaultPrevented || pathname !== "/") {
+        if (event.defaultPrevented) {
+          return;
+        }
+
+        const onHome =
+          window.location.pathname === "/" || window.location.pathname === "";
+
+        if (!onHome) {
           return;
         }
 

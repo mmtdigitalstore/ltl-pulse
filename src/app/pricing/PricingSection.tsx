@@ -51,7 +51,7 @@ export default function PricingSection() {
   const endsLabel = foundingEndsLabel();
 
   return (
-    <section className="ltl-section-glow ltl-glow-dual min-h-[calc(100dvh-4rem)] bg-ltl-bg px-4 py-16 sm:px-6 lg:px-8">
+    <section className="ltl-theme-platform ltl-blackblue-atmosphere ltl-section-glow ltl-glow-editorial min-h-[calc(100dvh-4rem)] px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <div className="text-center">
           <p className="font-label text-xs uppercase tracking-widest text-ltl-accent">
@@ -66,6 +66,7 @@ export default function PricingSection() {
           </p>
         </div>
 
+        <div className="ltl-theme-magazine ltl-media-container mt-10 rounded-2xl p-6 sm:p-8">
         {foundingOn && (
           <div className="mx-auto mt-8 max-w-2xl rounded-xl border border-ltl-accent/35 bg-ltl-accent/10 px-5 py-4 text-center">
             <p className="font-heading text-sm font-semibold text-ltl-text-primary">
@@ -166,6 +167,7 @@ export default function PricingSection() {
         <p className="mt-6 text-center text-xs text-ltl-text-secondary">
           Prices in USD. Cancel anytime. Annual plans billed once per year.
         </p>
+        </div>
       </div>
     </section>
   );

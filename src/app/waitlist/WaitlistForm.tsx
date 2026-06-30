@@ -13,6 +13,9 @@ type Status = "idle" | "submitting" | "success" | "error";
 const fieldClassName =
   "mt-2 w-full rounded-lg border border-ltl-border bg-ltl-bg px-3 py-2 text-ltl-text-primary outline-none placeholder:text-ltl-text-secondary focus:border-ltl-accent focus:ring-2 focus:ring-ltl-accent/20";
 
+const hubPageClass =
+  "ltl-theme-magazine ltl-hub-page ltl-hub-handoff relative min-h-[calc(100dvh-4rem)] bg-ltl-bg px-4 py-16 sm:px-6";
+
 export default function WaitlistForm({ plan }: { plan?: string }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -62,8 +65,8 @@ export default function WaitlistForm({ plan }: { plan?: string }) {
 
   if (status === "success") {
     return (
-      <section className="min-h-[calc(100dvh-4rem)] bg-ltl-bg px-4 py-16 sm:px-6">
-        <div className="mx-auto max-w-md rounded-2xl border border-ltl-border bg-ltl-surface p-8 text-center">
+      <section className={hubPageClass}>
+        <div className="mx-auto max-w-md ltl-media-container rounded-2xl p-8 text-center">
           <div className="mx-auto flex size-14 items-center justify-center rounded-full bg-ltl-accent/15 ring-1 ring-ltl-accent/30">
             <span className="text-2xl font-bold text-ltl-accent" aria-hidden>
               ✓
@@ -88,7 +91,7 @@ export default function WaitlistForm({ plan }: { plan?: string }) {
   }
 
   return (
-    <section className="min-h-[calc(100dvh-4rem)] bg-ltl-bg px-4 py-16 sm:px-6">
+    <section className={hubPageClass}>
       <div className="mx-auto max-w-md">
         <div className="text-center">
           <p className="font-label text-xs uppercase tracking-widest text-ltl-accent">
@@ -127,7 +130,7 @@ export default function WaitlistForm({ plan }: { plan?: string }) {
 
         <form
           onSubmit={handleSubmit}
-          className="mt-6 space-y-4 rounded-2xl border border-ltl-border bg-ltl-surface p-6 sm:p-8"
+          className="ltl-media-container mt-6 space-y-4 rounded-2xl p-6 sm:p-8"
         >
           <input type="hidden" name="plan" value={plan ?? ""} />
 
