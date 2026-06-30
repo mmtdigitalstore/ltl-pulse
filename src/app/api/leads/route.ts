@@ -1,9 +1,14 @@
 import { NextResponse } from "next/server";
 
-import { TURNOVER_GUIDE_LEAD_MAGNET } from "@/data/lead-magnets.config";
+import {
+  getLeadMagnetById,
+  getLeadMagnetDownloadUrl,
+  TURNOVER_GUIDE_LEAD_MAGNET,
+} from "@/data/lead-magnets.config";
+import { sendLeadMagnetEmail } from "@/lib/email/send-lead-magnet";
 import { createAdminClient } from "@/lib/supabase/admin";
 
-const ALLOWED_LEAD_MAGNETS = new Set([TURNOVER_GUIDE_LEAD_MAGNET.id]);
+const ALLOWED_LEAD_MAGNETS = new Set<string>([TURNOVER_GUIDE_LEAD_MAGNET.id]);
 
 export async function POST(request: Request) {
   try {
@@ -23,6 +28,15 @@ export async function POST(request: Request) {
 
     if (!ALLOWED_LEAD_MAGNETS.has(leadMagnet)) {
       return NextResponse.json({ error: "Unknown lead magnet." }, { status: 400 });
+    }
+
+    const magnet = getLeadMagnetById(leadMagnet);
+
+    if (!magnet || magnet.status !== "live") {
+      return NextResponse.json(
+        { error: "This guide is not available yet." },
+        { status: 503 },
+      );
     }
 
     const supabase = createAdminClient();
@@ -45,10 +59,27 @@ export async function POST(request: Request) {
       );
     }
 
+    const downloadUrl = getLeadMagnetDownloadUrl(magnet);
+    const emailResult = await sendLeadMagnetEmail({ email, leadMagnetId: leadMagnet });
+
+    if (!emailResult.sent) {
+      console.error("[leads] email delivery failed:", emailResult.error);
+      return NextResponse.json(
+        {
+          error:
+            "We saved your email but could not send the guide right now. Please try again in a few minutes.",
+          downloadUrl,
+        },
+        { status: 502 },
+      );
+    }
+
     return NextResponse.json({
       ok: true,
-      status: "waitlist",
+      status: "delivered",
       leadMagnet,
+      downloadUrl,
+      emailSent: true,
     });
   } catch (error) {
     console.error("[leads] handler error:", error);

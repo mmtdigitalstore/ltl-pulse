@@ -14,6 +14,8 @@ export function EmailCapture() {
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submittedEmail, setSubmittedEmail] = useState("");
+  const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -37,13 +39,21 @@ export function EmailCapture() {
         }),
       });
 
-      const data = (await response.json()) as { error?: string };
+      const data = (await response.json()) as {
+        error?: string;
+        downloadUrl?: string;
+      };
 
       if (!response.ok) {
+        if (data.downloadUrl) {
+          setDownloadUrl(data.downloadUrl);
+        }
         setError(data.error ?? "Something went wrong. Please try again.");
         return;
       }
 
+      setSubmittedEmail(email.trim());
+      setDownloadUrl(data.downloadUrl ?? null);
       setSubmitted(true);
       setEmail("");
     } catch {
@@ -72,21 +82,35 @@ export function EmailCapture() {
         {submitted ? (
           <div className="mt-8 rounded-xl border border-ltl-accent/30 bg-ltl-accent/10 px-6 py-8 text-left sm:text-center">
             <p className="font-heading text-lg font-semibold text-ltl-text-primary">
-              Check your inbox soon.
+              Your guide is on its way.
             </p>
             <p className="mt-3 text-base leading-relaxed text-ltl-text-secondary">
-              We&apos;ll send the guide as soon as it&apos;s ready — plus occasional
-              leadership insights from the Pulse. Unsubscribe anytime.
+              We emailed the download link to{" "}
+              <span className="font-medium text-ltl-text-primary">{submittedEmail}</span>.
+              Check your inbox — and spam — if it doesn&apos;t arrive in a few minutes.
             </p>
+            {downloadUrl ? (
+              <a
+                href={downloadUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(
+                  buttonVariants({ size: "default" }),
+                  "mt-6 inline-flex rounded-md bg-ltl-accent font-semibold text-ltl-bg hover:bg-ltl-accent-hover",
+                )}
+              >
+                Download now
+              </a>
+            ) : null}
             <p className="mt-4 text-sm text-ltl-text-secondary">
-              While you wait, start with a free LTL Conversation on keeping your
+              While you&apos;re here, start with a free LTL Conversation on keeping your
               best people.
             </p>
             <Link
               href="/podcast#turnover"
               className={cn(
-                buttonVariants({ size: "default" }),
-                "mt-6 inline-flex rounded-md bg-ltl-accent font-semibold text-ltl-bg hover:bg-ltl-accent-hover",
+                buttonVariants({ variant: "outline", size: "default" }),
+                "mt-4 inline-flex rounded-md border-ltl-border text-ltl-text-primary hover:bg-ltl-surface",
               )}
             >
               Listen free
@@ -118,6 +142,16 @@ export function EmailCapture() {
                   <p className="text-left text-sm text-destructive" role="alert">
                     {error}
                   </p>
+                ) : null}
+                {downloadUrl && error ? (
+                  <a
+                    href={downloadUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-left text-sm font-medium text-ltl-accent underline-offset-2 hover:underline"
+                  >
+                    Download the guide directly
+                  </a>
                 ) : null}
               </div>
               <Button
