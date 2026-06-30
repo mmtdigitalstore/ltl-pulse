@@ -156,7 +156,7 @@ const menuItemVariants = {
 
 function navTriggerClass(isActive: boolean, className?: string) {
   return cn(
-    "inline-flex items-center gap-0.5 font-sans text-sm font-medium transition-colors duration-200 outline-none",
+    "inline-flex shrink-0 items-center gap-0.5 whitespace-nowrap font-sans text-sm font-medium transition-colors duration-200 outline-none",
     isActive
       ? "text-ltl-accent"
       : "text-ltl-text-secondary hover:text-ltl-text-primary",
@@ -405,16 +405,16 @@ export function Navbar({ user }: { user: User | null }) {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-ltl-border bg-ltl-bg">
-      <nav className="relative mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:gap-4 sm:px-6 lg:gap-6 lg:px-8">
         <Link
           href="/"
           onClick={handleLogoClick}
-          className="font-heading text-xl font-semibold tracking-tight text-ltl-accent transition-opacity hover:opacity-90"
+          className="shrink-0 font-heading text-xl font-semibold tracking-tight text-ltl-accent transition-opacity hover:opacity-90"
         >
           LTL Pulse
         </Link>
 
-        <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 md:flex">
+        <div className="hidden min-w-0 flex-1 items-center justify-center gap-4 lg:flex xl:gap-8">
           <NavDropdown
             label="Pulse"
             isActive={pulseActive}
@@ -431,17 +431,19 @@ export function Navbar({ user }: { user: User | null }) {
               href={link.href}
               label={link.label}
               isActive={isStandaloneNavActive(pathname, link.href)}
+              className="whitespace-nowrap"
             />
           ))}
         </div>
 
-        <div className="hidden items-center gap-6 md:flex">
-          <AuthActions />
+        <div className="hidden shrink-0 items-center gap-3 lg:flex xl:gap-6">
+          <AuthActions className="gap-3 xl:gap-4" />
           <Link
             href="/pricing"
             aria-current={subscribeActive ? "page" : undefined}
             className={cn(
               buttonVariants({ size: "default" }),
+              "whitespace-nowrap",
               subscribeActive
                 ? "rounded-md border border-ltl-accent bg-ltl-accent/15 font-bold text-ltl-accent hover:bg-ltl-accent/25"
                 : "rounded-md bg-ltl-accent font-bold text-ltl-bg hover:bg-ltl-accent-hover",
@@ -453,7 +455,7 @@ export function Navbar({ user }: { user: User | null }) {
 
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
           <SheetTrigger
-            className="md:hidden"
+            className="lg:hidden"
             render={
               <Button
                 variant="ghost"
