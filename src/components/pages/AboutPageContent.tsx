@@ -327,7 +327,7 @@ export function AboutPageContent() {
                   season of hustle.
                 </p>
                 <p className="text-xs italic leading-relaxed text-ltl-text-secondary md:text-sm">
-                  Maxwell Leadership Certified at the Executive Director level ·
+                  Maxwell Leadership Certified — Independent Executive Director ·
                   Cornell-certified in project leadership and systems design · Executive
                   MBA candidate · WebScore digital analyst · Contributing author,
                   Transforming Pain Into Purpose (Vol. 1) · Founder of Market My Training
