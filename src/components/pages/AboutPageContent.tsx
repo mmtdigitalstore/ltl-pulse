@@ -396,7 +396,8 @@ export function AboutPageContent() {
                 <p className="text-xs italic leading-relaxed text-ltl-text-secondary md:text-sm">
                   Maxwell Leadership Certified DISC Coach &amp; Consultant · Registered
                   Engineer (R.Eng.), MSc · Founder of New Version Coaching &amp;
-                  Consulting · 30+ years blending technical rigor with deep human insight.
+                  Consulting · Contributing author, Transforming Pain Into Purpose
+                  (Vol. 3) · 30+ years blending technical rigor with deep human insight.
                 </p>
                 <div>
                   <p className="font-medium text-ltl-text-primary">
@@ -457,7 +458,8 @@ export function AboutPageContent() {
                 <p className="text-xs italic leading-relaxed text-ltl-text-secondary md:text-sm">
                   A three-time president of large, complex organizations with a track
                   record of turnaround and growth — including 300% organizational growth
-                  and $1.75M secured — plus a Juris Doctor and Doctor of Education.
+                  and $1.75M secured — plus a Juris Doctor and Doctor of Education ·
+                  Contributing author, Steps to Good Governance.
                 </p>
                 <div>
                   <p className="font-medium text-ltl-text-primary">

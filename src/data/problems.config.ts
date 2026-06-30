@@ -22,8 +22,6 @@ export const experts: Record<
     /** Problem-framed lane line for the homepage Meet the Experts card. */
     homepageLane?: string;
     contactBio: string;
-    /** Optional credential line on Contact, shown under the title. */
-    contactCredential?: string;
   }
 > = {
   dawn: {
@@ -53,8 +51,6 @@ export const experts: Record<
       "Customer experience, communication & team alignment",
     contactBio:
       "Jackie helps when teams talk past each other, communication is costing you results, or one bad customer moment becomes a pattern.",
-    contactCredential:
-      "Contributing author, Transforming Pain Into Purpose (Vol. 3)",
   },
   lashley: {
     name: "Dr. Sylvan Lashley",
@@ -66,7 +62,6 @@ export const experts: Record<
     homepageLane: "Scaling with structure & financial durability",
     contactBio:
       "Dr. Lashley helps when you're growing but running on chaos — roles, decision rights, accountability, and financial durability need to catch up with demand.",
-    contactCredential: 'Contributing author, Steps to Good Governance',
   },
   joshua: {
     name: "Joshua Ogbonnia",
