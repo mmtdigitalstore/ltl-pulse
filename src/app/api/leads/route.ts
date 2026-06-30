@@ -64,22 +64,14 @@ export async function POST(request: Request) {
 
     if (!emailResult.sent) {
       console.error("[leads] email delivery failed:", emailResult.error);
-      return NextResponse.json(
-        {
-          error:
-            "We saved your email but could not send the guide right now. Please try again in a few minutes.",
-          downloadUrl,
-        },
-        { status: 502 },
-      );
     }
 
     return NextResponse.json({
       ok: true,
-      status: "delivered",
+      status: emailResult.sent ? "delivered" : "saved",
       leadMagnet,
       downloadUrl,
-      emailSent: true,
+      emailSent: emailResult.sent,
     });
   } catch (error) {
     console.error("[leads] handler error:", error);
