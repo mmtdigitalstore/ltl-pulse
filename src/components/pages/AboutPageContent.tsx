@@ -354,7 +354,7 @@ export function AboutPageContent() {
                       lead people
                     </li>
                     <li>
-                      You want a brand and client relationships that bring repeat
+                      You want your brand and client relationships to bring repeat
                       business, not just look good
                     </li>
                   </ul>
