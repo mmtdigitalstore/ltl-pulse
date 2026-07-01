@@ -73,7 +73,7 @@ const aboutPanelClass =
   "ltl-theme-magazine ltl-media-container rounded-xl p-8 md:p-10";
 
 const trustBadges =
-  "Maxwell Leadership Certified team · Cornell-certified · 3 published authors · 100+ years of combined leadership experience";
+  "Maxwell Leadership Certified team · Cornell-certified · Google · Google certified · 3 published authors · 100+ years of combined leadership experience";
 
 const aboutExpertOrder: ExpertId[] = ["dawn", "jackie", "lashley", "joshua"];
 
@@ -157,7 +157,7 @@ const aboutExpertDetails: Record<
   joshua: {
     displayName: "Joshua Ogbonnia, CVO",
     credentials:
-      "Founder & Chief Vision Officer of E Skool Now Group and founder/leader of multiple ventures across technology, media, and education — an award-winning innovator and future-ready voice.",
+      "Google certified · Founder & Chief Vision Officer of E Skool Now Group and founder/leader of multiple ventures across technology, media, and education — an award-winning innovator and future-ready voice.",
     canHelpWhen: [
       "Your business has plateaued and you need fresh ideas and new ways to grow",
       "You know you should be using tech and AI but don't know where to start",
