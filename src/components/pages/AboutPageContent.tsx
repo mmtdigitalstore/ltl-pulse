@@ -244,9 +244,9 @@ export function AboutPageContent() {
             >
               Let&apos;s Talk Leadership with MMTI
             </a>{" "}
-            — premium podcasts, magazine articles, vlogs, and an AI concierge built
-            for ambitious leaders. We exist to help you grow people, strengthen your
-            organization, and navigate change with confidence.
+            — podcasts, magazine articles, vlogs, and Cadence, your AI concierge.
+            We help growing service businesses and the coaches who guide them keep
+            their best people, win loyal customers, and build teams that deliver.
           </p>
         </motion.div>
 

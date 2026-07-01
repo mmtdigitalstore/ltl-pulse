@@ -70,8 +70,8 @@ export function Footer() {
               LTL Pulse
             </HomeLink>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-ltl-text-secondary">
-              Where leadership meets culture. Premium media for ambitious
-              leaders.
+              Where leadership meets culture — practical, future-ready leadership for
+              growing service businesses and the coaches who guide them.
             </p>
             <p className="mt-4 max-w-xs border-l-2 border-ltl-brand/35 pl-3 text-sm leading-relaxed text-ltl-text-secondary">
               Part of{" "}

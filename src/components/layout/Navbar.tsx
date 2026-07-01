@@ -146,10 +146,10 @@ const menuContainerVariants = {
 };
 
 const menuItemVariants = {
-  hidden: { opacity: 0, x: 24 },
+  hidden: { opacity: 0, y: 10 },
   show: {
     opacity: 1,
-    x: 0,
+    y: 0,
     transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
@@ -470,7 +470,7 @@ export function Navbar({ user }: { user: User | null }) {
 
           <SheetContent
             side="right"
-            className="w-full border-ltl-border bg-ltl-bg sm:max-w-xs"
+            className="border-ltl-border bg-ltl-bg pt-12"
           >
             <SheetTitle className="sr-only">Navigation menu</SheetTitle>
 
@@ -478,9 +478,9 @@ export function Navbar({ user }: { user: User | null }) {
               variants={menuContainerVariants}
               initial="hidden"
               animate="show"
-              className="flex h-full flex-col gap-8 pt-10"
+              className="flex min-w-0 flex-col gap-8"
             >
-              <div className="flex flex-col gap-8">
+              <div className="flex min-w-0 flex-col gap-8">
                 <motion.div variants={menuItemVariants}>
                   <MobileNavGroup
                     label="Pulse"
@@ -514,7 +514,7 @@ export function Navbar({ user }: { user: User | null }) {
 
               <motion.div
                 variants={menuItemVariants}
-                className="mt-auto flex flex-col gap-4 border-t border-ltl-border pt-6"
+                className="mt-auto flex min-w-0 flex-col gap-4 border-t border-ltl-border pt-6"
               >
                 {user ? (
                   <>
