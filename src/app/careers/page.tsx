@@ -22,7 +22,7 @@ export default function CareersPage() {
         There are no open roles listed at this time. If you would like to express
         interest in working with LTL Pulse, please reach out through our{" "}
         <Link
-          href="/contact"
+          href="/contact#get-in-touch"
           className="font-medium text-ltl-accent underline-offset-2 hover:underline"
         >
           Contact page
