@@ -83,12 +83,12 @@ export function MeetExpertsSection() {
                       expert.homepageBestFor ??
                       expert.bestFor}
                   </p>
-                  <div className="mt-6 flex max-w-xs flex-col gap-3">
+                  <div className="mt-6 flex max-w-xs flex-col gap-3 md:max-w-none md:flex-row md:flex-wrap md:items-center">
                     <Link
                       href={getConciergeHref(id)}
                       className={cn(
                         buttonVariants({ size: "default" }),
-                        "h-10 w-full rounded-md border-transparent bg-ltl-accent font-bold text-ltl-bg shadow-none hover:bg-ltl-accent-hover",
+                        "h-10 w-full rounded-md border-transparent bg-ltl-accent font-bold text-ltl-bg shadow-none hover:bg-ltl-accent-hover md:w-auto md:flex-1",
                       )}
                     >
                       Connect via Cadence
@@ -97,7 +97,7 @@ export function MeetExpertsSection() {
                       href={getExpertHref(id)}
                       className={cn(
                         buttonVariants({ variant: "outline", size: "default" }),
-                        "h-10 w-full rounded-md border-ltl-border bg-transparent text-ltl-text-primary shadow-none hover:bg-ltl-bg hover:text-ltl-text-primary",
+                        "h-10 w-full rounded-md border-ltl-border bg-transparent text-ltl-text-primary shadow-none hover:bg-ltl-bg hover:text-ltl-text-primary md:w-auto md:flex-1",
                       )}
                     >
                       Read bio
