@@ -25,7 +25,7 @@ export function TestimonialsSection() {
   const spotlights = approvedSpotlights();
   const testimonials = approvedTestimonials();
   const [featured, ...wallQuotes] = testimonials;
-  const hasWallContent = spotlights.length > 0 || testimonials.length > 0;
+  const hasTextTestimonials = spotlights.length > 0 || testimonials.length > 0;
 
   return (
     <motion.section
@@ -37,117 +37,98 @@ export function TestimonialsSection() {
       className="relative scroll-mt-16 overflow-hidden border-b border-ltl-border bg-ltl-bg px-4 py-20 sm:px-6 lg:px-8 ltl-section-glow ltl-glow-dual"
     >
       <div className="relative mx-auto max-w-7xl">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-2xl">
-            <p className="font-label text-xs uppercase tracking-widest text-ltl-accent">
-              {testimonialsCopy.kicker}
-            </p>
-            <h2 className="mt-3 font-heading text-3xl font-semibold text-ltl-text-primary md:text-4xl">
-              {testimonialsCopy.heading}
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-ltl-text-secondary md:text-lg">
-              {testimonialsCopy.subhead}
-            </p>
-          </div>
+        {hasTextTestimonials ? (
+          <>
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+              <div className="max-w-2xl">
+                <p className="font-label text-xs uppercase tracking-widest text-ltl-accent">
+                  {testimonialsCopy.kicker}
+                </p>
+                <h2 className="mt-3 font-heading text-3xl font-semibold text-ltl-text-primary md:text-4xl">
+                  {testimonialsCopy.heading}
+                </h2>
+                <p className="mt-4 text-base leading-relaxed text-ltl-text-secondary md:text-lg">
+                  {testimonialsCopy.subhead}
+                </p>
+              </div>
 
-          <Link
-            href={testimonialsCopy.cta.href}
-            className={cn(
-              buttonVariants({ size: "lg" }),
-              "h-11 shrink-0 rounded-md bg-ltl-accent px-6 font-bold text-ltl-bg hover:bg-ltl-accent-hover",
-            )}
-          >
-            {testimonialsCopy.cta.label}
-          </Link>
-        </div>
-
-        {spotlights.length > 0 && (
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={sectionViewport}
-            variants={staggerContainer}
-            className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2"
-          >
-            {spotlights.map((spotlight) => (
-              <motion.div key={spotlight.id} variants={staggerItem}>
-                <SpotlightCard spotlight={spotlight} />
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
-
-        {featured && (
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={sectionViewport}
-            variants={sectionFadeUp}
-            className="mt-12"
-          >
-            <p className="mb-4 font-label text-xs uppercase tracking-widest text-ltl-text-secondary">
-              Shift of the moment
-            </p>
-            <FeaturedQuoteCard testimonial={featured} />
-          </motion.div>
-        )}
-
-        {wallQuotes.length > 0 && (
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={sectionViewport}
-            variants={staggerContainer}
-            className="mt-8 columns-1 gap-6 md:columns-2 lg:columns-3"
-          >
-            {wallQuotes.map((testimonial) => (
-              <motion.div
-                key={testimonial.id}
-                variants={staggerItem}
-                className="mb-6 break-inside-avoid"
+              <Link
+                href={testimonialsCopy.cta.href}
+                className={cn(
+                  buttonVariants({ size: "lg" }),
+                  "h-11 shrink-0 rounded-md bg-ltl-accent px-6 font-bold text-ltl-bg hover:bg-ltl-accent-hover",
+                )}
               >
-                <QuoteCard testimonial={testimonial} />
+                {testimonialsCopy.cta.label}
+              </Link>
+            </div>
+
+            {spotlights.length > 0 && (
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={sectionViewport}
+                variants={staggerContainer}
+                className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2"
+              >
+                {spotlights.map((spotlight) => (
+                  <motion.div key={spotlight.id} variants={staggerItem}>
+                    <SpotlightCard spotlight={spotlight} />
+                  </motion.div>
+                ))}
               </motion.div>
-            ))}
-          </motion.div>
-        )}
+            )}
 
-        {!hasWallContent ? (
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={sectionViewport}
-            variants={sectionFadeUp}
-            className="mt-12 rounded-2xl border border-dashed border-ltl-border bg-ltl-surface/50 px-6 py-10 text-center sm:px-10"
-          >
-            <p className="mx-auto max-w-xl text-base leading-relaxed text-ltl-text-secondary">
-              {testimonialsCopy.emptyWall}
-            </p>
-            <Link
-              href={testimonialsCopy.cta.href}
-              className={cn(
-                buttonVariants({ size: "lg" }),
-                "mt-6 inline-flex h-11 rounded-md bg-ltl-accent px-6 font-bold text-ltl-bg hover:bg-ltl-accent-hover",
-              )}
-            >
-              {testimonialsCopy.cta.label}
-            </Link>
-          </motion.div>
-        ) : (
-          <div className="mt-12 rounded-xl border border-ltl-border bg-ltl-surface/80 px-6 py-5 text-center sm:px-8">
-            <p className="text-sm text-ltl-text-secondary md:text-base">
-              {testimonialsCopy.ctaNote}
-            </p>
-            <Link
-              href={testimonialsCopy.cta.href}
-              className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-ltl-accent hover:underline"
-            >
-              {testimonialsCopy.cta.label} →
-            </Link>
-          </div>
-        )}
+            {featured && (
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={sectionViewport}
+                variants={sectionFadeUp}
+                className="mt-12"
+              >
+                <p className="mb-4 font-label text-xs uppercase tracking-widest text-ltl-text-secondary">
+                  Shift of the moment
+                </p>
+                <FeaturedQuoteCard testimonial={featured} />
+              </motion.div>
+            )}
 
-        <HearFromLeadersSection compact />
+            {wallQuotes.length > 0 && (
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={sectionViewport}
+                variants={staggerContainer}
+                className="mt-8 columns-1 gap-6 md:columns-2 lg:columns-3"
+              >
+                {wallQuotes.map((testimonial) => (
+                  <motion.div
+                    key={testimonial.id}
+                    variants={staggerItem}
+                    className="mb-6 break-inside-avoid"
+                  >
+                    <QuoteCard testimonial={testimonial} />
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
+
+            <div className="mt-12 rounded-xl border border-ltl-border bg-ltl-surface/80 px-6 py-5 text-center sm:px-8">
+              <p className="text-sm text-ltl-text-secondary md:text-base">
+                {testimonialsCopy.ctaNote}
+              </p>
+              <Link
+                href={testimonialsCopy.cta.href}
+                className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-ltl-accent hover:underline"
+              >
+                {testimonialsCopy.cta.label} →
+              </Link>
+            </div>
+          </>
+        ) : null}
+
+        <HearFromLeadersSection compact className={hasTextTestimonials ? undefined : "mt-0"} />
       </div>
     </motion.section>
   );

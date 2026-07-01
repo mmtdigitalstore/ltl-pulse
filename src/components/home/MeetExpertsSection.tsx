@@ -38,7 +38,7 @@ export function MeetExpertsSection() {
           initial="hidden"
           whileInView="visible"
           viewport={sectionViewport}
-          className="mt-10 grid gap-6 md:grid-cols-2"
+          className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2"
         >
           {EXPERT_IDS.map((id) => {
             const expert = experts[id];
@@ -48,7 +48,7 @@ export function MeetExpertsSection() {
               <motion.article
                 key={id}
                 variants={staggerItem}
-                className="flex flex-col gap-5 rounded-xl border border-ltl-border bg-ltl-surface p-6 sm:flex-row sm:items-start"
+                className="flex min-w-0 flex-col gap-5 rounded-xl border border-ltl-border bg-ltl-surface p-6 sm:flex-row sm:items-start"
               >
                 <Link
                   href={getExpertHref(id)}
@@ -83,24 +83,24 @@ export function MeetExpertsSection() {
                       expert.homepageBestFor ??
                       expert.bestFor}
                   </p>
-                  <div className="mt-6 flex flex-wrap gap-3">
-                    <Link
-                      href={getExpertHref(id)}
-                      className={cn(
-                        buttonVariants({ variant: "ghost", size: "default" }),
-                        "h-9 rounded-md px-3 text-sm text-ltl-text-secondary hover:bg-ltl-bg hover:text-ltl-text-primary",
-                      )}
-                    >
-                      Read bio
-                    </Link>
+                  <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                     <Link
                       href={getConciergeHref(id)}
                       className={cn(
-                        buttonVariants({ variant: "outline", size: "default" }),
-                        "h-9 rounded-md border-ltl-border text-ltl-text-primary hover:bg-ltl-bg",
+                        buttonVariants({ size: "default" }),
+                        "h-10 w-full rounded-md bg-ltl-accent px-4 text-sm font-bold text-ltl-bg hover:bg-ltl-accent-hover sm:w-auto",
                       )}
                     >
                       Connect via Cadence
+                    </Link>
+                    <Link
+                      href={getExpertHref(id)}
+                      className={cn(
+                        buttonVariants({ variant: "outline", size: "default" }),
+                        "h-10 w-full rounded-md border-ltl-border text-ltl-text-primary hover:bg-ltl-bg sm:w-auto",
+                      )}
+                    >
+                      Read bio
                     </Link>
                   </div>
                 </div>

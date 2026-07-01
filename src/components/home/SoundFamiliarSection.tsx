@@ -42,24 +42,24 @@ export function SoundFamiliarSection() {
           initial="hidden"
           whileInView="visible"
           viewport={sectionViewport}
-          className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+          className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5"
         >
           {featured.map((problem) => (
             <motion.div key={problem.id} variants={staggerItem}>
               <Link
                 href={getPodcastHref(problem.id)}
                 className={cn(
-                  "group flex h-full flex-col rounded-xl border border-ltl-border bg-ltl-bg p-4 transition-colors sm:p-5",
+                  "group flex h-full min-w-0 flex-col rounded-xl border border-ltl-border bg-ltl-bg p-5 transition-colors sm:p-6",
                   "hover:border-ltl-accent/50 hover:bg-ltl-bg/80",
                 )}
               >
                 <p className="font-label text-[0.65rem] uppercase tracking-widest text-ltl-accent">
                   Free conversation
                 </p>
-                <p className="mt-2 text-sm leading-relaxed text-ltl-text-primary">
+                <p className="mt-3 text-sm leading-relaxed text-ltl-text-primary sm:text-base">
                   {problem.hook}
                 </p>
-                <p className="mt-2 line-clamp-2 text-xs text-ltl-text-secondary">
+                <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-ltl-text-secondary">
                   {problem.podcast}
                 </p>
                 <p className="mt-3 text-xs font-medium text-ltl-accent group-hover:underline">

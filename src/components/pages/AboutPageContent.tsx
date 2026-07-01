@@ -183,12 +183,10 @@ function Section({
   title,
   children,
   className,
-  accentTitle = false,
 }: {
   title: string;
   children: ReactNode;
   className?: string;
-  accentTitle?: boolean;
 }) {
   return (
     <motion.section
@@ -198,12 +196,7 @@ function Section({
       variants={sectionFadeUp}
       className={cn("mt-16 md:mt-20", className)}
     >
-      <h2
-        className={cn(
-          "font-heading text-2xl font-semibold md:text-3xl",
-          accentTitle ? "text-ltl-accent" : "text-ltl-text-primary",
-        )}
-      >
+      <h2 className="font-heading text-2xl font-semibold text-ltl-text-primary md:text-3xl">
         {title}
       </h2>
       <div className="mt-5 space-y-4 text-base leading-relaxed text-ltl-text-secondary md:text-lg">
@@ -260,7 +253,7 @@ export function AboutPageContent() {
           </p>
         </Section>
 
-        <Section title="Our vision" accentTitle className={aboutPanelClass}>
+        <Section title="Our vision" className={aboutPanelClass}>
           <p>Future-ready leadership, everywhere Let&apos;s Talk Leadership goes.</p>
         </Section>
 
@@ -421,7 +414,7 @@ export function AboutPageContent() {
                 key={track.title}
                 className="ltl-theme-magazine ltl-media-container rounded-lg p-5 md:p-6"
               >
-                <h3 className="font-heading text-lg font-medium text-ltl-accent">
+                <h3 className="font-heading text-lg font-medium text-ltl-text-primary">
                   {track.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-ltl-text-secondary md:text-base">
