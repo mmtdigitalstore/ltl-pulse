@@ -41,6 +41,7 @@ export const experts: Record<
       "Keeping people, building culture & client-flow systems",
     contactBio:
       "Dawn helps when people or pipeline chaos is costing you — retention, culture, developing leaders, and client-flow systems that start with a WebScore diagnostic, then build the backend for repeat clients.",
+    socialUrl: "https://www.linkedin.com/in/dawn-kirk-training",
   },
   jackie: {
     name: "Jackie John",
@@ -53,6 +54,7 @@ export const experts: Record<
       "Customer experience, communication & team alignment",
     contactBio:
       "Jackie helps when teams talk past each other, communication is costing you results, or one bad customer moment becomes a pattern.",
+    socialUrl: "https://www.linkedin.com/in/jamerijohn",
   },
   lashley: {
     name: "Dr. Sylvan Lashley",
@@ -64,6 +66,7 @@ export const experts: Record<
     homepageLane: "Scaling with structure & financial durability",
     contactBio:
       "Dr. Lashley helps when you're growing but running on chaos — roles, decision rights, accountability, and financial durability need to catch up with demand.",
+    socialUrl: "https://www.linkedin.com/in/sylvan-lashley-95257649",
   },
   joshua: {
     name: "Joshua Ogbonnia",
@@ -75,6 +78,7 @@ export const experts: Record<
     homepageLane: "Growth, modernizing & standing out",
     contactBio:
       "Joshua helps when growth has stalled at the market level — new ventures, repositioning, edtech and innovation strategy, and practical AI for competing in a shifting market.",
+    socialUrl: "https://www.linkedin.com/in/joshuamogbonnia",
   },
 };
 

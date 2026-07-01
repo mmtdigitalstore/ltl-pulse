@@ -66,9 +66,22 @@ export function AboutExpertCard({
       <div className="flex flex-col gap-4">
         <ExpertPhoto src={photo.src} alt={photo.alt} name={displayName} size="sm" />
         <div className="min-w-0">
-          <h3 className="font-heading text-lg font-semibold text-ltl-text-primary md:text-xl">
-            {displayName}
-          </h3>
+          <div className="flex flex-wrap items-start gap-x-3 gap-y-1">
+            <h3 className="font-heading text-lg font-semibold text-ltl-text-primary md:text-xl">
+              {displayName}
+            </h3>
+            {socialUrl ? (
+              <a
+                href={socialUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${displayName} on LinkedIn`}
+                className="mt-0.5 inline-flex size-8 shrink-0 items-center justify-center rounded-md text-ltl-text-secondary transition hover:bg-ltl-border/40 hover:text-ltl-accent"
+              >
+                <LinkedInGlyph className="size-4" />
+              </a>
+            ) : null}
+          </div>
           <p className="mt-1 font-label text-xs uppercase tracking-wider text-ltl-accent">
             {role}
           </p>
