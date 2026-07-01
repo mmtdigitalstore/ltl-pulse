@@ -42,7 +42,7 @@ export function SoundFamiliarSection() {
           initial="hidden"
           whileInView="visible"
           viewport={sectionViewport}
-          className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5"
+          className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-5"
         >
           {featured.map((problem) => (
             <motion.div key={problem.id} variants={staggerItem}>
