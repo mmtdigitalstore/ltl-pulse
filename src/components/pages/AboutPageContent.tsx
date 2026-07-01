@@ -73,7 +73,7 @@ const aboutPanelClass =
   "ltl-theme-magazine ltl-media-container rounded-xl p-8 md:p-10";
 
 const trustBadges =
-  "Maxwell Leadership Certified team · Cornell-certified · Google · Google certified · 3 published authors · 100+ years of combined leadership experience";
+  "Maxwell Leadership Certified team · Cornell-certified · Google certified · 3 published authors · 100+ years of combined leadership experience";
 
 const aboutExpertOrder: ExpertId[] = ["dawn", "jackie", "lashley", "joshua"];
 
