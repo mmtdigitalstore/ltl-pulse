@@ -48,8 +48,8 @@ export function AuthForm({ mode, callbackError, next = "/" }: AuthFormProps) {
     mode === "login" ? "Create an account" : "Already have an account? Sign in";
 
   return (
-    <Card className="w-full max-w-md border-transparent bg-transparent shadow-none ring-0">
-      <CardHeader className="text-center">
+    <Card className="w-full border-transparent bg-transparent shadow-none ring-0">
+      <CardHeader className="space-y-3 px-0 pt-0 text-center">
         <CardTitle className="font-heading text-3xl text-ltl-accent">
           {title}
         </CardTitle>
@@ -57,9 +57,9 @@ export function AuthForm({ mode, callbackError, next = "/" }: AuthFormProps) {
           {description}
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="px-0 pb-0">
         <AuthRedirectCapture redirectPath={redirectPath} />
-        <form action={formAction} className="space-y-4">
+        <form action={formAction} className="space-y-5">
           <input type="hidden" name="next" value={redirectPath} />
           {mode === "signup" && (
             <div className="space-y-2">
