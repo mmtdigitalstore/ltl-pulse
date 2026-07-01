@@ -10,6 +10,7 @@ import { buttonVariants } from "@/components/ui/button";
 import {
   experts,
   getConciergeHref,
+  getExpertShortName,
   type ExpertId,
 } from "@/data/problems.config";
 import { cn } from "@/lib/utils";
@@ -50,9 +51,8 @@ export function AboutExpertCard({
   className,
 }: AboutExpertCardProps) {
   const [expanded, setExpanded] = useState(false);
-  const expert = experts[id];
-  const firstName = expert.name.split(/\s+/)[0] ?? expert.name;
-  const socialUrl = expert.socialUrl?.trim();
+  const shortName = getExpertShortName(id);
+  const socialUrl = experts[id].socialUrl?.trim();
 
   return (
     <article
@@ -87,7 +87,7 @@ export function AboutExpertCard({
         aria-expanded={expanded}
         className="mt-5 inline-flex items-center gap-1.5 self-start text-sm font-medium text-ltl-accent transition hover:text-ltl-accent-hover"
       >
-        See how {firstName} can help
+        See how {shortName} can help
         <ChevronDown
           className={cn("size-4 transition-transform", expanded && "rotate-180")}
           aria-hidden
@@ -101,7 +101,7 @@ export function AboutExpertCard({
           </p>
           <div>
             <p className="font-medium text-ltl-text-primary">
-              {firstName} can help you when:
+              {shortName} can help you when:
             </p>
             <ul className="mt-3 list-disc space-y-2 pl-5">
               {canHelpWhen.map((item) => (
@@ -124,7 +124,7 @@ export function AboutExpertCard({
                 "h-10 rounded-md bg-ltl-accent font-bold text-ltl-bg hover:bg-ltl-accent-hover",
               )}
             >
-              Connect with {firstName}
+              Connect with {shortName}
             </Link>
             {socialUrl ? (
               <a

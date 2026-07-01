@@ -267,6 +267,15 @@ export function getConciergeHref(expertId?: ExpertId): string {
   return expertId ? `/concierge?expert=${expertId}` : "/concierge";
 }
 
+/** First name for copy — "Dr. Lashley" for titled names, otherwise the given name. */
+export function getExpertShortName(expertId: ExpertId): string {
+  const parts = experts[expertId].name.split(/\s+/);
+  if (parts[0] === "Dr." && parts.length >= 2) {
+    return `Dr. ${parts[parts.length - 1]}`;
+  }
+  return parts[0] ?? experts[expertId].name;
+}
+
 export function parseExpertId(value: string | undefined | null): ExpertId | null {
   if (value && value in experts) {
     return value as ExpertId;
