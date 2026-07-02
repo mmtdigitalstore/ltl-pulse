@@ -46,8 +46,12 @@ function esc(text) {
     .replace(/'/g, "'\\''");
 }
 
+/** Bump all on-video text ~25% and add a soft edge for readability. */
+const TEXT_SCALE = 1.25;
+
 function drawLine({ text, y, size = 48, color = C.white, font = SERIF_FONT }) {
-  return `drawtext=fontfile='${font}':text='${esc(text)}':fontsize=${size}:fontcolor=${color}:x=(w-text_w)/2:y=${y}`;
+  const fontsize = Math.round(size * TEXT_SCALE);
+  return `drawtext=fontfile='${font}':text='${esc(text)}':fontsize=${fontsize}:fontcolor=${color}:borderw=3:bordercolor=0x000000@0.5:x=(w-text_w)/2:y=${y}`;
 }
 
 function renderScene({ width, height, duration, bg, filters, outFile }) {
