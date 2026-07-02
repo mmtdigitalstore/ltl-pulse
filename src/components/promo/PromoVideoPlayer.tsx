@@ -16,7 +16,7 @@ interface PromoVideoPlayerProps {
   /** Hide title/description under the player (use when copy lives beside it). */
   showCaption?: boolean;
   /** Homepage cinematic frame vs standard embed */
-  variant?: "default" | "feature";
+  variant?: "default" | "feature" | "editorial";
 }
 
 export function PromoVideoPlayer({
@@ -31,6 +31,7 @@ export function PromoVideoPlayer({
   const containerRef = useRef<HTMLDivElement>(null);
   const [isInView, setIsInView] = useState(false);
   const [failed, setFailed] = useState(false);
+  const isEditorial = variant === "editorial";
   const isFeature = variant === "feature";
 
   useEffect(() => {
@@ -57,29 +58,40 @@ export function PromoVideoPlayer({
     return null;
   }
 
+  const landscapeOnly = isEditorial;
+
   return (
     <motion.figure
       ref={containerRef}
-      initial={{ opacity: 0, y: isFeature ? 24 : 16 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: isFeature ? 0.92 : 0.85, y: isFeature ? 24 : 16 }}
+      initial={{ opacity: 0, y: isEditorial ? 12 : isFeature ? 24 : 16 }}
+      animate={
+        isInView
+          ? { opacity: 1, y: 0 }
+          : { opacity: 0.9, y: isEditorial ? 12 : isFeature ? 24 : 16 }
+      }
       transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
       className={cn(showCaption ? "space-y-3" : "space-y-0", className)}
     >
       <div
         className={cn(
-          "relative overflow-hidden bg-ltl-surface",
-          isFeature
-            ? [
-                "rounded-2xl",
-                "ring-1 ring-ltl-accent/15",
-                "shadow-[0_32px_64px_-24px_rgba(0,0,0,0.65),0_0_0_1px_rgba(255,180,0,0.06)]",
-                "mx-auto aspect-[9/16] w-full max-w-[280px] sm:max-w-xs",
-                "md:aspect-video md:max-w-none",
-              ]
-            : [
-                "rounded-xl border border-ltl-border",
-                "mx-auto aspect-[9/16] w-full max-w-sm md:aspect-video md:max-w-none",
-              ],
+          "relative overflow-hidden bg-[#0a081b]",
+          isEditorial && [
+            "aspect-video w-full",
+            "border-y border-ltl-border/60",
+            "shadow-[inset_0_1px_0_rgba(255,180,0,0.08)]",
+          ],
+          isFeature && [
+            "rounded-2xl",
+            "ring-1 ring-ltl-accent/15",
+            "shadow-[0_32px_64px_-24px_rgba(0,0,0,0.65),0_0_0_1px_rgba(255,180,0,0.06)]",
+            "mx-auto aspect-[9/16] w-full max-w-[280px] sm:max-w-xs",
+            "md:aspect-video md:max-w-none",
+          ],
+          !isEditorial &&
+            !isFeature && [
+              "rounded-xl border border-ltl-border bg-ltl-surface",
+              "mx-auto aspect-[9/16] w-full max-w-sm md:aspect-video md:max-w-none",
+            ],
         )}
       >
         {isFeature ? (
@@ -98,23 +110,27 @@ export function PromoVideoPlayer({
         {!isInView ? (
           <div
             className={cn(
-              "flex h-full flex-col items-center justify-center gap-3 px-6",
-              isFeature ? "min-h-[320px] md:min-h-[280px]" : "min-h-[280px] md:min-h-[200px]",
+              "flex h-full min-h-[200px] flex-col items-center justify-center gap-3 px-6",
+              isEditorial && "min-h-0 aspect-video",
+              isFeature && "min-h-[320px] md:min-h-[280px]",
             )}
           >
             <div className="h-px w-16 overflow-hidden bg-ltl-border">
-              <span className="block h-full w-1/2 animate-pulse bg-ltl-accent/80" aria-hidden />
+              <span
+                className="block h-full w-1/2 animate-pulse bg-ltl-accent/80"
+                aria-hidden
+              />
             </div>
-            {isFeature ? null : (
-              <p className="font-label text-[0.65rem] uppercase tracking-widest text-ltl-text-secondary">
-                Preview loads as you scroll
-              </p>
-            )}
           </div>
         ) : (
           <>
             <video
-              className="hidden h-full w-full object-cover md:block"
+              className={cn(
+                "h-full w-full bg-[#0a081b]",
+                landscapeOnly || isEditorial
+                  ? "block object-contain"
+                  : "hidden object-cover md:block",
+              )}
               controls
               playsInline
               preload="metadata"
@@ -123,16 +139,18 @@ export function PromoVideoPlayer({
             >
               <source src={landscapeSrc} type="video/mp4" />
             </video>
-            <video
-              className="block h-full w-full object-cover md:hidden"
-              controls
-              playsInline
-              preload="metadata"
-              aria-label={title}
-              onError={() => setFailed(true)}
-            >
-              <source src={portraitSrc} type="video/mp4" />
-            </video>
+            {!landscapeOnly ? (
+              <video
+                className="block h-full w-full object-cover md:hidden"
+                controls
+                playsInline
+                preload="metadata"
+                aria-label={title}
+                onError={() => setFailed(true)}
+              >
+                <source src={portraitSrc} type="video/mp4" />
+              </video>
+            ) : null}
           </>
         )}
       </div>
