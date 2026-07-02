@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Clock, Eye, Lock, Play } from "lucide-react";
 
+import { Episode01TeaserSection } from "@/components/promo/Episode01TeaserSection";
 import {
   getPodcastSeasonProblems,
   PODCAST_SEASON_EPISODE_COUNT,
@@ -59,6 +60,8 @@ export function PodcastPageContent({
           title="LTL Conversations"
           subtitle="The flagship podcast — free conversations mapped to the problems leaders face most. A new episode unlocks each week."
         />
+
+        <Episode01TeaserSection />
 
         {canPreviewAll ? (
           <p className="mt-6 flex items-start gap-2 rounded-xl border border-ltl-accent/35 bg-ltl-accent/10 px-4 py-3 text-sm leading-relaxed text-ltl-text-primary">
