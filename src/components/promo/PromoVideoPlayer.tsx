@@ -13,10 +13,10 @@ interface PromoVideoPlayerProps {
   /** Tall video — phone / Stories 9:16 */
   portraitSrc: string;
   className?: string;
-  /** Hide title/description under the player (use when copy lives beside it). */
+  /** Title and/or description beneath the video */
   showCaption?: boolean;
-  /** Homepage cinematic frame vs standard embed */
-  variant?: "default" | "feature" | "editorial";
+  /** Borderless trailer-style vs basic embed */
+  variant?: "default" | "cinematic";
 }
 
 export function PromoVideoPlayer({
@@ -31,8 +31,7 @@ export function PromoVideoPlayer({
   const containerRef = useRef<HTMLDivElement>(null);
   const [isInView, setIsInView] = useState(false);
   const [failed, setFailed] = useState(false);
-  const isEditorial = variant === "editorial";
-  const isFeature = variant === "feature";
+  const isCinematic = variant === "cinematic";
 
   useEffect(() => {
     const el = containerRef.current;
@@ -58,110 +57,75 @@ export function PromoVideoPlayer({
     return null;
   }
 
-  const landscapeOnly = isEditorial;
-
   return (
     <motion.figure
       ref={containerRef}
-      initial={{ opacity: 0, y: isEditorial ? 12 : isFeature ? 24 : 16 }}
-      animate={
-        isInView
-          ? { opacity: 1, y: 0 }
-          : { opacity: 0.9, y: isEditorial ? 12 : isFeature ? 24 : 16 }
-      }
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-      className={cn(showCaption ? "space-y-3" : "space-y-0", className)}
+      initial={{ opacity: 0, y: isCinematic ? 20 : 12 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0.88, y: isCinematic ? 20 : 12 }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      className={cn(className)}
     >
       <div
         className={cn(
-          "relative overflow-hidden bg-[#0a081b]",
-          isEditorial && [
-            "aspect-video w-full",
-            "border-y border-ltl-border/60",
-            "shadow-[inset_0_1px_0_rgba(255,180,0,0.08)]",
-          ],
-          isFeature && [
-            "rounded-2xl",
-            "ring-1 ring-ltl-accent/15",
-            "shadow-[0_32px_64px_-24px_rgba(0,0,0,0.65),0_0_0_1px_rgba(255,180,0,0.06)]",
-            "mx-auto aspect-[9/16] w-full max-w-[280px] sm:max-w-xs",
-            "md:aspect-video md:max-w-none",
-          ],
-          !isEditorial &&
-            !isFeature && [
-              "rounded-xl border border-ltl-border bg-ltl-surface",
-              "mx-auto aspect-[9/16] w-full max-w-sm md:aspect-video md:max-w-none",
-            ],
+          "relative w-full overflow-hidden",
+          isCinematic
+            ? "aspect-video bg-transparent"
+            : [
+                "rounded-xl border border-ltl-border bg-ltl-surface",
+                "mx-auto aspect-[9/16] max-w-sm md:aspect-video md:max-w-none",
+              ],
         )}
       >
-        {isFeature ? (
-          <>
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-[#0a081b]/50 via-transparent to-transparent"
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute left-6 top-6 z-10 h-8 w-px bg-ltl-accent/70"
-            />
-          </>
-        ) : null}
-
         {!isInView ? (
           <div
             className={cn(
-              "flex h-full min-h-[200px] flex-col items-center justify-center gap-3 px-6",
-              isEditorial && "min-h-0 aspect-video",
-              isFeature && "min-h-[320px] md:min-h-[280px]",
+              "flex aspect-video items-center justify-center",
+              !isCinematic && "min-h-[200px]",
             )}
-          >
-            <div className="h-px w-16 overflow-hidden bg-ltl-border">
-              <span
-                className="block h-full w-1/2 animate-pulse bg-ltl-accent/80"
-                aria-hidden
-              />
-            </div>
-          </div>
+            aria-hidden
+          />
         ) : (
-          <>
-            <video
-              className={cn(
-                "h-full w-full bg-[#0a081b]",
-                landscapeOnly || isEditorial
-                  ? "block object-contain"
-                  : "hidden object-cover md:block",
-              )}
-              controls
-              playsInline
-              preload="metadata"
-              aria-label={title}
-              onError={() => setFailed(true)}
-            >
-              <source src={landscapeSrc} type="video/mp4" />
-            </video>
-            {!landscapeOnly ? (
-              <video
-                className="block h-full w-full object-cover md:hidden"
-                controls
-                playsInline
-                preload="metadata"
-                aria-label={title}
-                onError={() => setFailed(true)}
-              >
-                <source src={portraitSrc} type="video/mp4" />
-              </video>
-            ) : null}
-          </>
+          <video
+            className="block h-full w-full bg-transparent object-contain"
+            controls
+            playsInline
+            preload="metadata"
+            aria-label={title}
+            onError={() => setFailed(true)}
+          >
+            <source src={landscapeSrc} type="video/mp4" />
+          </video>
         )}
       </div>
 
-      {showCaption ? (
-        <figcaption className="space-y-1">
-          <p className="font-heading text-lg font-medium text-ltl-text-primary md:text-xl">
-            {title}
-          </p>
+      {showCaption && (title || description) ? (
+        <figcaption
+          className={cn(
+            "space-y-2",
+            isCinematic
+              ? "mx-auto mt-5 max-w-2xl text-center md:mt-7"
+              : "mt-3",
+          )}
+        >
+          {title ? (
+            <p
+              className={cn(
+                "font-heading text-ltl-text-primary",
+                isCinematic
+                  ? "text-xl font-medium md:text-2xl"
+                  : "text-lg font-medium md:text-xl",
+              )}
+            >
+              {title}
+            </p>
+          ) : null}
           {description ? (
-            <p className="text-sm leading-relaxed text-ltl-text-secondary md:text-base">
+            <p
+              className={cn(
+                "leading-relaxed text-ltl-text-secondary",
+                isCinematic ? "text-base md:text-lg" : "text-sm md:text-base",
+              )}
+            >
               {description}
             </p>
           ) : null}

@@ -10,30 +10,35 @@ export function Episode01TeaserSection() {
   const promo = PROMO_VIDEOS.episode01;
 
   return (
-    <section className="mb-10 rounded-xl border border-ltl-border bg-ltl-surface/60 p-4 sm:p-6">
-      <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <p className="font-label text-xs uppercase tracking-widest text-ltl-accent">
-            Episode 1 teaser
-          </p>
-          <h2 className="mt-1 font-heading text-xl font-semibold text-ltl-text-primary sm:text-2xl">
-            Where leadership meets culture
-          </h2>
+    <section className="mb-12">
+      <div className="mx-auto max-w-3xl text-center">
+        <p className="font-label text-[0.7rem] uppercase tracking-[0.32em] text-ltl-accent">
+          Episode 1
+        </p>
+
+        <h2 className="mt-4 font-heading text-2xl font-semibold leading-tight text-ltl-text-primary sm:text-3xl md:text-4xl">
+          Where leadership meets culture
+        </h2>
+
+        <div className="mt-8 md:mt-10">
+          <PromoVideoPlayer
+            title=""
+            description={promo.description}
+            landscapeSrc={promo.landscape}
+            portraitSrc={promo.portrait}
+            variant="cinematic"
+            showCaption
+          />
         </div>
+
         <Link
           href={promo.podcastHref}
-          className="inline-flex items-center gap-1 text-sm font-medium text-ltl-accent hover:underline"
+          className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-ltl-accent hover:underline"
         >
           Episode details
           <ArrowRight className="size-3.5" aria-hidden />
         </Link>
       </div>
-      <PromoVideoPlayer
-        title={promo.title}
-        description={promo.description}
-        landscapeSrc={promo.landscape}
-        portraitSrc={promo.portrait}
-      />
     </section>
   );
 }
