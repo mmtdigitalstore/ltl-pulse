@@ -1,0 +1,4 @@
+file '/Users/dawnkirk/Desktop/LTL-Pulse/public/promo/.tmp/episode-01-portrait.mp4-0.mp4'
+file '/Users/dawnkirk/Desktop/LTL-Pulse/public/promo/.tmp/episode-01-portrait.mp4-1.mp4'
+file '/Users/dawnkirk/Desktop/LTL-Pulse/public/promo/.tmp/episode-01-portrait.mp4-2.mp4'
+file '/Users/dawnkirk/Desktop/LTL-Pulse/public/promo/.tmp/episode-01-portrait.mp4-3.mp4'

@@ -28,6 +28,8 @@ const SANS_FONT =
     ? "/System/Library/Fonts/Supplemental/Arial.ttf"
     : "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf";
 
+const PODCAST_URL_DISPLAY = "ltlpulse.com/podcast";
+
 const C = {
   gold: "0xFFB400",
   white: "0xF5F5F5",
@@ -163,7 +165,7 @@ function buildLaunchTrailerLandscape() {
       filters: [
         drawLine({ text: "Listen free", y: h * 0.38, size: 88, color: C.gold }),
         drawLine({
-          text: "ltl-pulse.vercel.app/podcast",
+          text: PODCAST_URL_DISPLAY,
           y: h * 0.52,
           size: 46,
           color: C.gray,
@@ -226,7 +228,7 @@ function buildLaunchTrailerPortrait() {
           color: C.gold,
         }),
         drawLine({
-          text: "ltl-pulse.vercel.app/podcast",
+          text: PODCAST_URL_DISPLAY,
           y: h * 0.52,
           size: 38,
           color: C.gray,
@@ -378,7 +380,7 @@ function buildEpisode01Portrait() {
       bg: C.teaserBg,
       filters: [
         drawLine({
-          text: "ltl-pulse.vercel.app/podcast",
+          text: PODCAST_URL_DISPLAY,
           y: h * 0.44,
           size: 36,
           color: C.gray,

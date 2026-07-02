@@ -1,3 +1,7 @@
+/** Public podcast URL for promos and CTAs */
+export const PROMO_PODCAST_URL = "https://ltlpulse.com/podcast";
+export const PROMO_PODCAST_URL_DISPLAY = "ltlpulse.com/podcast";
+
 /** Self-hosted promo MP4s in /public/promo — run `npm run generate:promo` to create them. */
 export const PROMO_VIDEOS = {
   launchTrailer: {

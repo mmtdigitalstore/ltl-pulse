@@ -59,9 +59,6 @@ export function PromoVideoPlayer({
             {description}
           </p>
         ) : null}
-        <p className="font-label text-[0.65rem] uppercase tracking-widest text-ltl-text-secondary">
-          Silent preview — add background music or a voiceover in your editor
-        </p>
       </figcaption>
     </figure>
   );
