@@ -49,13 +49,54 @@ function esc(text) {
 /** Bump all on-video text ~25% and add a soft edge for readability. */
 const TEXT_SCALE = 1.25;
 
-function drawLine({ text, y, size = 48, color = C.white, font = SERIF_FONT }) {
-  const fontsize = Math.round(size * TEXT_SCALE);
-  return `drawtext=fontfile='${font}':text='${esc(text)}':fontsize=${fontsize}:fontcolor=${color}:borderw=3:bordercolor=0x000000@0.5:x=(w-text_w)/2:y=${y}`;
+/** Scene fade — soft trailer-style in/out between title cards. */
+const SCENE_FADE = 0.4;
+
+/** Default line fade-in timing (seconds). */
+const LINE_FADE = 0.55;
+const LINE_STAGGER = 0.5;
+const LINE_BASE_DELAY = 0.45;
+
+function fadeAlphaExpr(delay, fadeIn) {
+  const end = delay + fadeIn;
+  return `if(lt(t\\,${delay})\\,0\\,if(lt(t\\,${end})\\,(t-${delay})/${fadeIn}\\,1))`;
 }
 
-function renderScene({ width, height, duration, bg, filters, outFile }) {
-  const vf = filters.join(",");
+function drawLine({
+  text,
+  y,
+  size = 48,
+  color = C.white,
+  font = SERIF_FONT,
+  delay = LINE_BASE_DELAY,
+  fadeIn = LINE_FADE,
+}) {
+  const fontsize = Math.round(size * TEXT_SCALE);
+  const alpha = fadeAlphaExpr(delay, fadeIn);
+  return `drawtext=fontfile='${font}':text='${esc(text)}':fontsize=${fontsize}:fontcolor=${color}:borderw=3:bordercolor=0x000000@0.5:x=(w-text_w)/2:y=${y}:alpha='${alpha}'`;
+}
+
+/** Stagger multiple on-video lines within a scene. */
+function sceneLines(lines, { baseDelay = LINE_BASE_DELAY, stagger = LINE_STAGGER, fadeIn = LINE_FADE } = {}) {
+  return lines.map((line, index) =>
+    drawLine({
+      ...line,
+      delay: baseDelay + index * stagger,
+      fadeIn,
+    }),
+  );
+}
+
+function renderScene({ width, height, duration, bg, filters, outFile, sceneFade = true }) {
+  const parts = [];
+  if (sceneFade) {
+    parts.push(`fade=t=in:st=0:d=${SCENE_FADE}:alpha=1`);
+  }
+  parts.push(...filters);
+  if (sceneFade) {
+    parts.push(`fade=t=out:st=${Math.max(0, duration - SCENE_FADE)}:d=${SCENE_FADE}:alpha=1`);
+  }
+  const vf = parts.join(",");
   execFileSync(
     ffmpeg,
     [
@@ -118,64 +159,64 @@ function buildLaunchTrailerLandscape() {
     {
       d: 5,
       bg: C.trailerBg,
-      filters: [
-        drawLine({
+      filters: sceneLines([
+        {
           text: "Where leadership meets culture",
           y: h * 0.38,
           size: 88,
-        }),
-        drawLine({
+        },
+        {
           text: "Practical leadership for growing service businesses",
           y: h * 0.54,
           size: 48,
           color: C.gray,
           font: SANS_FONT,
-        }),
-      ],
+        },
+      ]),
     },
     {
       d: 6,
       bg: C.trailerBg,
-      filters: [
-        drawLine({ text: "12 free conversations", y: h * 0.36, size: 76 }),
-        drawLine({
+      filters: sceneLines([
+        { text: "12 free conversations", y: h * 0.36, size: 76 },
+        {
           text: "One unlocks every week",
           y: h * 0.5,
           size: 64,
           color: C.gold,
-        }),
-      ],
+        },
+      ]),
     },
     {
       d: 5,
       bg: C.trailerBg,
-      filters: [
-        drawLine({
+      filters: sceneLines([
+        {
           text: "Season 1 begins",
           y: h * 0.36,
           size: 72,
           color: C.gold,
-        }),
-        drawLine({
+        },
+        {
           text: "Wednesday, November 18, 2026",
           y: h * 0.5,
           size: 58,
-        }),
-      ],
+        },
+      ]),
     },
     {
       d: 5,
       bg: C.trailerBg,
-      filters: [
-        drawLine({ text: "Listen free", y: h * 0.38, size: 88, color: C.gold }),
-        drawLine({
+      filters: sceneLines([
+        { text: "Listen free", y: h * 0.38, size: 88, color: C.gold },
+        {
           text: PODCAST_URL_DISPLAY,
           y: h * 0.52,
           size: 46,
           color: C.gray,
           font: SANS_FONT,
-        }),
-      ],
+        },
+      ]),
     },
   ];
   return renderVideo(scenes, w, h, "launch-trailer-landscape.mp4");
@@ -195,50 +236,50 @@ function buildLaunchTrailerPortrait() {
     {
       d: 4,
       bg: C.trailerBg,
-      filters: [
-        drawLine({
+      filters: sceneLines([
+        {
           text: "Where leadership",
           y: h * 0.36,
           size: 72,
-        }),
-        drawLine({
+        },
+        {
           text: "meets culture",
           y: h * 0.46,
           size: 72,
-        }),
-      ],
+        },
+      ]),
     },
     {
       d: 4,
       bg: C.trailerBg,
-      filters: [
-        drawLine({ text: "12 conversations", y: h * 0.38, size: 64 }),
-        drawLine({
+      filters: sceneLines([
+        { text: "12 conversations", y: h * 0.38, size: 64 },
+        {
           text: "One per week · Free",
           y: h * 0.48,
           size: 52,
           color: C.gold,
-        }),
-      ],
+        },
+      ]),
     },
     {
       d: 4,
       bg: C.trailerBg,
-      filters: [
-        drawLine({
+      filters: sceneLines([
+        {
           text: "Nov 18, 2026",
           y: h * 0.4,
           size: 72,
           color: C.gold,
-        }),
-        drawLine({
+        },
+        {
           text: PODCAST_URL_DISPLAY,
           y: h * 0.52,
           size: 38,
           color: C.gray,
           font: SANS_FONT,
-        }),
-      ],
+        },
+      ]),
     },
   ];
   return renderVideo(scenes, w, h, "launch-trailer-portrait.mp4");
@@ -251,22 +292,22 @@ function buildEpisode01Landscape() {
     {
       d: 3,
       bg: C.teaserBg,
-      filters: [
-        drawLine({
+      filters: sceneLines([
+        {
           text: "LTL CONVERSATIONS",
           y: h * 0.3,
           size: 48,
           color: C.gold,
           font: SANS_FONT,
-        }),
-        drawLine({
+        },
+        {
           text: "EPISODE 1 · COMING SOON",
           y: h * 0.38,
           size: 44,
           color: C.gray,
           font: SANS_FONT,
-        }),
-      ],
+        },
+      ]),
     },
     {
       d: 5,
@@ -282,40 +323,40 @@ function buildEpisode01Landscape() {
     {
       d: 5,
       bg: C.teaserBg,
-      filters: [
-        drawLine({
+      filters: sceneLines([
+        {
           text: "Leadership and culture are the engine",
           y: h * 0.38,
           size: 48,
           color: C.gray,
           font: SANS_FONT,
-        }),
-        drawLine({
+        },
+        {
           text: "that makes your business last.",
           y: h * 0.48,
           size: 48,
           color: C.gray,
           font: SANS_FONT,
-        }),
-      ],
+        },
+      ]),
     },
     {
       d: 4,
       bg: C.teaserBg,
-      filters: [
-        drawLine({
+      filters: sceneLines([
+        {
           text: "Unlocks Wednesday, Nov 18, 2026",
           y: h * 0.38,
           size: 56,
           color: C.gold,
-        }),
-        drawLine({
+        },
+        {
           text: "Free on LTL Pulse",
           y: h * 0.5,
           size: 48,
           font: SANS_FONT,
-        }),
-      ],
+        },
+      ]),
     },
   ];
   return renderVideo(scenes, w, h, "episode-01-landscape.mp4");
@@ -328,56 +369,56 @@ function buildEpisode01Portrait() {
     {
       d: 3,
       bg: C.teaserBg,
-      filters: [
-        drawLine({
+      filters: sceneLines([
+        {
           text: "LTL CONVERSATIONS",
           y: h * 0.32,
           size: 42,
           color: C.gold,
           font: SANS_FONT,
-        }),
-        drawLine({
+        },
+        {
           text: "EPISODE 1 · COMING SOON",
           y: h * 0.38,
           size: 38,
           color: C.gray,
           font: SANS_FONT,
-        }),
-      ],
+        },
+      ]),
     },
     {
       d: 4,
       bg: C.teaserBg,
-      filters: [
-        drawLine({
+      filters: sceneLines([
+        {
           text: "Where leadership",
           y: h * 0.38,
           size: 64,
-        }),
-        drawLine({
+        },
+        {
           text: "meets culture",
           y: h * 0.46,
           size: 64,
-        }),
-      ],
+        },
+      ]),
     },
     {
       d: 4,
       bg: C.teaserBg,
-      filters: [
-        drawLine({
+      filters: sceneLines([
+        {
           text: "Unlocks Wed, Nov 18, 2026",
           y: h * 0.4,
           size: 52,
           color: C.gold,
-        }),
-        drawLine({
+        },
+        {
           text: "Free on LTL Pulse",
           y: h * 0.5,
           size: 44,
           font: SANS_FONT,
-        }),
-      ],
+        },
+      ]),
     },
     {
       d: 4,

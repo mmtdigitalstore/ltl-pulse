@@ -4,7 +4,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 import { PromoVideoPlayer } from "@/components/promo/PromoVideoPlayer";
-import { TrailerTextReveal } from "@/components/promo/TrailerTextReveal";
 import { buttonVariants } from "@/components/ui/button";
 import { PROMO_PODCAST_URL, PROMO_VIDEOS } from "@/data/promo.config";
 import { sectionFadeUp, sectionViewport } from "@/lib/motion";
@@ -28,20 +27,13 @@ export function LaunchTrailerSection() {
       />
 
       <div className="relative mx-auto max-w-4xl text-center">
-        <TrailerTextReveal
-          as="p"
-          text={copy.kicker}
-          className="font-label text-[0.7rem] uppercase tracking-[0.32em] text-ltl-accent"
-          stagger={0.09}
-        />
+        <p className="font-label text-[0.7rem] uppercase tracking-[0.32em] text-ltl-accent">
+          {copy.kicker}
+        </p>
 
-        <TrailerTextReveal
-          as="h2"
-          text={copy.headline}
-          className="mt-5 font-heading text-3xl font-semibold leading-[1.1] tracking-tight text-ltl-text-primary sm:text-4xl md:text-5xl"
-          delay={0.2}
-          stagger={0.07}
-        />
+        <h2 className="mt-5 font-heading text-3xl font-semibold leading-[1.1] tracking-tight text-ltl-text-primary sm:text-4xl md:text-5xl">
+          {copy.headline}
+        </h2>
 
         <div className="mx-auto mt-10 w-[90%] md:mt-12">
           <PromoVideoPlayer
@@ -53,28 +45,17 @@ export function LaunchTrailerSection() {
           />
         </div>
 
-        <TrailerTextReveal
-          text={copy.body}
-          className="mx-auto mt-6 max-w-2xl text-base leading-[1.85] text-ltl-text-secondary sm:mt-8 sm:text-lg"
-          delay={0.15}
-          stagger={0.04}
-        />
+        <p className="mx-auto mt-6 max-w-2xl text-base leading-[1.85] text-ltl-text-secondary sm:mt-8 sm:text-lg">
+          {copy.body}
+        </p>
 
-        <TrailerTextReveal
-          as="p"
-          text={copy.trustLine}
-          className="mt-5 font-label text-[0.65rem] uppercase tracking-[0.22em] text-ltl-text-secondary"
-          delay={0.1}
-          stagger={0.05}
-        />
+        <p className="mt-5 font-label text-[0.65rem] uppercase tracking-[0.22em] text-ltl-text-secondary">
+          {copy.trustLine}
+        </p>
 
-        <TrailerTextReveal
-          as="p"
-          text={copy.seasonLine}
-          className="mt-4 font-heading text-lg italic text-ltl-text-primary/90 md:text-xl"
-          delay={0.25}
-          stagger={0.06}
-        />
+        <p className="mt-4 font-heading text-lg italic text-ltl-text-primary/90 md:text-xl">
+          {copy.seasonLine}
+        </p>
 
         <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-5">
           <Link
