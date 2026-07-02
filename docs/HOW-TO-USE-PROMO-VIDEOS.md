@@ -1,5 +1,23 @@
 # How to use your promo videos (plain English)
 
+## Music workflow (quick checklist)
+
+Use this when adding background music to the silent MP4s for the site or social.
+
+1. **Find the files** — `Desktop → LTL-Pulse → public → promo`  
+   (full path: `/Users/dawnkirk/Desktop/LTL-Pulse/public/promo`)
+2. **Pick the file** — `launch-trailer-landscape.mp4` (homepage) or `episode-01-landscape.mp4` (podcast); use `*-portrait.mp4` for Reels/Stories.
+3. **Canva** — New video design (1920×1080 or 1080×1920) → upload MP4 → **Audio** → download as MP4.
+4. **Rename** the export to match the original filename exactly before replacing.
+5. **Replace** the file in `public/promo` (Finder → **Replace**).
+6. **Preview** — `npm run dev` → homepage or `/podcast` → confirm sound and length.
+7. **Deploy** — commit and push `public/promo/` so Vercel updates the live site.
+8. **Do not** run `npm run generate:promo` after adding music (that remakes silent videos). Only regenerate if on-screen text changes — then redo music in Canva.
+
+Voiceover lines: `docs/promo-scripts-season-1.md` · Full steps below.
+
+---
+
 ## What these videos are for
 
 The on-screen **text tells the story**. The videos are **silent on purpose**.
