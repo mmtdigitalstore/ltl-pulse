@@ -9,6 +9,10 @@ import {
   getPodcastHref,
 } from "@/data/problems.config";
 import {
+  getPodcastUnlockLabel,
+  isPodcastReleased,
+} from "@/lib/content/podcast-release";
+import {
   sectionFadeUp,
   sectionViewport,
   staggerContainer,
@@ -44,17 +48,22 @@ export function SoundFamiliarSection() {
           viewport={sectionViewport}
           className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-5"
         >
-          {featured.map((problem) => (
+          {featured.map((problem) => {
+            const released = isPodcastReleased(problem.id);
+
+            return (
             <motion.div key={problem.id} variants={staggerItem}>
               <Link
                 href={getPodcastHref(problem.id)}
                 className={cn(
                   "group flex h-full min-w-0 flex-col rounded-xl border border-ltl-border bg-ltl-bg p-5 transition-colors sm:p-6",
-                  "hover:border-ltl-accent/50 hover:bg-ltl-bg/80",
+                  released
+                    ? "hover:border-ltl-accent/50 hover:bg-ltl-bg/80"
+                    : "hover:border-ltl-border hover:bg-ltl-bg/90",
                 )}
               >
                 <p className="font-label text-[0.65rem] uppercase tracking-widest text-ltl-accent">
-                  Free conversation
+                  {released ? "Free conversation" : getPodcastUnlockLabel(problem.id)}
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-ltl-text-primary sm:text-base">
                   {problem.hook}
@@ -63,11 +72,12 @@ export function SoundFamiliarSection() {
                   {problem.podcast}
                 </p>
                 <p className="mt-3 text-xs font-medium text-ltl-accent group-hover:underline">
-                  Listen free →
+                  {released ? "Listen free →" : "See episode details →"}
                 </p>
               </Link>
             </motion.div>
-          ))}
+            );
+          })}
         </motion.div>
 
         <div className="mt-8">

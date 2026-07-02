@@ -3,6 +3,7 @@ export type Profile = {
   email: string | null;
   full_name: string | null;
   is_subscriber: boolean;
+  is_team_admin: boolean;
   stripe_customer_id: string | null;
   stripe_subscription_id: string | null;
   subscription_status: string | null;
@@ -29,6 +30,7 @@ export type Database = {
           email?: string | null;
           full_name?: string | null;
           is_subscriber?: boolean;
+          is_team_admin?: boolean;
           stripe_customer_id?: string | null;
           stripe_subscription_id?: string | null;
           subscription_status?: string | null;
@@ -37,6 +39,7 @@ export type Database = {
           email?: string | null;
           full_name?: string | null;
           is_subscriber?: boolean;
+          is_team_admin?: boolean;
           stripe_customer_id?: string | null;
           stripe_subscription_id?: string | null;
           subscription_status?: string | null;

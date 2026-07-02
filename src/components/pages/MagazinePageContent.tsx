@@ -50,7 +50,8 @@ export function MagazinePageContent({ isSubscriber }: MagazinePageContentProps) 
           className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {articles.map((article) => {
-            const isLocked = !article.free && !isSubscriber;
+            const isLocked =
+              !article.released || (!article.free && !isSubscriber);
 
             return (
               <motion.div key={article.problemId} variants={staggerItem}>

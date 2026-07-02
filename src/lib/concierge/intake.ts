@@ -6,6 +6,10 @@ import {
   type ExpertId,
   type Problem,
 } from "@/data/problems.config";
+import {
+  getPodcastUnlockLabel,
+  isPodcastReleased,
+} from "@/lib/content/podcast-release";
 
 function expertShortName(expertId: ExpertId): string {
   return experts[expertId].name.replace(/^Dr\.\s+/i, "").split(" ")[0] ?? experts[expertId].name;
@@ -27,13 +31,17 @@ export function buildCadenceIntakeReply(
   options: { isSubscriber: boolean },
 ): string {
   const expert = experts[problem.owner];
-  const podcastHref = getPodcastHref(problem.id);
-  const lines = [
-    problem.cadenceReply,
-    "",
-    `Free listen — ${problem.podcast}`,
-    podcastHref,
-  ];
+  const lines = [problem.cadenceReply, ""];
+
+  if (isPodcastReleased(problem.id)) {
+    lines.push(`Free listen — ${problem.podcast}`, getPodcastHref(problem.id));
+  } else {
+    lines.push(
+      `This conversation is coming soon — ${problem.podcast}`,
+      getPodcastUnlockLabel(problem.id),
+      getPodcastHref(problem.id),
+    );
+  }
 
   if (options.isSubscriber && problem.tier === "member") {
     lines.push(

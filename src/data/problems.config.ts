@@ -3,6 +3,13 @@
 // Powers: homepage band, content library tags, Cadence routing.
 // =============================================================================
 
+import {
+  isPodcastReleased,
+  PODCAST_RELEASE_ORDER,
+  PODCAST_SEASON_EPISODE_COUNT,
+  type PodcastReleaseOptions,
+} from "@/lib/content/podcast-release";
+
 export type Audience = "smb" | "coach";
 export type ExpertId = "dawn" | "jackie" | "lashley" | "joshua";
 
@@ -98,12 +105,26 @@ export interface Problem {
 
 export const problems: Problem[] = [
   {
+    id: "where-leadership-meets-culture",
+    audience: ["smb", "coach"],
+    owner: "dawn",
+    secondary: "lashley",
+    hook: "You're building a business — but leadership and culture are the engine that makes it last.",
+    podcast: "Where leadership meets culture",
+    magazine: "The Culture Engine: how leadership and culture compound over time",
+    vlog: "Three culture signals your team sends before anyone quits",
+    cadenceChip: "Culture & leadership foundation",
+    cadenceReply:
+      "Culture isn't a poster on the wall — it's what happens when you're not in the room. This Full Table conversation opens Season 1 with the whole LTL team. Start here when you want the big picture before the deep dives.",
+    tier: "member",
+  },
+  {
     id: "losing-customers",
     audience: ["smb"],
     owner: "jackie",
     secondary: "dawn",
     hook: "You're losing customers to one bad interaction — and you can't be everywhere at once.",
-    podcast: "Why one bad moment loses a customer — and how great teams prevent it",
+    podcast: "Why one bad moment loses a customer",
     magazine: "The Frontline Playbook: turning every interaction into loyalty",
     vlog: "3 phrases that save a customer",
     cadenceChip: "Losing customers",
@@ -117,7 +138,7 @@ export const problems: Problem[] = [
     owner: "dawn",
     secondary: "jackie",
     hook: "Your revenue is feast-or-famine — how you win clients lives in your head, not in a system.",
-    podcast: "From feast-or-famine to a full pipeline: building a client-flow system",
+    podcast: "From feast-or-famine to a full pipeline",
     magazine: "Build Your Client-Flow System: CRM, social & reputation that compound",
     vlog: "The 15-minute client-flow audit",
     cadenceChip: "Inconsistent clients / income",
@@ -131,12 +152,12 @@ export const problems: Problem[] = [
     owner: "dawn",
     secondary: "lashley",
     hook: "Your best people keep leaving — and you're not sure why.",
-    podcast: "Why your best people quit — and the conversations that keep them",
+    podcast: "Why your best people leave",
     magazine: "The Real Cost of Turnover — and a retention system that works",
     vlog: "The 'stay conversation', on camera",
     cadenceChip: "People keep leaving",
     cadenceReply:
-      "Turnover is expensive and usually preventable. Dawn's work on culture and retention gets to the why. Start with this free conversation — then I can point you to the deeper playbook.",
+      "Turnover is expensive and usually preventable. Dawn's work on culture and retention gets to the why. Start with this Full Table conversation — then I can point you to the deeper playbook.",
     tier: "pro",
   },
   {
@@ -145,7 +166,7 @@ export const problems: Problem[] = [
     owner: "dawn",
     secondary: "lashley",
     hook: "You were great at the work, got promoted — and nobody taught you to lead.",
-    podcast: "Suddenly the boss: leading well when you were never trained to",
+    podcast: "The leadership no one trained you for",
     magazine: "From Doer to Leader: the first 90 days of leading people",
     vlog: "Your first week leading people",
     cadenceChip: "New to leading people",
@@ -159,7 +180,7 @@ export const problems: Problem[] = [
     owner: "lashley",
     secondary: "dawn",
     hook: "You're growing — but it's chaos, and everything still runs through you.",
-    podcast: "Growing without the chaos: building structure that scales",
+    podcast: "Growing without the chaos",
     magazine: "Scaling with Structure: roles, decision rights & accountability",
     vlog: "Draw your whole org on one page",
     cadenceChip: "Growth feels chaotic",
@@ -172,8 +193,8 @@ export const problems: Problem[] = [
     audience: ["smb", "coach"],
     owner: "joshua",
     secondary: "jackie",
-    hook: "Business has plateaued — you need to modernize and actually get noticed.",
-    podcast: "Stuck and unseen: modernizing a business that's plateaued",
+    hook: "Business has plateaued — you need a new offer or model, not just more hustle.",
+    podcast: "New offer, new model",
     magazine: "The Modernization Checklist: tech, brand & AI for small business",
     vlog: "A founder's AI starter kit",
     cadenceChip: "Stuck / need to grow",
@@ -186,7 +207,7 @@ export const problems: Problem[] = [
     audience: ["smb"],
     owner: "jackie",
     hook: "Your team talks past each other — and it's costing you in errors and friction.",
-    podcast: "When your team talks past each other (and what DISC fixes)",
+    podcast: "From talking past each other to a team that delivers",
     magazine: "Reading the Room: DISC for teams that actually align",
     vlog: "Spot your team's DISC styles in 5 minutes",
     cadenceChip: "Team's not aligned",
@@ -200,13 +221,54 @@ export const problems: Problem[] = [
     owner: "joshua",
     secondary: "jackie",
     hook: "The world's changing fast — AI, new expectations — and you're trying to keep up.",
-    podcast: "Leading through change you didn't ask for",
+    podcast: "Keeping a modern edge with AI",
     magazine: "Future-Ready: leading your business through the next decade",
     vlog: "Leading when everything's shifting",
     cadenceChip: "Keeping up with change / AI",
     cadenceReply:
       "When AI, tech, and market expectations shift faster than your strategy, you need a practical lens — not hype. Joshua leads this conversation on LTL Pulse. Start free here; deeper work spans Pro and Executive.",
     tier: "member",
+  },
+  {
+    id: "leadership-life-plan",
+    audience: ["smb", "coach"],
+    owner: "lashley",
+    secondary: "dawn",
+    hook: "You're successful on paper — but without a life plan, burnout and drift are inevitable.",
+    podcast: "Get a Leadership Life Plan",
+    magazine: "The Leadership Life Plan: designing a career that lasts",
+    vlog: "Three questions for your next five years",
+    cadenceChip: "No life plan / burnout risk",
+    cadenceReply:
+      "Success without a life plan eventually catches up. Dr. Lashley leads this Full Table conversation on building a leadership life plan that outlasts the next quarter. Start free here; deeper advisory work is available when you're ready.",
+    tier: "pro",
+  },
+  {
+    id: "webscore-found-online",
+    audience: ["smb", "coach"],
+    owner: "dawn",
+    hook: "Great work doesn't show up online — prospects can't find you or choose you.",
+    podcast: "Getting found & chosen online (WebScore)",
+    magazine: "WebScore to Pipeline: getting found and chosen online",
+    vlog: "Your 15-minute WebScore walkthrough",
+    cadenceChip: "Not getting found online",
+    cadenceReply:
+      "If prospects can't find you or understand why to choose you, pipeline stays feast-or-famine. Dawn starts with WebScore to measure your digital footprint, then maps the gaps. Here's a free conversation to start; the full client-flow system lives in Pro.",
+    tier: "pro",
+  },
+  {
+    id: "planning-backwards",
+    audience: ["smb", "coach"],
+    owner: "lashley",
+    secondary: "joshua",
+    hook: "Big goals feel overwhelming until you plan backwards from the outcome you want.",
+    podcast: "Planning Backwards",
+    magazine: "Planning Backwards: from vision to weekly moves",
+    vlog: "Start at the finish line",
+    cadenceChip: "Big goals feel overwhelming",
+    cadenceReply:
+      "When the goal is big and the path is fuzzy, planning backwards turns vision into weekly moves. Dr. Lashley closes Season 1 with this Full Table conversation. Start free here; we can go deeper in Pro or advisory.",
+    tier: "pro",
   },
 ];
 
@@ -252,12 +314,30 @@ export function getFeaturedProblems(count = 3): Problem[] {
   return problems.slice(0, count);
 }
 
-/** Top three problem-led podcasts for the homepage featured band. */
+/** Top three problem-led podcasts for the homepage featured band (released only). */
 export function getFeaturedPodcastProblems(): Problem[] {
-  return FEATURED_PODCAST_IDS.map((id) => getProblemById(id)).filter(
+  return FEATURED_PODCAST_IDS.map((id) => getProblemById(id))
+    .filter((p): p is Problem => p != null)
+    .filter((p) => isPodcastReleased(p.id));
+}
+
+/** Season order — released and upcoming conversations for the podcast page. */
+export function getPodcastSeasonProblems(): Problem[] {
+  return PODCAST_RELEASE_ORDER.map((id) => getProblemById(id)).filter(
     (p): p is Problem => p != null,
   );
 }
+
+export function getReleasedPodcastProblems(
+  now: Date = new Date(),
+  options?: PodcastReleaseOptions,
+): Problem[] {
+  return getPodcastSeasonProblems().filter((problem) =>
+    isPodcastReleased(problem.id, now, options),
+  );
+}
+
+export { PODCAST_SEASON_EPISODE_COUNT };
 
 export function getPodcastHref(problemId: string): string {
   return `/podcast#${problemId}`;

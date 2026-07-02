@@ -8,10 +8,12 @@ import {
 import { getCadenceKnowledge } from "@/lib/concierge/knowledge";
 import { buildAdvisoryKnowledgeSection } from "@/lib/concierge/advisory";
 import { problems, getExpertHref, getPodcastHref } from "@/data/problems.config";
+import { isPodcastReleased } from "@/lib/content/podcast-release";
 import type { ConciergeTier } from "@/lib/concierge/types";
 
 const PROBLEMS_CONTEXT = `Problem routing (use for content recommendations — titles only, from this list):
 ${problems
+  .filter((p) => isPodcastReleased(p.id))
   .map(
     (p) =>
       `- ${p.id}: ${p.cadenceChip} → free podcast ${getPodcastHref(p.id)}, expert bio ${getExpertHref(p.owner)}`,

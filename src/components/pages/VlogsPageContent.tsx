@@ -49,7 +49,7 @@ export function VlogsPageContent({ isSubscriber }: VlogsPageContentProps) {
           className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {vlogs.map((vlog) => {
-            const isLocked = !vlog.free && !isSubscriber;
+            const isLocked = !vlog.released || (!vlog.free && !isSubscriber);
 
             return (
               <motion.div key={vlog.problemId} variants={staggerItem}>

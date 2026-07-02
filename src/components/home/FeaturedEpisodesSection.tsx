@@ -19,6 +19,10 @@ import { cn } from "@/lib/utils";
 export function FeaturedEpisodesSection() {
   const featured = getFeaturedPodcastProblems();
 
+  if (featured.length === 0) {
+    return null;
+  }
+
   return (
     <motion.section
       initial="hidden"
@@ -33,8 +37,8 @@ export function FeaturedEpisodesSection() {
             Featured free episodes
           </h2>
           <p className="mt-3 text-base leading-relaxed text-ltl-text-secondary md:text-lg">
-            Three conversations owners reach for first — practical, problem-titled,
-            and free to listen.
+            New conversations unlock weekly — practical, problem-titled, and free
+            to listen once they drop.
           </p>
         </div>
 
