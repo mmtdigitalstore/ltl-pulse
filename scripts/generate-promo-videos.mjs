@@ -52,10 +52,34 @@ const TEXT_SCALE = 1.25;
 /** Scene fade — soft trailer-style in/out between title cards. */
 const SCENE_FADE = 0.4;
 
-/** Default line fade-in timing (seconds). */
+/** Default line fade-in timing (seconds) — episode teasers. */
 const LINE_FADE = 0.55;
 const LINE_STAGGER = 0.5;
 const LINE_BASE_DELAY = 0.45;
+
+/** Snappier pacing for homepage launch trailer only. */
+const LAUNCH_TRAILER_TIMING = {
+  sceneFade: 0.3,
+  lineFade: 0.42,
+  lineStagger: 0.34,
+  lineBaseDelay: 0.3,
+};
+
+function launchLine(opts) {
+  return drawLine({
+    ...opts,
+    delay: opts.delay ?? LAUNCH_TRAILER_TIMING.lineBaseDelay,
+    fadeIn: opts.fadeIn ?? LAUNCH_TRAILER_TIMING.lineFade,
+  });
+}
+
+function launchSceneLines(lines) {
+  return sceneLines(lines, {
+    baseDelay: LAUNCH_TRAILER_TIMING.lineBaseDelay,
+    stagger: LAUNCH_TRAILER_TIMING.lineStagger,
+    fadeIn: LAUNCH_TRAILER_TIMING.lineFade,
+  });
+}
 
 function fadeAlphaExpr(delay, fadeIn) {
   const end = delay + fadeIn;
@@ -87,14 +111,14 @@ function sceneLines(lines, { baseDelay = LINE_BASE_DELAY, stagger = LINE_STAGGER
   );
 }
 
-function renderScene({ width, height, duration, bg, filters, outFile, sceneFade = true }) {
+function renderScene({ width, height, duration, bg, filters, outFile, sceneFade = SCENE_FADE }) {
   const parts = [];
   if (sceneFade) {
-    parts.push(`fade=t=in:st=0:d=${SCENE_FADE}:alpha=1`);
+    parts.push(`fade=t=in:st=0:d=${sceneFade}:alpha=1`);
   }
   parts.push(...filters);
   if (sceneFade) {
-    parts.push(`fade=t=out:st=${Math.max(0, duration - SCENE_FADE)}:d=${SCENE_FADE}:alpha=1`);
+    parts.push(`fade=t=out:st=${Math.max(0, duration - sceneFade)}:d=${sceneFade}:alpha=1`);
   }
   const vf = parts.join(",");
   execFileSync(
@@ -150,16 +174,14 @@ function buildLaunchTrailerLandscape() {
   const h = 1080;
   const scenes = [
     {
-      d: 4,
+      d: 3,
       bg: C.trailerBg,
-      filters: [
-        drawLine({ text: "LTL Pulse", y: h * 0.42, size: 120, color: C.gold }),
-      ],
+      filters: [launchLine({ text: "LTL Pulse", y: h * 0.42, size: 120, color: C.gold })],
     },
     {
-      d: 5,
+      d: 4,
       bg: C.trailerBg,
-      filters: sceneLines([
+      filters: launchSceneLines([
         {
           text: "Where leadership meets culture",
           y: h * 0.38,
@@ -175,9 +197,9 @@ function buildLaunchTrailerLandscape() {
       ]),
     },
     {
-      d: 6,
+      d: 4.5,
       bg: C.trailerBg,
-      filters: sceneLines([
+      filters: launchSceneLines([
         { text: "12 free conversations", y: h * 0.36, size: 76 },
         {
           text: "One unlocks every week",
@@ -188,9 +210,9 @@ function buildLaunchTrailerLandscape() {
       ]),
     },
     {
-      d: 5,
+      d: 4,
       bg: C.trailerBg,
-      filters: sceneLines([
+      filters: launchSceneLines([
         {
           text: "Season 1 begins",
           y: h * 0.36,
@@ -205,9 +227,9 @@ function buildLaunchTrailerLandscape() {
       ]),
     },
     {
-      d: 5,
+      d: 4,
       bg: C.trailerBg,
-      filters: sceneLines([
+      filters: launchSceneLines([
         { text: "Listen free", y: h * 0.38, size: 88, color: C.gold },
         {
           text: PODCAST_URL_DISPLAY,
@@ -219,7 +241,9 @@ function buildLaunchTrailerLandscape() {
       ]),
     },
   ];
-  return renderVideo(scenes, w, h, "launch-trailer-landscape.mp4");
+  return renderVideo(scenes, w, h, "launch-trailer-landscape.mp4", {
+    sceneFade: LAUNCH_TRAILER_TIMING.sceneFade,
+  });
 }
 
 function buildLaunchTrailerPortrait() {
@@ -227,16 +251,14 @@ function buildLaunchTrailerPortrait() {
   const h = 1920;
   const scenes = [
     {
-      d: 3,
+      d: 2.5,
       bg: C.trailerBg,
-      filters: [
-        drawLine({ text: "LTL Pulse", y: h * 0.4, size: 96, color: C.gold }),
-      ],
+      filters: [launchLine({ text: "LTL Pulse", y: h * 0.4, size: 96, color: C.gold })],
     },
     {
-      d: 4,
+      d: 3,
       bg: C.trailerBg,
-      filters: sceneLines([
+      filters: launchSceneLines([
         {
           text: "Where leadership",
           y: h * 0.36,
@@ -250,9 +272,9 @@ function buildLaunchTrailerPortrait() {
       ]),
     },
     {
-      d: 4,
+      d: 3,
       bg: C.trailerBg,
-      filters: sceneLines([
+      filters: launchSceneLines([
         { text: "12 conversations", y: h * 0.38, size: 64 },
         {
           text: "One per week · Free",
@@ -263,9 +285,9 @@ function buildLaunchTrailerPortrait() {
       ]),
     },
     {
-      d: 4,
+      d: 3,
       bg: C.trailerBg,
-      filters: sceneLines([
+      filters: launchSceneLines([
         {
           text: "Nov 18, 2026",
           y: h * 0.4,
@@ -282,7 +304,9 @@ function buildLaunchTrailerPortrait() {
       ]),
     },
   ];
-  return renderVideo(scenes, w, h, "launch-trailer-portrait.mp4");
+  return renderVideo(scenes, w, h, "launch-trailer-portrait.mp4", {
+    sceneFade: LAUNCH_TRAILER_TIMING.sceneFade,
+  });
 }
 
 function buildEpisode01Landscape() {
@@ -437,7 +461,7 @@ function buildEpisode01Portrait() {
   return renderVideo(scenes, w, h, "episode-01-portrait.mp4");
 }
 
-function renderVideo(scenes, width, height, filename) {
+function renderVideo(scenes, width, height, filename, { sceneFade = SCENE_FADE } = {}) {
   const segments = scenes.map((scene, index) => {
     const segPath = join(tmpDir, `${filename}-${index}.mp4`);
     renderScene({
@@ -447,6 +471,7 @@ function renderVideo(scenes, width, height, filename) {
       bg: scene.bg,
       filters: scene.filters,
       outFile: segPath,
+      sceneFade,
     });
     return segPath;
   });
