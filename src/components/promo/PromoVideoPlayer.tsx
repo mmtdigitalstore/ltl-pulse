@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { Play } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -23,13 +24,15 @@ export function PromoVideoPlayer({
   title,
   description,
   landscapeSrc,
-  portraitSrc,
+  portraitSrc: _portraitSrc,
   className,
   showCaption = true,
   variant = "default",
 }: PromoVideoPlayerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [isInView, setIsInView] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [failed, setFailed] = useState(false);
   const isCinematic = variant === "cinematic";
 
@@ -53,9 +56,24 @@ export function PromoVideoPlayer({
     return () => observer.disconnect();
   }, []);
 
+  const togglePlayback = () => {
+    const video = videoRef.current;
+    if (!video) {
+      return;
+    }
+
+    if (video.paused) {
+      void video.play();
+    } else {
+      video.pause();
+    }
+  };
+
   if (failed) {
     return null;
   }
+
+  const videoLabel = title || description || "Promo video";
 
   return (
     <motion.figure
@@ -84,13 +102,51 @@ export function PromoVideoPlayer({
             )}
             aria-hidden
           />
+        ) : isCinematic ? (
+          <>
+            <video
+              ref={videoRef}
+              className="block h-full w-full cursor-pointer bg-transparent object-contain"
+              playsInline
+              preload="metadata"
+              aria-label={videoLabel}
+              controls={false}
+              controlsList="nodownload nofullscreen noremoteplayback"
+              disablePictureInPicture
+              disableRemotePlayback
+              onClick={togglePlayback}
+              onPlay={() => setIsPlaying(true)}
+              onPause={() => setIsPlaying(false)}
+              onEnded={() => setIsPlaying(false)}
+              onError={() => setFailed(true)}
+            >
+              <source src={landscapeSrc} type="video/mp4" />
+            </video>
+
+            <button
+              type="button"
+              onClick={togglePlayback}
+              className={cn(
+                "absolute inset-0 flex items-center justify-center transition-opacity duration-300",
+                isPlaying
+                  ? "pointer-events-none opacity-0"
+                  : "bg-black/20 opacity-100 hover:bg-black/30",
+              )}
+              aria-label={isPlaying ? `Pause ${videoLabel}` : `Play ${videoLabel}`}
+              tabIndex={isPlaying ? -1 : 0}
+            >
+              <span className="flex size-16 items-center justify-center rounded-full bg-ltl-accent text-ltl-bg shadow-[0_8px_32px_rgba(0,0,0,0.45)] transition-transform hover:scale-105 sm:size-[4.5rem]">
+                <Play className="ml-1 size-7 fill-current sm:size-8" aria-hidden />
+              </span>
+            </button>
+          </>
         ) : (
           <video
             className="block h-full w-full bg-transparent object-contain"
             controls
             playsInline
             preload="metadata"
-            aria-label={title}
+            aria-label={videoLabel}
             onError={() => setFailed(true)}
           >
             <source src={landscapeSrc} type="video/mp4" />
