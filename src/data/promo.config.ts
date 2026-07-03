@@ -18,6 +18,9 @@ export const PROMO_VIDEOS = {
       "Episode 1 opens Season 1 with the full LTL team — where leadership meets culture, free to listen.",
     landscape: "/promo/launch-trailer-landscape.mp4",
     portrait: "/promo/launch-trailer-portrait.mp4",
+    /** Charcoal grade for the magazine / conversations hub */
+    magazineLandscape: "/promo/launch-trailer-magazine-landscape.mp4",
+    magazinePortrait: "/promo/launch-trailer-magazine-portrait.mp4",
     durationLabel: "30 sec",
     homepage: {
       ...SEASON_1_PROMO,

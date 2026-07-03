@@ -19,8 +19,8 @@ function LaunchTrailerVideo() {
     <div className="mx-auto mt-8 w-[90%] md:mt-10">
       <PromoVideoPlayer
         title={launchPromo.title}
-        landscapeSrc={launchPromo.landscape}
-        portraitSrc={launchPromo.portrait}
+        landscapeSrc={launchPromo.magazineLandscape}
+        portraitSrc={launchPromo.magazinePortrait}
         variant="cinematic"
         showCaption={false}
       />

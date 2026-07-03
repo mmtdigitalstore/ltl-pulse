@@ -161,13 +161,11 @@ function concatSegments(segmentFiles, outFile) {
   );
 }
 
-function buildLaunchTrailerLandscape() {
-  const w = 1920;
-  const h = 1080;
-  const scenes = [
+function launchTrailerLandscapeScenes(h, bg) {
+  return [
     {
       d: 2.8,
-      bg: C.trailerBg,
+      bg,
       filters: launchSceneLines([
         {
           text: "LTL CONVERSATIONS",
@@ -187,7 +185,7 @@ function buildLaunchTrailerLandscape() {
     },
     {
       d: 4,
-      bg: C.trailerBg,
+      bg,
       filters: launchSceneLines([
         {
           text: "Where leadership meets culture",
@@ -205,7 +203,7 @@ function buildLaunchTrailerLandscape() {
     },
     {
       d: 4,
-      bg: C.trailerBg,
+      bg,
       filters: launchSceneLines([
         {
           text: "The full LTL team opens Season 1",
@@ -224,7 +222,7 @@ function buildLaunchTrailerLandscape() {
     },
     {
       d: 3.5,
-      bg: C.trailerBg,
+      bg,
       filters: launchSceneLines([
         {
           text: "Unlocks Wednesday",
@@ -241,7 +239,7 @@ function buildLaunchTrailerLandscape() {
     },
     {
       d: 3.5,
-      bg: C.trailerBg,
+      bg,
       filters: launchSceneLines([
         { text: "Tune in free", y: h * 0.4, size: 84, color: C.gold },
         {
@@ -254,18 +252,13 @@ function buildLaunchTrailerLandscape() {
       ]),
     },
   ];
-  return renderVideo(scenes, w, h, "launch-trailer-landscape.mp4", {
-    sceneFade: LAUNCH_TRAILER_TIMING.sceneFade,
-  });
 }
 
-function buildLaunchTrailerPortrait() {
-  const w = 1080;
-  const h = 1920;
-  const scenes = [
+function launchTrailerPortraitScenes(h, bg) {
+  return [
     {
       d: 2.5,
-      bg: C.trailerBg,
+      bg,
       filters: launchSceneLines([
         {
           text: "LTL CONVERSATIONS",
@@ -285,7 +278,7 @@ function buildLaunchTrailerPortrait() {
     },
     {
       d: 3.2,
-      bg: C.trailerBg,
+      bg,
       filters: launchSceneLines([
         {
           text: "Where leadership",
@@ -301,7 +294,7 @@ function buildLaunchTrailerPortrait() {
     },
     {
       d: 3,
-      bg: C.trailerBg,
+      bg,
       filters: launchSceneLines([
         {
           text: "The engine that makes",
@@ -321,7 +314,7 @@ function buildLaunchTrailerPortrait() {
     },
     {
       d: 3,
-      bg: C.trailerBg,
+      bg,
       filters: launchSceneLines([
         {
           text: "Full LTL team · Season 1",
@@ -338,7 +331,7 @@ function buildLaunchTrailerPortrait() {
     },
     {
       d: 2.8,
-      bg: C.trailerBg,
+      bg,
       filters: launchSceneLines([
         { text: "Tune in free", y: h * 0.4, size: 64, color: C.gold },
         {
@@ -351,9 +344,32 @@ function buildLaunchTrailerPortrait() {
       ]),
     },
   ];
-  return renderVideo(scenes, w, h, "launch-trailer-portrait.mp4", {
+}
+
+function buildLaunchTrailerLandscape(bg, filename) {
+  const w = 1920;
+  const h = 1080;
+  return renderVideo(launchTrailerLandscapeScenes(h, bg), w, h, filename, {
     sceneFade: LAUNCH_TRAILER_TIMING.sceneFade,
   });
+}
+
+function buildLaunchTrailerPortrait(bg, filename) {
+  const w = 1080;
+  const h = 1920;
+  return renderVideo(launchTrailerPortraitScenes(h, bg), w, h, filename, {
+    sceneFade: LAUNCH_TRAILER_TIMING.sceneFade,
+  });
+}
+
+function buildLaunchTrailerPlatform() {
+  buildLaunchTrailerLandscape(C.trailerBg, "launch-trailer-landscape.mp4");
+  buildLaunchTrailerPortrait(C.trailerBg, "launch-trailer-portrait.mp4");
+}
+
+function buildLaunchTrailerMagazine() {
+  buildLaunchTrailerLandscape(C.teaserBg, "launch-trailer-magazine-landscape.mp4");
+  buildLaunchTrailerPortrait(C.teaserBg, "launch-trailer-magazine-portrait.mp4");
 }
 
 function buildEpisode01Landscape() {
@@ -545,8 +561,8 @@ function main() {
 
   console.log("Creating promo MP4 files in public/promo/ …\n");
 
-  buildLaunchTrailerLandscape();
-  buildLaunchTrailerPortrait();
+  buildLaunchTrailerPlatform();
+  buildLaunchTrailerMagazine();
   buildEpisode01Landscape();
   buildEpisode01Portrait();
 
