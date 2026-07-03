@@ -20,11 +20,33 @@ interface PromoVideoPlayerProps {
   variant?: "default" | "cinematic";
 }
 
+function usePortraitPromoVideo() {
+  const [preferPortrait, setPreferPortrait] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 768px) and (orientation: portrait)");
+    const sync = () => setPreferPortrait(query.matches);
+
+    sync();
+    query.addEventListener("change", sync);
+    window.addEventListener("resize", sync);
+    window.addEventListener("orientationchange", sync);
+
+    return () => {
+      query.removeEventListener("change", sync);
+      window.removeEventListener("resize", sync);
+      window.removeEventListener("orientationchange", sync);
+    };
+  }, []);
+
+  return preferPortrait;
+}
+
 export function PromoVideoPlayer({
   title,
   description,
   landscapeSrc,
-  portraitSrc: _portraitSrc,
+  portraitSrc,
   className,
   showCaption = true,
   variant = "default",
@@ -34,7 +56,9 @@ export function PromoVideoPlayer({
   const [isInView, setIsInView] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [failed, setFailed] = useState(false);
+  const preferPortrait = usePortraitPromoVideo();
   const isCinematic = variant === "cinematic";
+  const videoSrc = preferPortrait ? portraitSrc : landscapeSrc;
 
   useEffect(() => {
     const el = containerRef.current;
@@ -55,6 +79,16 @@ export function PromoVideoPlayer({
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !isInView) {
+      return;
+    }
+
+    video.load();
+    setIsPlaying(false);
+  }, [videoSrc, isInView]);
 
   const togglePlayback = () => {
     const video = videoRef.current;
@@ -87,7 +121,9 @@ export function PromoVideoPlayer({
         className={cn(
           "relative w-full overflow-hidden",
           isCinematic
-            ? "aspect-video bg-transparent"
+            ? preferPortrait
+              ? "mx-auto aspect-[9/16] max-w-[min(100%,22rem)] bg-transparent"
+              : "aspect-video bg-transparent"
             : [
                 "rounded-xl border border-ltl-border bg-ltl-surface",
                 "mx-auto aspect-[9/16] max-w-sm md:aspect-video md:max-w-none",
@@ -120,7 +156,7 @@ export function PromoVideoPlayer({
               onEnded={() => setIsPlaying(false)}
               onError={() => setFailed(true)}
             >
-              <source src={landscapeSrc} type="video/mp4" />
+              <source src={videoSrc} type="video/mp4" />
             </video>
 
             <button
@@ -149,7 +185,7 @@ export function PromoVideoPlayer({
             aria-label={videoLabel}
             onError={() => setFailed(true)}
           >
-            <source src={landscapeSrc} type="video/mp4" />
+            <source src={videoSrc} type="video/mp4" />
           </video>
         )}
       </div>

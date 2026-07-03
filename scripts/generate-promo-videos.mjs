@@ -49,6 +49,13 @@ function esc(text) {
 /** Bump all on-video text ~25% and add a soft edge for readability. */
 const TEXT_SCALE = 1.25;
 
+/** Extra bump for 9:16 portrait exports — phone portrait playback. */
+const PORTRAIT_TEXT_BOOST = 1.3;
+
+function portraitSize(size) {
+  return Math.round(size * PORTRAIT_TEXT_BOOST);
+}
+
 /** Scene fade — soft trailer-style in/out between title cards. */
 const SCENE_FADE = 0.4;
 
@@ -263,14 +270,14 @@ function launchTrailerPortraitScenes(h, bg) {
         {
           text: "LTL CONVERSATIONS",
           y: h * 0.34,
-          size: 42,
+          size: portraitSize(42),
           color: C.gold,
           font: SANS_FONT,
         },
         {
           text: "EPISODE 1",
           y: h * 0.4,
-          size: 38,
+          size: portraitSize(38),
           color: C.gray,
           font: SANS_FONT,
         },
@@ -283,12 +290,12 @@ function launchTrailerPortraitScenes(h, bg) {
         {
           text: "Where leadership",
           y: h * 0.36,
-          size: 72,
+          size: portraitSize(72),
         },
         {
           text: "meets culture",
           y: h * 0.46,
-          size: 72,
+          size: portraitSize(72),
         },
       ]),
     },
@@ -299,14 +306,14 @@ function launchTrailerPortraitScenes(h, bg) {
         {
           text: "The engine that makes",
           y: h * 0.38,
-          size: 52,
+          size: portraitSize(52),
           color: C.gray,
           font: SANS_FONT,
         },
         {
           text: "your business last",
           y: h * 0.48,
-          size: 52,
+          size: portraitSize(52),
           color: C.gray,
           font: SANS_FONT,
         },
@@ -319,13 +326,13 @@ function launchTrailerPortraitScenes(h, bg) {
         {
           text: "Full LTL team · Season 1",
           y: h * 0.38,
-          size: 56,
+          size: portraitSize(56),
           color: C.gold,
         },
         {
           text: "Unlocks Nov 18, 2026",
           y: h * 0.48,
-          size: 48,
+          size: portraitSize(48),
         },
       ]),
     },
@@ -333,11 +340,11 @@ function launchTrailerPortraitScenes(h, bg) {
       d: 2.8,
       bg,
       filters: launchSceneLines([
-        { text: "Tune in free", y: h * 0.4, size: 64, color: C.gold },
+        { text: "Tune in free", y: h * 0.4, size: portraitSize(64), color: C.gold },
         {
           text: PODCAST_URL_DISPLAY,
           y: h * 0.52,
-          size: 36,
+          size: portraitSize(36),
           color: C.gray,
           font: SANS_FONT,
         },
@@ -460,14 +467,14 @@ function buildEpisode01Portrait() {
         {
           text: "LTL CONVERSATIONS",
           y: h * 0.32,
-          size: 42,
+          size: portraitSize(42),
           color: C.gold,
           font: SANS_FONT,
         },
         {
           text: "EPISODE 1 · COMING SOON",
           y: h * 0.38,
-          size: 38,
+          size: portraitSize(38),
           color: C.gray,
           font: SANS_FONT,
         },
@@ -480,12 +487,12 @@ function buildEpisode01Portrait() {
         {
           text: "Where leadership",
           y: h * 0.38,
-          size: 64,
+          size: portraitSize(64),
         },
         {
           text: "meets culture",
           y: h * 0.46,
-          size: 64,
+          size: portraitSize(64),
         },
       ]),
     },
@@ -496,13 +503,13 @@ function buildEpisode01Portrait() {
         {
           text: "Unlocks Wed, Nov 18, 2026",
           y: h * 0.4,
-          size: 52,
+          size: portraitSize(52),
           color: C.gold,
         },
         {
           text: "Free on LTL Pulse",
           y: h * 0.5,
-          size: 44,
+          size: portraitSize(44),
           font: SANS_FONT,
         },
       ]),
@@ -514,7 +521,7 @@ function buildEpisode01Portrait() {
         drawLine({
           text: PODCAST_URL_DISPLAY,
           y: h * 0.44,
-          size: 36,
+          size: portraitSize(36),
           color: C.gray,
           font: SANS_FONT,
         }),
