@@ -65,14 +65,6 @@ const LAUNCH_TRAILER_TIMING = {
   lineBaseDelay: 0.3,
 };
 
-function launchLine(opts) {
-  return drawLine({
-    ...opts,
-    delay: opts.delay ?? LAUNCH_TRAILER_TIMING.lineBaseDelay,
-    fadeIn: opts.fadeIn ?? LAUNCH_TRAILER_TIMING.lineFade,
-  });
-}
-
 function launchSceneLines(lines) {
   return sceneLines(lines, {
     baseDelay: LAUNCH_TRAILER_TIMING.lineBaseDelay,
@@ -174,9 +166,24 @@ function buildLaunchTrailerLandscape() {
   const h = 1080;
   const scenes = [
     {
-      d: 3,
+      d: 2.8,
       bg: C.trailerBg,
-      filters: [launchLine({ text: "LTL Pulse", y: h * 0.42, size: 120, color: C.gold })],
+      filters: launchSceneLines([
+        {
+          text: "LTL CONVERSATIONS",
+          y: h * 0.38,
+          size: 52,
+          color: C.gold,
+          font: SANS_FONT,
+        },
+        {
+          text: "EPISODE 1",
+          y: h * 0.48,
+          size: 44,
+          color: C.gray,
+          font: SANS_FONT,
+        },
+      ]),
     },
     {
       d: 4,
@@ -188,52 +195,58 @@ function buildLaunchTrailerLandscape() {
           size: 88,
         },
         {
-          text: "Practical leadership for growing service businesses",
+          text: "The engine that makes your business last",
           y: h * 0.54,
-          size: 48,
+          size: 50,
           color: C.gray,
           font: SANS_FONT,
         },
       ]),
     },
     {
-      d: 4.5,
-      bg: C.trailerBg,
-      filters: launchSceneLines([
-        { text: "12 free conversations", y: h * 0.36, size: 76 },
-        {
-          text: "One unlocks every week",
-          y: h * 0.5,
-          size: 64,
-          color: C.gold,
-        },
-      ]),
-    },
-    {
       d: 4,
       bg: C.trailerBg,
       filters: launchSceneLines([
         {
-          text: "Season 1 begins",
-          y: h * 0.36,
-          size: 72,
+          text: "The full LTL team opens Season 1",
+          y: h * 0.38,
+          size: 62,
           color: C.gold,
         },
         {
-          text: "Wednesday, November 18, 2026",
-          y: h * 0.5,
+          text: "A Full Table conversation — free to listen",
+          y: h * 0.52,
+          size: 46,
+          color: C.gray,
+          font: SANS_FONT,
+        },
+      ]),
+    },
+    {
+      d: 3.5,
+      bg: C.trailerBg,
+      filters: launchSceneLines([
+        {
+          text: "Unlocks Wednesday",
+          y: h * 0.4,
+          size: 68,
+          color: C.gold,
+        },
+        {
+          text: "November 18, 2026",
+          y: h * 0.52,
           size: 58,
         },
       ]),
     },
     {
-      d: 4,
+      d: 3.5,
       bg: C.trailerBg,
       filters: launchSceneLines([
-        { text: "Listen free", y: h * 0.38, size: 88, color: C.gold },
+        { text: "Tune in free", y: h * 0.4, size: 84, color: C.gold },
         {
           text: PODCAST_URL_DISPLAY,
-          y: h * 0.52,
+          y: h * 0.54,
           size: 46,
           color: C.gray,
           font: SANS_FONT,
@@ -253,10 +266,25 @@ function buildLaunchTrailerPortrait() {
     {
       d: 2.5,
       bg: C.trailerBg,
-      filters: [launchLine({ text: "LTL Pulse", y: h * 0.4, size: 96, color: C.gold })],
+      filters: launchSceneLines([
+        {
+          text: "LTL CONVERSATIONS",
+          y: h * 0.34,
+          size: 42,
+          color: C.gold,
+          font: SANS_FONT,
+        },
+        {
+          text: "EPISODE 1",
+          y: h * 0.4,
+          size: 38,
+          color: C.gray,
+          font: SANS_FONT,
+        },
+      ]),
     },
     {
-      d: 3,
+      d: 3.2,
       bg: C.trailerBg,
       filters: launchSceneLines([
         {
@@ -275,12 +303,19 @@ function buildLaunchTrailerPortrait() {
       d: 3,
       bg: C.trailerBg,
       filters: launchSceneLines([
-        { text: "12 conversations", y: h * 0.38, size: 64 },
         {
-          text: "One per week · Free",
+          text: "The engine that makes",
+          y: h * 0.38,
+          size: 52,
+          color: C.gray,
+          font: SANS_FONT,
+        },
+        {
+          text: "your business last",
           y: h * 0.48,
           size: 52,
-          color: C.gold,
+          color: C.gray,
+          font: SANS_FONT,
         },
       ]),
     },
@@ -289,15 +324,27 @@ function buildLaunchTrailerPortrait() {
       bg: C.trailerBg,
       filters: launchSceneLines([
         {
-          text: "Nov 18, 2026",
-          y: h * 0.4,
-          size: 72,
+          text: "Full LTL team · Season 1",
+          y: h * 0.38,
+          size: 56,
           color: C.gold,
         },
         {
+          text: "Unlocks Nov 18, 2026",
+          y: h * 0.48,
+          size: 48,
+        },
+      ]),
+    },
+    {
+      d: 2.8,
+      bg: C.trailerBg,
+      filters: launchSceneLines([
+        { text: "Tune in free", y: h * 0.4, size: 64, color: C.gold },
+        {
           text: PODCAST_URL_DISPLAY,
           y: h * 0.52,
-          size: 38,
+          size: 36,
           color: C.gray,
           font: SANS_FONT,
         },

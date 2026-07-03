@@ -7,20 +7,21 @@ export const PROMO_VIDEOS = {
   launchTrailer: {
     title: "LTL Conversations — Season 1",
     description:
-      "Candid weekly conversations for growing service businesses and the coaches who guide them.",
+      "Episode 1 opens Season 1 with the full LTL team — where leadership meets culture, free to listen.",
     landscape: "/promo/launch-trailer-landscape.mp4",
     portrait: "/promo/launch-trailer-portrait.mp4",
     durationLabel: "30 sec",
     homepage: {
-      kicker: "LTL Conversations",
-      headline: "Leadership for what's coming — not just what's been.",
+      kicker: "LTL Conversations · Season 1",
+      headline:
+        "The conversations your business needs before the next hire, lost customer, or growth push.",
       body:
-        "Built for growing service businesses and the coaches who guide them. Each week, our Maxwell-certified team goes candid on keeping your best people, winning loyal customers, building steadier client-flow, and leading a team that delivers — practical, future-ready, and free to listen.",
+        "Each week: one candid conversation on the problems that actually stall growth — turnover, feast-or-famine revenue, new leaders without a playbook, customer loyalty, and scaling without chaos. Maxwell-certified team. No paywall on the podcast.",
       trustLine:
         "Maxwell Leadership Certified team · Cornell & Google certified experts",
       seasonLine: "Season 1 opens Wednesday, November 18.",
       primaryCta: "Listen free",
-      secondaryCta: "View the season",
+      secondaryCta: "See the 12-episode schedule",
     },
   },
   episode01: {
