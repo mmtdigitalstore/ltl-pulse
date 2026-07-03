@@ -9,7 +9,6 @@ import {
   getPodcastUnlockAt,
   getPodcastUnlockLabel,
   isPodcastReleased,
-  PODCAST_RELEASE_ORDER,
   type PodcastReleaseOptions,
 } from "@/lib/content/podcast-release";
 
@@ -106,9 +105,4 @@ export function formatWeeklyUnlockShort(unlockAt: Date): string {
     day: "numeric",
     year: "numeric",
   });
-}
-
-/** Episode ids that have a self-hosted promo MP4 on the site (expand as assets are added). */
-export function episodeHasPromoVideo(episodeId: string): boolean {
-  return episodeId === PODCAST_RELEASE_ORDER[0];
 }

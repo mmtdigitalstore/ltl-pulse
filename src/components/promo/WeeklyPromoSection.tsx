@@ -6,25 +6,21 @@ import { ArrowRight, Calendar, Play } from "lucide-react";
 import { PromoVideoPlayer } from "@/components/promo/PromoVideoPlayer";
 import { PROMO_VIDEOS } from "@/data/promo.config";
 import {
-  episodeHasPromoVideo,
   formatWeeklyUnlockShort,
   getWeeklyPromoState,
 } from "@/lib/content/weekly-promo";
 import { cn } from "@/lib/utils";
 
-function EpisodePromoVideo({ episodeId }: { episodeId: string }) {
-  if (!episodeHasPromoVideo(episodeId)) {
-    return null;
-  }
+const launchPromo = PROMO_VIDEOS.launchTrailer;
+const podcastCopy = launchPromo.podcastPage;
 
-  const promo = PROMO_VIDEOS.episode01;
-
+function LaunchTrailerVideo() {
   return (
     <div className="mx-auto mt-8 w-[90%] md:mt-10">
       <PromoVideoPlayer
-        title={promo.title}
-        landscapeSrc={promo.landscape}
-        portraitSrc={promo.portrait}
+        title={launchPromo.title}
+        landscapeSrc={launchPromo.landscape}
+        portraitSrc={launchPromo.portrait}
         variant="cinematic"
         showCaption={false}
       />
@@ -124,7 +120,7 @@ export function WeeklyPromoSection() {
       <section className="mb-12" aria-labelledby="weekly-promo-heading">
         <div className="mx-auto max-w-3xl text-center">
           <p className="font-label text-[0.7rem] uppercase tracking-[0.32em] text-ltl-accent">
-            Season 1
+            {podcastCopy.kicker}
           </p>
 
           <h2
@@ -138,13 +134,25 @@ export function WeeklyPromoSection() {
             Episode {featured.episodeNumber}
           </p>
 
-          <EpisodePromoVideo episodeId={featured.id} />
+          <LaunchTrailerVideo />
 
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-ltl-text-secondary md:mt-7 md:text-lg">
+          <p className="mx-auto mt-5 max-w-2xl font-heading text-base italic leading-relaxed text-ltl-text-primary/90 md:mt-7 md:text-lg">
+            {podcastCopy.preLaunchTagline}
+          </p>
+
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-ltl-text-secondary sm:text-lg">
             {featured.hook}
           </p>
 
-          <p className="mt-4 flex items-center justify-center gap-1.5 font-label text-xs uppercase tracking-wider text-ltl-text-secondary">
+          <p className="mt-5 font-label text-[0.65rem] uppercase tracking-[0.22em] text-ltl-text-secondary">
+            {podcastCopy.trustLine}
+          </p>
+
+          <p className="mt-4 font-heading text-lg italic text-ltl-text-primary/90">
+            {podcastCopy.seasonLine}
+          </p>
+
+          <p className="mt-3 flex items-center justify-center gap-1.5 font-label text-xs uppercase tracking-wider text-ltl-text-secondary">
             <Calendar className="size-3.5 shrink-0 text-ltl-accent" aria-hidden />
             {featured.unlockLabel}
           </p>
@@ -181,7 +189,7 @@ export function WeeklyPromoSection() {
       <div className="mx-auto max-w-3xl">
         <div className="text-center">
           <p className="font-label text-[0.7rem] uppercase tracking-[0.32em] text-ltl-accent">
-            This week on LTL Conversations
+            {podcastCopy.kicker}
           </p>
           <h2
             id="weekly-promo-heading"
@@ -192,10 +200,6 @@ export function WeeklyPromoSection() {
               : "Listen now · Coming up next"}
           </h2>
         </div>
-
-        {current && episodeHasPromoVideo(current.id) ? (
-          <EpisodePromoVideo episodeId={current.id} />
-        ) : null}
 
         <div
           className={cn(
@@ -227,6 +231,10 @@ export function WeeklyPromoSection() {
             />
           ) : null}
         </div>
+
+        <p className="mt-6 text-center font-label text-[0.65rem] uppercase tracking-[0.22em] text-ltl-text-secondary">
+          {podcastCopy.trustLine}
+        </p>
       </div>
     </section>
   );

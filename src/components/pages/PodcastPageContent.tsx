@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Clock, Eye, Lock, Play } from "lucide-react";
 
 import { WeeklyPromoSection } from "@/components/promo/WeeklyPromoSection";
+import { PROMO_VIDEOS } from "@/data/promo.config";
 import {
   getPodcastSeasonProblems,
   PODCAST_SEASON_EPISODE_COUNT,
@@ -58,7 +59,7 @@ export function PodcastPageContent({
       >
         <PageHeader
           title="LTL Conversations"
-          subtitle="The flagship podcast — free conversations mapped to the problems leaders face most. A new episode unlocks each week."
+          subtitle={PROMO_VIDEOS.launchTrailer.podcastPage.pageSubtitle}
         />
 
         <WeeklyPromoSection />
