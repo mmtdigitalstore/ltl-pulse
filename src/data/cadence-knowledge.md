@@ -16,7 +16,7 @@ wholesale. Keep the tone warm, practical, and on-brand.
   future-of-work-aware approach to leading people and organizations.
 
 ## What LTL Pulse offers
-- Podcasts — leadership conversations.
+- Podcasts — Season 1 leadership conversations; one new episode unlocks each week (see Podcast pipeline in your system context for the live schedule). Full season at /podcast.
 - Magazine — deep-dive articles on leadership, culture, and strategy.
 - Vlogs — premium video content (subscriber-gated).
 - Cadence (AI Concierge) — quick, practical leadership guidance; Premium unlocks deeper
