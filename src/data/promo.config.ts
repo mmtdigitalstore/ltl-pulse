@@ -16,9 +16,9 @@ export const PROMO_VIDEOS = {
       headline:
         "The conversations your business needs before the next hire, lost customer, or growth push.",
       body:
-        "Each week: one candid conversation on the problems that actually stall growth — turnover, feast-or-famine revenue, new leaders without a playbook, customer loyalty, and scaling without chaos. Maxwell-certified team. No paywall on the podcast.",
+        "Each week: one candid conversation on the problems that actually stall growth — turnover, feast-or-famine revenue, new leaders without a playbook, customer loyalty, and scaling without chaos. Expert-led by certified coaches and specialists. No paywall on the podcast.",
       trustLine:
-        "Maxwell Leadership Certified team · Cornell & Google certified experts",
+        "Maxwell-certified coaches · Cornell systems · Google innovation · doctoral-level strategy",
       seasonLine: "Season 1 opens Wednesday, November 18.",
       primaryCta: "Listen free",
       secondaryCta: "See the 12-episode schedule",
