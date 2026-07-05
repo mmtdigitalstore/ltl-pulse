@@ -34,7 +34,7 @@ export const PROMO_VIDEOS = {
     podcastPage: {
       ...SEASON_1_PROMO,
       pageSubtitle:
-        "Free weekly conversations for growing service businesses and the coaches who guide them — one episode unlocks each week.",
+        "Free weekly episodes for growing service businesses and the coaches who guide them. One unlocks each week.",
       preLaunchTagline:
         "The Full Table conversation that opens the season — whole team, one engine: leadership and culture.",
     },

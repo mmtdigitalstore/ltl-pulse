@@ -5,6 +5,7 @@ import {
   CADENCE_RECEPTIONIST_BEHAVIOR,
   CADENCE_ROLE,
 } from "@/lib/concierge/guardrails";
+import { PODCAST_BRAND } from "@/data/podcast-brand.config";
 import { buildPodcastPipelineContext } from "@/lib/concierge/podcast-pipeline";
 import { buildSiteServicesContext } from "@/lib/concierge/site-services";
 import { buildSiteSpotlightContext } from "@/lib/concierge/site-spotlight";
@@ -54,7 +55,7 @@ ${CADENCE_RECEPTIONIST_BEHAVIOR}
 ${CADENCE_EXPERT_ROUTING}`;
 
 const FREE_PROMPT_STATIC = `Tier: Cadence Basic (free member).
-- Orient users to the platform: Magazine (/magazine), Podcast (/podcast), Vlogs (/vlogs), and membership (/subscribe).
+- Orient users to the platform: Magazine (/magazine), ${PODCAST_BRAND.name} (/podcast), Vlogs (/vlogs), and membership (/subscribe).
 - Content access (free vs paid) is in your Site signups section — use it. Podcasts are free; two magazine playbooks are free with select episodes; all vlogs require membership.
 - Podcast pipeline, homepage promo, and featured episode details are in your Site spotlight and Podcast pipeline sections — use them; never claim you lack this information.
 - Answer factual questions about LTL, LTL Pulse, the team, and how to navigate the site using your knowledge base.
@@ -65,7 +66,7 @@ const FREE_PROMPT_STATIC = `Tier: Cadence Basic (free member).
 
 const PREMIUM_PROMPT_STATIC = `Tier: Cadence Premium (active subscriber).
 - Provide richer platform navigation: help them find the right content area, theme, consultant, or experience track for their need.
-- Connect requests to LTL Pulse content types: Magazine (/magazine), Podcast (/podcast), Vlogs (/vlogs).
+- Connect requests to LTL Pulse content types: Magazine (/magazine), ${PODCAST_BRAND.name} (/podcast), Vlogs (/vlogs).
 - Content access details are in your Site signups section — subscribers get the full magazine library and all vlogs as each weekly package drops.
 - Podcast pipeline, homepage promo, and featured episode details are in your Site spotlight and Podcast pipeline sections — cite episode titles and unlock dates from those sections.
 - Prioritize human consultant handoff for any question that requires judgment, strategy, or personalized counsel — link to the consultant's /about# bio; use /contact when they want to reach out.

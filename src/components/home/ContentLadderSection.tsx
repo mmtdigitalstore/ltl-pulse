@@ -5,14 +5,16 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 import { CadenceIcon } from "@/components/concierge/CadenceIcon";
+import { PODCAST_BRAND } from "@/data/podcast-brand.config";
 import { MAGAZINE_ACCESS_COPY } from "@/data/magazine-access.config";
 import { VLOG_ACCESS_COPY } from "@/data/vlog-access.config";
 import { sectionFadeUp, sectionViewport } from "@/lib/motion";
 
 const ladderSteps = [
   {
-    title: "Free podcasts",
-    description: "LTL Conversations — practical help you can use today, no paywall.",
+    title: PODCAST_BRAND.name,
+    description:
+      "Free weekly episodes — practical help you can use today, no paywall.",
     href: "/podcast",
   },
   {

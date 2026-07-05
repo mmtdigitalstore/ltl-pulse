@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
+import { PODCAST_BRAND } from "@/data/podcast-brand.config";
 import {
   experts,
   getProblemById,
@@ -33,7 +34,7 @@ function linkLabel(href: string): string {
   }
 
   if (href.startsWith("/podcast")) {
-    return "Browse podcasts";
+    return PODCAST_BRAND.name;
   }
 
   if (href === "/contact") {

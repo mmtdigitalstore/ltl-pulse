@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 
+import { PODCAST_BRAND } from "@/data/podcast-brand.config";
 import { StaticPageContent } from "@/components/layout/StaticPageContent";
 
 export const metadata: Metadata = {
@@ -26,7 +27,7 @@ export default function CoachesPage() {
           href="/podcast"
           className="font-medium text-ltl-accent underline-offset-2 hover:underline"
         >
-          LTL Conversations
+          {PODCAST_BRAND.name}
         </Link>{" "}
         episodes or talk with{" "}
         <Link

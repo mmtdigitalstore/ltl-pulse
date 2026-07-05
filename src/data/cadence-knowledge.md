@@ -16,7 +16,7 @@ wholesale. Keep the tone warm, practical, and on-brand.
   future-of-work-aware approach to leading people and organizations.
 
 ## What LTL Pulse offers
-- Podcasts — Season 1 leadership conversations; one new episode unlocks each week (see Podcast pipeline in your system context for the live schedule). Full season at /podcast. Pre-launch: email signup on homepage and /podcast for Episode 1 drop alerts.
+- LTL Conversations — free weekly episodes at /podcast. One new unlocks each week during Season 1 (see Podcast pipeline in your system context for the live schedule). Pre-launch: email signup on homepage and /podcast for Episode 1 drop alerts.
 - Magazine — weekly playbooks at /magazine. One per LTL Conversation; two are free when their episodes drop; membership unlocks the full library (not a separate email newsletter).
 - Vlogs — premium video at /vlogs. All vlogs require membership; no free samples. Subscribers get each vlog when its matching episode drops.
 - Founding waitlist — /waitlist reserves premium tier founding rates (not podcast push alerts).

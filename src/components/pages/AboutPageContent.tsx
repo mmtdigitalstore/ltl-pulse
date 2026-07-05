@@ -11,6 +11,7 @@ import { CadenceIcon } from "@/components/concierge/CadenceIcon";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { buttonVariants } from "@/components/ui/button";
 import { EXPERT_PHOTOS } from "@/data/expert-photos.config";
+import { PODCAST_BRAND } from "@/data/podcast-brand.config";
 import { MAGAZINE_ACCESS_COPY } from "@/data/magazine-access.config";
 import { VLOG_ACCESS_COPY } from "@/data/vlog-access.config";
 import { experts, type ExpertId } from "@/data/problems.config";
@@ -31,9 +32,9 @@ import { cn } from "@/lib/utils";
 const whatsInside = [
   {
     icon: Mic,
-    title: "Podcasts",
+    title: PODCAST_BRAND.name,
     description:
-      "Candid conversations with leaders on culture, strategy, and growth.",
+      "Free weekly episodes on culture, strategy, and growth.",
   },
   {
     icon: BookOpen,

@@ -9,6 +9,7 @@ import { CadenceMessageContent } from "@/components/concierge/CadenceMessageCont
 import { ConciergeAvatar } from "@/components/concierge/ConciergeAvatar";
 import { Button } from "@/components/ui/button";
 import type { Audience, ExpertId, Problem } from "@/data/problems.config";
+import { PODCAST_BRAND } from "@/data/podcast-brand.config";
 import { CADENCE_NAME, CONCIERGE_TIER_CONFIG } from "@/lib/concierge/config";
 import {
   AUDIENCE_LABELS,
@@ -356,7 +357,7 @@ export function ConciergeChat({
               Magazine
             </Link>
             <Link href="/podcast" className="text-ltl-accent hover:underline">
-              Podcast
+              {PODCAST_BRAND.navLabel}
             </Link>
             <Link href="/vlogs" className="text-ltl-accent hover:underline">
               Vlogs

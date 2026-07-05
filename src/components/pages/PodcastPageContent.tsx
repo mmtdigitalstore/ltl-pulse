@@ -15,6 +15,7 @@ import {
   getPodcastUnlockLabel,
   isPodcastReleased,
 } from "@/lib/content/podcast-release";
+import { PODCAST_BRAND } from "@/data/podcast-brand.config";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { useHashScroll } from "@/lib/navigation/use-hash-scroll";
 import {
@@ -58,7 +59,7 @@ export function PodcastPageContent({
         className="mx-auto max-w-3xl"
       >
         <PageHeader
-          title="LTL Conversations"
+          title={PODCAST_BRAND.name}
           subtitle={PROMO_VIDEOS.launchTrailer.podcastPage.pageSubtitle}
         />
 

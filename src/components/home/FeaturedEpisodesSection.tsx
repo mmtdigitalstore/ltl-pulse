@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 
+import { PODCAST_BRAND } from "@/data/podcast-brand.config";
 import {
   getFeaturedPodcastProblems,
   getPodcastHref,
@@ -37,8 +38,8 @@ export function FeaturedEpisodesSection() {
             Featured free episodes
           </h2>
           <p className="mt-3 text-base leading-relaxed text-ltl-text-secondary md:text-lg">
-            New conversations unlock weekly — practical, problem-titled, and free
-            to listen once they drop.
+            New episodes unlock weekly — practical, problem-titled, and free to
+            listen once they drop.
           </p>
         </div>
 
@@ -63,7 +64,7 @@ export function FeaturedEpisodesSection() {
                     <Play className="size-3.5 fill-current" aria-hidden />
                   </span>
                   <p className="font-label text-[0.65rem] uppercase tracking-widest text-ltl-accent">
-                    Free · LTL Conversations
+                    Free · {PODCAST_BRAND.name}
                   </p>
                 </div>
                 <h3 className="mt-4 font-heading text-lg font-medium leading-snug text-ltl-text-primary">

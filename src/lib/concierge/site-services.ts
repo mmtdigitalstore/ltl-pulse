@@ -1,3 +1,4 @@
+import { PODCAST_BRAND } from "@/data/podcast-brand.config";
 import { MAGAZINE_ACCESS_COPY } from "@/data/magazine-access.config";
 import { VLOG_ACCESS_COPY } from "@/data/vlog-access.config";
 import { waitlistCopy } from "@/app/waitlist/waitlist.config";
@@ -17,7 +18,7 @@ export function buildSiteServicesContext(): string {
   return `Site signups and notifications (authoritative — use for waitlist, newsletter, email, and alert questions):
 
 Content access model (authoritative — use when users ask what is free vs paid):
-- Podcasts (/podcast): all free, always. One new LTL Conversation unlocks each week during Season 1.
+- ${PODCAST_BRAND.name} (/podcast): free weekly episodes. All episodes free; one new unlocks each week during Season 1.
 - Magazine (/magazine): ${MAGAZINE_ACCESS_COPY.cadenceBlurb}
 - Vlogs (/vlogs): ${VLOG_ACCESS_COPY.cadenceBlurb}
 - Free account (/signup): all podcasts, Cadence Lite, and two magazine playbooks when their episodes drop. No vlogs.

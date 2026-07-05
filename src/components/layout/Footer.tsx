@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { SVGProps } from "react";
 
 import { HomeLink } from "@/components/layout/HomeLink";
+import { PODCAST_BRAND } from "@/data/podcast-brand.config";
 import { siteLinks } from "@/data/site-links.config";
 
 function YouTubeIcon(props: SVGProps<SVGSVGElement>) {
@@ -14,7 +15,7 @@ function YouTubeIcon(props: SVGProps<SVGSVGElement>) {
 
 const contentLinks = [
   { href: "/magazine", label: "Magazine" },
-  { href: "/podcast", label: "Podcast" },
+  { href: "/podcast", label: PODCAST_BRAND.navLabel },
   { href: "/vlogs", label: "Vlogs" },
 ] as const;
 

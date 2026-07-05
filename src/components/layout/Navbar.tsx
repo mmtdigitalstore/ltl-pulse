@@ -23,6 +23,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { PODCAST_BRAND } from "@/data/podcast-brand.config";
 import { cn } from "@/lib/utils";
 
 const COMMUNITY_HASH = "#community";
@@ -30,7 +31,7 @@ const COMMUNITY_HREF = `/${COMMUNITY_HASH}`;
 
 const pulseLinks = [
   { href: "/magazine", label: "Magazine" },
-  { href: "/podcast", label: "Conversations" },
+  { href: "/podcast", label: PODCAST_BRAND.navLabel },
   { href: "/vlogs", label: "Vlogs" },
 ] as const;
 
