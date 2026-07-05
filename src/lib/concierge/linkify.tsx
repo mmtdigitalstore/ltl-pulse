@@ -8,7 +8,7 @@ import {
 } from "@/data/problems.config";
 
 const INTERNAL_PATH_PATTERN =
-  /(\/(?:podcast|about|contact|pricing|magazine|vlogs|subscribe|concierge|coaches|challenge)(?:#[\w-]+)?(?:\?[^\s,.;)]+)?)/g;
+  /(\/(?:podcast|about|contact|pricing|magazine|vlogs|subscribe|concierge|coaches|challenge|waitlist|signup)(?:#[\w-]+)?(?:\?[^\s,.;)]+)?)/g;
 
 function expertIdFromHref(href: string): ExpertId | null {
   const hash = href.split("#")[1];
@@ -42,6 +42,14 @@ function linkLabel(href: string): string {
 
   if (href.startsWith("/pricing") || href.startsWith("/subscribe")) {
     return "See plans";
+  }
+
+  if (href.startsWith("/waitlist")) {
+    return "Reserve founding rate";
+  }
+
+  if (href.startsWith("/signup")) {
+    return "Create free account";
   }
 
   if (href.startsWith("/magazine")) {

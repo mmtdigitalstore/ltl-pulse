@@ -6,6 +6,7 @@ import {
   CADENCE_ROLE,
 } from "@/lib/concierge/guardrails";
 import { buildPodcastPipelineContext } from "@/lib/concierge/podcast-pipeline";
+import { buildSiteServicesContext } from "@/lib/concierge/site-services";
 import { buildSiteSpotlightContext } from "@/lib/concierge/site-spotlight";
 import { getCadenceKnowledge } from "@/lib/concierge/knowledge";
 import { buildAdvisoryKnowledgeSection } from "@/lib/concierge/advisory";
@@ -16,6 +17,7 @@ import type { ConciergeTier } from "@/lib/concierge/types";
 function buildCadenceKnowledgeContext(now: Date = new Date()): string {
   const podcastPipeline = buildPodcastPipelineContext(now);
   const siteSpotlight = buildSiteSpotlightContext(now);
+  const siteServices = buildSiteServicesContext();
 
   const releasedProblems = `Released conversations (recommend when they match the user's need):
 ${problems
@@ -33,6 +35,8 @@ ${getCadenceKnowledge()}
 ${buildAdvisoryKnowledgeSection()}
 
 ${siteSpotlight}
+
+${siteServices}
 
 ${podcastPipeline}
 
