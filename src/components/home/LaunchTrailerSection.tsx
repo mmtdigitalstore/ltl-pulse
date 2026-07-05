@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 import { PromoVideoPlayer } from "@/components/promo/PromoVideoPlayer";
+import { PodcastAlertSignup } from "@/components/promo/PodcastAlertSignup";
 import { buttonVariants } from "@/components/ui/button";
 import { PROMO_PODCAST_URL, PROMO_VIDEOS } from "@/data/promo.config";
 import { sectionFadeUp, sectionViewport } from "@/lib/motion";
@@ -73,6 +74,10 @@ export function LaunchTrailerSection() {
           >
             {copy.secondaryCta}
           </Link>
+        </div>
+
+        <div className="mx-auto mt-10 max-w-lg text-left">
+          <PodcastAlertSignup source="homepage" compact />
         </div>
       </div>
     </motion.section>

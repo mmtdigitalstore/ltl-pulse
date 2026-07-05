@@ -1,0 +1,17 @@
+---
+description: LTL Pulse operational must-dos and launch workflows — check when planning platform, email, or launch work
+alwaysApply: true
+---
+
+# Platform must-dos
+
+When the user asks about launch prep, reminders, waitlists, episode alerts, or platform efficiency, read **`docs/PLATFORM-MUST-DOS.md`** first.
+
+Key workflows to remember:
+
+- **Episode 1 alert list** (`season-1-episode-alerts` in Supabase `leads`) — manual Resend blast when each episode unlocks; signup on homepage + `/podcast`.
+- **Founding `/waitlist`** — separate from podcast alerts; API still needs Supabase persistence.
+- **Google OAuth** — config in Google Cloud + Supabase (see `docs/PLATFORM-MUST-DOS.md`).
+- **MMTI colors** — `MMTI-BRAND-COLORS.md` for lead.mmti.me only (do not change LTL Pulse colors unless asked).
+
+Surface overdue 🔴/🟠 items proactively when reviewing platform work.

@@ -16,7 +16,7 @@ wholesale. Keep the tone warm, practical, and on-brand.
   future-of-work-aware approach to leading people and organizations.
 
 ## What LTL Pulse offers
-- Podcasts — Season 1 leadership conversations; one new episode unlocks each week (see Podcast pipeline in your system context for the live schedule). Full season at /podcast.
+- Podcasts — Season 1 leadership conversations; one new episode unlocks each week (see Podcast pipeline in your system context for the live schedule). Full season at /podcast. Pre-launch: email signup on homepage and /podcast for Episode 1 drop alerts.
 - Magazine — deep-dive articles on leadership, culture, and strategy at /magazine (on-site; not a separate email newsletter).
 - Founding waitlist — /waitlist reserves premium tier founding rates (not podcast push alerts).
 - Vlogs — premium video content (subscriber-gated).

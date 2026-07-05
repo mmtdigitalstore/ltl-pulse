@@ -1,4 +1,5 @@
 import { waitlistCopy } from "@/app/waitlist/waitlist.config";
+import { PODCAST_SEASON_ALERT_ID, podcastAlertCopy } from "@/data/podcast-alerts.config";
 import { tiers } from "@/app/pricing/pricing.config";
 import { TURNOVER_GUIDE_LEAD_MAGNET } from "@/data/lead-magnets.config";
 
@@ -20,9 +21,11 @@ Waitlist (/waitlist):
 - Collects email + optional first name. No charge until the tier goes live.
 
 Podcast episode alerts:
-- LTL Pulse does not currently offer browser push notifications or a dedicated "notify me when an episode drops" signup.
-- Season 1 unlocks one free conversation per week on /podcast (see Podcast pipeline).
-- Best options today: visit /podcast each week, bookmark the season schedule, or use /contact if they want the team to follow up about episode reminders.
+- Signup: homepage launch trailer and /podcast (pre-launch) — "${podcastAlertCopy.heading}".
+- Saves email to the Season 1 alert list (lead_magnet: ${PODCAST_SEASON_ALERT_ID}) — separate from founding /waitlist.
+- ${podcastAlertCopy.body}
+- Sends a confirmation email when Resend is configured. You'll email this list manually when Episode 1 drops (no browser push notifications yet).
+- Best answer for "notify me when Episode 1 drops": point them to the signup on /podcast or the homepage trailer section.
 
 Newsletter vs Magazine:
 - LTL Pulse Magazine (/magazine) = leadership articles published on the site. Some tasters are free; the full library is for members (/pricing, /subscribe).

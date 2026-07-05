@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, Calendar, Play } from "lucide-react";
 
 import { PromoVideoPlayer } from "@/components/promo/PromoVideoPlayer";
+import { PodcastAlertSignup } from "@/components/promo/PodcastAlertSignup";
 import { PROMO_VIDEOS } from "@/data/promo.config";
 import {
   formatWeeklyUnlockShort,
@@ -164,6 +165,10 @@ export function WeeklyPromoSection() {
             Episode details
             <ArrowRight className="size-3.5" aria-hidden />
           </Link>
+
+          <div className="mt-10 text-left">
+            <PodcastAlertSignup source="podcast" />
+          </div>
 
           {upNext ? (
             <div className="mt-10 text-left">
