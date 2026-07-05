@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 
 import { CadenceIcon } from "@/components/concierge/CadenceIcon";
 import { MAGAZINE_ACCESS_COPY } from "@/data/magazine-access.config";
+import { VLOG_ACCESS_COPY } from "@/data/vlog-access.config";
 import { sectionFadeUp, sectionViewport } from "@/lib/motion";
 
 const ladderSteps = [
@@ -21,7 +22,7 @@ const ladderSteps = [
   },
   {
     title: "Premium vlogs",
-    description: "Short, tactical videos when you want to see it in action.",
+    description: VLOG_ACCESS_COPY.ladderDescription,
     href: "/vlogs",
   },
   {

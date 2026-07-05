@@ -4,11 +4,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Calendar, Lock } from "lucide-react";
 
-import { getCatalogByType, formatProblemTag, type CatalogItem } from "@/lib/content/catalog";
-import {
-  getPodcastEpisodeNumber,
-  getPodcastUnlockLabel,
-} from "@/lib/content/podcast-release";
+import { getCatalogByType, formatProblemTag } from "@/lib/content/catalog";
+import { getMagazineCardState } from "@/lib/content/magazine-card-state";
 import { MAGAZINE_ACCESS_COPY } from "@/data/magazine-access.config";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Badge } from "@/components/ui/badge";
@@ -28,35 +25,6 @@ import {
 
 interface MagazinePageContentProps {
   isSubscriber: boolean;
-}
-
-type MagazineCardState =
-  | { kind: "upcoming"; episodeNumber: number | null; unlockLabel: string }
-  | { kind: "free-sample" }
-  | { kind: "members-only" }
-  | { kind: "included" };
-
-function getMagazineCardState(
-  article: CatalogItem,
-  isSubscriber: boolean,
-): MagazineCardState {
-  if (!article.released) {
-    return {
-      kind: "upcoming",
-      episodeNumber: getPodcastEpisodeNumber(article.problemId),
-      unlockLabel: getPodcastUnlockLabel(article.problemId),
-    };
-  }
-
-  if (article.free) {
-    return { kind: "free-sample" };
-  }
-
-  if (!isSubscriber) {
-    return { kind: "members-only" };
-  }
-
-  return { kind: "included" };
 }
 
 export function MagazinePageContent({ isSubscriber }: MagazinePageContentProps) {

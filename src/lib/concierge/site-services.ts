@@ -1,4 +1,5 @@
 import { MAGAZINE_ACCESS_COPY } from "@/data/magazine-access.config";
+import { VLOG_ACCESS_COPY } from "@/data/vlog-access.config";
 import { waitlistCopy } from "@/app/waitlist/waitlist.config";
 import { PODCAST_SEASON_ALERT_ID, podcastAlertCopy } from "@/data/podcast-alerts.config";
 import { tiers } from "@/app/pricing/pricing.config";
@@ -15,6 +16,14 @@ export function buildSiteServicesContext(): string {
 
   return `Site signups and notifications (authoritative — use for waitlist, newsletter, email, and alert questions):
 
+Content access model (authoritative — use when users ask what is free vs paid):
+- Podcasts (/podcast): all free, always. One new LTL Conversation unlocks each week during Season 1.
+- Magazine (/magazine): ${MAGAZINE_ACCESS_COPY.cadenceBlurb}
+- Vlogs (/vlogs): ${VLOG_ACCESS_COPY.cadenceBlurb}
+- Free account (/signup): all podcasts, Cadence Lite, and two magazine playbooks when their episodes drop. No vlogs.
+- Membership (/subscribe): full magazine library, all vlogs, Cadence Premium, ad-free experience.
+- Do not say all magazine playbooks unlock free with each episode — only two magazine samples are free; member playbooks require membership.
+
 Waitlist (/waitlist):
 - Purpose: Reserve founding member rates for premium tiers opening soon${foundingTierNames ? ` (${foundingTierNames})` : ""} — not a podcast episode notification list.
 - ${waitlistCopy.subheadGeneric}
@@ -30,13 +39,14 @@ Podcast episode alerts:
 
 Newsletter vs Magazine:
 - LTL Pulse Magazine (/magazine) = ${MAGAZINE_ACCESS_COPY.cadenceBlurb}
+- LTL Pulse Vlogs (/vlogs) = ${VLOG_ACCESS_COPY.cadenceBlurb}
 - LTL Pulse does not run a separate email newsletter on ltlpulse.com — the Magazine is the editorial product here.
 - The parent brand Let's Talk Leadership with MMTI (https://lead.mmti.me) has its own newsletter for leadership notes — separate from LTL Pulse Magazine.
 
 Other email capture on LTL Pulse:
-- Free account: /signup — all podcasts free, Cadence Lite, two magazine playbooks when their episodes drop.
+- Free account: /signup — all podcasts free, Cadence Lite, two magazine playbooks when their episodes drop (no vlogs).
 - Lead magnet (homepage): "${TURNOVER_GUIDE_LEAD_MAGNET.title}" — email in exchange for a PDF guide.
-- Membership: /subscribe for magazine, vlogs, and Cadence Premium.
+- Membership: /subscribe for full magazine, all vlogs, and Cadence Premium.
 
 When users ask about a waiting list, push notifications, or newsletter:
 - Answer directly from this section.

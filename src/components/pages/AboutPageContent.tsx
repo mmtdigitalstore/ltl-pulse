@@ -12,6 +12,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { buttonVariants } from "@/components/ui/button";
 import { EXPERT_PHOTOS } from "@/data/expert-photos.config";
 import { MAGAZINE_ACCESS_COPY } from "@/data/magazine-access.config";
+import { VLOG_ACCESS_COPY } from "@/data/vlog-access.config";
 import { experts, type ExpertId } from "@/data/problems.config";
 import {
   sectionFadeUp,
@@ -42,7 +43,7 @@ const whatsInside = [
   {
     icon: Video,
     title: "Vlogs",
-    description: "Premium video for leaders who want to go deeper.",
+    description: VLOG_ACCESS_COPY.aboutDescription,
   },
   {
     cadence: true,

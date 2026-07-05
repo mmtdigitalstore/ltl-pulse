@@ -2,9 +2,11 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Clock, Lock } from "lucide-react";
+import { Calendar, Clock, Lock } from "lucide-react";
 
 import { getCatalogByType, formatProblemTag } from "@/lib/content/catalog";
+import { getVlogCardState } from "@/lib/content/vlog-card-state";
+import { VLOG_ACCESS_COPY } from "@/data/vlog-access.config";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -26,6 +28,7 @@ interface VlogsPageContentProps {
 
 export function VlogsPageContent({ isSubscriber }: VlogsPageContentProps) {
   const vlogs = getCatalogByType("vlog");
+  const copy = VLOG_ACCESS_COPY;
 
   return (
     <div className="ltl-theme-magazine ltl-media-page min-h-screen px-4 py-16 sm:px-6 lg:px-8">
@@ -36,10 +39,7 @@ export function VlogsPageContent({ isSubscriber }: VlogsPageContentProps) {
         variants={sectionFadeUp}
         className="mx-auto max-w-7xl"
       >
-        <PageHeader
-          title="Vlogs"
-          subtitle="Short tactical videos — premium by default, with a few free tasters."
-        />
+        <PageHeader title="Vlogs" subtitle={copy.pageSubtitle} />
 
         <motion.div
           variants={staggerContainer}
@@ -49,7 +49,9 @@ export function VlogsPageContent({ isSubscriber }: VlogsPageContentProps) {
           className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {vlogs.map((vlog) => {
-            const isLocked = !vlog.released || (!vlog.free && !isSubscriber);
+            const state = getVlogCardState(vlog, isSubscriber);
+            const showMemberLock = state.kind === "members-only";
+            const showUpcoming = state.kind === "upcoming";
 
             return (
               <motion.div key={vlog.problemId} variants={staggerItem}>
@@ -57,23 +59,47 @@ export function VlogsPageContent({ isSubscriber }: VlogsPageContentProps) {
                   <div className="relative aspect-video">
                     <div
                       className={`h-full w-full bg-gradient-to-br from-ltl-bg via-ltl-border to-ltl-surface ${
-                        isLocked ? "blur-[3px] scale-105" : ""
+                        showMemberLock || showUpcoming ? "blur-[3px] scale-105" : ""
                       }`}
                     />
-                    {isLocked && (
+                    {showUpcoming ? (
+                      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-ltl-bg/55 px-4 text-center">
+                        <Calendar
+                          className="size-7 text-ltl-accent"
+                          aria-hidden
+                        />
+                        <p className="font-label text-xs uppercase tracking-wider text-ltl-text-primary">
+                          {copy.card.upcoming}
+                          {state.episodeNumber ? ` ${state.episodeNumber}` : ""}
+                        </p>
+                        <p className="text-xs text-ltl-text-secondary">
+                          {state.unlockLabel}
+                        </p>
+                        <Link
+                          href={`/podcast#${vlog.problemId}`}
+                          className="text-xs font-medium text-ltl-accent hover:underline"
+                        >
+                          See episode schedule
+                        </Link>
+                      </div>
+                    ) : null}
+                    {showMemberLock ? (
                       <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-ltl-bg/50">
                         <Lock
                           className="size-8 text-ltl-accent"
-                          aria-label="Locked content"
+                          aria-label="Membership required"
                         />
+                        <p className="font-label text-xs uppercase tracking-wider text-ltl-text-primary">
+                          {copy.card.membersOnly}
+                        </p>
                         <Link
-                          href="/subscribe"
+                          href="/pricing"
                           className="font-label text-xs uppercase tracking-wider text-ltl-accent hover:underline"
                         >
-                          Subscribe to unlock
+                          {copy.card.membersOnlyCta}
                         </Link>
                       </div>
-                    )}
+                    ) : null}
                     <Badge className="absolute bottom-3 right-3 flex items-center gap-1 font-label border-ltl-border bg-ltl-bg/90 text-ltl-text-primary">
                       <Clock className="size-3" aria-hidden />
                       ~10 min
@@ -90,20 +116,23 @@ export function VlogsPageContent({ isSubscriber }: VlogsPageContentProps) {
                       {vlog.title}
                     </CardTitle>
                   </CardHeader>
-                  {vlog.free && (
-                    <CardContent>
-                      <p className="font-label text-xs uppercase tracking-wider text-ltl-accent">
-                        Free taster
-                      </p>
-                    </CardContent>
-                  )}
-                  {isLocked && (
-                    <CardContent>
+                  <CardContent>
+                    {state.kind === "members-only" ? (
                       <p className="font-label text-xs uppercase tracking-wider text-ltl-text-secondary">
-                        Premium vlog — subscribers only
+                        {copy.card.membersOnly}
                       </p>
-                    </CardContent>
-                  )}
+                    ) : null}
+                    {state.kind === "upcoming" ? (
+                      <p className="font-label text-xs uppercase tracking-wider text-ltl-text-secondary">
+                        {state.unlockLabel}
+                      </p>
+                    ) : null}
+                    {state.kind === "included" ? (
+                      <p className="font-label text-xs uppercase tracking-wider text-ltl-text-secondary">
+                        Included with your membership
+                      </p>
+                    ) : null}
+                  </CardContent>
                 </Card>
               </motion.div>
             );

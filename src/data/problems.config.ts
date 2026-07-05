@@ -272,9 +272,6 @@ export const problems: Problem[] = [
   },
 ];
 
-/** Vlog titles that stay ungated as tasters. */
-export const FREE_VLOG_PROBLEM_IDS = new Set(["losing-customers", "feast-or-famine"]);
-
 /** Magazine articles that stay ungated as tasters (subscribers get full access). */
 export const FREE_MAGAZINE_PROBLEM_IDS = new Set([
   "losing-customers",

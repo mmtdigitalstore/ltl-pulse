@@ -12,7 +12,7 @@ export const MAGAZINE_ACCESS_COPY = {
     "Weekly playbooks — two free with select episodes; membership unlocks the library.",
   freeTierFeature: "Two magazine playbooks (with select free episodes)",
   cadenceBlurb:
-    "Magazine playbooks unlock with each weekly episode. Two are free with their episodes; membership covers the full library.",
+    "Two magazine playbooks are free when their episodes drop. All other playbooks require membership.",
   card: {
     freeSample: "Free with this episode",
     membersOnly: "Included with membership",

@@ -1,6 +1,5 @@
 import {
   FREE_MAGAZINE_PROBLEM_IDS,
-  FREE_VLOG_PROBLEM_IDS,
   problems,
   type Problem,
 } from "@/data/problems.config";
@@ -61,7 +60,7 @@ export function getContentCatalog(
         problemId: problem.id,
         type: "vlog" as const,
         title: problem.vlog,
-        free: released && FREE_VLOG_PROBLEM_IDS.has(problem.id),
+        free: false,
         released,
         problem,
       },
