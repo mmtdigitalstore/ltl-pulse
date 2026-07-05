@@ -238,20 +238,19 @@ export function AboutPageContent() {
               className="font-medium text-ltl-text-primary underline decoration-ltl-brand/30 underline-offset-2 hover:text-ltl-text-primary"
             >
               Let&apos;s Talk Leadership with MMTI
-            </a>{" "}
-            — podcasts, magazine articles, vlogs, and Cadence, your AI concierge.
-            We help growing service businesses and the coaches who guide them keep
-            their best people, win loyal customers, and build teams that deliver.
+            </a>
+            . Podcasts, magazine playbooks, vlogs, and Cadence — your AI concierge —
+            turn our leadership conversations into practical content you can use anytime,
+            with a path to human consultants when the stakes are higher.
           </p>
         </motion.div>
 
         <Section title="Who LTL Pulse is for" className={aboutPanelClass}>
           <p>
-            LTL Pulse is built for growing service businesses and the coaches who
-            guide them. We help you keep your best people, win and keep loyal
-            customers, build a client-flow that&apos;s steady instead of
-            feast-or-famine, and lead a team that delivers — with practical content
-            and on-demand access to real experts.
+            Owners and coaches in growing service businesses — especially when retention
+            slips, revenue swings between feast and famine, or you&apos;re leading people
+            for the first time. Weekly content and on-demand expert access help you move
+            from insight to action, not just more reading.
           </p>
         </Section>
 
