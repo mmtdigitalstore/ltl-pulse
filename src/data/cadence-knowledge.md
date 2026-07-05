@@ -17,7 +17,7 @@ wholesale. Keep the tone warm, practical, and on-brand.
 
 ## What LTL Pulse offers
 - Podcasts — Season 1 leadership conversations; one new episode unlocks each week (see Podcast pipeline in your system context for the live schedule). Full season at /podcast. Pre-launch: email signup on homepage and /podcast for Episode 1 drop alerts.
-- Magazine — deep-dive articles on leadership, culture, and strategy at /magazine (on-site; not a separate email newsletter).
+- Magazine — weekly playbooks at /magazine. One per LTL Conversation; two are free when their episodes drop; membership unlocks the full library (not a separate email newsletter).
 - Founding waitlist — /waitlist reserves premium tier founding rates (not podcast push alerts).
 - Vlogs — premium video content (subscriber-gated).
 - Cadence (AI Concierge) — quick, practical leadership guidance; Premium unlocks deeper

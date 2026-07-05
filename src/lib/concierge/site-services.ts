@@ -1,3 +1,4 @@
+import { MAGAZINE_ACCESS_COPY } from "@/data/magazine-access.config";
 import { waitlistCopy } from "@/app/waitlist/waitlist.config";
 import { PODCAST_SEASON_ALERT_ID, podcastAlertCopy } from "@/data/podcast-alerts.config";
 import { tiers } from "@/app/pricing/pricing.config";
@@ -28,12 +29,12 @@ Podcast episode alerts:
 - Best answer for "notify me when Episode 1 drops": point them to the signup on /podcast or the homepage trailer section.
 
 Newsletter vs Magazine:
-- LTL Pulse Magazine (/magazine) = leadership articles published on the site. Some tasters are free; the full library is for members (/pricing, /subscribe).
+- LTL Pulse Magazine (/magazine) = ${MAGAZINE_ACCESS_COPY.cadenceBlurb}
 - LTL Pulse does not run a separate email newsletter on ltlpulse.com — the Magazine is the editorial product here.
 - The parent brand Let's Talk Leadership with MMTI (https://lead.mmti.me) has its own newsletter for leadership notes — separate from LTL Pulse Magazine.
 
 Other email capture on LTL Pulse:
-- Free account: /signup — podcasts, Cadence Lite, sample magazine.
+- Free account: /signup — all podcasts free, Cadence Lite, two magazine playbooks when their episodes drop.
 - Lead magnet (homepage): "${TURNOVER_GUIDE_LEAD_MAGNET.title}" — email in exchange for a PDF guide.
 - Membership: /subscribe for magazine, vlogs, and Cadence Premium.
 

@@ -69,7 +69,7 @@ export const tiers: Tier[] = [
     priceYearly: 0,
     features: [
       "All podcasts, always free",
-      "Sample magazine articles",
+      "Two magazine playbooks (with select free episodes)",
       "Cadence Lite — your AI concierge",
     ],
     cta: { label: "Create free account", href: "/signup" },

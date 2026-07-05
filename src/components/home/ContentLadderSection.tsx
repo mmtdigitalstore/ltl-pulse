@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 import { CadenceIcon } from "@/components/concierge/CadenceIcon";
+import { MAGAZINE_ACCESS_COPY } from "@/data/magazine-access.config";
 import { sectionFadeUp, sectionViewport } from "@/lib/motion";
 
 const ladderSteps = [
@@ -15,7 +16,7 @@ const ladderSteps = [
   },
   {
     title: "Magazine deep-dives",
-    description: "How-to playbooks for the problems that keep showing up.",
+    description: MAGAZINE_ACCESS_COPY.ladderDescription,
     href: "/magazine",
   },
   {

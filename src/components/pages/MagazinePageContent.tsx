@@ -2,9 +2,14 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Clock, Lock } from "lucide-react";
+import { Calendar, Lock } from "lucide-react";
 
-import { getCatalogByType, formatProblemTag } from "@/lib/content/catalog";
+import { getCatalogByType, formatProblemTag, type CatalogItem } from "@/lib/content/catalog";
+import {
+  getPodcastEpisodeNumber,
+  getPodcastUnlockLabel,
+} from "@/lib/content/podcast-release";
+import { MAGAZINE_ACCESS_COPY } from "@/data/magazine-access.config";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -25,8 +30,38 @@ interface MagazinePageContentProps {
   isSubscriber: boolean;
 }
 
+type MagazineCardState =
+  | { kind: "upcoming"; episodeNumber: number | null; unlockLabel: string }
+  | { kind: "free-sample" }
+  | { kind: "members-only" }
+  | { kind: "included" };
+
+function getMagazineCardState(
+  article: CatalogItem,
+  isSubscriber: boolean,
+): MagazineCardState {
+  if (!article.released) {
+    return {
+      kind: "upcoming",
+      episodeNumber: getPodcastEpisodeNumber(article.problemId),
+      unlockLabel: getPodcastUnlockLabel(article.problemId),
+    };
+  }
+
+  if (article.free) {
+    return { kind: "free-sample" };
+  }
+
+  if (!isSubscriber) {
+    return { kind: "members-only" };
+  }
+
+  return { kind: "included" };
+}
+
 export function MagazinePageContent({ isSubscriber }: MagazinePageContentProps) {
   const articles = getCatalogByType("magazine");
+  const copy = MAGAZINE_ACCESS_COPY;
 
   return (
     <div className="ltl-theme-magazine ltl-media-page min-h-screen px-4 py-16 sm:px-6 lg:px-8">
@@ -37,10 +72,7 @@ export function MagazinePageContent({ isSubscriber }: MagazinePageContentProps) 
         variants={sectionFadeUp}
         className="mx-auto max-w-7xl"
       >
-        <PageHeader
-          title="The Magazine"
-          subtitle="Deep-dive playbooks — two free samples, full library for members."
-        />
+        <PageHeader title="The Magazine" subtitle={copy.pageSubtitle} />
 
         <motion.div
           variants={staggerContainer}
@@ -50,8 +82,9 @@ export function MagazinePageContent({ isSubscriber }: MagazinePageContentProps) 
           className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {articles.map((article) => {
-            const isLocked =
-              !article.released || (!article.free && !isSubscriber);
+            const state = getMagazineCardState(article, isSubscriber);
+            const showMemberLock = state.kind === "members-only";
+            const showUpcoming = state.kind === "upcoming";
 
             return (
               <motion.div key={article.problemId} variants={staggerItem}>
@@ -59,23 +92,47 @@ export function MagazinePageContent({ isSubscriber }: MagazinePageContentProps) 
                   <div className="relative aspect-[16/10] w-full">
                     <div
                       className={`h-full w-full bg-gradient-to-br from-ltl-bg via-ltl-border/40 to-ltl-surface ${
-                        isLocked ? "blur-[3px] scale-105" : ""
+                        showMemberLock || showUpcoming ? "blur-[3px] scale-105" : ""
                       }`}
                     />
-                    {isLocked && (
+                    {showUpcoming ? (
+                      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-ltl-bg/55 px-4 text-center">
+                        <Calendar
+                          className="size-7 text-ltl-accent"
+                          aria-hidden
+                        />
+                        <p className="font-label text-xs uppercase tracking-wider text-ltl-text-primary">
+                          {copy.card.upcoming}
+                          {state.episodeNumber ? ` ${state.episodeNumber}` : ""}
+                        </p>
+                        <p className="text-xs text-ltl-text-secondary">
+                          {state.unlockLabel}
+                        </p>
+                        <Link
+                          href={`/podcast#${article.problemId}`}
+                          className="text-xs font-medium text-ltl-accent hover:underline"
+                        >
+                          See episode schedule
+                        </Link>
+                      </div>
+                    ) : null}
+                    {showMemberLock ? (
                       <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-ltl-bg/50">
                         <Lock
                           className="size-8 text-ltl-accent"
-                          aria-label="Locked content"
+                          aria-label="Membership required"
                         />
+                        <p className="font-label text-xs uppercase tracking-wider text-ltl-text-primary">
+                          {copy.card.membersOnly}
+                        </p>
                         <Link
                           href="/pricing"
                           className="font-label text-xs uppercase tracking-wider text-ltl-accent hover:underline"
                         >
-                          Subscribe to unlock
+                          {copy.card.membersOnlyCta}
                         </Link>
                       </div>
-                    )}
+                    ) : null}
                   </div>
                   <CardHeader className="gap-3">
                     <Badge
@@ -92,20 +149,26 @@ export function MagazinePageContent({ isSubscriber }: MagazinePageContentProps) 
                     <CardDescription className="text-ltl-text-secondary">
                       {article.problem.hook}
                     </CardDescription>
-                    {article.free ? (
+                    {state.kind === "free-sample" ? (
                       <p className="font-label text-xs uppercase tracking-wider text-ltl-accent">
-                        Free sample
+                        {copy.card.freeSample}
                       </p>
-                    ) : isLocked ? (
+                    ) : null}
+                    {state.kind === "upcoming" ? (
                       <p className="font-label text-xs uppercase tracking-wider text-ltl-text-secondary">
-                        Member deep-dive — subscribers only
+                        {state.unlockLabel}
                       </p>
-                    ) : (
-                      <p className="flex items-center gap-1.5 font-label text-xs text-ltl-text-secondary">
-                        <Clock className="size-3.5" aria-hidden />
-                        Member deep-dive
+                    ) : null}
+                    {state.kind === "members-only" ? (
+                      <p className="font-label text-xs uppercase tracking-wider text-ltl-text-secondary">
+                        {copy.card.membersOnly}
                       </p>
-                    )}
+                    ) : null}
+                    {state.kind === "included" ? (
+                      <p className="font-label text-xs uppercase tracking-wider text-ltl-text-secondary">
+                        Included with your membership
+                      </p>
+                    ) : null}
                   </CardContent>
                 </Card>
               </motion.div>

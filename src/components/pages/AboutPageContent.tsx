@@ -11,6 +11,7 @@ import { CadenceIcon } from "@/components/concierge/CadenceIcon";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { buttonVariants } from "@/components/ui/button";
 import { EXPERT_PHOTOS } from "@/data/expert-photos.config";
+import { MAGAZINE_ACCESS_COPY } from "@/data/magazine-access.config";
 import { experts, type ExpertId } from "@/data/problems.config";
 import {
   sectionFadeUp,
@@ -36,7 +37,7 @@ const whatsInside = [
   {
     icon: BookOpen,
     title: "Magazine",
-    description: "Deep-dive articles for operators who think long-term.",
+    description: MAGAZINE_ACCESS_COPY.aboutDescription,
   },
   {
     icon: Video,

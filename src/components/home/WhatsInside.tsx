@@ -5,6 +5,7 @@ import { BookOpen, Sparkles } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import { CadenceIcon } from "@/components/concierge/CadenceIcon";
+import { MAGAZINE_ACCESS_COPY } from "@/data/magazine-access.config";
 import { sectionFadeUp, sectionViewport } from "@/lib/motion";
 
 interface Feature {
@@ -17,9 +18,8 @@ interface Feature {
 const features: Feature[] = [
   {
     icon: BookOpen,
-    title: "Full Magazine Access",
-    description:
-      "Deep-dive articles on leadership, culture, and strategy — written for operators who think long-term.",
+    title: "Magazine deep-dives",
+    description: MAGAZINE_ACCESS_COPY.ladderDescription,
   },
   {
     cadenceIcon: true,
