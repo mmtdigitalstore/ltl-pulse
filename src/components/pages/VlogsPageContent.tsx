@@ -6,7 +6,9 @@ import { Calendar, Clock, Lock } from "lucide-react";
 
 import { getCatalogByType, formatProblemTag } from "@/lib/content/catalog";
 import { getVlogCardState } from "@/lib/content/vlog-card-state";
+import { VlogCardMedia } from "@/components/vlogs/VlogCardMedia";
 import { VLOG_ACCESS_COPY } from "@/data/vlog-access.config";
+import { VLOG_PLAYER_CONFIG } from "@/data/vlog-player.config";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -21,6 +23,7 @@ import {
   staggerContainer,
   staggerItem,
 } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 
 interface VlogsPageContentProps {
   isSubscriber: boolean;
@@ -52,15 +55,22 @@ export function VlogsPageContent({ isSubscriber }: VlogsPageContentProps) {
             const state = getVlogCardState(vlog, isSubscriber);
             const showMemberLock = state.kind === "members-only";
             const showUpcoming = state.kind === "upcoming";
+            const isPlayable = state.kind === "included";
 
             return (
               <motion.div key={vlog.problemId} variants={staggerItem}>
-                <Card className="overflow-hidden border-ltl-border bg-ltl-surface ring-ltl-border/50">
+                <Card
+                  className={cn(
+                    "overflow-hidden border-ltl-border bg-ltl-surface ring-ltl-border/50",
+                    isPlayable && VLOG_PLAYER_CONFIG.card.playableHoverClass,
+                  )}
+                >
                   <div className="relative aspect-video">
-                    <div
-                      className={`h-full w-full bg-gradient-to-br from-ltl-bg via-ltl-border to-ltl-surface ${
-                        showMemberLock || showUpcoming ? "blur-[3px] scale-105" : ""
-                      }`}
+                    <VlogCardMedia
+                      problemId={vlog.problemId}
+                      title={vlog.title}
+                      playable={isPlayable}
+                      blurred={showMemberLock || showUpcoming}
                     />
                     {showUpcoming ? (
                       <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-ltl-bg/55 px-4 text-center">
