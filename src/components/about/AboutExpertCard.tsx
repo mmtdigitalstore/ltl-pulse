@@ -1,15 +1,12 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useState } from "react";
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 import { ExpertPhoto } from "@/components/team/ExpertPhoto";
-import { buttonVariants } from "@/components/ui/button";
 import {
   experts,
-  getConciergeHref,
   getExpertShortName,
   type ExpertId,
 } from "@/data/problems.config";
@@ -34,6 +31,8 @@ interface AboutExpertCardProps {
   specialties: ReactNode;
   photo: { src: string; alt: string };
   isFocused?: boolean;
+  isObscured?: boolean;
+  onOpenDetail?: () => void;
   className?: string;
 }
 
@@ -43,23 +42,39 @@ export function AboutExpertCard({
   role,
   lane,
   positioning,
-  credentials,
-  canHelpWhen,
-  specialties,
   photo,
   isFocused = false,
+  isObscured = false,
+  onOpenDetail,
   className,
 }: AboutExpertCardProps) {
-  const [expanded, setExpanded] = useState(false);
   const shortName = getExpertShortName(id);
   const socialUrl = experts[id].socialUrl?.trim();
+
+  function handleOpen() {
+    onOpenDetail?.();
+  }
+
+  function handleKeyDown(event: React.KeyboardEvent) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      handleOpen();
+    }
+  }
 
   return (
     <article
       id={id}
+      role="button"
+      tabIndex={0}
       aria-current={isFocused ? "true" : undefined}
+      aria-haspopup="dialog"
+      onClick={handleOpen}
+      onKeyDown={handleKeyDown}
       className={cn(
-        "flex h-full scroll-mt-24 flex-col rounded-xl ltl-theme-magazine ltl-media-container p-6 transition-[border-color,box-shadow,opacity] duration-300 md:p-7",
+        "flex h-full scroll-mt-24 cursor-pointer flex-col rounded-xl ltl-theme-magazine ltl-media-container p-6 transition-[border-color,box-shadow,opacity,transform] duration-300 md:p-7",
+        "hover:border-ltl-accent/30 hover:shadow-[0_0_28px_rgba(255,180,0,0.08)]",
+        isObscured && "opacity-40 saturate-[0.6]",
         className,
       )}
     >
@@ -76,6 +91,8 @@ export function AboutExpertCard({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${displayName} on LinkedIn`}
+                onClick={(event) => event.stopPropagation()}
+                onKeyDown={(event) => event.stopPropagation()}
                 className="mt-0.5 inline-flex size-8 shrink-0 items-center justify-center rounded-md text-ltl-text-secondary transition hover:bg-ltl-border/40 hover:text-ltl-accent"
               >
                 <LinkedInGlyph className="size-4" />
@@ -88,71 +105,16 @@ export function AboutExpertCard({
           <p className="mt-2 text-sm font-medium leading-snug text-ltl-text-primary">
             {lane}
           </p>
-          <div className="mt-4 text-sm font-medium leading-relaxed text-ltl-text-primary md:text-base">
+          <div className="mt-4 line-clamp-4 text-sm font-medium leading-relaxed text-ltl-text-primary md:text-base">
             {positioning}
           </div>
         </div>
       </div>
 
-      <button
-        type="button"
-        onClick={() => setExpanded((open) => !open)}
-        aria-expanded={expanded}
-        className="mt-5 inline-flex items-center gap-1.5 self-start text-sm font-medium text-ltl-accent transition hover:text-ltl-accent-hover"
-      >
+      <p className="mt-5 inline-flex items-center gap-1.5 self-start text-sm font-medium text-ltl-accent">
         See how {shortName} can help
-        <ChevronDown
-          className={cn("size-4 transition-transform", expanded && "rotate-180")}
-          aria-hidden
-        />
-      </button>
-
-      {expanded ? (
-        <div className="mt-5 space-y-4 border-t border-ltl-border pt-5 text-sm leading-relaxed text-ltl-text-secondary md:text-base">
-          <p className="text-xs italic leading-relaxed text-ltl-text-secondary md:text-sm">
-            {credentials}
-          </p>
-          <div>
-            <p className="font-medium text-ltl-text-primary">
-              {shortName} can help you when:
-            </p>
-            <ul className="mt-3 list-disc space-y-2 pl-5">
-              {canHelpWhen.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-          <p className="text-xs leading-relaxed text-ltl-text-secondary md:text-sm">
-            <span className="font-label uppercase tracking-wider text-ltl-accent">
-              Specialties:
-            </span>{" "}
-            {specialties}
-          </p>
-
-          <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:items-center">
-            <Link
-              href={getConciergeHref(id)}
-              className={cn(
-                buttonVariants({ size: "default" }),
-                "h-10 rounded-md bg-ltl-accent font-bold text-ltl-bg hover:bg-ltl-accent-hover",
-              )}
-            >
-              Connect with {shortName}
-            </Link>
-            {socialUrl ? (
-              <a
-                href={socialUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-medium text-ltl-text-secondary transition hover:text-ltl-accent"
-              >
-                <LinkedInGlyph className="size-4" aria-hidden />
-                Connect on LinkedIn
-              </a>
-            ) : null}
-          </div>
-        </div>
-      ) : null}
+        <ChevronRight className="size-4" aria-hidden />
+      </p>
     </article>
   );
 }

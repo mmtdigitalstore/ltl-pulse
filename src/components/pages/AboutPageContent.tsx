@@ -5,12 +5,11 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { BookOpen, Mic, Video } from "lucide-react";
 
-import { AboutExpertCard } from "@/components/about/AboutExpertCard";
+import { AboutExpertsGrid } from "@/components/about/AboutExpertsGrid";
 import { HearFromLeadersSection } from "@/components/about/HearFromLeadersSection";
 import { CadenceIcon } from "@/components/concierge/CadenceIcon";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { buttonVariants } from "@/components/ui/button";
-import { EXPERT_PHOTOS } from "@/data/expert-photos.config";
 import { PODCAST_BRAND } from "@/data/podcast-brand.config";
 import { MAGAZINE_ACCESS_COPY } from "@/data/magazine-access.config";
 import { VLOG_ACCESS_COPY } from "@/data/vlog-access.config";
@@ -21,11 +20,6 @@ import {
   staggerContainer,
   staggerItem,
 } from "@/lib/motion";
-import {
-  expertFocusCardClass,
-  expertFocusWrapperClass,
-} from "@/lib/navigation/expert-focus";
-import { useHashExpertFocus } from "@/lib/navigation/use-hash-expert-focus";
 import { useHashScroll } from "@/lib/navigation/use-hash-scroll";
 import { cn } from "@/lib/utils";
 
@@ -77,8 +71,6 @@ const aboutPanelClass =
 
 const trustBadges =
   "Maxwell-certified coaches · Cornell-certified systems · Google-certified innovation · doctoral-level strategy · 3 published authors · 100+ years of combined leadership experience";
-
-const aboutExpertOrder: ExpertId[] = ["dawn", "jackie", "lashley", "joshua"];
 
 const aboutExpertDetails: Record<
   ExpertId,
@@ -211,7 +203,6 @@ function Section({
 
 export function AboutPageContent() {
   useHashScroll();
-  const focusedExpert = useHashExpertFocus();
 
   return (
     <div className="ltl-theme-platform ltl-blackblue-atmosphere ltl-section-glow ltl-glow-editorial min-h-screen px-4 py-16 sm:px-6 lg:px-8">
@@ -350,54 +341,10 @@ export function AboutPageContent() {
             with the expert best suited to what you&apos;re facing.
           </p>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={sectionViewport}
-            variants={sectionFadeUp}
-            className="ltl-theme-magazine ltl-media-container mt-8 rounded-xl px-5 py-5 md:px-6 md:py-6"
-          >
-            <p className="font-label text-xs uppercase tracking-widest text-ltl-accent">
-              The credibility behind LTL Pulse
-            </p>
-            <p className="mt-3 text-sm font-medium leading-relaxed text-ltl-text-primary md:text-base">
-              {trustBadges}
-            </p>
-          </motion.div>
-
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={sectionViewport}
-            className="mt-8 grid gap-6 md:grid-cols-2 md:gap-8"
-          >
-            {aboutExpertOrder.map((id) => {
-              const detail = aboutExpertDetails[id];
-
-              return (
-                <motion.div
-                  key={id}
-                  variants={staggerItem}
-                  className={expertFocusWrapperClass(id, focusedExpert)}
-                >
-                  <AboutExpertCard
-                    id={id}
-                    displayName={detail.displayName}
-                    role={experts[id].title}
-                    lane={experts[id].homepageLane ?? experts[id].tagline}
-                    positioning={detail.positioning}
-                    credentials={detail.credentials}
-                    canHelpWhen={detail.canHelpWhen}
-                    specialties={detail.specialties}
-                    photo={EXPERT_PHOTOS[id]}
-                    isFocused={focusedExpert === id}
-                    className={expertFocusCardClass(id, focusedExpert)}
-                  />
-                </motion.div>
-              );
-            })}
-          </motion.div>
+          <AboutExpertsGrid
+            trustBadges={trustBadges}
+            aboutExpertDetails={aboutExpertDetails}
+          />
         </Section>
 
         <HearFromLeadersSection onPlatform />
