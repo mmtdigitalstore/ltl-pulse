@@ -232,13 +232,13 @@ function launchTrailerLandscapeScenes(h, bg) {
       bg,
       filters: launchSceneLines([
         {
-          text: "Unlocks Wednesday",
+          text: "Season 1",
           y: h * 0.4,
           size: 68,
           color: C.gold,
         },
         {
-          text: "November 18, 2026",
+          text: "Coming soon",
           y: h * 0.52,
           size: 58,
         },
@@ -330,7 +330,7 @@ function launchTrailerPortraitScenes(h, bg) {
           color: C.gold,
         },
         {
-          text: "Unlocks Nov 18, 2026",
+          text: "Coming soon",
           y: h * 0.48,
           size: portraitSize(48),
         },
@@ -439,7 +439,7 @@ function buildEpisode01Landscape() {
       bg: C.teaserBg,
       filters: sceneLines([
         {
-          text: "Unlocks Wednesday, Nov 18, 2026",
+          text: "Coming soon",
           y: h * 0.38,
           size: 56,
           color: C.gold,
@@ -501,7 +501,7 @@ function buildEpisode01Portrait() {
       bg: C.teaserBg,
       filters: sceneLines([
         {
-          text: "Unlocks Wed, Nov 18, 2026",
+          text: "Coming soon",
           y: h * 0.4,
           size: portraitSize(52),
           color: C.gold,
