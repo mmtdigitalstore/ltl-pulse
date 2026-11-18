@@ -7,7 +7,7 @@ const SEASON_1_PROMO = {
   kicker: "LTL Conversations · Season 1",
   trustLine:
     "Maxwell-certified coaches · Cornell systems · Google innovation · doctoral-level strategy",
-  seasonLine: "Season 1 opens Wednesday, November 18.",
+  seasonLine: "Season 1 — coming soon.",
 } as const;
 
 /** Self-hosted promo MP4s in /public/promo — run `npm run generate:promo` to create them. */
@@ -42,7 +42,7 @@ export const PROMO_VIDEOS = {
   episode01: {
     title: "Episode 1 — Where leadership meets culture",
     description:
-      "Season 1 opens with the full LTL team. Unlocks Wednesday, November 18, 2026.",
+      "Season 1 opens with the full LTL team. Coming soon.",
     landscape: "/promo/episode-01-landscape.mp4",
     portrait: "/promo/episode-01-portrait.mp4",
     durationLabel: "15 sec",

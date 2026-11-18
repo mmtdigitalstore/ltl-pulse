@@ -6,7 +6,7 @@ export const PODCAST_SEASON_ALERT_ID = "season-1-episode-alerts";
 export const podcastAlertCopy = {
   kicker: "Episode alerts",
   heading: "Notify me when Episode 1 drops",
-  body: `We'll email you when "${PROMO_VIDEOS.episode01.title}" goes live — ${PROMO_VIDEOS.launchTrailer.homepage.seasonLine.replace("Season 1 opens ", "opens ")}. One note, no spam.`,
+  body: `We'll email you when "${PROMO_VIDEOS.episode01.title}" goes live — Season 1 is coming soon. One note, no spam.`,
   emailPlaceholder: "you@company.com",
   submitLabel: "Notify me",
   submittingLabel: "Saving…",
