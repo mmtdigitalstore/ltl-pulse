@@ -144,7 +144,7 @@ export const tiers: Tier[] = [
 // ------------------------------ FOUNDING MEMBER ------------------------------
 export const founding = {
   active: true,
-  launchAt: "2026-11-18",
+  launchAt: "2027-01-13",
   durationMonths: 6,
   seatsTotal: 250 as number | null,
   seatsTaken: null as number | null,

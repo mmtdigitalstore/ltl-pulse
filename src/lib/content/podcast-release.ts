@@ -1,6 +1,6 @@
 /** First public unlock (UTC). Override with NEXT_PUBLIC_PODCAST_SERIES_START (YYYY-MM-DD). */
 export const PODCAST_SERIES_START_ISO =
-  process.env.NEXT_PUBLIC_PODCAST_SERIES_START?.trim() || "2026-11-18";
+  process.env.NEXT_PUBLIC_PODCAST_SERIES_START?.trim() || "2027-01-13";
 
 export const PODCAST_SEASON_EPISODE_COUNT = 12;
 

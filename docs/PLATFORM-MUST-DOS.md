@@ -8,7 +8,7 @@ Last updated: 2026-07-05
 
 ---
 
-## 🔴 Launch-critical (Season 1 — starts Nov 18, 2026)
+## 🔴 Launch-critical (Season 1 — starts Jan 13, 2027)
 
 ### Episode 1 drop email blast
 When **Episode 1** goes live (*Where leadership meets culture*):

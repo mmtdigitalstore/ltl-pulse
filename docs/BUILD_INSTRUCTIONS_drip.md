@@ -11,11 +11,11 @@ the correct start date, early-access policy, and a team preview mode.
 
 ## 1. Series start date = the launch date (NOT July 7)
 July 7 is only a dev default. The season is banked before launch and released weekly FROM launch.
-- Set `NEXT_PUBLIC_PODCAST_SERIES_START` to the confirmed launch date. Working value: **2026-11-18** (adjust when the team locks the date).
+- Set `NEXT_PUBLIC_PODCAST_SERIES_START` to the confirmed launch date. Working value: **2027-01-13** (Wednesday — early January, same weekly drip).
 - The whole schedule is relative to this date (+7 days per episode), so changing it reschedules everything cleanly.
 
 ## 2. Explicit episode order (authoritative — Season 1)
-Read release order from this list (Week 1 = the start date). Dates below assume a 2026-11-18 (Wednesday) start.
+Read release order from this list (Week 1 = the start date). Dates below assume a 2027-01-13 (Wednesday) start.
 
 | Wk | Episode | Series |
 |----|---------|--------|
