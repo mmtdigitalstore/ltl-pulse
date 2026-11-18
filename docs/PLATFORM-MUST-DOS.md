@@ -40,13 +40,15 @@ After each unlock: optional alert email to the same list + social post from `pub
 | Task | Status | Notes |
 |------|--------|-------|
 | **Podcast alert signup** | Shipping | Homepage + `/podcast`; Supabase `season-1-episode-alerts`; manual Resend blast on launch day |
-| **Google OAuth sign-in** | Config needed | Code live on login/signup — finish in Google Cloud + Supabase (see below) |
+| **Google OAuth sign-in** | Config needed | Code live on login/signup — full walkthrough: [`docs/GOOGLE-OAUTH-SETUP.md`](./GOOGLE-OAUTH-SETUP.md) |
 | **Founding `/waitlist` persistence** | TODO in API | `src/app/api/waitlist/route.ts` — save to Supabase + mail provider |
 | **Stripe subscriber flow** | In progress | Webhook + test checkout on production |
 | **Cadence knowledge** | Live | Keep `site-services.ts` in sync when signup flows change |
 | **Promo video music** | Manual | Re-add in Canva after `npm run generate:promo` (portrait files regen’d) |
 
 ### Google OAuth — finish configuration (this week)
+**Full step-by-step:** [`docs/GOOGLE-OAUTH-SETUP.md`](./GOOGLE-OAUTH-SETUP.md) (save and return there when ready).
+
 1. **Google Cloud** — OAuth Web client; redirect URI = `https://pmetxyvocalpmrzzyrsu.supabase.co/auth/v1/callback` (not ltlpulse.com)
 2. **Supabase** → Authentication → Providers → Google — enable; paste Client ID + Secret
 3. **Supabase** → URL Configuration — redirect URLs: `https://ltlpulse.com/auth/callback`, `https://ltl-pulse.vercel.app/auth/callback`, `http://localhost:3000/auth/callback`
